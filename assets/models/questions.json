@@ -1,0 +1,165 @@
+{
+  "data": [
+    {
+      "label": "onboarding.questions.question1.label",
+      "image": "pregnant",
+      "answers": [
+        {
+          "label": "onboarding.questions.question1.answer1.label",
+          "value": "Q1A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question1.answer2.label",
+          "value": "Q1A2",
+          "redirectScreen": true,
+          "redirectScreenContent": "onboarding.questions.question1.answer2.redirectScreenContent"
+        }
+      ],
+      "answerDanger": {
+        "label": "onboarding.questions.question1.answerDanger.label",
+        "redirectScreen": true,
+        "redirectScreenContent": "onboarding.questions.question1.answerDanger.redirectScreenContent",
+        "value": "Q1AD"
+      }
+    },
+    {
+      "label": "onboarding.questions.question2.label",
+      "image": "18",
+      "answers": [
+        {
+          "label": "onboarding.questions.question2.answer1.label",
+          "value": "Q2A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question2.answer2.label",
+          "value": "Q2A2",
+          "redirectScreen": true,
+          "redirectScreenContent": "onboarding.questions.question2.answer2.redirectScreenContent"
+        }
+      ]
+    },
+    {
+      "label": "onboarding.questions.question3.label",
+      "image": "calendar",
+      "isSpecial": true,
+      "answers": [
+        {
+          "label": "onboarding.questions.question3.answer1.label",
+          "value": "Q3A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer2.label",
+          "value": "Q3A2",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer3.label",
+          "value": "Q3A3",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer4.label",
+          "value": "Q3A4",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer5.label",
+          "value": "Q3A5",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer6.label",
+          "value": "Q3A6",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer7.label",
+          "value": "Q3A7",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer8.label",
+          "value": "Q3A8",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question3.answer9.label",
+          "value": "Q3A9",
+          "redirectScreen": false
+        }
+      ]
+    },
+    {
+      "label": "onboarding.questions.question4.label",
+      "image": "nurse",
+      "answers": [
+        {
+          "label": "onboarding.questions.question4.answer1.label",
+          "value": "Q4A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question4.answer2.label",
+          "value": "Q4A2",
+          "redirectScreen": false
+        }
+      ],
+      "answerDanger": {
+        "label": "onboarding.questions.question4.answerDanger.label",
+        "value": "Q4AD",
+        "redirectScreen": false
+      }
+    },
+    {
+      "label": "onboarding.questions.question5.label",
+      "image": "calendar",
+      "answers": [
+        {
+          "label": "onboarding.questions.question5.answer1.label",
+          "value": "Q5A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question5.answer2.label",
+          "value": "Q5A2",
+          "redirectScreen": false
+        }
+      ]
+    },
+    {
+      "label": "onboarding.questions.question6.label",
+      "image": "doc",
+      "answers": [
+        {
+          "label": "onboarding.questions.question6.answer1.label",
+          "value": "Q6A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question6.answer2.label",
+          "value": "Q6A2",
+          "redirectScreen": false
+        }
+      ]
+    },
+    {
+      "label": "onboarding.questions.question7.label",
+      "image": "housing",
+      "answers": [
+        {
+          "label": "onboarding.questions.question7.answer1.label",
+          "value": "Q7A1",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question7.answer2.label",
+          "value": "Q7A2",
+          "redirectScreen": false
+        }
+      ]
+    }
+  ]
+}

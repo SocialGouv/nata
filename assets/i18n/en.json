@@ -1,0 +1,139 @@
+{
+  "translation": {
+    "onboarding": {
+      "questions": {
+        "question1": {
+          "label": "Are you pregnant?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎",
+            "redirectScreenContent": "Pour le moment NATA aide les femmes enceintes à suivre leur grossesse. D’ici quelques mois, nous pourrons t’accompagner à devenir parent et à effectuer le suivi médical de ton bébé jusqu’à ses 3 ans. A bientôt, NATA."
+          },
+          "answerDanger": {
+            "label": "I'm not sure 🤷‍♀️",
+            "redirectScreenContent": "Si tu as un retard de règles, tu es peut-être enceinte. Tu peux faire un test de grossesse pour confirmer. Ce test peut être acheté à la pharmacie ou au supermarché.Si tu as moins de 18 ans, rends-toi dans un centre de planning familial, ils te donneront un test de grossesse gratuitement. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t’aider à suivre ta grossesse. A bientôt"
+          }
+        },
+        "question2": {
+          "label": "Am I 18 years old or older?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎",
+            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans, nous te conseillons de te rendre dans le centre de planning familial ou la PMI la plus proche. Tu peux aussi appeler l’association SOLIPAM, à ce numéro (gratuit) : 0 801 801 081. Ils pourront répondront à tes questions concernant la grossesse et t’accompagner dans tes démarches. Merci de ta venue,  NATA."
+          }
+        },
+        "question3": {
+          "label": "How many months pregnant am I?",
+          "answer1": {
+            "label": "1 month"
+          },
+          "answer2": {
+            "label": "2 months"
+          },
+          "answer3": {
+            "label": "3 months"
+          },
+          "answer4": {
+            "label": "4 months"
+          },
+          "answer5": {
+            "label": "5 months"
+          },
+          "answer6": {
+            "label": "6 months"
+          },
+          "answer7": {
+            "label": "7 months"
+          },
+          "answer8": {
+            "label": "8 months"
+          },
+          "answer9": {
+            "label": "9 months"
+          }
+        },
+        "question4": {
+          "label": "Have I already met with a midwife or doctor to begin my pregnancy follow-up?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎"
+          },
+          "answerDanger": {
+            "label": "I'm not sure 🤷‍♀️"
+          }
+        },
+        "question5": {
+          "label": "Do I have an appointment scheduled in the next few days to begin or continue my pregnancy follow-up?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎"
+          }
+        },
+        "question6": {
+          "label": "Do I have medical coverage?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎"
+          }
+        },
+        "question7": {
+          "label": "Am I housed?",
+          "answer1": {
+            "label": "Yes 👍"
+          },
+          "answer2": {
+            "label": "No 👎"
+          }
+        }
+      },
+      "back": "Back",
+      "continue": "Continue 👉",
+      "begin": "Begin 👉",
+      "languageSelection": {
+        "title": "Our mission is to support every pregnant woman throughout her pregnancy."
+      }
+    },
+    "followup": {
+      "month": "month",
+      "meetingTitle": "My meetings this month",
+      "month1": {
+        "title": "1st month of pregnancy",
+        "text": "You've been pregnant for 1 month. Congratulations!"
+      },
+      "month2": {
+        "title": "2nd month of pregnancy",
+        "text": "You've been pregnant for 2 months. Congratulations!"
+      },
+      "month3": {
+        "title": "3rd month of pregnancy",
+        "text": "You've been pregnant for 3 months. Congratulations!"
+      },
+      "month4": {
+        "title": "4th month of pregnancy",
+        "text": "You've been pregnant for 4 months. Congratulations!"
+      },
+      "month5": {
+        "title": "5th month of pregnancy",
+        "text": "You've been pregnant for 5 months. Congratulations!"
+      },
+      "month6": {
+        "title": "6th month of pregnancy",
+        "text": "You've been pregnant for 6 months. Congratulations!"
+      },
+      "month7": {
+        "title": "7th month of pregnancy",
+        "text": "You've been pregnant for 7 months. Congratulations!"
+      }
+    }
+  }
+}

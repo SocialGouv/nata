@@ -1,0 +1,458 @@
+{
+  "data": [
+    {
+      "title": "followup.month1.title",
+      "text": "followup.month1.text",
+      "list": [
+        {
+          "label": "followup.month1.list.1.label",
+          "code": "followup.month1.list.1.code"
+        },
+        {
+          "label": "followup.month1.list.2.label",
+          "code": "followup.month1.list.2.code"
+        },
+        {
+          "label": "followup.month1.list.3.label",
+          "code": "followup.month1.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month1.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month1.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month1.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month1.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month1.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month1.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month2.title",
+      "text": "followup.month2.text",
+      "list": [
+        {
+          "label": "followup.month2.list.1.label",
+          "code": "followup.month2.list.1.code"
+        },
+        {
+          "label": "followup.month2.list.2.label",
+          "code": "followup.month2.list.2.code"
+        },
+        {
+          "label": "followup.month2.list.3.label",
+          "code": "followup.month2.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month2.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month2.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month2.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month2.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month2.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month2.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month3.title",
+      "text": "followup.month3.text",
+      "list": [
+        {
+          "label": "followup.month3.list.1.label",
+          "code": "followup.month3.list.1.code"
+        },
+        {
+          "label": "followup.month3.list.2.label",
+          "code": "followup.month3.list.2.code"
+        },
+        {
+          "label": "followup.month3.list.3.label",
+          "code": "followup.month3.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month3.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month3.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month3.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month3.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month3.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month3.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month4.title",
+      "text": "followup.month4.text",
+      "list": [
+        {
+          "label": "followup.month4.list.1.label",
+          "code": "followup.month4.list.1.code"
+        },
+        {
+          "label": "followup.month4.list.2.label",
+          "code": "followup.month4.list.2.code"
+        },
+        {
+          "label": "followup.month4.list.3.label",
+          "code": "followup.month4.list.3.code"
+        },
+        {
+          "label": "followup.month4.list.4.label",
+          "code": "followup.month4.list.4.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month4.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month4.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month4.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month4.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month4.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month4.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month5.title",
+      "text": "followup.month5.text",
+      "list": [
+        {
+          "label": "followup.month5.list.1.label",
+          "code": "followup.month5.list.1.code"
+        },
+        {
+          "label": "followup.month5.list.2.label",
+          "code": "followup.month5.list.2.code"
+        },
+        {
+          "label": "followup.month5.list.3.label",
+          "code": "followup.month5.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month5.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month5.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month5.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month5.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month5.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month5.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month6.title",
+      "text": "followup.month6.text",
+      "list": [
+        {
+          "label": "followup.month6.list.1.label",
+          "code": "followup.month6.list.1.code"
+        },
+        {
+          "label": "followup.month6.list.2.label",
+          "code": "followup.month6.list.2.code"
+        },
+        {
+          "label": "followup.month6.list.3.label",
+          "code": "followup.month6.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month6.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month6.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month6.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month6.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month6.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month6.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month7.title",
+      "text": "followup.month7.text",
+      "list": [
+        {
+          "label": "followup.month7.list.1.label",
+          "code": "followup.month7.list.1.code"
+        },
+        {
+          "label": "followup.month7.list.2.label",
+          "code": "followup.month7.list.2.code"
+        },
+        {
+          "label": "followup.month7.list.3.label",
+          "code": "followup.month7.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month7.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month7.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month7.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month7.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month7.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month7.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month8.title",
+      "text": "followup.month8.text",
+      "list": [
+        {
+          "label": "followup.month8.list.1.label",
+          "code": "followup.month8.list.1.code"
+        },
+        {
+          "label": "followup.month8.list.2.label",
+          "code": "followup.month8.list.2.code"
+        },
+        {
+          "label": "followup.month8.list.3.label",
+          "code": "followup.month8.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month8.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month8.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month8.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month8.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month8.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month8.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    },
+    {
+      "title": "followup.month9.title",
+      "text": "followup.month9.text",
+      "list": [
+        {
+          "label": "followup.month9.list.1.label",
+          "code": "followup.month9.list.1.code"
+        },
+        {
+          "label": "followup.month9.list.2.label",
+          "code": "followup.month9.list.2.code"
+        },
+        {
+          "label": "followup.month9.list.3.label",
+          "code": "followup.month9.list.3.code"
+        }
+      ],
+      "symptoms": [
+        {
+          "label": "followup.month9.symptoms.1.label",
+          "slug": "nausea",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month9.symptoms.2.label",
+          "slug": "vomiting",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month9.symptoms.3.label",
+          "slug": "back_pain",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month9.symptoms.4.label",
+          "slug": "tiredness",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month9.symptoms.5.label",
+          "slug": "headache",
+          "status": "minor"
+        },
+        {
+          "label": "followup.month9.symptoms.6.label",
+          "slug": "constipation",
+          "status": "minor"
+        }
+      ]
+    }
+  ]
+}

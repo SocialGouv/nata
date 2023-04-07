@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Marianne-Bold.otf",
+      "sha1": "e135f1de5a23e99bacb6bf32a623fdd1334d6dde"
+    },
+    {
+      "path": "assets/fonts/Marianne-Light.otf",
+      "sha1": "2ebac06baa7a56c07f8d54ec28bcd8e7d9d52e8d"
+    },
+    {
+      "path": "assets/fonts/Marianne-Medium.otf",
+      "sha1": "32f7f28f4f15dbc6cc9f2b9392058b26f88bb264"
+    },
+    {
+      "path": "assets/fonts/Marianne-Regular.otf",
+      "sha1": "df68de03d17b7537c5d45dd33ae82c80a4bcbb67"
+    }
+  ]
+}

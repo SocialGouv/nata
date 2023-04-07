@@ -1,0 +1,428 @@
+{
+  "translation": {
+    "onboarding": {
+      "questions": {
+        "question1": {
+          "label": "Est-ce que je suis enceinte ? ",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        },
+        "question2": {
+          "label": "J’ai 18 ans ou plus ?  ",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        },
+        "question3": {
+          "label": "Je suis enceinte de :  ",
+          "answer1": {
+            "label": "5 mois"
+          },
+          "answer2": {
+            "label": "15 mois"
+          }
+        },
+        "question4": {
+          "label": "J’ai déjà rencontré une sage-femme ou un médecin pour débuter mon suivi de grossesse ?",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        },
+        "question5": {
+          "label": "J’ai un rendez-vous de prévu dans les prochains jours pour débuter ou continuer mon suivi de grossesse ?",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        },
+        "question6": {
+          "label": "J’ai une couverture médicale ?",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        },
+        "question7": {
+          "label": "Est-ce que je suis hébergée ?",
+          "answer1": {
+            "label": "Oui 👍"
+          },
+          "answer2": {
+            "label": "Non 👎"
+          }
+        }
+      },
+      "back": "Retour",
+      "continue": "Continuer 👉",
+      "begin": "Commencer 👉",
+      "languageSelection": {
+        "title": "Notre mission : Accompagner chaque femme enceinte dans sa grossesse"
+      }
+    },
+    "followup": {
+      "month": "ème mois",
+      "meetingTitle": "Mes rendez-vous ce mois-ci",
+      "symptomsTitle": "Mes symptômes",
+      "month1": {
+        "title": "1er mois de grossesse",
+        "text": "C’est le début de ta grossesse, ton corps commence doucement à se transformer",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M1R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M1R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M1R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month2": {
+        "title": "2ème mois de grossesse",
+        "text": "Tes seins grossissent et peuvent être douloureux. Tu peux aussi avoir envie de vomir.",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M2R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M2R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M2R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month3": {
+        "title": "3ème mois de grossesse",
+        "text": "Il bouge déjà dans ton ventre mais tu ne le sens pas encore. Son cœur a doublé.",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M3R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M3R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M3R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month4": {
+        "title": "4ème mois de grossesse",
+        "text": "Le foetus prend une forme humaine et ton ventre commence à s’arrondir. Les symptômes du début de grossesse diminuent. ",
+        "list": {
+          "1": {
+            "label": "La consultation médicale du 4ème mois",
+            "code": "M4R1"
+          },
+          "2": {
+            "label": "Une prise de sang de contrôle ",
+            "code": "M4R2"
+          },
+          "3": {
+            "label": "Le dépistage de la trisomie 21",
+            "code": "M4R3"
+          },
+          "4": {
+            "label": "Inscription à la maternité",
+            "code": "M4R4"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month5": {
+        "title": "5ème mois de grossesse",
+        "text": "Tu peux commencer à le sentir bouger dans ton ventre. Il réagit à certains bruits et peut même sucer son pouce !",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M5R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M5R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M5R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month6": {
+        "title": "6ème mois de grossesse",
+        "text": "Il entend la musique et dépasse les 1 Kg désormais. Il bouge beaucoup et peut avoir le hoquet.",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M6R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M6R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M6R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month7": {
+        "title": "7ème mois de grossesse",
+        "text": "Il prend de plus en plus de poids, ton ventre devient plus lourd. ",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M7R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M7R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M7R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month8": {
+        "title": "8ème mois de grossesse",
+        "text": "Il prend sa position pour l'accouchement. Courage ! La fin de grossesse approche",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M8R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M8R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M8R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      },
+      "month9": {
+        "title": "9ème mois de grossesse",
+        "text": "Au bout de la 37ème semaine sans règles, le bébé est prêt à naître. Il est temps de préparer ton sac pour la maternité.",
+        "list": {
+          "1": {
+            "label": "Mon rendez-vous médical",
+            "code": "M9R1"
+          },
+          "2": {
+            "label": "Mon rendez-vous avec la sage-femme",
+            "code": "M9R2"
+          },
+          "3": {
+            "label": "Mon échographie",
+            "code": "M9R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausées"
+          },
+          "2": {
+            "label": "Vomissements"
+          },
+          "3": {
+            "label": "Mal de dos"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Maux de tête"
+          },
+          "6": {
+            "label": "Constipation"
+          }
+        }
+      }
+    }
+  }
+}
