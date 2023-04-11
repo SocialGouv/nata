@@ -35,8 +35,6 @@ const LanguageSelection = () => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
 
-  console.log('selectedLanguage', selectedLanguage);
-
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/nata.png')} />

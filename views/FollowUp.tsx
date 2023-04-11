@@ -79,6 +79,7 @@ const FollowUp = () => {
       label: string;
       slug: string;
       status: string;
+      code: string;
     }[];
   }>({
     title: '',
@@ -86,13 +87,6 @@ const FollowUp = () => {
     list: [],
     symptoms: [],
   });
-
-  const [userMeetingStatus, setUserMeetingStatus] = React.useState<
-    {
-      label: string;
-      code: string;
-    }[]
-  >();
 
   const retrieveUserMonth = useCallback(async () => {
     try {
@@ -117,36 +111,6 @@ const FollowUp = () => {
     }
   }, [currentMonth]);
 
-  const retrieveUserMeetingStatus = useCallback(async () => {
-    try {
-      const value = await AsyncStorage.getItem('userMeetingStatus');
-      if (value !== null) {
-        setUserMeetingStatus(JSON.parse(value));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    retrieveUserMeetingStatus();
-  }, [retrieveUserMeetingStatus, currentMonth]);
-
-  const updateUserMeetingStatus = useCallback(async () => {
-    try {
-      await AsyncStorage.setItem(
-        'userMeetingStatus',
-        JSON.stringify(userMeetingStatus),
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  }, [userMeetingStatus]);
-
-  React.useEffect(() => {
-    updateUserMeetingStatus();
-  }, [updateUserMeetingStatus]);
-
   const handlePress = (value: number) => {
     if (currentMonth) {
       if (currentMonth + value > 0 && currentMonth + value <= 9) {
@@ -155,8 +119,14 @@ const FollowUp = () => {
     }
   };
 
+  // React.useEffect(() => {
+  //   (async () => {
+  //     await AsyncStorage.clear();
+  //   })();
+  // }, []);
+
   return (
-    <Container>
+    <Container urgency={true}>
       <ScrollView>
         <View>
           <ImageBackground
@@ -164,7 +134,10 @@ const FollowUp = () => {
             style={styles.backgroundImage}>
             <View style={styles.topContainer}>
               <Pressable
-                style={styles.pressable}
+                style={({pressed}) => [
+                  styles.pressable,
+                  {opacity: pressed ? 0.5 : 1},
+                ]}
                 onPress={() => handlePress(-1)}>
                 <FontAwesome5Icon name="chevron-left" size={25} />
               </Pressable>
@@ -174,7 +147,10 @@ const FollowUp = () => {
                 </Text>
               )}
               <Pressable
-                style={styles.pressable}
+                style={({pressed}) => [
+                  styles.pressable,
+                  {opacity: pressed ? 0.5 : 1},
+                ]}
                 onPress={() => handlePress(1)}>
                 <FontAwesome5Icon name="chevron-right" size={25} />
               </Pressable>
@@ -191,11 +167,7 @@ const FollowUp = () => {
           {/* <Text style={styles.text}>{t(currentContent?.title)}</Text> */}
           <Text style={styles.text}>{t(currentContent?.text)}</Text>
         </View>
-        <DisplayMeetings
-          meetings={currentContent?.list}
-          userMeetingStatus={userMeetingStatus}
-          setUserMeetingStatus={setUserMeetingStatus}
-        />
+        <DisplayMeetings meetings={currentContent?.list} />
         <DisplaySymptomes symptomes={currentContent?.symptoms} />
       </ScrollView>
     </Container>

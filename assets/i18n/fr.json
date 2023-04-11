@@ -423,6 +423,11 @@
           }
         }
       }
+    },
+    "urgency": {
+      "title": "Pour votre santé et celle de votre enfant, il est urgent de consulter un professionnel",
+      "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
+      "button": "J'ai trouvé un rendez-vous"
     }
   }
 }
