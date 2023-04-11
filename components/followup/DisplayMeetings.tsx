@@ -4,22 +4,63 @@ import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   meetings: {
     label: string;
     code: string;
   }[];
-  userMeetingStatus: {label: string; code: string}[] | undefined;
-  setUserMeetingStatus: (
-    value: React.SetStateAction<{label: string; code: string}[] | undefined>,
-  ) => void;
+  // userMeetingStatus: {label: string; code: string}[] | undefined;
+  // setUserMeetingStatus: (
+  //   value: React.SetStateAction<{label: string; code: string}[] | undefined>,
+  // ) => void;
 }
 
 const DisplayMeetings = (props: Props) => {
-  const {meetings, userMeetingStatus, setUserMeetingStatus} = props;
+  const [userMeetingStatus, setUserMeetingStatus] = React.useState<
+    {
+      label: string;
+      code: string;
+    }[]
+  >();
+  const {meetings} = props;
 
   const {t} = useTranslation();
+
+  const retrieveUserMeetingStatus = React.useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem('userMeetingStatus');
+      if (value !== null) {
+        setUserMeetingStatus(JSON.parse(value));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    retrieveUserMeetingStatus();
+  }, [retrieveUserMeetingStatus]);
+
+  const updateUserMeetingStatus = React.useCallback(async () => {
+    if (!userMeetingStatus) {
+      await AsyncStorage.setItem('userMeetingStatus', JSON.stringify([]));
+    } else {
+      try {
+        await AsyncStorage.setItem(
+          'userMeetingStatus',
+          JSON.stringify(userMeetingStatus),
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [userMeetingStatus]);
+
+  React.useEffect(() => {
+    updateUserMeetingStatus();
+  }, [updateUserMeetingStatus]);
 
   return (
     <View style={styles.container}>

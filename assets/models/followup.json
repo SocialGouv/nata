@@ -21,32 +21,38 @@
         {
           "label": "followup.month1.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S1"
         },
         {
           "label": "followup.month1.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S2"
         },
         {
           "label": "followup.month1.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S3"
         },
         {
           "label": "followup.month1.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S4"
         },
         {
           "label": "followup.month1.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S5"
         },
         {
           "label": "followup.month1.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M1S6"
         }
       ]
     },
@@ -71,32 +77,38 @@
         {
           "label": "followup.month2.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S1"
         },
         {
           "label": "followup.month2.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S2"
         },
         {
           "label": "followup.month2.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S3"
         },
         {
           "label": "followup.month2.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S4"
         },
         {
           "label": "followup.month2.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S5"
         },
         {
           "label": "followup.month2.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M2S6"
         }
       ]
     },
@@ -121,32 +133,38 @@
         {
           "label": "followup.month3.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S1"
         },
         {
           "label": "followup.month3.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S2"
         },
         {
           "label": "followup.month3.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S3"
         },
         {
           "label": "followup.month3.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S4"
         },
         {
           "label": "followup.month3.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S5"
         },
         {
           "label": "followup.month3.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M3S6"
         }
       ]
     },
@@ -175,32 +193,38 @@
         {
           "label": "followup.month4.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S1"
         },
         {
           "label": "followup.month4.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S2"
         },
         {
           "label": "followup.month4.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S3"
         },
         {
           "label": "followup.month4.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S4"
         },
         {
           "label": "followup.month4.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S5"
         },
         {
           "label": "followup.month4.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M4S6"
         }
       ]
     },
@@ -225,32 +249,38 @@
         {
           "label": "followup.month5.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S1"
         },
         {
           "label": "followup.month5.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S2"
         },
         {
           "label": "followup.month5.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S3"
         },
         {
           "label": "followup.month5.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S4"
         },
         {
           "label": "followup.month5.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S5"
         },
         {
           "label": "followup.month5.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M5S6"
         }
       ]
     },
@@ -275,32 +305,38 @@
         {
           "label": "followup.month6.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S1"
         },
         {
           "label": "followup.month6.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S2"
         },
         {
           "label": "followup.month6.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S3"
         },
         {
           "label": "followup.month6.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S4"
         },
         {
           "label": "followup.month6.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S5"
         },
         {
           "label": "followup.month6.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M6S6"
         }
       ]
     },
@@ -325,32 +361,38 @@
         {
           "label": "followup.month7.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S1"
         },
         {
           "label": "followup.month7.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S2"
         },
         {
           "label": "followup.month7.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S3"
         },
         {
           "label": "followup.month7.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S4"
         },
         {
           "label": "followup.month7.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S5"
         },
         {
           "label": "followup.month7.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M7S6"
         }
       ]
     },
@@ -375,32 +417,38 @@
         {
           "label": "followup.month8.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S1"
         },
         {
           "label": "followup.month8.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S2"
         },
         {
           "label": "followup.month8.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S3"
         },
         {
           "label": "followup.month8.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S4"
         },
         {
           "label": "followup.month8.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S5"
         },
         {
           "label": "followup.month8.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M8S6"
         }
       ]
     },
@@ -425,32 +473,38 @@
         {
           "label": "followup.month9.symptoms.1.label",
           "slug": "nausea",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S1"
         },
         {
           "label": "followup.month9.symptoms.2.label",
           "slug": "vomiting",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S2"
         },
         {
           "label": "followup.month9.symptoms.3.label",
           "slug": "back_pain",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S3"
         },
         {
           "label": "followup.month9.symptoms.4.label",
           "slug": "tiredness",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S4"
         },
         {
           "label": "followup.month9.symptoms.5.label",
           "slug": "headache",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S5"
         },
         {
           "label": "followup.month9.symptoms.6.label",
           "slug": "constipation",
-          "status": "minor"
+          "status": "minor",
+          "code": "M9S6"
         }
       ]
     }

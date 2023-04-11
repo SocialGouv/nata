@@ -4,12 +4,15 @@ import {Colors} from '../../styles/Style';
 
 interface ContainerProps {
   children: ReactElement[] | ReactElement;
+  urgency?: boolean;
 }
 
-const Container = ({children}: ContainerProps) => {
+const Container = ({children, urgency}: ContainerProps) => {
   return Platform.OS === 'ios' ? (
     <SafeAreaView style={styles.iosContainer}>
-      <View style={styles.topBorder} />
+      <View
+        style={[styles.topBorder, urgency && {backgroundColor: Colors.urgence}]}
+      />
       <View style={styles.container}>{children}</View>
     </SafeAreaView>
   ) : (

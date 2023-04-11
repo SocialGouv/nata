@@ -1,17 +1,26 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import {FlatGrid} from 'react-native-super-grid';
 import Images from '../../assets/models/followupImages';
 import {Image} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   symptomes: {
     label: string;
     slug: string;
     status: string;
+    code: string;
   }[];
+}
+
+interface Symptome {
+  label: string;
+  slug: string;
+  status: string;
+  code: string;
 }
 
 const DisplaySymptomes = (props: Props) => {
@@ -19,19 +28,80 @@ const DisplaySymptomes = (props: Props) => {
 
   const {t} = useTranslation();
 
+  const [userSymptomesStatus, setUserSymptomesStatus] =
+    React.useState<Symptome[]>();
+
+  const retrieveUserSymptomesStatus = React.useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem('userSymptomesStatus');
+      if (value !== null) {
+        setUserSymptomesStatus(JSON.parse(value));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    retrieveUserSymptomesStatus();
+  }, [retrieveUserSymptomesStatus]);
+
+  const updateUserSymptomesStatus = React.useCallback(async () => {
+    if (!userSymptomesStatus) {
+      await AsyncStorage.setItem('userSymptomesStatus', JSON.stringify([]));
+    } else {
+      try {
+        await AsyncStorage.setItem(
+          'userSymptomesStatus',
+          JSON.stringify(userSymptomesStatus),
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [userSymptomesStatus]);
+
+  React.useEffect(() => {
+    updateUserSymptomesStatus();
+  }, [updateUserSymptomesStatus]);
+
+  const handleSymptomSelection = (item: Symptome) => {
+    if (
+      userSymptomesStatus &&
+      userSymptomesStatus.find(symptome => symptome.code === item.code)
+    ) {
+      setUserSymptomesStatus(
+        userSymptomesStatus.filter(symptome => symptome.code !== item.code),
+      );
+    } else {
+      setUserSymptomesStatus([...(userSymptomesStatus || []), item]);
+    }
+  };
+
   const renderItem = ({
     item,
   }: {
-    item: {label: string; slug: string; status: string};
+    item: {label: string; slug: string; status: string; code: string};
   }) => {
     return (
-      <View style={styles.itemContainer}>
+      <Pressable
+        onPress={() => handleSymptomSelection(item)}
+        style={[
+          styles.itemContainer,
+          {
+            borderColor:
+              userSymptomesStatus &&
+              userSymptomesStatus.find(symptome => symptome.code === item.code)
+                ? Colors.primary
+                : Colors.border,
+          },
+        ]}>
         <Image
           source={Images[item.slug as keyof typeof Images]}
           style={styles.image}
         />
         <Text style={styles.itemName}>{t(item.label)}</Text>
-      </View>
+      </Pressable>
     );
   };
 
@@ -41,7 +111,9 @@ const DisplaySymptomes = (props: Props) => {
       <FlatGrid
         itemDimension={120}
         data={symptomes}
+        keyExtractor={item => item.code}
         adjustGridToStyles={true}
+        maxItemsPerRow={3}
         // contentContainerStyle={{height: 150}}
         horizontal={true}
         spacing={10}
