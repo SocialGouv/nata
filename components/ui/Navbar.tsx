@@ -23,6 +23,7 @@ const Navbar = ({navigation}) => {
         tabBarStyle: {
           height: 100,
           backgroundColor: Colors.background,
+          shadowColor: 'transparent',
         },
       })}>
       <Tab.Screen

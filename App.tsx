@@ -57,7 +57,8 @@ function App(): JSX.Element {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="FollowUp" component={UrgencyPage} />
+          <Stack.Screen name="FollowUp" component={FollowUp} />
+          <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

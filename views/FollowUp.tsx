@@ -119,14 +119,14 @@ const FollowUp = () => {
     }
   };
 
-  // React.useEffect(() => {
-  //   (async () => {
-  //     await AsyncStorage.clear();
-  //   })();
-  // }, []);
+  React.useEffect(() => {
+    (async () => {
+      await AsyncStorage.clear();
+    })();
+  }, []);
 
   return (
-    <Container urgency={true}>
+    <Container urgency={false}>
       <ScrollView>
         <View>
           <ImageBackground
