@@ -53,6 +53,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M1S6"
+        },
+        {
+          "label": "followup.month1.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M1S7"
+        },
+        {
+          "label": "followup.month1.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M1S8"
+        },
+        {
+          "label": "followup.month1.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M1S9"
+        },
+        {
+          "label": "followup.month1.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M1S10"
+        },
+        {
+          "label": "followup.month1.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M1S11"
+        },
+        {
+          "label": "followup.month1.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M1S12"
+        },
+        {
+          "label": "followup.month1.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M1S13"
+        },
+        {
+          "label": "followup.month1.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M1S14"
+        },
+        {
+          "label": "followup.month1.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M1S15"
+        },
+        {
+          "label": "followup.month1.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M1S16"
+        },
+        {
+          "label": "followup.month1.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M1S17"
         }
       ]
     },
@@ -109,6 +175,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M2S6"
+        },
+        {
+          "label": "followup.month2.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M2S7"
+        },
+        {
+          "label": "followup.month2.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M2S8"
+        },
+        {
+          "label": "followup.month2.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M2S9"
+        },
+        {
+          "label": "followup.month2.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M2S10"
+        },
+        {
+          "label": "followup.month2.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M2S11"
+        },
+        {
+          "label": "followup.month2.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M2S12"
+        },
+        {
+          "label": "followup.month2.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M2S13"
+        },
+        {
+          "label": "followup.month2.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M2S14"
+        },
+        {
+          "label": "followup.month2.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M2S15"
+        },
+        {
+          "label": "followup.month2.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M2S16"
+        },
+        {
+          "label": "followup.month2.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M2S17"
         }
       ]
     },
@@ -165,6 +297,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M3S6"
+        },
+        {
+          "label": "followup.month3.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M3S7"
+        },
+        {
+          "label": "followup.month3.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M3S8"
+        },
+        {
+          "label": "followup.month3.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M3S9"
+        },
+        {
+          "label": "followup.month3.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M3S10"
+        },
+        {
+          "label": "followup.month3.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M3S11"
+        },
+        {
+          "label": "followup.month3.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M3S12"
+        },
+        {
+          "label": "followup.month3.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M3S13"
+        },
+        {
+          "label": "followup.month3.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M3S14"
+        },
+        {
+          "label": "followup.month3.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M3S15"
+        },
+        {
+          "label": "followup.month3.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M3S16"
+        },
+        {
+          "label": "followup.month3.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M3S17"
         }
       ]
     },
@@ -225,6 +423,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M4S6"
+        },
+        {
+          "label": "followup.month4.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M4S7"
+        },
+        {
+          "label": "followup.month4.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M4S8"
+        },
+        {
+          "label": "followup.month4.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M4S9"
+        },
+        {
+          "label": "followup.month4.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M4S10"
+        },
+        {
+          "label": "followup.month4.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M4S11"
+        },
+        {
+          "label": "followup.month4.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M4S12"
+        },
+        {
+          "label": "followup.month4.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M4S13"
+        },
+        {
+          "label": "followup.month4.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M4S14"
+        },
+        {
+          "label": "followup.month4.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M4S15"
+        },
+        {
+          "label": "followup.month4.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M4S16"
+        },
+        {
+          "label": "followup.month4.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M4S17"
         }
       ]
     },
@@ -281,6 +545,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M5S6"
+        },
+        {
+          "label": "followup.month5.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M5S7"
+        },
+        {
+          "label": "followup.month5.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M5S8"
+        },
+        {
+          "label": "followup.month5.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M5S9"
+        },
+        {
+          "label": "followup.month5.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M5S10"
+        },
+        {
+          "label": "followup.month5.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M5S11"
+        },
+        {
+          "label": "followup.month5.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M5S12"
+        },
+        {
+          "label": "followup.month5.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M5S13"
+        },
+        {
+          "label": "followup.month5.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M5S14"
+        },
+        {
+          "label": "followup.month5.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M5S15"
+        },
+        {
+          "label": "followup.month5.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M5S16"
+        },
+        {
+          "label": "followup.month5.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M5S17"
         }
       ]
     },
@@ -337,6 +667,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M6S6"
+        },
+        {
+          "label": "followup.month6.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M6S7"
+        },
+        {
+          "label": "followup.month6.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M6S8"
+        },
+        {
+          "label": "followup.month6.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M6S9"
+        },
+        {
+          "label": "followup.month6.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M6S10"
+        },
+        {
+          "label": "followup.month6.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M6S11"
+        },
+        {
+          "label": "followup.month6.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M6S12"
+        },
+        {
+          "label": "followup.month6.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M6S13"
+        },
+        {
+          "label": "followup.month6.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M6S14"
+        },
+        {
+          "label": "followup.month6.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M6S15"
+        },
+        {
+          "label": "followup.month6.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M6S16"
+        },
+        {
+          "label": "followup.month6.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M6S17"
         }
       ]
     },
@@ -393,6 +789,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M7S6"
+        },
+        {
+          "label": "followup.month7.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M7S7"
+        },
+        {
+          "label": "followup.month7.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M7S8"
+        },
+        {
+          "label": "followup.month7.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M7S9"
+        },
+        {
+          "label": "followup.month7.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M7S10"
+        },
+        {
+          "label": "followup.month7.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M7S11"
+        },
+        {
+          "label": "followup.month7.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M7S12"
+        },
+        {
+          "label": "followup.month7.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M7S13"
+        },
+        {
+          "label": "followup.month7.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M7S14"
+        },
+        {
+          "label": "followup.month7.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M7S15"
+        },
+        {
+          "label": "followup.month7.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M7S16"
+        },
+        {
+          "label": "followup.month7.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M7S17"
         }
       ]
     },
@@ -449,6 +911,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M8S6"
+        },
+        {
+          "label": "followup.month8.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M8S7"
+        },
+        {
+          "label": "followup.month8.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M8S8"
+        },
+        {
+          "label": "followup.month8.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M8S9"
+        },
+        {
+          "label": "followup.month8.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M8S10"
+        },
+        {
+          "label": "followup.month8.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M8S11"
+        },
+        {
+          "label": "followup.month8.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M8S12"
+        },
+        {
+          "label": "followup.month8.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M8S13"
+        },
+        {
+          "label": "followup.month8.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M8S14"
+        },
+        {
+          "label": "followup.month8.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M8S15"
+        },
+        {
+          "label": "followup.month8.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M8S16"
+        },
+        {
+          "label": "followup.month8.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M8S17"
         }
       ]
     },
@@ -505,6 +1033,72 @@
           "slug": "constipation",
           "status": "minor",
           "code": "M9S6"
+        },
+        {
+          "label": "followup.month9.symptoms.7.label",
+          "slug": "urine_warm",
+          "status": "urgency",
+          "code": "M9S7"
+        },
+        {
+          "label": "followup.month9.symptoms.8.label",
+          "slug": "fever",
+          "status": "urgency",
+          "code": "M9S8"
+        },
+        {
+          "label": "followup.month9.symptoms.9.label",
+          "slug": "small_bleeding",
+          "status": "urgency",
+          "code": "M9S9"
+        },
+        {
+          "label": "followup.month9.symptoms.10.label",
+          "slug": "huge_bleeding",
+          "status": "urgency",
+          "code": "M9S10"
+        },
+        {
+          "label": "followup.month9.symptoms.11.label",
+          "slug": "fall",
+          "status": "urgency",
+          "code": "M9S11"
+        },
+        {
+          "label": "followup.month9.symptoms.12.label",
+          "slug": "stomach_pain",
+          "status": "urgency",
+          "code": "M9S12"
+        },
+        {
+          "label": "followup.month9.symptoms.13.label",
+          "slug": "baby_not_move",
+          "status": "urgency",
+          "code": "M9S13"
+        },
+        {
+          "label": "followup.month9.symptoms.14.label",
+          "slug": "inflate_legs",
+          "status": "urgency",
+          "code": "M9S14"
+        },
+        {
+          "label": "followup.month9.symptoms.15.label",
+          "slug": "vision",
+          "status": "urgency",
+          "code": "M9S15"
+        },
+        {
+          "label": "followup.month9.symptoms.16.label",
+          "slug": "contraction",
+          "status": "urgency",
+          "code": "M9S16"
+        },
+        {
+          "label": "followup.month9.symptoms.17.label",
+          "slug": "water_break",
+          "status": "urgency",
+          "code": "M9S17"
         }
       ]
     }

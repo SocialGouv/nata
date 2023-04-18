@@ -5,6 +5,7 @@ import MySituation from '../../views/Situation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import {Fonts} from '../../styles/Style';
 import FollowUp from '../../views/FollowUp';
+import {Platform} from 'react-native';
 
 const Navbar = ({navigation}) => {
   const Tab = createBottomTabNavigator();
@@ -21,7 +22,7 @@ const Navbar = ({navigation}) => {
         tabBarLabelStyle: {fontFamily: Fonts.primary},
         tabBarIconStyle: {marginBottom: 0, width: 20, height: 20},
         tabBarStyle: {
-          height: 100,
+          height: Platform.OS === 'ios' ? 100 : 60,
           backgroundColor: Colors.background,
           shadowColor: 'transparent',
         },

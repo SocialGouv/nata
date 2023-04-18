@@ -3,6 +3,8 @@
     {
       "label": "onboarding.questions.question1.label",
       "image": "pregnant",
+      "slug": "isPregnant",
+      "verticalAnswer": false,
       "answers": [
         {
           "label": "onboarding.questions.question1.answer1.label",
@@ -26,6 +28,7 @@
     {
       "label": "onboarding.questions.question2.label",
       "image": "18",
+      "slug": "is18",
       "answers": [
         {
           "label": "onboarding.questions.question2.answer1.label",
@@ -44,6 +47,8 @@
       "label": "onboarding.questions.question3.label",
       "image": "calendar",
       "isSpecial": true,
+      "slug": "pregnancyMonth",
+      "verticalAnswer": false,
       "answers": [
         {
           "label": "onboarding.questions.question3.answer1.label",
@@ -95,6 +100,8 @@
     {
       "label": "onboarding.questions.question4.label",
       "image": "nurse",
+      "slug": "pregnancyFollowed",
+      "verticalAnswer": false,
       "answers": [
         {
           "label": "onboarding.questions.question4.answer1.label",
@@ -104,18 +111,14 @@
         {
           "label": "onboarding.questions.question4.answer2.label",
           "value": "Q4A2",
-          "redirectScreen": false
+          "redirectScreen": true
         }
-      ],
-      "answerDanger": {
-        "label": "onboarding.questions.question4.answerDanger.label",
-        "value": "Q4AD",
-        "redirectScreen": false
-      }
+      ]
     },
     {
       "label": "onboarding.questions.question5.label",
       "image": "calendar",
+      "slug": "isMeetingPlanned",
       "answers": [
         {
           "label": "onboarding.questions.question5.answer1.label",
@@ -132,6 +135,8 @@
     {
       "label": "onboarding.questions.question6.label",
       "image": "doc",
+      "slug": "medical_care",
+      "verticalAnswer": true,
       "answers": [
         {
           "label": "onboarding.questions.question6.answer1.label",
@@ -142,12 +147,19 @@
           "label": "onboarding.questions.question6.answer2.label",
           "value": "Q6A2",
           "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question6.answer3.label",
+          "value": "Q6A3",
+          "redirectScreen": false
         }
       ]
     },
     {
       "label": "onboarding.questions.question7.label",
       "image": "housing",
+      "slug": "housing",
+      "verticalAnswer": true,
       "answers": [
         {
           "label": "onboarding.questions.question7.answer1.label",
@@ -157,6 +169,21 @@
         {
           "label": "onboarding.questions.question7.answer2.label",
           "value": "Q7A2",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question7.answer3.label",
+          "value": "Q7A3",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question7.answer4.label",
+          "value": "Q7A4",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question7.answer5.label",
+          "value": "Q7A5",
           "redirectScreen": false
         }
       ]

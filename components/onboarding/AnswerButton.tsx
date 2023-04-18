@@ -7,12 +7,13 @@ import Button from '../ui/Button';
 interface AnswerButtonProps {
   answer: string;
   onClick: () => void;
+  style?: object;
 }
 
-const AnswerButton = ({answer, onClick}: AnswerButtonProps) => {
+const AnswerButton = ({answer, onClick, style}: AnswerButtonProps) => {
   const {t} = useTranslation();
   return (
-    <Button onPress={onClick} style={styles.button}>
+    <Button onPress={onClick} style={{...styles.button, ...style}}>
       <Text style={styles.text}>{t(answer)}</Text>
     </Button>
   );

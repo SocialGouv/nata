@@ -25,20 +25,23 @@ interface PressFunction {
   question: {
     label: string;
     isSpecial?: boolean;
+    slug: string;
     answerDanger?: {
       label: string;
       value: string;
       redirectScreen?: boolean;
     };
+    verticalAnswer?: boolean;
   };
 }
 
 const Onboarding = () => {
-  const [currentStep, setCurrentStep] = React.useState(1);
+  const [currentStep, setCurrentStep] = React.useState<number>(1);
   const {width} = useWindowDimensions();
   const navigation = useNavigation();
   const carouselRef = React.useRef(null);
-  const [pregnancyMonth, setPrengancyMonth] = React.useState(5);
+  const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(5);
+  const [userInfos, setUserInfos] = React.useState({});
 
   const {t} = useTranslation();
 
@@ -47,27 +50,34 @@ const Onboarding = () => {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
       });
-    }
-    if (currentStep < questions.data.length) {
-      await AsyncStorage.setItem(
-        t(question.label),
-        question.isSpecial ? pregnancyMonth.toString() : answer.value,
-      )
-        .then(() => {
-          setCurrentStep(currentStep + 1);
-        })
-        .catch(error => console.log(error));
-    } else if (currentStep === questions.data.length) {
-      await AsyncStorage.setItem(
-        t(question.label),
-        question.isSpecial ? pregnancyMonth.toString() : answer.value,
-      )
-        .then(() => {
-          AsyncStorage.setItem('isOnboardingDone', 'true').then(() => {
-            navigation.navigate('FollowUp');
-          });
-        })
-        .catch(error => console.log(error));
+    } else {
+      if (currentStep < questions.data.length) {
+        setUserInfos(
+          Object.assign(userInfos, {
+            [question.slug]: question.isSpecial
+              ? pregnancyMonth.toString()
+              : answer.value,
+          }),
+        );
+        setCurrentStep(currentStep + 1);
+      } else if (currentStep === questions.data.length) {
+        setUserInfos(
+          Object.assign(userInfos, {
+            [question.slug]: question.isSpecial
+              ? pregnancyMonth.toString()
+              : answer.value,
+          }),
+        );
+        await AsyncStorage.setItem('userInfos', JSON.stringify(userInfos))
+          .then(() => {
+            AsyncStorage.setItem('isOnboardingDone', 'true').then(() => {
+              navigation.navigate('FollowUp', {
+                displayModal: true,
+              });
+            });
+          })
+          .catch(error => console.log(error));
+      }
     }
   };
 
@@ -85,12 +95,6 @@ const Onboarding = () => {
   useEffect(() => {
     getData();
   }, [currentStep]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     await AsyncStorage.clear();
-  //   })();
-  // }, []);
 
   return (
     <Container>
@@ -113,7 +117,7 @@ const Onboarding = () => {
                 />
                 <Text
                   style={{...styles.question, width: width * 0.7}}
-                  numberOfLines={3}>
+                  numberOfLines={4}>
                   {t(question.label)}
                 </Text>
               </View>
@@ -155,6 +159,21 @@ const Onboarding = () => {
                         {t('onboarding.continue')}
                       </Text>
                     </Pressable>
+                  </View>
+                );
+              } else if (question.verticalAnswer) {
+                return (
+                  <View style={styles.verticalButton}>
+                    {question.answers.map((answer, verticalIndex) => {
+                      return (
+                        <AnswerButton
+                          style={{marginBottom: 20}}
+                          key={'ans' + verticalIndex}
+                          answer={answer.label}
+                          onClick={() => handlePress({answer, question})}
+                        />
+                      );
+                    })}
                   </View>
                 );
               } else {
@@ -255,6 +274,13 @@ const styles = StyleSheet.create({
   lastButtonContainer: {
     marginTop: 20,
     paddingHorizontal: 20,
+  },
+  verticalButton: {
+    flex: 1,
+    flexDirection: 'column',
+    height: 500,
+    // justifyContent: 'space-between',
+    marginVertical: 20,
   },
 });
 export default Onboarding;

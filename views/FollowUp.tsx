@@ -17,8 +17,19 @@ import {useTranslation} from 'react-i18next';
 import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
+import InformationModal from '../components/followup/InformationModal';
 
-const FollowUp = () => {
+interface Symptome {
+  label: string;
+  slug: string;
+  status: string;
+  code: string;
+}
+
+const FollowUp = ({route}: {route: any}) => {
+  const [displayModal, setDisplayModal] = React.useState(
+    route?.params?.displayModal || false,
+  );
   const {width, height} = useWindowDimensions();
   const styles = StyleSheet.create({
     imageContainer: {
@@ -65,6 +76,8 @@ const FollowUp = () => {
     },
   });
 
+  console.log('displayModal', displayModal);
+
   const {t} = useTranslation();
 
   const [currentMonth, setCurrentMonth] = React.useState<number>();
@@ -88,18 +101,22 @@ const FollowUp = () => {
     symptoms: [],
   });
 
+  const [userSymptomesStatus, setUserSymptomesStatus] =
+    React.useState<Symptome[]>();
+
   const retrieveUserMonth = useCallback(async () => {
     try {
-      const value = await AsyncStorage.getItem(
-        t('onboarding.questions.question3.label'),
-      );
+      const value = await AsyncStorage.getItem('userInfos');
       if (value !== null) {
-        setCurrentMonth(parseInt(value, 10));
+        let userInfos = JSON.parse(value);
+        setCurrentMonth(userInfos.pregnancyMonth);
       }
     } catch (e) {
       console.log(e);
     }
   }, [t]);
+
+  console.log('currentMonth', currentMonth);
 
   React.useEffect(() => {
     retrieveUserMonth();
@@ -119,14 +136,18 @@ const FollowUp = () => {
     }
   };
 
-  React.useEffect(() => {
-    (async () => {
-      await AsyncStorage.clear();
-    })();
-  }, []);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     await AsyncStorage.clear();
+  //   })();
+  // }, []);
 
   return (
     <Container urgency={false}>
+      <InformationModal
+        displayModal={displayModal}
+        setDisplayModal={setDisplayModal}
+      />
       <ScrollView>
         <View>
           <ImageBackground
@@ -168,7 +189,25 @@ const FollowUp = () => {
           <Text style={styles.text}>{t(currentContent?.text)}</Text>
         </View>
         <DisplayMeetings meetings={currentContent?.list} />
-        <DisplaySymptomes symptomes={currentContent?.symptoms} />
+        <DisplaySymptomes
+          isUrgency={false}
+          displayTitle={true}
+          symptomes={currentContent?.symptoms.filter(symptome => {
+            return symptome.status === 'minor';
+          })}
+          userSymptomesStatus={userSymptomesStatus}
+          setUserSymptomesStatus={setUserSymptomesStatus}
+        />
+        <DisplaySymptomes
+          isUrgency={true}
+          displayTitle={false}
+          symptomes={currentContent?.symptoms.filter(symptome => {
+            return symptome.status === 'urgency';
+          })}
+          userSymptomesStatus={userSymptomesStatus}
+          setUserSymptomesStatus={setUserSymptomesStatus}
+          currentMonth={currentMonth}
+        />
       </ScrollView>
     </Container>
   );

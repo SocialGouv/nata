@@ -8,7 +8,12 @@
             "label": "Oui 👍"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "Non 👎",
+            "redirectScreenContent": "NATA aide les femmes enceintes à suivre leur grossesse. Si tu es parent, NATA pourra prochainement t'accompagner à faire le suivi médical de ton bébé jusqu'à ses 3 ans. \n\nA bientôt."
+          },
+          "answerDanger": {
+            "label": "Je ne sais pas 🤷‍♀️",
+            "redirectScreenContent": "Pour savoir si tu es enceinte, tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuel ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
           }
         },
         "question2": {
@@ -17,7 +22,8 @@
             "label": "Oui 👍"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "Non 👎",
+            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans, nous te conseillons de te rendre dans un centre de planning familial ou une PMI. Tu peux aussi appeler l'association SOLIPAM, ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. \n\nMerci de ta venue, NATA."
           }
         },
         "question3": {
@@ -30,12 +36,13 @@
           }
         },
         "question4": {
-          "label": "J’ai déjà rencontré une sage-femme ou un médecin pour débuter mon suivi de grossesse ?",
+          "label": "J’ai déjà rencontré une sage-femme ou un médecin ?",
           "answer1": {
             "label": "Oui 👍"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "Non 👎",
+            "redirectScreenContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse. Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. Reviens vers nous après ce rendez-vous. A bientôt, NATA."
           }
         },
         "question5": {
@@ -48,21 +55,33 @@
           }
         },
         "question6": {
-          "label": "J’ai une couverture médicale ?",
+          "label": "Concernant ma couverture santé",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "j'ai l'AME"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "j'ai la carte vitale (CMU / CSS)"
+          },
+          "answer3": {
+            "label": "je n'ai pas de couverture médicale"
           }
         },
         "question7": {
           "label": "Est-ce que je suis hébergée ?",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "je suis en centre d'hébergement d'urgence (CHU)"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "je suis en hotêl social"
+          },
+          "answer3": {
+            "label": "je suis chez une connaissance"
+          },
+          "answer4": {
+            "label": "j'habite mon propre logement"
+          },
+          "answer5": {
+            "label": "je suis à la rue"
           }
         }
       },
@@ -75,8 +94,10 @@
     },
     "followup": {
       "month": "ème mois",
-      "meetingTitle": "Mes rendez-vous ce mois-ci",
-      "symptomsTitle": "Mes symptômes",
+      "meetingTitle": "Je valide mes rendez-vous",
+      "symptomsTitle": "Quels sont mes symptômes",
+      "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
+      "urgencyButton": "Trouver un médecin",
       "month1": {
         "title": "1er mois de grossesse",
         "text": "C’est le début de ta grossesse, ton corps commence doucement à se transformer",
@@ -112,6 +133,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -150,6 +204,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -188,6 +275,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -230,6 +350,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -268,6 +421,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -306,6 +492,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -344,6 +563,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -382,6 +634,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       },
@@ -420,6 +705,39 @@
           },
           "6": {
             "label": "Constipation"
+          },
+          "7": {
+            "label": "Brûlures urinaires"
+          },
+          "8": {
+            "label": "Fièvre"
+          },
+          "9": {
+            "label": "Légères pertes de sang"
+          },
+          "10": {
+            "label": "Grandes pertes de sang"
+          },
+          "11": {
+            "label": "Chute/accident"
+          },
+          "12": {
+            "label": "Fortes douleurs au ventre"
+          },
+          "13": {
+            "label": "Je ne sens plus mon bébé bouger"
+          },
+          "14": {
+            "label": "Jambes gonflées"
+          },
+          "15": {
+            "label": "Troubles de la vision"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Perte de liquide amniotique"
           }
         }
       }
@@ -428,6 +746,39 @@
       "title": "Pour votre santé et celle de votre enfant, il est urgent de consulter un professionnel",
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous"
+    },
+    "information_modal": {
+      "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",
+      "content": "En France, il est possible d’avoir un suivi de grossesse gratuit même sans couverture médicale et sans ressources."
+    },
+    "situation": {
+      "shareInformations": {
+        "title": "Partagez votre situation "
+      },
+      "pregnancyFollow": {
+        "title": "Mon suivi de grossesse",
+        "noFollowUp": "Aucun rendez-vous n'a été enregistré pour le moment"
+      },
+      "monthlyMeetings": {
+        "title": "A faire ce mois-ci"
+      },
+      "symptoms": {
+        "title": "Mes symptômes"
+      },
+      "profile": {
+        "title": "Mon profil",
+        "language": "Je parle",
+        "pregnancyMonth": "Mois de grossesse",
+        "pregnancyFollowed": "Grossesse suivie",
+        "medical_care": "Couverture médicale",
+        "housing": "Hébergement"
+      }
+    },
+    "languages": {
+      "fr": "Français",
+      "ar": "Arabe",
+      "en": "Anglais",
+      "ps": "Pachto"
     }
   }
 }

@@ -3,21 +3,18 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 
 interface Props {
   meetings: {
     label: string;
     code: string;
   }[];
-  // userMeetingStatus: {label: string; code: string}[] | undefined;
-  // setUserMeetingStatus: (
-  //   value: React.SetStateAction<{label: string; code: string}[] | undefined>,
-  // ) => void;
 }
 
 const DisplayMeetings = (props: Props) => {
+  const isFocused = useIsFocused();
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<
     {
       label: string;
@@ -41,7 +38,7 @@ const DisplayMeetings = (props: Props) => {
 
   React.useEffect(() => {
     retrieveUserMeetingStatus();
-  }, [retrieveUserMeetingStatus]);
+  }, [retrieveUserMeetingStatus, isFocused]);
 
   const updateUserMeetingStatus = React.useCallback(async () => {
     if (!userMeetingStatus) {
@@ -70,13 +67,13 @@ const DisplayMeetings = (props: Props) => {
           <View style={styles.menuItem} key={meeting.code}>
             {userMeetingStatus && (
               <BouncyCheckbox
-                size={20}
-                fillColor={Colors.primary}
+                size={25}
+                fillColor={Colors.lightPrimary}
                 text={t(meeting.label) as string}
                 style={styles.chekboxStyle}
                 isChecked={
                   userMeetingStatus.find((item: {code: string}) => {
-                    return t(item.code) === (t(meeting.code) as string);
+                    return item.code === t(meeting.code);
                   }) !== undefined
                     ? true
                     : false
@@ -88,7 +85,7 @@ const DisplayMeetings = (props: Props) => {
                       setUserMeetingStatus([
                         ...userMeetingStatus,
                         {
-                          label: t(meeting.label) as string,
+                          label: meeting.label as string,
                           code: t(meeting.code),
                         },
                       ]);
@@ -96,7 +93,7 @@ const DisplayMeetings = (props: Props) => {
                       setUserMeetingStatus(
                         userMeetingStatus.filter(
                           (item: {label: string}) =>
-                            item.label !== (t(meeting.label) as string),
+                            item.label !== (meeting.label as string),
                         ),
                       );
                     }
@@ -104,11 +101,11 @@ const DisplayMeetings = (props: Props) => {
                 }}
               />
             )}
-            <FontAwesome5Icon
+            {/* <FontAwesome5Icon
               name="chevron-right"
               size={15}
               color={Colors.black}
-            />
+            /> */}
           </View>
         );
       })}

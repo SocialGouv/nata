@@ -9,7 +9,7 @@
           },
           "answer2": {
             "label": "No 👎",
-            "redirectScreenContent": "Pour le moment NATA aide les femmes enceintes à suivre leur grossesse. D’ici quelques mois, nous pourrons t’accompagner à devenir parent et à effectuer le suivi médical de ton bébé jusqu’à ses 3 ans. A bientôt, NATA."
+            "redirectScreenContent": "NATA aide les femmes enceintes à suivre leur grossesse. Si tu es parent, NATA pourra prochainement t'accompagner à faire le suivi médical de ton bébé jusqu'à ses 3 ans. \n\nA bientôt."
           },
           "answerDanger": {
             "label": "I'm not sure 🤷‍♀️",
@@ -62,10 +62,8 @@
             "label": "Yes 👍"
           },
           "answer2": {
-            "label": "No 👎"
-          },
-          "answerDanger": {
-            "label": "I'm not sure 🤷‍♀️"
+            "label": "No 👎",
+            "redirectScreenContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse.  Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. Reviens vers nous après ce rendez-vous. A bientôt, NATA."
           }
         },
         "question5": {
@@ -106,6 +104,8 @@
     "followup": {
       "month": "month",
       "meetingTitle": "My meetings this month",
+      "urgencyText": "This is a medical emergency: Call 15 or go to the nearest maternity emergency department to see a midwife or a doctor.",
+      "urgencyButton": "Find a doctor",
       "month1": {
         "title": "1st month of pregnancy",
         "text": "You've been pregnant for 1 month. Congratulations!"

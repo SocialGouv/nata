@@ -8,7 +8,6 @@ import OnboardingEndPath from './views/OnboardingSubScreens/OnboardingEndPath';
 import Onboarding from './views/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageSelection from './views/LanguageSelection';
-import FollowUp from './views/FollowUp';
 import UrgencyPage from './views/UrgencyPage';
 
 function App(): JSX.Element {
@@ -57,7 +56,7 @@ function App(): JSX.Element {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="FollowUp" component={FollowUp} />
+          <Stack.Screen name="FollowUp" component={Navbar} />
           <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
         </Stack.Navigator>
       )}

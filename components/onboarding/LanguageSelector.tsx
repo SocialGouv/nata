@@ -12,6 +12,17 @@ interface Props {
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage} = props;
   const {width} = useWindowDimensions();
+  const styles = StyleSheet.create({
+    gridView: {
+      flex: 1,
+      width: '100%',
+    },
+    image: {
+      width: 50,
+      height: 50,
+    },
+  });
+
   return (
     <FlatGrid
       itemDimension={width / 9}
@@ -25,15 +36,24 @@ const LanguageSelector = (props: Props) => {
           style={({pressed}) => [
             {
               opacity: pressed ? 0.5 : 1,
-              width: 55,
-              height: 55,
+              width: item.code === selectedLanguage ? 65 : 55,
+              height: item.code === selectedLanguage ? 65 : 55,
               borderWidth: item.code === selectedLanguage ? 3 : 0,
               borderColor:
                 item.code === selectedLanguage ? Colors.primary : 'transparent',
               borderRadius: item.code === selectedLanguage ? 100 : 0,
             },
           ]}>
-          <Image source={item.flag} style={styles.image} />
+          <Image
+            source={item.flag}
+            style={[
+              styles.image,
+              {
+                width: item.code === selectedLanguage ? 60 : 50,
+                height: item.code === selectedLanguage ? 60 : 50,
+              },
+            ]}
+          />
         </Pressable>
       )}
     />
@@ -41,14 +61,3 @@ const LanguageSelector = (props: Props) => {
 };
 
 export default LanguageSelector;
-
-const styles = StyleSheet.create({
-  gridView: {
-    flex: 1,
-    width: '100%',
-  },
-  image: {
-    width: 50,
-    height: 50,
-  },
-});
