@@ -111,7 +111,8 @@
         {
           "label": "onboarding.questions.question4.answer2.label",
           "value": "Q4A2",
-          "redirectScreen": true
+          "redirectScreen": true,
+          "redirectScreenContent": "onboarding.questions.question4.answer2.redirectScreenContent"
         }
       ]
     },

@@ -134,6 +134,44 @@
         "title": "7th month of pregnancy",
         "text": "You've been pregnant for 7 months. Congratulations!"
       }
+    },
+    "urgency": {
+      "title": "For your health and that of your child, it is urgent to consult a professional",
+      "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy. \n\nThis consultation is free, and without an appointment",
+      "button": "I found an appointment"
+    },
+    "information_modal": {
+      "title": "NATA is here to help and guide you through your pregnancy, but it does not replace medical follow-up.",
+      "content": "In France, it is possible to have free pregnancy monitoring even without medical coverage and without resources."
+    },
+    "situation": {
+      "shareInformations": {
+        "title": "Share your situation"
+      },
+      "pregnancyFollow": {
+        "title": "My pregnancy follow-up",
+        "noFollowUp": "No appointments have been recorded yet"
+      },
+      "monthlyMeetings": {
+        "title": "To do this month"
+      },
+      "symptoms": {
+        "title": "My symptoms"
+      },
+      "profile": {
+        "title": "My profile",
+        "language": "I speak",
+        "pregnancyMonth": "Pregnancy month",
+        "pregnancyFollowed": "Pregnancy followed",
+        "medical_care": "Medical coverage",
+        "housing": "Housing"
+      }
+    },
+    "languages": {
+      "fr": "French",
+      "ar": "Arabic",
+      "en": "English",
+      "ps": "Pashto"
     }
   }
 }

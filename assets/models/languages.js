@@ -16,11 +16,11 @@ const languages = [
     flag: require('../images/languages/Maroc.png'),
   },
   {
-    code: 'fr',
+    code: 'ml',
     flag: require('../images/languages/Mali.png'),
   },
   {
-    code: 'en',
+    code: 'ss',
     flag: require('../images/languages/Soudan.png'),
   },
   {

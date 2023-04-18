@@ -87,7 +87,8 @@ const DisplaySymptomes = (props: Props) => {
   });
 
   const {t} = useTranslation();
-  const [selectedSymptome, setSelectedSymptome] = React.useState<Symptome>();
+  const [selectedSymptome, setSelectedSymptome] =
+    React.useState<Symptome | null>();
 
   const retrieveUserSymptomesStatus = React.useCallback(async () => {
     try {
@@ -105,9 +106,7 @@ const DisplaySymptomes = (props: Props) => {
   }, [retrieveUserSymptomesStatus]);
 
   const updateUserSymptomesStatus = React.useCallback(async () => {
-    if (!userSymptomesStatus) {
-      await AsyncStorage.setItem('userSymptomesStatus', JSON.stringify([]));
-    } else {
+    if (userSymptomesStatus) {
       try {
         await AsyncStorage.setItem(
           'userSymptomesStatus',

@@ -29,10 +29,31 @@
         "question3": {
           "label": "Je suis enceinte de :  ",
           "answer1": {
-            "label": "5 mois"
+            "label": "1 mois"
           },
           "answer2": {
-            "label": "15 mois"
+            "label": "2 mois"
+          },
+          "answer3": {
+            "label": "3 mois"
+          },
+          "answer4": {
+            "label": "4 mois"
+          },
+          "answer5": {
+            "label": "5 mois"
+          },
+          "answer6": {
+            "label": "6 mois"
+          },
+          "answer7": {
+            "label": "7 mois"
+          },
+          "answer8": {
+            "label": "8 mois"
+          },
+          "answer9": {
+            "label": "9 mois"
           }
         },
         "question4": {

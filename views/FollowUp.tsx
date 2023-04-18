@@ -27,6 +27,8 @@ interface Symptome {
 }
 
 const FollowUp = ({route}: {route: any}) => {
+  console.log(route);
+
   const [displayModal, setDisplayModal] = React.useState(
     route?.params?.displayModal || false,
   );
@@ -76,6 +78,8 @@ const FollowUp = ({route}: {route: any}) => {
     },
   });
 
+  console.log(route?.params?.displayModal);
+
   console.log('displayModal', displayModal);
 
   const {t} = useTranslation();
@@ -109,14 +113,12 @@ const FollowUp = ({route}: {route: any}) => {
       const value = await AsyncStorage.getItem('userInfos');
       if (value !== null) {
         let userInfos = JSON.parse(value);
-        setCurrentMonth(userInfos.pregnancyMonth);
+        setCurrentMonth(parseInt(userInfos.pregnancyMonth, 10));
       }
     } catch (e) {
       console.log(e);
     }
-  }, [t]);
-
-  console.log('currentMonth', currentMonth);
+  }, []);
 
   React.useEffect(() => {
     retrieveUserMonth();
@@ -185,7 +187,6 @@ const FollowUp = ({route}: {route: any}) => {
           />
         </View>
         <View style={styles.infoContainer}>
-          {/* <Text style={styles.text}>{t(currentContent?.title)}</Text> */}
           <Text style={styles.text}>{t(currentContent?.text)}</Text>
         </View>
         <DisplayMeetings meetings={currentContent?.list} />
