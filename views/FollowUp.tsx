@@ -18,17 +18,9 @@ import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
-
-interface Symptome {
-  label: string;
-  slug: string;
-  status: string;
-  code: string;
-}
+import {Meetings, Symptome} from '../components/followup/interface';
 
 const FollowUp = ({route}: {route: any}) => {
-  console.log(route);
-
   const [displayModal, setDisplayModal] = React.useState(
     route?.params?.displayModal || false,
   );
@@ -78,32 +70,24 @@ const FollowUp = ({route}: {route: any}) => {
     },
   });
 
-  console.log(route?.params?.displayModal);
-
-  console.log('displayModal', displayModal);
-
   const {t} = useTranslation();
 
   const [currentMonth, setCurrentMonth] = React.useState<number>();
   const [currentContent, setCurrentContent] = React.useState<{
     title: string;
     text: string;
-    list: {
-      label: string;
-      code: string;
-    }[];
-    symptoms: {
-      label: string;
-      slug: string;
-      status: string;
-      code: string;
-    }[];
+    list: Meetings[];
+    symptoms: Symptome[];
   }>({
     title: '',
     text: '',
     list: [],
     symptoms: [],
   });
+
+  const [mandatoryMeetings, setMandatoryMeeting] = React.useState<Meetings[]>(
+    [],
+  );
 
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
@@ -137,6 +121,26 @@ const FollowUp = ({route}: {route: any}) => {
       }
     }
   };
+
+  const retrieveManadatoryMeetings = useCallback(async () => {
+    const tmpMandatoryMeetings = contents.data.reduce(
+      (acc: any, current: any) => {
+        if (current.list) {
+          const tmpMandatories = current.list.filter(
+            (meeting: any) => meeting.mandatory === true,
+          );
+          return [...acc, ...tmpMandatories];
+        }
+        return acc;
+      },
+      [],
+    );
+    setMandatoryMeeting(tmpMandatoryMeetings);
+  }, []);
+
+  React.useEffect(() => {
+    retrieveManadatoryMeetings();
+  }, [retrieveManadatoryMeetings]);
 
   // React.useEffect(() => {
   //   (async () => {
@@ -189,7 +193,11 @@ const FollowUp = ({route}: {route: any}) => {
         <View style={styles.infoContainer}>
           <Text style={styles.text}>{t(currentContent?.text)}</Text>
         </View>
-        <DisplayMeetings meetings={currentContent?.list} />
+        <DisplayMeetings
+          currentMonth={currentMonth as number}
+          meetings={currentContent?.list}
+          mandatoryMeetings={mandatoryMeetings}
+        />
         <DisplaySymptomes
           isUrgency={false}
           displayTitle={true}

@@ -119,20 +119,21 @@
       "symptomsTitle": "Quels sont mes symptômes",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
       "urgencyButton": "Trouver un médecin",
+      "noMeeting": "Bravo, vous avez réalisez tout vos rendez-vous ce mois-ci. Vous pouvez retrouver l'historique dans l'onglet Ma Situation",
       "month1": {
         "title": "1er mois de grossesse",
         "text": "C’est le début de ta grossesse, ton corps commence doucement à se transformer",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "Une consultation médicale pour confirmer ma grossesse",
             "code": "M1R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Mon échographie de datation",
             "code": "M1R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Une prise de sang",
             "code": "M1R3"
           }
         },
@@ -195,16 +196,8 @@
         "text": "Tes seins grossissent et peuvent être douloureux. Tu peux aussi avoir envie de vomir.",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "Une prise de sang",
             "code": "M2R1"
-          },
-          "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
-            "code": "M2R2"
-          },
-          "3": {
-            "label": "Mon échographie",
-            "code": "M2R3"
           }
         },
         "symptoms": {
@@ -266,15 +259,15 @@
         "text": "Il bouge déjà dans ton ventre mais tu ne le sens pas encore. Son cœur a doublé.",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "Mon échographie (avant 14 semaines sans règles)",
             "code": "M3R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Le dépistage de la trisomie 21",
             "code": "M3R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Inscription à la maternité",
             "code": "M3R3"
           }
         },
@@ -343,14 +336,6 @@
           "2": {
             "label": "Une prise de sang de contrôle ",
             "code": "M4R2"
-          },
-          "3": {
-            "label": "Le dépistage de la trisomie 21",
-            "code": "M4R3"
-          },
-          "4": {
-            "label": "Inscription à la maternité",
-            "code": "M4R4"
           }
         },
         "symptoms": {
@@ -412,15 +397,15 @@
         "text": "Tu peux commencer à le sentir bouger dans ton ventre. Il réagit à certains bruits et peut même sucer son pouce !",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "La consultation médicale du 5eme mois",
             "code": "M5R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Une prise de sang de contrôle",
             "code": "M5R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Mon échographie (entre 20 et 25 semaines sans règles)",
             "code": "M5R3"
           }
         },
@@ -483,16 +468,12 @@
         "text": "Il entend la musique et dépasse les 1 Kg désormais. Il bouge beaucoup et peut avoir le hoquet.",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "La consultation médicale du 6eme mois",
             "code": "M6R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Une prise de sang de contrôle",
             "code": "M6R2"
-          },
-          "3": {
-            "label": "Mon échographie",
-            "code": "M6R3"
           }
         },
         "symptoms": {
@@ -554,15 +535,15 @@
         "text": "Il prend de plus en plus de poids, ton ventre devient plus lourd. ",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "La consultation médicale du 7eme mois",
             "code": "M7R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Une prise de sang de contrôle",
             "code": "M7R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Mon échographie (entre 30 et 35 semaines sans règles)",
             "code": "M7R3"
           }
         },
@@ -625,15 +606,15 @@
         "text": "Il prend sa position pour l'accouchement. Courage ! La fin de grossesse approche",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "La consultation médicale du 8eme mois",
             "code": "M8R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Une prise de sang de contrôle",
             "code": "M8R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Ma consultation avec l'anesthésiste",
             "code": "M8R3"
           }
         },
@@ -696,15 +677,15 @@
         "text": "Au bout de la 37ème semaine sans règles, le bébé est prêt à naître. Il est temps de préparer ton sac pour la maternité.",
         "list": {
           "1": {
-            "label": "Mon rendez-vous médical",
+            "label": "La consultation médicale du 9eme mois",
             "code": "M9R1"
           },
           "2": {
-            "label": "Mon rendez-vous avec la sage-femme",
+            "label": "Une prise de sang de contrôle",
             "code": "M9R2"
           },
           "3": {
-            "label": "Mon échographie",
+            "label": "Je prépare mon sac pour la maternité",
             "code": "M9R3"
           }
         },
@@ -784,7 +765,8 @@
         "title": "A faire ce mois-ci"
       },
       "symptoms": {
-        "title": "Mes symptômes"
+        "title": "Mes symptômes",
+        "noSymptoms": "Aucun symptôme n'a été enregistré pour le moment"
       },
       "profile": {
         "title": "Mon profil",

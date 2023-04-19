@@ -1,27 +1,32 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
+import {Meetings} from './interface';
+import _ from 'lodash';
 
 interface Props {
-  meetings: {
-    label: string;
-    code: string;
-  }[];
+  currentMonth: number;
+  meetings: Meetings[];
+  mandatoryMeetings: Meetings[];
 }
 
 const DisplayMeetings = (props: Props) => {
+  const {meetings, mandatoryMeetings, currentMonth} = props;
+
   const isFocused = useIsFocused();
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<
     {
       label: string;
       code: string;
+      mandatory?: boolean;
     }[]
   >();
-  const {meetings} = props;
+
+  const [fullMeetingList, setFullMeetingList] = React.useState<Meetings[]>([]);
 
   const {t} = useTranslation();
 
@@ -35,6 +40,28 @@ const DisplayMeetings = (props: Props) => {
       console.log(e);
     }
   }, []);
+
+  const displayFullMeetings = useCallback(() => {
+    let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
+    tmpMeetings = tmpMeetings.filter(meeting => {
+      return meeting.month <= currentMonth;
+    });
+    if (userMeetingStatus && userMeetingStatus.length > 0) {
+      tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
+        return !userMeetingStatus.find(item => {
+          return item.code === t(meeting.code) && meeting.month < currentMonth;
+        });
+      });
+      setFullMeetingList(tmpMeetings);
+    } else {
+      setFullMeetingList(tmpMeetings);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMonth, mandatoryMeetings, meetings, t]);
+
+  React.useEffect(() => {
+    displayFullMeetings();
+  }, [displayFullMeetings, isFocused]);
 
   React.useEffect(() => {
     retrieveUserMeetingStatus();
@@ -62,7 +89,10 @@ const DisplayMeetings = (props: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('followup.meetingTitle')}</Text>
-      {meetings.map(meeting => {
+      {fullMeetingList.length === 0 && (
+        <Text style={styles.text}>{t('followup.noMeeting')}</Text>
+      )}
+      {fullMeetingList.map(meeting => {
         return (
           <View style={styles.menuItem} key={meeting.code}>
             {userMeetingStatus && (
@@ -130,6 +160,11 @@ const styles = StyleSheet.create({
     color: Colors.black,
     lineHeight: 24,
     marginBottom: 10,
+  },
+  text: {
+    fontFamily: Fonts.primary,
+    fontSize: 16,
+    color: Colors.black,
   },
   chekboxStyle: {
     marginVertical: 10,
