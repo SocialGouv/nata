@@ -10,18 +10,8 @@ import _ from 'lodash';
 
 interface Props {
   currentMonth: number;
-  meetings: {
-    label: string;
-    code: string;
-    mandatory: boolean;
-    month: number;
-  }[];
-  mandatoryMeetings: {
-    label: string;
-    code: string;
-    mandatory: boolean;
-    month: number;
-  }[];
+  meetings: Meetings[];
+  mandatoryMeetings: Meetings[];
 }
 
 const DisplayMeetings = (props: Props) => {
@@ -36,13 +26,7 @@ const DisplayMeetings = (props: Props) => {
     }[]
   >();
 
-  const [fullMeetingList, setFullMeetingList] = React.useState<
-    {
-      label: string;
-      code: string;
-      mandatory?: boolean;
-    }[]
-  >([]);
+  const [fullMeetingList, setFullMeetingList] = React.useState<Meetings[]>([]);
 
   const {t} = useTranslation();
 
