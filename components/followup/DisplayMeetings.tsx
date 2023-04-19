@@ -58,27 +58,22 @@ const DisplayMeetings = (props: Props) => {
   }, []);
 
   const displayFullMeetings = useCallback(() => {
-    let tmpMeetings: Meetings[] = [];
-    tmpMeetings = [...mandatoryMeetings, ...meetings];
-    tmpMeetings = _.uniqBy(tmpMeetings, 'code');
+    let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
     tmpMeetings = tmpMeetings.filter(meeting => {
-      return meeting.month <= currentMonth && meeting.mandatory === true;
+      return meeting.month <= currentMonth;
     });
     if (userMeetingStatus && userMeetingStatus.length > 0) {
       tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
         return !userMeetingStatus.find(item => {
-          return (
-            item.code === t(meeting.code) &&
-            meeting.month < currentMonth &&
-            meeting.mandatory === true
-          );
+          return item.code === t(meeting.code) && meeting.month < currentMonth;
         });
       });
       setFullMeetingList(tmpMeetings);
     } else {
       setFullMeetingList(tmpMeetings);
     }
-  }, [currentMonth, mandatoryMeetings, meetings, userMeetingStatus, t]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMonth, mandatoryMeetings, meetings, t]);
 
   React.useEffect(() => {
     displayFullMeetings();
@@ -110,6 +105,9 @@ const DisplayMeetings = (props: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('followup.meetingTitle')}</Text>
+      {fullMeetingList.length === 0 && (
+        <Text style={styles.text}>{t('followup.noMeeting')}</Text>
+      )}
       {fullMeetingList.map(meeting => {
         return (
           <View style={styles.menuItem} key={meeting.code}>
@@ -178,6 +176,11 @@ const styles = StyleSheet.create({
     color: Colors.black,
     lineHeight: 24,
     marginBottom: 10,
+  },
+  text: {
+    fontFamily: Fonts.primary,
+    fontSize: 16,
+    color: Colors.black,
   },
   chekboxStyle: {
     marginVertical: 10,
