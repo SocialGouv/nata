@@ -20,6 +20,9 @@ const SituationSymptoms = (props: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('situation.symptoms.title')}</Text>
+      {symptomes.length === 0 && (
+        <Text style={styles.text}>{t('situation.symptoms.noSymptoms')}</Text>
+      )}
       <DisplaySymptomes symptomes={symptomes} displayTitle={false} />
     </View>
   );
@@ -35,6 +38,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     fontSize: 18,
     fontWeight: '700',
+    fontFamily: Fonts.primary,
+  },
+  text: {
+    marginHorizontal: 20,
     fontFamily: Fonts.primary,
   },
 });
