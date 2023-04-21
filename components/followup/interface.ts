@@ -10,4 +10,5 @@ export interface Meetings {
   code: string;
   mandatory: boolean;
   month: number;
+  max_month?: number;
 }
