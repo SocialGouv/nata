@@ -78,31 +78,31 @@
         "question6": {
           "label": "Concernant ma couverture santé",
           "answer1": {
-            "label": "j'ai l'AME"
+            "label": "J'ai l'AME"
           },
           "answer2": {
-            "label": "j'ai la carte vitale (CMU / CSS)"
+            "label": "J'ai la carte vitale (CMU / CSS)"
           },
           "answer3": {
-            "label": "je n'ai pas de couverture médicale"
+            "label": "Je n'ai pas de couverture médicale"
           }
         },
         "question7": {
           "label": "Est-ce que je suis hébergée ?",
           "answer1": {
-            "label": "je suis en centre d'hébergement d'urgence (CHU)"
+            "label": "Je suis en centre d'hébergement d'urgence (CHU)"
           },
           "answer2": {
-            "label": "je suis en hotêl social"
+            "label": "Je suis en hotêl social"
           },
           "answer3": {
-            "label": "je suis chez une connaissance"
+            "label": "Je suis chez une connaissance"
           },
           "answer4": {
-            "label": "j'habite mon propre logement"
+            "label": "J'habite mon propre logement"
           },
           "answer5": {
-            "label": "je suis à la rue"
+            "label": "Je suis à la rue"
           }
         }
       },

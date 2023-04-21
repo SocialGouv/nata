@@ -9,6 +9,7 @@ import Onboarding from './views/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageSelection from './views/LanguageSelection';
 import UrgencyPage from './views/UrgencyPage';
+import ShareSituation from './views/ShareSituation';
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -58,6 +59,7 @@ function App(): JSX.Element {
           }}>
           <Stack.Screen name="FollowUp" component={Navbar} />
           <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
+          <Stack.Screen name="ShareSituation" component={ShareSituation} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

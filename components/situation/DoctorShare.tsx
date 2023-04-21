@@ -1,11 +1,13 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
+import {useNavigation} from '@react-navigation/native';
 
 const DoctorShare = () => {
   const {t} = useTranslation();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.topContainer}>
@@ -15,9 +17,18 @@ const DoctorShare = () => {
           {t('situation.shareInformations.title')}
         </Text>
       </View>
-      <View style={styles.button}>
+      <Pressable
+        style={({pressed}) => [
+          styles.button,
+          {
+            opacity: pressed ? 0.5 : 1,
+          },
+        ]}
+        onPress={() => {
+          navigation.navigate('ShareSituation');
+        }}>
         <FontAwesome5Icon name="chevron-right" size={20} color={Colors.white} />
-      </View>
+      </Pressable>
     </View>
   );
 };
