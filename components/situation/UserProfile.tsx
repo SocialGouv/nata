@@ -33,8 +33,6 @@ const UserProfile = () => {
     }
   };
 
-  console.log(userInfos);
-
   const displayUserAnswersFromQuestionCodes = (code: string) => {
     if (userInfos) {
       let pattern = /^Q/;

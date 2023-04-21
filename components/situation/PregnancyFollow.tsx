@@ -12,9 +12,41 @@ interface FollowUp {
   nbOfOccurence?: number;
 }
 
-const PregnancyFollow = () => {
+interface Props {
+  bg?: string;
+}
+
+const PregnancyFollow = (props: Props) => {
+  const {bg} = props;
   const {t} = useTranslation();
   const isFocused = useIsFocused();
+
+  const styles = StyleSheet.create({
+    container: {
+      marginHorizontal: bg ? 0 : 20,
+      marginVertical: bg ? 0 : 40,
+      paddingHorizontal: bg ? 20 : 0,
+      paddingVertical: bg ? 20 : 0,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: '700',
+      fontFamily: Fonts.primary,
+    },
+    listContainer: {
+      marginVertical: 20,
+    },
+    line: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 10,
+    },
+    text: {
+      fontSize: 16,
+      fontFamily: Fonts.primary,
+      fontWeight: '600',
+    },
+  });
 
   const [followUp, setFollowUp] = React.useState<FollowUp[]>([]);
 
@@ -58,7 +90,7 @@ const PregnancyFollow = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: bg}]}>
       <Text style={styles.title}>{t('situation.pregnancyFollow.title')}</Text>
       <View style={styles.listContainer}>
         {followUp.length === 0 && (
@@ -73,28 +105,3 @@ const PregnancyFollow = () => {
 };
 
 export default PregnancyFollow;
-
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-    marginVertical: 40,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    fontFamily: Fonts.primary,
-  },
-  listContainer: {
-    marginVertical: 20,
-  },
-  line: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  text: {
-    fontSize: 16,
-    fontFamily: Fonts.primary,
-    fontWeight: '600',
-  },
-});
