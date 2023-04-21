@@ -23,6 +23,7 @@ const DisplayMeetings = (props: Props) => {
       label: string;
       code: string;
       mandatory?: boolean;
+      max_month?: number;
     }[]
   >();
 
@@ -44,12 +45,20 @@ const DisplayMeetings = (props: Props) => {
   const displayFullMeetings = useCallback(() => {
     let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
     tmpMeetings = tmpMeetings.filter(meeting => {
-      return meeting.month <= currentMonth;
+      if (meeting.max_month) {
+        return (
+          meeting.month <= currentMonth && meeting.max_month >= currentMonth
+        );
+      }
     });
     if (userMeetingStatus && userMeetingStatus.length > 0) {
       tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
         return !userMeetingStatus.find(item => {
-          return item.code === t(meeting.code) && meeting.month < currentMonth;
+          return (
+            item.code === t(meeting.code) &&
+            meeting.month < currentMonth &&
+            item.max_month === meeting.max_month
+          );
         });
       });
       setFullMeetingList(tmpMeetings);
@@ -117,6 +126,7 @@ const DisplayMeetings = (props: Props) => {
                         {
                           label: meeting.label as string,
                           code: t(meeting.code),
+                          max_month: meeting.max_month,
                         },
                       ]);
                     } else {

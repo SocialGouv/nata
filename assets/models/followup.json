@@ -8,19 +8,22 @@
           "label": "followup.month1.list.1.label",
           "code": "followup.month1.list.1.code",
           "mandatory": true,
-          "month": 1
+          "month": 1,
+          "max_month": 1
         },
         {
           "label": "followup.month1.list.2.label",
           "code": "followup.month1.list.2.code",
           "mandatory": true,
-          "month": 1
+          "month": 1,
+          "max_month": 2
         },
         {
           "label": "followup.month1.list.3.label",
           "code": "followup.month1.list.3.code",
           "mandatory": false,
-          "month": 1
+          "month": 1,
+          "max_month": 1
         }
       ],
       "symptoms": [
@@ -136,7 +139,8 @@
           "label": "followup.month2.list.1.label",
           "code": "followup.month2.list.1.code",
           "mandatory": true,
-          "month": 2
+          "month": 2,
+          "max_month": 2
         }
       ],
       "symptoms": [
@@ -252,19 +256,22 @@
           "label": "followup.month3.list.1.label",
           "code": "followup.month3.list.1.code",
           "mandatory": true,
-          "month": 3
+          "month": 3,
+          "max_month": 4
         },
         {
           "label": "followup.month3.list.2.label",
           "code": "followup.month3.list.2.code",
           "mandatory": true,
-          "month": 3
+          "month": 3,
+          "max_month": 9
         },
         {
           "label": "followup.month3.list.3.label",
           "code": "followup.month3.list.3.code",
           "mandatory": true,
-          "month": 3
+          "month": 3,
+          "max_month": 9
         }
       ],
       "symptoms": [
@@ -380,13 +387,15 @@
           "label": "followup.month4.list.1.label",
           "code": "followup.month4.list.1.code",
           "mandatory": false,
-          "month": 4
+          "month": 4,
+          "max_month": 4
         },
         {
           "label": "followup.month4.list.2.label",
           "code": "followup.month4.list.2.code",
           "mandatory": false,
-          "month": 4
+          "month": 4,
+          "max_month": 4
         }
       ],
       "symptoms": [
@@ -502,19 +511,22 @@
           "label": "followup.month5.list.1.label",
           "code": "followup.month5.list.1.code",
           "mandatory": false,
-          "month": 5
+          "month": 5,
+          "max_month": 5
         },
         {
           "label": "followup.month5.list.2.label",
           "code": "followup.month5.list.2.code",
           "mandatory": false,
-          "month": 5
+          "month": 5,
+          "max_month": 5
         },
         {
           "label": "followup.month5.list.3.label",
           "code": "followup.month5.list.3.code",
           "mandatory": true,
-          "month": 5
+          "month": 5,
+          "max_month": 6
         }
       ],
       "symptoms": [
@@ -630,13 +642,15 @@
           "label": "followup.month6.list.1.label",
           "code": "followup.month6.list.1.code",
           "mandatory": false,
-          "month": 6
+          "month": 6,
+          "max_month": 6
         },
         {
           "label": "followup.month6.list.2.label",
           "code": "followup.month6.list.2.code",
           "mandatory": false,
-          "month": 6
+          "month": 6,
+          "max_month": 6
         }
       ],
       "symptoms": [
@@ -752,19 +766,22 @@
           "label": "followup.month7.list.1.label",
           "code": "followup.month7.list.1.code",
           "mandatory": false,
-          "month": 7
+          "month": 7,
+          "max_month": 7
         },
         {
           "label": "followup.month7.list.2.label",
           "code": "followup.month7.list.2.code",
           "mandatory": false,
-          "month": 7
+          "month": 7,
+          "max_month": 7
         },
         {
           "label": "followup.month7.list.3.label",
           "code": "followup.month7.list.3.code",
           "mandatory": true,
-          "month": 7
+          "month": 7,
+          "max_month": 8
         }
       ],
       "symptoms": [
@@ -880,19 +897,22 @@
           "label": "followup.month8.list.1.label",
           "code": "followup.month8.list.1.code",
           "mandatory": false,
-          "month": 8
+          "month": 8,
+          "max_month": 8
         },
         {
           "label": "followup.month8.list.2.label",
           "code": "followup.month8.list.2.code",
           "mandatory": false,
-          "month": 8
+          "month": 8,
+          "max_month": 8
         },
         {
           "label": "followup.month8.list.3.label",
           "code": "followup.month8.list.3.code",
           "mandatory": true,
-          "month": 8
+          "month": 8,
+          "max_month": 9
         }
       ],
       "symptoms": [
@@ -1008,19 +1028,22 @@
           "label": "followup.month9.list.1.label",
           "code": "followup.month9.list.1.code",
           "mandatory": false,
-          "month": 9
+          "month": 9,
+          "max_month": 9
         },
         {
           "label": "followup.month9.list.2.label",
           "code": "followup.month9.list.2.code",
           "mandatory": false,
-          "month": 9
+          "month": 9,
+          "max_month": 9
         },
         {
           "label": "followup.month9.list.3.label",
           "code": "followup.month9.list.3.code",
           "mandatory": true,
-          "month": 9
+          "month": 9,
+          "max_month": 9
         }
       ],
       "symptoms": [
