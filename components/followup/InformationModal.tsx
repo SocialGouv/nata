@@ -1,15 +1,11 @@
 import {Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {useTranslation} from 'react-i18next';
+import AppContext from '../../AppContext';
 
-interface Props {
-  displayModal: boolean;
-  setDisplayModal: (value: boolean) => void;
-}
-
-const InformationModal = (props: Props) => {
-  const {displayModal, setDisplayModal} = props;
+const InformationModal = () => {
+  const {displayInitialModal, setDisplayInitialModal} = useContext(AppContext);
 
   const {t} = useTranslation();
 
@@ -18,8 +14,8 @@ const InformationModal = (props: Props) => {
       <Modal
         transparent={true}
         animationType="slide"
-        visible={displayModal}
-        onRequestClose={() => setDisplayModal(false)}>
+        visible={displayInitialModal}
+        onRequestClose={() => setDisplayInitialModal(false)}>
         <View style={styles.innerContainer}>
           <View style={styles.blocContainer}>
             <View style={styles.topContainer}>
@@ -32,7 +28,7 @@ const InformationModal = (props: Props) => {
               <Text style={styles.text}>{t('information_modal.content')}</Text>
               <Pressable
                 style={styles.button}
-                onPress={() => setDisplayModal(false)}>
+                onPress={() => setDisplayInitialModal(false)}>
                 <Text
                   style={{...styles.text, color: 'white', fontWeight: '700'}}>
                   {t('onboarding.continue')}

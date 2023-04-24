@@ -6,7 +6,6 @@ import {FlatGrid} from 'react-native-super-grid';
 import Images from '../../assets/models/followupImages';
 import {Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import UrgencyModule from './UrgencyModule';
 
 interface Props {
@@ -80,7 +79,7 @@ const DisplaySymptomes = (props: Props) => {
       top: 5,
       right: 5,
       borderRadius: 200,
-      backgroundColor: isUrgency ? Colors.urgence : Colors.primary,
+      // backgroundColor: isUrgency ? Colors.urgence : '#A56300',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -153,21 +152,16 @@ const DisplaySymptomes = (props: Props) => {
         style={[
           styles.itemContainer,
           {
+            borderWidth: 2,
             borderColor:
               userSymptomesStatus &&
               userSymptomesStatus.find(symptome => symptome.code === item.code)
                 ? isUrgency
                   ? Colors.urgence
-                  : Colors.primary
+                  : '#A56300'
                 : Colors.border,
           },
         ]}>
-        {userSymptomesStatus &&
-          userSymptomesStatus.find(symptome => symptome.code === item.code) && (
-            <View style={styles.checkIcon}>
-              <FontAwesome5Icon name="check" size={12} color={Colors.white} />
-            </View>
-          )}
         <Image
           source={Images[item.slug as keyof typeof Images]}
           style={styles.image}

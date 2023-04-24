@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import questions from '../assets/models/questions.json';
 import Container from '../components/ui/Container';
@@ -14,6 +14,7 @@ import Carousel from 'react-native-snap-carousel';
 import SliderItem from '../components/onboarding/SliderItem';
 import Images from '../assets/models/onboardingImages';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppContext from '../AppContext';
 
 interface PressFunction {
   answer: {
@@ -43,6 +44,8 @@ const Onboarding = () => {
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(5);
   const [userInfos, setUserInfos] = React.useState({});
 
+  const {setIsOnboardingDone, setDisplayInitialModal} = useContext(AppContext);
+
   const {t} = useTranslation();
 
   const handlePress = async ({answer, question}: PressFunction) => {
@@ -71,9 +74,9 @@ const Onboarding = () => {
         await AsyncStorage.setItem('userInfos', JSON.stringify(userInfos))
           .then(() => {
             AsyncStorage.setItem('isOnboardingDone', 'true').then(() => {
-              navigation.navigate('FollowUp', {
-                displayModal: true,
-              });
+              setIsOnboardingDone(true);
+              setDisplayInitialModal(true);
+              navigation.navigate('FollowUp');
             });
           })
           .catch(error => console.log(error));
@@ -81,20 +84,20 @@ const Onboarding = () => {
     }
   };
 
-  const getData = async () => {
-    try {
-      const values = await AsyncStorage.getAllKeys();
-      console.log('values', values);
-      const keys = await AsyncStorage.multiGet(values);
-      console.log('keys', keys);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const values = await AsyncStorage.getAllKeys();
+  //     console.log('values', values);
+  //     const keys = await AsyncStorage.multiGet(values);
+  //     console.log('keys', keys);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, [currentStep]);
+  // useEffect(() => {
+  //   getData();
+  // }, [currentStep]);
 
   return (
     <Container>
@@ -138,7 +141,9 @@ const Onboarding = () => {
                       layout={'default'}
                       layoutCardOffset={50}
                       firstItem={4}
-                      renderItem={({item}) => <SliderItem item={item} />}
+                      renderItem={({item, index}) => (
+                        <SliderItem item={item} index={index + 1} />
+                      )}
                       sliderWidth={width - 40}
                       itemWidth={width * 0.5}
                       onSnapToItem={carouselIndex =>
@@ -168,7 +173,7 @@ const Onboarding = () => {
                       return (
                         <AnswerButton
                           style={{marginBottom: 20}}
-                          key={'ans' + verticalIndex}
+                          key={'ansVert' + verticalIndex}
                           answer={answer.label}
                           onClick={() => handlePress({answer, question})}
                         />
@@ -195,7 +200,7 @@ const Onboarding = () => {
             if (question.answerDanger?.label && index + 1 === currentStep) {
               return (
                 <AnswerButton
-                  key={'ans' + index}
+                  key={index}
                   answer={question.answerDanger.label}
                   onClick={() =>
                     handlePress({answer: question.answerDanger, question})

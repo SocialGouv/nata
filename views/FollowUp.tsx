@@ -19,10 +19,11 @@ import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
 import {Meetings, Symptome} from '../components/followup/interface';
+import Images from '../assets/models/feotus';
 
 const FollowUp = ({route}: {route: any}) => {
   const [displayModal, setDisplayModal] = React.useState(
-    route?.params?.displayModal || false,
+    route.params?.displayModal || false,
   );
   const {width, height} = useWindowDimensions();
   const styles = StyleSheet.create({
@@ -150,10 +151,7 @@ const FollowUp = ({route}: {route: any}) => {
 
   return (
     <Container urgency={false}>
-      <InformationModal
-        displayModal={displayModal}
-        setDisplayModal={setDisplayModal}
-      />
+      <InformationModal />
       <ScrollView>
         <View>
           <ImageBackground
@@ -185,10 +183,12 @@ const FollowUp = ({route}: {route: any}) => {
           </ImageBackground>
         </View>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../assets/images/baby.png')}
-          />
+          {currentMonth && (
+            <Image
+              style={styles.image}
+              source={Images[currentMonth as keyof typeof Images]}
+            />
+          )}
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.text}>{t(currentContent?.text)}</Text>

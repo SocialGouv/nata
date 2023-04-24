@@ -10,59 +10,81 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LanguageSelection from './views/LanguageSelection';
 import UrgencyPage from './views/UrgencyPage';
 import ShareSituation from './views/ShareSituation';
+import AppContext from './AppContext';
+
+type ContextType = {
+  isOnboardingDone: boolean;
+  setIsOnboardingDone: React.Dispatch<React.SetStateAction<boolean>>;
+  displayInitialModal: boolean;
+  setDisplayInitialModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
-  const [isOnboardingDone, setIsOnboardingDone] = React.useState<
-    boolean | null
-  >(null);
+  const [isOnboardingDone, setIsOnboardingDone] =
+    React.useState<boolean>(false);
+  const [displayInitialModal, setDisplayInitialModal] =
+    React.useState<boolean>(false);
+
+  const contextValue: ContextType = {
+    isOnboardingDone,
+    setIsOnboardingDone,
+    displayInitialModal,
+    setDisplayInitialModal,
+  };
 
   const handleOnboardingDone = async () => {
-    const value = await AsyncStorage.getItem('isOnboardingDone');
-    if (value !== null && value === 'true') {
-      setIsOnboardingDone(true);
-    } else if (value !== null && value === 'false') {
-      setIsOnboardingDone(false);
+    try {
+      const value = await AsyncStorage.getItem('isOnboardingDone');
+      if (value !== null && value === 'true') {
+        setIsOnboardingDone(true);
+      } else if (value !== null && value === 'false') {
+        setIsOnboardingDone(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  console.log('isOnboardingDone', isOnboardingDone);
+
   useEffect(() => {
     handleOnboardingDone();
-  }, []);
+  }, [isOnboardingDone]);
 
   return (
-    <NavigationContainer>
-      {!isOnboardingDone ? (
-        //stack d'onboarding
+    <AppContext.Provider value={contextValue}>
+      <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="LanguageSelection"
+          initialRouteName={isOnboardingDone ? 'FollowUp' : 'LanguageSelection'}
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen
-            name="LanguageSelection"
-            component={LanguageSelection}
-          />
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="FollowUp" component={Navbar} />
-          <Stack.Screen
-            name="OnboardingEndPath"
-            component={OnboardingEndPath}
-          />
+          {isOnboardingDone === false ? (
+            //stack d'onboarding
+            <>
+              <Stack.Screen
+                name="LanguageSelection"
+                component={LanguageSelection}
+              />
+              <Stack.Screen name="Onboarding" component={Onboarding} />
+              <Stack.Screen name="FollowUp" component={Navbar} />
+              <Stack.Screen
+                name="OnboardingEndPath"
+                component={OnboardingEndPath}
+              />
+            </>
+          ) : (
+            //stack main app
+            <>
+              <Stack.Screen name="FollowUp" component={Navbar} />
+              <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
+              <Stack.Screen name="ShareSituation" component={ShareSituation} />
+            </>
+          )}
         </Stack.Navigator>
-      ) : (
-        //stack main app
-        <Stack.Navigator
-          initialRouteName="FollowUp"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name="FollowUp" component={Navbar} />
-          <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
-          <Stack.Screen name="ShareSituation" component={ShareSituation} />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+      </NavigationContainer>
+    </AppContext.Provider>
   );
 }
 

@@ -1,7 +1,10 @@
 import React from 'react';
 
 const AppContext = React.createContext({
-  isOnboarded: false,
+  isOnboardingDone: false,
+  setIsOnboardingDone: (isOnboardingDone: boolean) => {},
+  displayInitialModal: false,
+  setDisplayInitialModal: (displayInitialModal: boolean) => {},
 });
 
 export default AppContext;
