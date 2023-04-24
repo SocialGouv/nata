@@ -99,20 +99,17 @@ const ShareSituation = () => {
           <TextBase style={styles.text}>
             Je suis une femme {userInfos?.is18 ? 'majeure' : 'mineure'} enceinte
             de{' '}
-            <TextBase
-              style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
+            <TextBase style={styles.boldText}>
               {userInfos?.pregnancyMonth} mois
             </TextBase>
           </TextBase>
           <TextBase style={styles.text}>
             Je parle {displayUserAnswersFromQuestionCodes(userInfos.language)}.
-            <TextBase
-              style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
+            <TextBase style={styles.boldText}>
               {displayUserAnswersFromQuestionCodes(userInfos.medical_care)}
             </TextBase>{' '}
             et{' '}
-            <TextBase
-              style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
+            <TextBase style={styles.boldText}>
               {displayUserAnswersFromQuestionCodes(userInfos.housing)}
             </TextBase>
           </TextBase>
@@ -165,5 +162,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.black,
     marginBottom: 10,
+  },
+  boldText: {
+    fontWeight: '500',
+    color: Colors.primary,
   },
 });
