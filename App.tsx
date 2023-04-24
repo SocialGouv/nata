@@ -46,8 +46,6 @@ function App(): JSX.Element {
     }
   };
 
-  console.log('isOnboardingDone', isOnboardingDone);
-
   useEffect(() => {
     handleOnboardingDone();
   }, [isOnboardingDone]);
