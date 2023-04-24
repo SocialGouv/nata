@@ -20,9 +20,11 @@ import InformationModal from '../components/followup/InformationModal';
 import {Meetings, Symptome} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
+import {useIsFocused} from '@react-navigation/native';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
+  const isFocused = useIsFocused();
   const styles = StyleSheet.create({
     imageContainer: {
       width: '100%',
@@ -134,7 +136,8 @@ const FollowUp = () => {
       [],
     );
     setMandatoryMeeting(tmpMandatoryMeetings);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   React.useEffect(() => {
     retrieveManadatoryMeetings();
