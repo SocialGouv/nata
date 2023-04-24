@@ -1,9 +1,8 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import questions from '../assets/models/questions.json';
 import Container from '../components/ui/Container';
 import {Image, Pressable, View} from 'react-native';
-import {Text} from 'react-native';
 import AnswerButton from '../components/onboarding/AnswerButton';
 import {StyleSheet} from 'react-native';
 import {Colors, Fonts} from '../styles/Style';
@@ -15,6 +14,7 @@ import SliderItem from '../components/onboarding/SliderItem';
 import Images from '../assets/models/onboardingImages';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../AppContext';
+import TextBase from '../components/ui/TextBase';
 
 interface PressFunction {
   answer: {
@@ -84,21 +84,6 @@ const Onboarding = () => {
     }
   };
 
-  // const getData = async () => {
-  //   try {
-  //     const values = await AsyncStorage.getAllKeys();
-  //     console.log('values', values);
-  //     const keys = await AsyncStorage.multiGet(values);
-  //     console.log('keys', keys);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, [currentStep]);
-
   return (
     <Container>
       <View style={styles.topContainer}>
@@ -118,11 +103,11 @@ const Onboarding = () => {
                   source={Images[question.image as keyof typeof Images]}
                   style={styles.image}
                 />
-                <Text
+                <TextBase
                   style={{...styles.question, width: width * 0.7}}
-                  numberOfLines={4}>
+                  nbLines={4}>
                   {t(question.label)}
-                </Text>
+                </TextBase>
               </View>
             );
           }
@@ -160,9 +145,9 @@ const Onboarding = () => {
                           ...styles.confirmButton,
                         },
                       ]}>
-                      <Text style={styles.confirmButtonText}>
+                      <TextBase style={styles.confirmButtonText}>
                         {t('onboarding.continue')}
-                      </Text>
+                      </TextBase>
                     </Pressable>
                   </View>
                 );

@@ -96,7 +96,7 @@ android {
 
     namespace "com.nata"
     defaultConfig {
-        applicationId "com.nata"
+        applicationId "com.nata01"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

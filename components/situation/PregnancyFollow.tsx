@@ -5,6 +5,7 @@ import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import TextBase from '../ui/TextBase';
 
 interface FollowUp {
   label: string;
@@ -83,7 +84,7 @@ const PregnancyFollow = (props: Props) => {
             fillColor={Colors.primary}
             size={25}
           />
-          <Text style={styles.text}>{text}</Text>
+          <TextBase style={styles.text}>{text}</TextBase>
         </View>
       );
     });
@@ -91,12 +92,14 @@ const PregnancyFollow = (props: Props) => {
 
   return (
     <View style={[styles.container, {backgroundColor: bg}]}>
-      <Text style={styles.title}>{t('situation.pregnancyFollow.title')}</Text>
+      <TextBase style={styles.title}>
+        {t('situation.pregnancyFollow.title')}
+      </TextBase>
       <View style={styles.listContainer}>
         {followUp.length === 0 && (
-          <Text style={styles.text}>
+          <TextBase style={styles.text}>
             {t('situation.pregnancyFollow.noFollowUp')}
-          </Text>
+          </TextBase>
         )}
         {displayFollowUpLines()}
       </View>

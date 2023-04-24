@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import Container from '../components/ui/Container';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -10,6 +10,7 @@ import PregnancyFollow from '../components/situation/PregnancyFollow';
 import SituationSymptoms from '../components/situation/SituationSymptoms';
 import {Symptome} from '../components/followup/interface';
 import data from '../assets/models/questions.json';
+import TextBase from '../components/ui/TextBase';
 
 const ShareSituation = () => {
   const navigation = useNavigation();
@@ -95,26 +96,26 @@ const ShareSituation = () => {
     if (userInfos) {
       return (
         <View style={styles.textContainer}>
-          <Text style={styles.text}>
+          <TextBase style={styles.text}>
             Je suis une femme {userInfos?.is18 ? 'majeure' : 'mineure'} enceinte
             de{' '}
-            <Text
+            <TextBase
               style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
               {userInfos?.pregnancyMonth} mois
-            </Text>
-          </Text>
-          <Text style={styles.text}>
+            </TextBase>
+          </TextBase>
+          <TextBase style={styles.text}>
             Je parle {displayUserAnswersFromQuestionCodes(userInfos.language)}.
-            <Text
+            <TextBase
               style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
               {displayUserAnswersFromQuestionCodes(userInfos.medical_care)}
-            </Text>{' '}
+            </TextBase>{' '}
             et{' '}
-            <Text
+            <TextBase
               style={[styles.text, {color: Colors.primary, fontWeight: '500'}]}>
               {displayUserAnswersFromQuestionCodes(userInfos.housing)}
-            </Text>
-          </Text>
+            </TextBase>
+          </TextBase>
         </View>
       );
     }
@@ -130,7 +131,7 @@ const ShareSituation = () => {
             style={{marginRight: 10}}
             color={Colors.primary}
           />
-          <Text style={styles.backText}>Retour</Text>
+          <TextBase style={styles.backText}>Retour</TextBase>
         </Pressable>
       </View>
       <View>{buildUserInfosString()}</View>

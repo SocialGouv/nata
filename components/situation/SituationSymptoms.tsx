@@ -1,8 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Fonts} from '../../styles/Style';
 import DisplaySymptomes from '../followup/DisplaySymptomes';
+import TextBase from '../ui/TextBase';
 
 interface Props {
   symptomes: {
@@ -19,9 +20,11 @@ const SituationSymptoms = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('situation.symptoms.title')}</Text>
+      <TextBase style={styles.title}>{t('situation.symptoms.title')}</TextBase>
       {symptomes.length === 0 && (
-        <Text style={styles.text}>{t('situation.symptoms.noSymptoms')}</Text>
+        <TextBase style={styles.text}>
+          {t('situation.symptoms.noSymptoms')}
+        </TextBase>
       )}
       <DisplaySymptomes symptomes={symptomes} displayTitle={false} />
     </View>

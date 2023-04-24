@@ -1,10 +1,11 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import data from '../../assets/models/questions.json';
+import TextBase from '../ui/TextBase';
 
 const UserProfile = () => {
   const {t} = useTranslation();
@@ -79,12 +80,12 @@ const UserProfile = () => {
         return (
           <View key={index} style={styles.line}>
             <View>
-              <Text style={styles.boldText}>
+              <TextBase style={styles.boldText}>
                 {t(`situation.profile.${info}`)}
-              </Text>
-              <Text>
+              </TextBase>
+              <TextBase>
                 {displayUserAnswersFromQuestionCodes(userInfos[info])}
-              </Text>
+              </TextBase>
             </View>
             <Pressable>
               <FontAwesome5Icon name="pen" size={10} color={Colors.primary} />
@@ -101,7 +102,7 @@ const UserProfile = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('situation.profile.title')}</Text>
+      <TextBase style={styles.title}>{t('situation.profile.title')}</TextBase>
       {userInfos && displayInfos()}
     </View>
   );

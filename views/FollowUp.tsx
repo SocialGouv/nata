@@ -4,7 +4,6 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -20,11 +19,9 @@ import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
 import {Meetings, Symptome} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
+import TextBase from '../components/ui/TextBase';
 
-const FollowUp = ({route}: {route: any}) => {
-  const [displayModal, setDisplayModal] = React.useState(
-    route.params?.displayModal || false,
-  );
+const FollowUp = () => {
   const {width, height} = useWindowDimensions();
   const styles = StyleSheet.create({
     imageContainer: {
@@ -167,9 +164,9 @@ const FollowUp = ({route}: {route: any}) => {
                 <FontAwesome5Icon name="chevron-left" size={25} />
               </Pressable>
               {currentMonth && (
-                <Text>
+                <TextBase>
                   {t(currentMonth?.toString()) + ' ' + t('followup.month')}
-                </Text>
+                </TextBase>
               )}
               <Pressable
                 style={({pressed}) => [
@@ -191,7 +188,7 @@ const FollowUp = ({route}: {route: any}) => {
           )}
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.text}>{t(currentContent?.text)}</Text>
+          <TextBase style={styles.text}>{t(currentContent?.text)}</TextBase>
         </View>
         <DisplayMeetings
           currentMonth={currentMonth as number}

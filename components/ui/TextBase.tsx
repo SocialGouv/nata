@@ -5,11 +5,17 @@ import {Fonts} from '../../styles/Style';
 const TextBase = ({
   children,
   style,
+  nbLines,
 }: {
-  children: string | string[];
+  children: string | string[] | any;
   style?: {};
+  nbLines?: number;
 }) => {
-  return <Text style={{...styles.text, ...style}}>{children}</Text>;
+  return (
+    <Text style={{...styles.text, ...style}} numberOfLines={nbLines}>
+      {children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -1,5 +1,9 @@
 {
   "translation": {
+    "navbar": {
+      "Followup": "Followup",
+      "Situation": "My Situation"
+    },
     "onboarding": {
       "questions": {
         "question1": {

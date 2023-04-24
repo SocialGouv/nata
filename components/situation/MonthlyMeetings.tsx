@@ -1,13 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
+import TextBase from '../ui/TextBase';
 
 const MonthlyMeetings = () => {
   const {t} = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('situation.monthlyMeetings.title')}</Text>
+      <TextBase style={styles.title}>
+        {t('situation.monthlyMeetings.title')}
+      </TextBase>
     </View>
   );
 };

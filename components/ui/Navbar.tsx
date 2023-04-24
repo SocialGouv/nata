@@ -6,9 +6,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import {Fonts} from '../../styles/Style';
 import FollowUp from '../../views/FollowUp';
 import {Platform} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-const Navbar = ({navigation}) => {
+const Navbar = () => {
   const Tab = createBottomTabNavigator();
+
+  const {t} = useTranslation();
 
   return (
     <Tab.Navigator
@@ -34,11 +37,11 @@ const Navbar = ({navigation}) => {
             <FontAwesome name="clipboard-list" color={color} size={size} />
           ),
         }}
-        name="Mon Suivi"
+        name={t('navbar.Followup')}
         component={FollowUp}
       />
       <Tab.Screen
-        name="Ma situation"
+        name={t('navbar.Situation')}
         options={{
           // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({size, color}) => (

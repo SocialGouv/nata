@@ -1,4 +1,4 @@
-import {Image, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, Pressable, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../styles/Style';
@@ -6,6 +6,7 @@ import LanguageSelector from '../components/onboarding/LanguageSelector';
 import * as RNLocalize from 'react-native-localize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import TextBase from '../components/ui/TextBase';
 
 const LanguageSelection = () => {
   const {t, i18n} = useTranslation();
@@ -38,9 +39,9 @@ const LanguageSelection = () => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/nata.png')} />
-      <Text style={styles.mission}>
+      <TextBase style={styles.mission}>
         {t('onboarding.languageSelection.title')}
-      </Text>
+      </TextBase>
       <View style={{flex: 0.7}}>
         <LanguageSelector
           selectedLanguage={selectedLanguage}
@@ -55,7 +56,9 @@ const LanguageSelection = () => {
             ...styles.confirmButton,
           },
         ]}>
-        <Text style={styles.confirmButtonText}>{t('onboarding.begin')}</Text>
+        <TextBase style={styles.confirmButtonText}>
+          {t('onboarding.begin')}
+        </TextBase>
       </Pressable>
     </View>
   );
