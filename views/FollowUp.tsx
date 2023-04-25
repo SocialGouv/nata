@@ -21,6 +21,7 @@ import {Meetings, Symptome} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
 import {useIsFocused} from '@react-navigation/native';
+import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -84,13 +85,34 @@ const FollowUp = () => {
     list: [],
     symptoms: [],
   });
-
   const [mandatoryMeetings, setMandatoryMeeting] = React.useState<Meetings[]>(
     [],
   );
-
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
+
+  const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
+
+  const retrieveUserInfos = async () => {
+    let tempInfos = {};
+    const language = await AsyncStorage.getItem('language');
+    if (language !== null) {
+      tempInfos = {...{language: language}};
+    }
+    const values = await AsyncStorage.getItem('userInfos');
+    if (values !== null) {
+      let JSONValues = JSON.parse(values);
+      JSONValues.pregnancyMonth = parseInt(JSONValues.pregnancyMonth, 10);
+      tempInfos = {...tempInfos, ...JSONValues};
+    } else {
+      setUserInfos({});
+    }
+    setUserInfos(tempInfos);
+  };
+
+  React.useEffect(() => {
+    retrieveUserInfos();
+  }, []);
 
   const retrieveUserMonth = useCallback(async () => {
     try {
@@ -164,7 +186,11 @@ const FollowUp = () => {
                   {opacity: pressed ? 0.5 : 1},
                 ]}
                 onPress={() => handlePress(-1)}>
-                <FontAwesome5Icon name="chevron-left" size={25} />
+                <FontAwesome5Icon
+                  name="chevron-left"
+                  color={Colors.black}
+                  size={25}
+                />
               </Pressable>
               {currentMonth && (
                 <TextBase>
@@ -177,7 +203,11 @@ const FollowUp = () => {
                   {opacity: pressed ? 0.5 : 1},
                 ]}
                 onPress={() => handlePress(1)}>
-                <FontAwesome5Icon name="chevron-right" size={25} />
+                <FontAwesome5Icon
+                  name="chevron-right"
+                  color={Colors.black}
+                  size={25}
+                />
               </Pressable>
             </View>
           </ImageBackground>
@@ -217,6 +247,7 @@ const FollowUp = () => {
           setUserSymptomesStatus={setUserSymptomesStatus}
           currentMonth={currentMonth}
         />
+        <DisplayHelpAround userInfos={userInfos} />
       </ScrollView>
     </Container>
   );

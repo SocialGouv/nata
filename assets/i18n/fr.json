@@ -786,6 +786,26 @@
       "ar": "Arabe",
       "en": "Anglais",
       "ps": "Pachto"
+    },
+    "help-around": {
+      "title": "Les aides autour de moi",
+      "doctor": {
+        "title": "Trouver une sage femme",
+        "subtext": "Consulte un médecin à proximité de"
+      },
+      "food": {
+        "title": "Nourriture",
+        "subtext": "Trouve un repas à proximité de"
+      },
+      "welcome": {
+        "title": "Accueil de jour",
+        "subtext": "Trouve un logement à proximité de"
+      },
+      "cleaning": {
+        "title": "Douches et toilettes",
+        "subtext": "Trouve un logement à proximité de"
+      },
+      "no-info": "Aucune information disponible pour le moment"
     }
   }
 }

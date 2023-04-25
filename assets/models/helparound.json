@@ -1,0 +1,85 @@
+{
+  "data": [
+    {
+      "key": "Q7A1",
+      "list": [
+        {
+          "title": "help-around.doctor",
+          "icon": "🏥"
+        },
+        {
+          "title": "help-around.food",
+          "icon": "🍛"
+        }
+      ]
+    },
+    {
+      "key": "Q7A2",
+      "list": [
+        {
+          "title": "help-around.doctor",
+          "icon": "🏥"
+        },
+        {
+          "title": "help-around.food",
+          "icon": "🍛"
+        }
+      ]
+    },
+    {
+      "key": "Q7A3",
+      "list": [
+        {
+          "title": "help-around.doctor",
+          "icon": "🏥"
+        },
+        {
+          "title": "help-around.food",
+          "icon": "🍛"
+        }
+      ]
+    },
+    {
+      "key": "Q7A4",
+      "list": [
+        {
+          "title": "help-around.doctor",
+          "icon": "🏥"
+        },
+        {
+          "title": "help-around.food",
+          "icon": "🍛"
+        }
+      ]
+    },
+    {
+      "key": "Q7A5",
+      "list": [
+        {
+          "title": "help-around.doctor.title",
+          "icon": "🏥",
+          "subtext": "help-around.doctor.subtext",
+          "code": "100,1100"
+        },
+        {
+          "title": "help-around.food.title",
+          "icon": "🍛",
+          "subtext": "help-around.food.subtext",
+          "code": "600"
+        },
+        {
+          "title": "help-around.welcome.title",
+          "icon": "🏠",
+          "subtext": "help-around.welcome.subtext",
+          "code": "701,705,707,708"
+        },
+        {
+          "title": "help-around.cleaning.title",
+          "icon": "🛁",
+          "subtext": "help-around.cleaning.subtext",
+          "code": "300"
+        }
+      ]
+    }
+  ]
+}

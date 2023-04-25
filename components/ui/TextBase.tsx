@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {Fonts} from '../../styles/Style';
+import {Colors, Fonts} from '../../styles/Style';
 
 const TextBase = ({
   children,
@@ -21,7 +21,7 @@ const TextBase = ({
 const styles = StyleSheet.create({
   text: {
     fontFamily: Fonts.primary,
-    color: 'black',
+    color: Colors.black,
   },
 });
 

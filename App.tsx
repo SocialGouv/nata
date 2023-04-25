@@ -11,6 +11,7 @@ import LanguageSelection from './views/LanguageSelection';
 import UrgencyPage from './views/UrgencyPage';
 import ShareSituation from './views/ShareSituation';
 import AppContext from './AppContext';
+import HelpPage from './views/HelpPage';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -78,6 +79,7 @@ function App(): JSX.Element {
               <Stack.Screen name="FollowUp" component={Navbar} />
               <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
               <Stack.Screen name="ShareSituation" component={ShareSituation} />
+              <Stack.Screen name="HelpAround" component={HelpPage} />
             </>
           )}
         </Stack.Navigator>
