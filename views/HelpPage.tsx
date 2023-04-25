@@ -104,7 +104,7 @@ const HelpPage = (props: Props) => {
     },
     webview: {
       width: width,
-      height: height / 6,
+      height: height,
       paddingHorizontal: 20,
       zIndex: -1,
     },
@@ -152,6 +152,7 @@ const HelpPage = (props: Props) => {
   const handlePressSearch = () => {
     if (search) {
       setCity(search.split(' ')[search.split(' ').length - 1]);
+      setHideResults(true);
     }
   };
 
@@ -213,17 +214,19 @@ const HelpPage = (props: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <WebView
-        scalesPageToFit={true}
-        bounces={false}
-        style={styles.webview}
-        javaScriptEnabled
-        useWebView2={true}
-        source={{
-          uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=${help.code}&familialle=pregnant&gender=women&price=false&bs-primary=00948b&bs-primary-dark=00948b&bs-primary-light=92d3ce&bs-secondary=e65a46&text-primary=3e3a71"`,
-        }}
-        automaticallyAdjustContentInsets={true}
-      />
+      <View style={styles.webview}>
+        <WebView
+          scalesPageToFit={true}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          javaScriptEnabled
+          useWebView2={true}
+          source={{
+            uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=${help.code}&familialle=pregnant&gender=women&price=false&bs-primary=00948b&bs-primary-dark=00948b&bs-primary-light=92d3ce&bs-secondary=e65a46&text-primary=3e3a71"`,
+          }}
+          automaticallyAdjustContentInsets={true}
+        />
+      </View>
     </Container>
   );
 };
