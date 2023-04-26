@@ -64,7 +64,10 @@ const UserProfile = () => {
     const values = await AsyncStorage.getItem('userInfos');
     if (values !== null) {
       let JSONValues = JSON.parse(values);
-      JSONValues.pregnancyMonth = parseInt(JSONValues.pregnancyMonth, 10);
+      JSONValues.pregnancyMonth =
+        parseInt(JSONValues.pregnancyMonth, 10) === 0
+          ? 1
+          : parseInt(JSONValues.pregnancyMonth, 10);
       tempInfos = {...tempInfos, ...JSONValues};
     } else {
       setUserInfos({});
@@ -87,9 +90,9 @@ const UserProfile = () => {
                 {displayUserAnswersFromQuestionCodes(userInfos[info])}
               </TextBase>
             </View>
-            <Pressable>
+            {/* <Pressable>
               <FontAwesome5Icon name="pen" size={10} color={Colors.primary} />
-            </Pressable>
+            </Pressable> */}
           </View>
         );
       });

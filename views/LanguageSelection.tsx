@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mission: {
+    width: '100%',
     fontFamily: Fonts.primary,
     fontSize: 18,
     lineHeight: 32,

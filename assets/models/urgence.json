@@ -2,7 +2,8 @@
   "data": [
     {
       "urgenceTitle": "urgency.title",
-      "explanation": "urgency.explanation"
+      "explanation": "urgency.explanation",
+      "continue": "urgency.continue"
     }
   ]
 }

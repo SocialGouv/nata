@@ -2,22 +2,30 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from 'react-native';
 import React from 'react';
 import Container from '../components/ui/Container';
 import {Colors, Fonts} from '../styles/Style';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../components/ui/TextBase';
 import {useTranslation} from 'react-i18next';
 import WebView from 'react-native-webview';
 
-const UrgencyPage = () => {
+interface Props {
+  route: any;
+}
+
+const UrgencyPage = (props: Props) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
+  const {title} = props.route.params;
+
+  const titleTodisplay = title ? title : (t('urgency.title') as string);
 
   const styles = StyleSheet.create({
     topContainer: {
@@ -76,8 +84,16 @@ const UrgencyPage = () => {
     },
     webview: {
       width: width,
-      height: height / 3,
+      height: height / 3.5,
       paddingHorizontal: 20,
+    },
+    continueText: {
+      fontSize: 16,
+      color: Colors.primary,
+      fontWeight: '700',
+      marginTop: 20,
+      textDecorationLine: 'underline',
+      alignSelf: 'center',
     },
   });
 
@@ -103,9 +119,7 @@ const UrgencyPage = () => {
               size={50}
               color={Colors.urgence}
             />
-            <TextBase style={styles.title}>
-              {t('urgency.title') as string}
-            </TextBase>
+            <TextBase style={styles.title}>{titleTodisplay}</TextBase>
           </View>
         </View>
         <View style={styles.explanationContainer}>
@@ -113,6 +127,7 @@ const UrgencyPage = () => {
             {t('urgency.explanation') as string}
           </TextBase>
           <Pressable
+            onPress={() => navigation.navigate('FollowUp')}
             style={({pressed}) => [
               styles.pressable,
               pressed && {
@@ -124,17 +139,24 @@ const UrgencyPage = () => {
             </TextBase>
           </Pressable>
         </View>
-        <WebView
-          scalesPageToFit={true}
-          bounces={false}
-          style={styles.webview}
-          javaScriptEnabled
-          useWebView2={true}
-          source={{
-            uri: 'https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCountries=france&categories=100,1100,401,405,406,407,408,404&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71',
-          }}
-          automaticallyAdjustContentInsets={true}
-        />
+        <View style={styles.webview}>
+          <WebView
+            scalesPageToFit={true}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+            javaScriptEnabled
+            useWebView2={true}
+            source={{
+              uri: 'https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCountries=france&categories=100,1100,401,405,406,407,408,404&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71',
+            }}
+            automaticallyAdjustContentInsets={true}
+          />
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('FollowUp')}>
+          <TextBase style={styles.continueText}>
+            {t('urgency.continue') as string}
+          </TextBase>
+        </TouchableOpacity>
       </ScrollView>
     </Container>
   );

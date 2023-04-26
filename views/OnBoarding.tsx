@@ -15,6 +15,7 @@ import Images from '../assets/models/onboardingImages';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../AppContext';
 import TextBase from '../components/ui/TextBase';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface PressFunction {
   answer: {
@@ -36,19 +37,71 @@ interface PressFunction {
   };
 }
 
+interface UserInfos {
+  [key: string]: string;
+}
+
 const Onboarding = () => {
   const [currentStep, setCurrentStep] = React.useState<number>(1);
   const {width} = useWindowDimensions();
   const navigation = useNavigation();
   const carouselRef = React.useRef(null);
-  const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(5);
-  const [userInfos, setUserInfos] = React.useState({});
+  const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
+  const [userInfos, setUserInfos] = React.useState<UserInfos>({});
 
   const {setIsOnboardingDone, setDisplayInitialModal} = useContext(AppContext);
 
   const {t} = useTranslation();
 
+  const handleUrgencyPath = () => {
+    if (userInfos) {
+      if (
+        parseInt(userInfos['pregnancyMonth'], 10) < 6 &&
+        userInfos['pregnancyFollowed'] === 'Q4A2' &&
+        userInfos['isMeetingPlanned'] === 'Q5A2'
+      ) {
+        if (
+          userInfos['housing'] === 'Q7A5' ||
+          userInfos['housing'] === 'Q7A2'
+        ) {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: t('onboarding.urengecyTitleUnder5'),
+            displayPhone: true,
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: t('onboarding.urengecyTitleUnder5'),
+            displayPhone: false,
+          });
+        }
+      } else if (
+        parseInt(userInfos['pregnancyMonth'], 10) >= 6 &&
+        userInfos['pregnancyFollowed'] === 'Q4A2' &&
+        userInfos['isMeetingPlanned'] === 'Q5A2'
+      ) {
+        setIsOnboardingDone(true);
+        navigation.navigate('UrgencyPage', {
+          displayPhone: true,
+        });
+      } else {
+        setIsOnboardingDone(true);
+        setDisplayInitialModal(true);
+        navigation.navigate('FollowUp');
+      }
+    }
+  };
+
   const handlePress = async ({answer, question}: PressFunction) => {
+    if (
+      parseInt(userInfos['pregnancyMonth']) === 0 &&
+      userInfos['isMeetingPlanned'] === 'Q5A2'
+    ) {
+      navigation.navigate('OnboardingEndPath', {
+        content: t('onboarding.endPathContent'),
+      });
+    }
     if (answer.redirectScreen && !question.isSpecial) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
@@ -74,9 +127,7 @@ const Onboarding = () => {
         await AsyncStorage.setItem('userInfos', JSON.stringify(userInfos))
           .then(() => {
             AsyncStorage.setItem('isOnboardingDone', 'true').then(() => {
-              setIsOnboardingDone(true);
-              setDisplayInitialModal(true);
-              navigation.navigate('FollowUp');
+              handleUrgencyPath();
             });
           })
           .catch(error => console.log(error));
@@ -84,9 +135,27 @@ const Onboarding = () => {
     }
   };
 
+  const handleBackPress = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   return (
     <Container>
       <View style={styles.topContainer}>
+        <Pressable
+          onPress={() => handleBackPress()}
+          style={styles.backPressable}>
+          <FontAwesome5Icon
+            name="chevron-left"
+            size={15}
+            color={Colors.primary}
+          />
+          <TextBase style={styles.backLinkText}>
+            {t('onboarding.back') as string}
+          </TextBase>
+        </Pressable>
         <Progress.Bar
           progress={currentStep / questions.data.length}
           width={width * 0.9}
@@ -125,7 +194,7 @@ const Onboarding = () => {
                       data={question.answers}
                       layout={'default'}
                       layoutCardOffset={50}
-                      firstItem={4}
+                      firstItem={0}
                       renderItem={({item, index}) => (
                         <SliderItem item={item} index={index + 1} />
                       )}
@@ -147,6 +216,19 @@ const Onboarding = () => {
                       ]}>
                       <TextBase style={styles.confirmButtonText}>
                         {t('onboarding.continue')}
+                      </TextBase>
+                    </Pressable>
+                    <Pressable
+                      style={{marginTop: 20}}
+                      onPress={() => {
+                        setUserInfos({
+                          ...userInfos,
+                          pregnancyMonth: question.specialAnswer.value,
+                        });
+                        setCurrentStep(currentStep + 1);
+                      }}>
+                      <TextBase style={{color: Colors.black}}>
+                        {t(question.specialAnswer.title)}
                       </TextBase>
                     </Pressable>
                   </View>
@@ -204,10 +286,25 @@ const Onboarding = () => {
 
 const styles = StyleSheet.create({
   topContainer: {
-    height: '20%',
+    height: '25%',
     backgroundColor: Colors.backgroundPrimary,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 10,
+  },
+  backPressable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 20,
+    paddingBottom: 10,
+  },
+  backLinkText: {
+    fontSize: 16,
+    paddingLeft: 5,
+    fontFamily: Fonts.primary,
+    fontWeight: '400',
+    color: Colors.primary,
+    textDecorationLine: 'underline',
   },
   questionContainer: {
     flexDirection: 'row',

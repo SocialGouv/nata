@@ -43,11 +43,12 @@ const FollowUp = () => {
     },
     topContainer: {
       alignItems: 'center',
-      alignSelf: 'center',
       height: '70%',
-      width: '60%',
+      width: width,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      marginHorizontal: 'auto',
+      justifyContent: 'center',
+      // justifyContent: 'space-between',
     },
     infoContainer: {
       width: '100%',
@@ -65,9 +66,9 @@ const FollowUp = () => {
       paddingHorizontal: 20,
     },
     pressable: {
-      margin: 0,
       fontWeight: '700',
-      width: 40,
+      width: 70,
+      marginHorizontal: 10,
     },
   });
 
@@ -118,8 +119,12 @@ const FollowUp = () => {
     try {
       const value = await AsyncStorage.getItem('userInfos');
       if (value !== null) {
-        let userInfos = JSON.parse(value);
-        setCurrentMonth(parseInt(userInfos.pregnancyMonth, 10));
+        let tmpUserInfos = JSON.parse(value);
+        let tmpMonth = parseInt(tmpUserInfos.pregnancyMonth, 10);
+        if (tmpMonth === 0) {
+          tmpMonth = 1;
+        }
+        setCurrentMonth(tmpMonth);
       }
     } catch (e) {
       console.log(e);
@@ -194,17 +199,22 @@ const FollowUp = () => {
               </Pressable>
               {currentMonth && (
                 <TextBase>
-                  {t(currentMonth?.toString()) + ' ' + t('followup.month')}
+                  {currentMonth === 1
+                    ? t(currentMonth?.toString()) +
+                      ' ' +
+                      t('followup.firstMonth')
+                    : t(currentMonth?.toString()) + ' ' + t('followup.month')}
                 </TextBase>
               )}
               <Pressable
                 style={({pressed}) => [
                   styles.pressable,
-                  {opacity: pressed ? 0.5 : 1},
+                  {opacity: pressed ? 0.5 : 1, justifySelf: 'flex-end'},
                 ]}
                 onPress={() => handlePress(1)}>
                 <FontAwesome5Icon
                   name="chevron-right"
+                  style={{alignSelf: 'flex-end'}}
                   color={Colors.black}
                   size={25}
                 />

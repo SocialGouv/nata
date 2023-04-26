@@ -1,8 +1,9 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {Colors, Fonts} from '../../styles/Style';
 import Images from '../../assets/models/feotus';
+import TextBase from '../ui/TextBase';
 
 interface SliderItemProps {
   item: {
@@ -18,7 +19,7 @@ const SliderItem = ({item, index}: SliderItemProps) => {
   return (
     <View style={styles.boxContainer}>
       <Image source={Images[index as keyof typeof Images]} />
-      <Text style={styles.text}>{t(item.label)}</Text>
+      <TextBase style={styles.text}>{t(item.label)}</TextBase>
     </View>
   );
 };

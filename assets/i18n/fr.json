@@ -5,6 +5,8 @@
       "Situation": "Ma situation"
     },
     "onboarding": {
+      "endPathContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse. \n\n Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. \n\n Reviens vers nous après ce rendez-vous. \n\nA bientôt, \n\nNATA.",
+      "urengecyTitleUnder5": "Nata te conseille de prendre rapidement un rendez-vous avec une sage-femme ou un médecin pour suivre ta grossesse : ",
       "questions": {
         "question1": {
           "label": "Est-ce que je suis enceinte ? ",
@@ -32,6 +34,7 @@
         },
         "question3": {
           "label": "Je suis enceinte de :  ",
+          "specialAnswer": "Je ne sais pas",
           "answer1": {
             "label": "1 mois"
           },
@@ -89,6 +92,9 @@
           },
           "answer3": {
             "label": "Je n'ai pas de couverture médicale"
+          },
+          "answer4": {
+            "label": "Je ne sais pas"
           }
         },
         "question7": {
@@ -119,6 +125,7 @@
     },
     "followup": {
       "month": "ème mois",
+      "firstMonth": "er mois",
       "meetingTitle": "Je valide mes rendez-vous",
       "symptomsTitle": "Quels sont mes symptômes",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
@@ -191,7 +198,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -254,7 +261,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -325,7 +332,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -392,7 +399,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -463,7 +470,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -530,7 +537,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -601,7 +608,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -672,7 +679,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       },
@@ -743,7 +750,7 @@
             "label": "Contractions"
           },
           "17": {
-            "label": "Perte de liquide amniotique"
+            "label": "Perte d'eau"
           }
         }
       }
@@ -751,7 +758,8 @@
     "urgency": {
       "title": "Pour votre santé et celle de votre enfant, il est urgent de consulter un professionnel",
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
-      "button": "J'ai trouvé un rendez-vous"
+      "button": "J'ai trouvé un rendez-vous",
+      "continue": "Continuer vers l'application"
     },
     "information_modal": {
       "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",
@@ -759,7 +767,7 @@
     },
     "situation": {
       "shareInformations": {
-        "title": "Partagez votre situation "
+        "title": "Partagez ma situation "
       },
       "pregnancyFollow": {
         "title": "Mon suivi de grossesse",

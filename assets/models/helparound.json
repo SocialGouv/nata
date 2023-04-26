@@ -5,7 +5,7 @@
       "list": [
         {
           "title": "help-around.doctor.title",
-          "icon": "🏥",
+          "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
           "code": "100,1100"
         },
@@ -22,7 +22,7 @@
       "list": [
         {
           "title": "help-around.doctor.title",
-          "icon": "🏥",
+          "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
           "code": "100,1100"
         },
@@ -39,7 +39,7 @@
       "list": [
         {
           "title": "help-around.doctor.title",
-          "icon": "🏥",
+          "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
           "code": "100,1100"
         },
@@ -56,7 +56,7 @@
       "list": [
         {
           "title": "help-around.doctor.title",
-          "icon": "🏥",
+          "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
           "code": "100,1100"
         },
@@ -73,7 +73,7 @@
       "list": [
         {
           "title": "help-around.doctor.title",
-          "icon": "🏥",
+          "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
           "code": "100,1100"
         },
@@ -85,7 +85,7 @@
         },
         {
           "title": "help-around.welcome.title",
-          "icon": "🏠",
+          "icon": "☕️",
           "subtext": "help-around.welcome.subtext",
           "code": "701,705,707,708"
         },

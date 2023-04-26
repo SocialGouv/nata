@@ -48,6 +48,10 @@
       "image": "calendar",
       "isSpecial": true,
       "slug": "pregnancyMonth",
+      "specialAnswer": {
+        "title": "onboarding.questions.question3.specialAnswer",
+        "value": "0"
+      },
       "verticalAnswer": false,
       "answers": [
         {
@@ -111,8 +115,7 @@
         {
           "label": "onboarding.questions.question4.answer2.label",
           "value": "Q4A2",
-          "redirectScreen": true,
-          "redirectScreenContent": "onboarding.questions.question4.answer2.redirectScreenContent"
+          "redirectScreen": false
         }
       ]
     },
@@ -152,6 +155,11 @@
         {
           "label": "onboarding.questions.question6.answer3.label",
           "value": "Q6A3",
+          "redirectScreen": false
+        },
+        {
+          "label": "onboarding.questions.question6.answer4.label",
+          "value": "Q6A4",
           "redirectScreen": false
         }
       ]

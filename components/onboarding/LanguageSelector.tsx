@@ -1,8 +1,8 @@
-import {Image, Pressable, StyleSheet, useWindowDimensions} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {FlatGrid} from 'react-native-super-grid';
 import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
+import TextBase from '../ui/TextBase';
 
 interface Props {
   selectedLanguage: string | undefined;
@@ -11,50 +11,49 @@ interface Props {
 
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage} = props;
-  const {width} = useWindowDimensions();
   const styles = StyleSheet.create({
     gridView: {
+      marginTop: 10,
       flex: 1,
-      width: '100%',
+      alignContent: 'center',
+      marginHorizontal: 'auto',
     },
     image: {
-      width: 50,
-      height: 50,
+      width: 30,
+      height: 30,
+      marginRight: 30,
+    },
+    button: {
+      marginVertical: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: Colors.black,
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
     },
   });
 
   return (
-    <FlatGrid
-      itemDimension={width / 9}
+    <FlatList
       data={languages}
       showsVerticalScrollIndicator={false}
-      spacing={50}
       style={styles.gridView}
       renderItem={({item}) => (
-        <Pressable
+        <TouchableOpacity
           onPress={() => changeLanguage(item.code)}
-          style={({pressed}) => [
+          style={[
+            styles.button,
             {
-              opacity: pressed ? 0.5 : 1,
-              width: item.code === selectedLanguage ? 65 : 55,
-              height: item.code === selectedLanguage ? 65 : 55,
-              borderWidth: item.code === selectedLanguage ? 3 : 0,
               borderColor:
-                item.code === selectedLanguage ? Colors.primary : 'transparent',
-              borderRadius: item.code === selectedLanguage ? 100 : 0,
+                item.code === selectedLanguage ? Colors.primary : Colors.black,
+              borderWidth: item.code === selectedLanguage ? 2 : 1,
             },
           ]}>
-          <Image
-            source={item.flag}
-            style={[
-              styles.image,
-              {
-                width: item.code === selectedLanguage ? 60 : 50,
-                height: item.code === selectedLanguage ? 60 : 50,
-              },
-            ]}
-          />
-        </Pressable>
+          <Image source={item.flag} style={styles.image} />
+          <TextBase>{item.name}</TextBase>
+        </TouchableOpacity>
       )}
     />
   );
