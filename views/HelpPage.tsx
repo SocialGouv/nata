@@ -123,7 +123,7 @@ const HelpPage = (props: Props) => {
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
       fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${search}&type=street&autocomplete=1`,
+        `https://api-adresse.data.gouv.fr/search/?q=${search}&type=municipality&autocomplete=1`,
       )
         .then(res => res.json())
         .then(res => {
