@@ -9,7 +9,7 @@
       "urengecyTitleUnder5": "Nata te conseille de prendre rapidement un rendez-vous avec une sage-femme ou un médecin pour suivre ta grossesse : ",
       "questions": {
         "question1": {
-          "label": "Est-ce que je suis enceinte ? ",
+          "label": "Es-tu enceinte ? ",
           "answer1": {
             "label": "Oui 👍"
           },
@@ -33,8 +33,8 @@
           }
         },
         "question3": {
-          "label": "Je suis enceinte de :  ",
-          "specialAnswer": "Je ne sais pas",
+          "label": "Je suis enceinte de combien de mois ?  ",
+          "specialAnswer": "Je ne suis pas sûre 🤷‍♀️",
           "answer1": {
             "label": "1 mois"
           },
@@ -98,9 +98,9 @@
           }
         },
         "question7": {
-          "label": "Est-ce que je suis hébergée ?",
+          "label": "Concernant mon hébergement ?",
           "answer1": {
-            "label": "Je suis en centre d'hébergement d'urgence (CHU)"
+            "label": "Je suis en Centre d'Hébergement d'Urgence (CHU)"
           },
           "answer2": {
             "label": "Je suis en hotêl social"
@@ -763,7 +763,8 @@
       "title": "Pour votre santé et celle de votre enfant, il est urgent de consulter un professionnel",
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous",
-      "continue": "Continuer vers l'application"
+      "continue": "Continuer vers l'application",
+      "subtext": "Consulter un médecin à proximité de "
     },
     "information_modal": {
       "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",
@@ -810,12 +811,12 @@
         "subtext": "Je trouve un repas à proximité de"
       },
       "welcome": {
-        "title": "Accueil de jour",
+        "title": "Hébergement",
         "subtext": "Je trouve un logement à proximité de"
       },
       "cleaning": {
-        "title": "Douches et toilettes",
-        "subtext": "Je trouve un logement à proximité de"
+        "title": "Toilettes et douches",
+        "subtext": "Je trouve un espace d'hygiène à proximité de"
       },
       "no-info": "Aucune information disponible pour le moment"
     }

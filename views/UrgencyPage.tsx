@@ -2,6 +2,7 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   View,
   useWindowDimensions,
@@ -9,11 +10,13 @@ import {
 import React from 'react';
 import Container from '../components/ui/Container';
 import {Colors, Fonts} from '../styles/Style';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../components/ui/TextBase';
 import {useTranslation} from 'react-i18next';
 import WebView from 'react-native-webview';
+import AutocompleteInput from 'react-native-autocomplete-input';
+import _ from 'lodash';
 
 interface Props {
   route: any;
@@ -27,9 +30,50 @@ const UrgencyPage = (props: Props) => {
 
   const titleTodisplay = title ? title : (t('urgency.title') as string);
 
+  const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
+  const [hideResults, setHideResults] = React.useState<boolean>(false);
+  const [search, setSearch] = React.useState<string>();
+  const [city, setCity] = React.useState<string>('Paris');
+
+  const handleAutocomplete = React.useCallback(async () => {
+    if (search && search.length > 1) {
+      fetch(
+        `https://api-adresse.data.gouv.fr/search/?q=${search}&type=municipality&autocomplete=1`,
+      )
+        .then(res => res.json())
+        .then(res => {
+          if (res && res.features && res.features.length > 0) {
+            let tmpRes: any[] = [];
+            res.features.map((el: any) => {
+              tmpRes.push(
+                `${el.properties.name} ${el.properties.postcode} ${el.properties.city}`,
+              );
+            });
+            setGeogouvData(tmpRes);
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      setGeogouvData([]);
+      setHideResults(true);
+    }
+  }, [search]);
+
+  const debouncedAPICall = React.useMemo(
+    () => _.debounce(() => handleAutocomplete(), 300),
+    [handleAutocomplete],
+  );
+
+  const handlePressSearch = () => {
+    if (search) {
+      setCity(search.split(' ')[search.split(' ').length - 1]);
+      setHideResults(true);
+    }
+  };
+
   const styles = StyleSheet.create({
     topContainer: {
-      backgroundColor: Colors.backgroundPrimary,
+      backgroundColor: Colors.backgroundUrgence,
       // flex: 0.25,
     },
     backPressable: {
@@ -63,7 +107,6 @@ const UrgencyPage = (props: Props) => {
       flex: 0.75,
       paddingTop: 20,
       paddingHorizontal: 20,
-      marginBottom: 20,
     },
     explanation: {
       fontSize: 16,
@@ -82,10 +125,68 @@ const UrgencyPage = (props: Props) => {
       color: Colors.urgence,
       fontWeight: '700',
     },
+    middleContainer: {
+      paddingHorizontal: 20,
+      marginTop: 30,
+      position: 'relative',
+      backgroundColor: '#FCF3F3',
+      paddingVertical: 20,
+    },
+    subtitle: {
+      fontSize: 16,
+      fontWeight: '700',
+    },
+    searchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      width: '100%',
+      position: 'relative',
+      height: height / 20,
+    },
+    autoCompleteContainer: {
+      flex: 1,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      width: width - 100,
+    },
+    input: {
+      width: width - 100,
+      backgroundColor: Colors.white,
+      borderRadius: 5,
+      marginTop: 10,
+      height: 40,
+      paddingHorizontal: 10,
+      color: Colors.black,
+    },
+    searchButton: {
+      backgroundColor: Colors.urgence,
+      width: 40,
+      height: 40,
+      borderRadius: 5,
+      marginTop: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+    },
+    displayResults: {
+      backgroundColor: '#FFF',
+      paddingVertical: 12,
+      paddingLeft: 22,
+      height: 'auto',
+      borderWidth: 0,
+    },
     webview: {
       width: width,
       height: height / 3.5,
       paddingHorizontal: 20,
+      backgroundColor: Colors.backgroundUrgence,
+      zIndex: -1,
     },
     continueText: {
       fontSize: 16,
@@ -139,6 +240,46 @@ const UrgencyPage = (props: Props) => {
             </TextBase>
           </Pressable>
         </View>
+        <View style={styles.middleContainer}>
+          <TextBase style={styles.subtitle}>{t('urgency.subtext')}</TextBase>
+          <View style={styles.searchContainer}>
+            <View style={styles.autoCompleteContainer}>
+              <AutocompleteInput
+                inputContainerStyle={{borderWidth: 0}}
+                data={geogouvData}
+                hideResults={hideResults}
+                flatListProps={{
+                  renderItem: ({item}) => (
+                    <TouchableOpacity
+                      style={styles.displayResults}
+                      onPress={() => {
+                        setSearch(item), setHideResults(false);
+                      }}>
+                      <TextBase>{item}</TextBase>
+                    </TouchableOpacity>
+                  ),
+                }}
+                renderTextInput={() => (
+                  <TextInput
+                    style={styles.input}
+                    value={search}
+                    onChangeText={text => {
+                      setHideResults(false);
+                      setSearch(text);
+                      debouncedAPICall();
+                    }}
+                  />
+                )}
+              />
+            </View>
+            <TouchableOpacity
+              disabled={!search}
+              onPress={() => handlePressSearch()}
+              style={styles.searchButton}>
+              <FontAwesome5Icon name="search" size={20} color={Colors.white} />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.webview}>
           <WebView
             scalesPageToFit={true}
@@ -147,7 +288,7 @@ const UrgencyPage = (props: Props) => {
             javaScriptEnabled
             useWebView2={true}
             source={{
-              uri: 'https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCountries=france&categories=100,1100,401,405,406,407,408,404&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71',
+              uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=100,1100,401,405,406,407,408,404&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71`,
             }}
             automaticallyAdjustContentInsets={true}
           />

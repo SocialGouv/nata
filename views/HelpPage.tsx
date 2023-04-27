@@ -1,6 +1,7 @@
 import {
   Pressable,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   View,
   useWindowDimensions,
@@ -83,6 +84,9 @@ const HelpPage = (props: Props) => {
       width: width - 100,
       backgroundColor: Colors.background,
       borderRadius: 5,
+      height: 40,
+      paddingHorizontal: 10,
+      color: Colors.black,
     },
     searchButton: {
       backgroundColor: Colors.primary,
@@ -183,16 +187,20 @@ const HelpPage = (props: Props) => {
         <View style={styles.searchContainer}>
           <View style={styles.autoCompleteContainer}>
             <Autocomplete
-              value={search}
               inputContainerStyle={{borderWidth: 0}}
-              style={styles.input}
               data={geogouvData}
-              onChangeText={text => {
-                setHideResults(false);
-                setSearch(text);
-                debouncedAPICall();
-              }}
               hideResults={hideResults}
+              renderTextInput={() => (
+                <TextInput
+                  style={styles.input}
+                  value={search}
+                  onChangeText={text => {
+                    setHideResults(false);
+                    setSearch(text);
+                    debouncedAPICall();
+                  }}
+                />
+              )}
               flatListProps={{
                 renderItem: ({item}) => (
                   <TouchableOpacity

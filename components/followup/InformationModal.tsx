@@ -3,6 +3,7 @@ import React, {useContext} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {useTranslation} from 'react-i18next';
 import AppContext from '../../AppContext';
+import TextBase from '../ui/TextBase';
 
 const InformationModal = () => {
   const {displayInitialModal, setDisplayInitialModal} = useContext(AppContext);
@@ -22,17 +23,21 @@ const InformationModal = () => {
               <Image
                 source={require('../../assets/images/onboarding/nurse.png')}
               />
-              <Text style={styles.title}>{t('information_modal.title')}</Text>
+              <TextBase style={styles.title}>
+                {t('information_modal.title')}
+              </TextBase>
             </View>
             <View style={styles.bottomContainer}>
-              <Text style={styles.text}>{t('information_modal.content')}</Text>
+              <TextBase style={styles.text}>
+                {t('information_modal.content')}
+              </TextBase>
               <Pressable
                 style={styles.button}
                 onPress={() => setDisplayInitialModal(false)}>
-                <Text
+                <TextBase
                   style={{...styles.text, color: 'white', fontWeight: '700'}}>
                   {t('onboarding.continue')}
-                </Text>
+                </TextBase>
               </Pressable>
             </View>
           </View>

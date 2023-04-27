@@ -62,7 +62,9 @@ const UrgencyModule = () => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('UrgencyPage');
+    navigation.navigate('UrgencyPage', {
+      title: null,
+    });
   };
 
   return (

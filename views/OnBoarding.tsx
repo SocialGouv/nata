@@ -219,7 +219,7 @@ const Onboarding = () => {
                       </TextBase>
                     </Pressable>
                     <Pressable
-                      style={{marginTop: 20}}
+                      style={styles.pressable}
                       onPress={() => {
                         setUserInfos({
                           ...userInfos,
@@ -267,7 +267,7 @@ const Onboarding = () => {
             if (question.answerDanger?.label && index + 1 === currentStep) {
               return (
                 <AnswerButton
-                  key={index}
+                  key={question.slug + index}
                   answer={question.answerDanger.label}
                   onClick={() =>
                     handlePress({answer: question.answerDanger, question})
@@ -368,6 +368,16 @@ const styles = StyleSheet.create({
     height: 500,
     // justifyContent: 'space-between',
     marginVertical: 20,
+  },
+  pressable: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: 3,
+    borderColor: '#D6D6D6',
+    borderWidth: 1,
+    padding: 10,
+    paddingHorizontal: 30,
+    marginHorizontal: 5,
+    marginTop: 20,
   },
 });
 export default Onboarding;
