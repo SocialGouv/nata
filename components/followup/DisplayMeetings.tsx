@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'flex-start',
+    paddingRight: 10,
   },
   innerCheckboxText: {
     fontFamily: Fonts.primary,

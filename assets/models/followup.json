@@ -9,7 +9,7 @@
           "code": "followup.month1.list.1.code",
           "mandatory": true,
           "month": 1,
-          "max_month": 1
+          "max_month": 3
         },
         {
           "label": "followup.month1.list.2.label",
@@ -272,6 +272,13 @@
           "mandatory": true,
           "month": 3,
           "max_month": 9
+        },
+        {
+          "label": "followup.month3.list.4.label",
+          "code": "followup.month3.list.4.code",
+          "mandatory": false,
+          "month": 3,
+          "max_month": 3
         }
       ],
       "symptoms": [

@@ -280,6 +280,10 @@
           "3": {
             "label": "Inscription à la maternité",
             "code": "M3R3"
+          },
+          "4": {
+            "label": "Une prise de sang",
+            "code": "M3R4"
           }
         },
         "symptoms": {
@@ -767,7 +771,7 @@
     },
     "situation": {
       "shareInformations": {
-        "title": "Partagez ma situation "
+        "title": "Partager ma situation "
       },
       "pregnancyFollow": {
         "title": "Mon suivi de grossesse",
@@ -799,19 +803,19 @@
       "title": "Les aides autour de moi",
       "doctor": {
         "title": "Trouver une sage femme",
-        "subtext": "Consulte un médecin à proximité de"
+        "subtext": "Je trouve une sage femme"
       },
       "food": {
         "title": "Nourriture",
-        "subtext": "Trouve un repas à proximité de"
+        "subtext": "Je trouve un repas à proximité de"
       },
       "welcome": {
         "title": "Accueil de jour",
-        "subtext": "Trouve un logement à proximité de"
+        "subtext": "Je trouve un logement à proximité de"
       },
       "cleaning": {
         "title": "Douches et toilettes",
-        "subtext": "Trouve un logement à proximité de"
+        "subtext": "Je trouve un logement à proximité de"
       },
       "no-info": "Aucune information disponible pour le moment"
     }
