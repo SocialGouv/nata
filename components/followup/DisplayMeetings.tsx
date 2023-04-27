@@ -17,6 +17,8 @@ interface Props {
 const DisplayMeetings = (props: Props) => {
   const {meetings, mandatoryMeetings, currentMonth} = props;
 
+  console.log('MEETINGS', meetings);
+
   const isFocused = useIsFocused();
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<
     {
@@ -43,6 +45,7 @@ const DisplayMeetings = (props: Props) => {
   }, []);
 
   const displayFullMeetings = useCallback(() => {
+    console.log('PASSE LA ?');
     let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
     tmpMeetings = tmpMeetings.filter(meeting => {
       if (meeting.max_month) {
@@ -69,7 +72,7 @@ const DisplayMeetings = (props: Props) => {
 
   React.useEffect(() => {
     displayFullMeetings();
-  }, [displayFullMeetings, isFocused]);
+  }, [displayFullMeetings, isFocused, t]);
 
   React.useEffect(() => {
     retrieveUserMeetingStatus();

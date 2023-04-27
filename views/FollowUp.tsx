@@ -164,7 +164,7 @@ const FollowUp = () => {
     );
     setMandatoryMeeting(tmpMandatoryMeetings);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFocused]);
 
   React.useEffect(() => {
     retrieveManadatoryMeetings();
@@ -239,7 +239,7 @@ const FollowUp = () => {
         </View>
         <DisplayMeetings
           currentMonth={currentMonth as number}
-          meetings={currentContent?.list}
+          meetings={currentContent.list}
           mandatoryMeetings={mandatoryMeetings}
         />
         <DisplaySymptomes

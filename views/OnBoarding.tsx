@@ -67,13 +67,13 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
-            displayPhone: true,
+            number: '0 801 801 081',
           });
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
-            displayPhone: false,
+            number: '0 801 801 081',
           });
         }
       } else if (
@@ -82,7 +82,7 @@ const Onboarding = () => {
       ) {
         setIsOnboardingDone(true);
         navigation.navigate('UrgencyPage', {
-          displayPhone: true,
+          number: '0 801 801 081',
         });
       } else {
         setIsOnboardingDone(true);
@@ -93,24 +93,27 @@ const Onboarding = () => {
   };
 
   const handlePress = async ({answer, question}: PressFunction) => {
-    if (question.slug === 'isPregnant' && answer.redirectScreen) {
-      console.log('PASSE LA ?');
+    if (
+      question.slug === 'isPregnant' &&
+      answer.value === 'Q1A2' &&
+      answer.redirectScreen
+    ) {
       navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
       });
     } else if (
       answer.redirectScreen &&
-      userInfos['pregnancyFollowed'] !== 'Q4A2' &&
+      answer.value !== 'Q4A2' &&
       !question.isSpecial
     ) {
-      console.log('PASSE ICI ?');
+      console.log('userInfos', userInfos);
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
         number: answer.phone,
       });
     } else if (
       parseInt(userInfos['pregnancyMonth'], 10) === 0 &&
-      userInfos['pregnancyFollowed'] === 'Q4A2' &&
+      answer.value === 'Q4A2' &&
       answer.redirectScreen
     ) {
       navigation.navigate('OnboardingEndPath', {

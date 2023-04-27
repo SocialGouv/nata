@@ -98,7 +98,7 @@
           }
         },
         "question7": {
-          "label": "Concernant mon hébergement ?",
+          "label": "Concernant mon hébergement",
           "answer1": {
             "label": "Je suis en Centre d'Hébergement d'Urgence (CHU)"
           },
@@ -811,7 +811,7 @@
         "subtext": "Je trouve un repas à proximité de"
       },
       "welcome": {
-        "title": "Hébergement",
+        "title": "Accueil de jour",
         "subtext": "Je trouve un logement à proximité de"
       },
       "cleaning": {

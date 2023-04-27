@@ -1,4 +1,6 @@
 import {
+  Linking,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -26,7 +28,7 @@ const UrgencyPage = (props: Props) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
-  const {title} = props.route.params;
+  const {title, number} = props.route.params;
 
   const titleTodisplay = title ? title : (t('urgency.title') as string);
 
@@ -119,6 +121,7 @@ const UrgencyPage = (props: Props) => {
       borderRadius: 5,
       paddingVertical: 10,
       alignItems: 'center',
+      alignSelf: 'center',
     },
     buttonText: {
       fontSize: 16,
@@ -197,7 +200,29 @@ const UrgencyPage = (props: Props) => {
       textDecorationLine: 'underline',
       alignSelf: 'center',
     },
+    icon: {
+      fontSize: 30,
+    },
+    button: {
+      backgroundColor: Colors.urgence,
+      borderRadius: 5,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 5,
+      marginHorizontal: 30,
+    },
+    whiteText: {
+      color: Colors.white,
+      fontWeight: '700',
+    },
   });
+
+  const handlePhonePress = () => {
+    Platform.OS === 'ios'
+      ? Linking.openURL(`tel:${number}`)
+      : Linking.openURL(`telprompt:${number}`);
+  };
 
   return (
     <Container urgency={true}>
@@ -216,11 +241,7 @@ const UrgencyPage = (props: Props) => {
             </TextBase>
           </Pressable>
           <View style={styles.titleContainer}>
-            <FontAwesome5Icon
-              name="exclamation-triangle"
-              size={50}
-              color={Colors.urgence}
-            />
+            <TextBase style={styles.icon}>🚨</TextBase>
             <TextBase style={styles.title}>{titleTodisplay}</TextBase>
           </View>
         </View>
@@ -237,6 +258,13 @@ const UrgencyPage = (props: Props) => {
               {t('urgency.button') as string}
             </TextBase>
           </Pressable>
+          {number && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePhonePress()}>
+              <TextBase style={styles.whiteText}>{number}</TextBase>
+            </TouchableOpacity>
+          )}
         </View>
         <View style={styles.middleContainer}>
           <TextBase style={styles.subtitle}>{t('urgency.subtext')}</TextBase>
