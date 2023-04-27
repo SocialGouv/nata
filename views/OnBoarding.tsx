@@ -93,25 +93,25 @@ const Onboarding = () => {
   };
 
   const handlePress = async ({answer, question}: PressFunction) => {
-    if (
-      parseInt(userInfos['pregnancyMonth'], 10) === 0 &&
-      userInfos['pregnancyFollowed'] === 'Q4A2' &&
-      answer.redirectScreen
+    if (question.slug === 'isPregnant' && answer.redirectScreen) {
+      console.log('PASSE LA ?');
+      navigation.navigate('ShortOnboardingEnd', {
+        content: answer.redirectScreenContent,
+      });
+    } else if (
+      answer.redirectScreen &&
+      userInfos['pregnancyFollowed'] !== 'Q4A2' &&
+      !question.isSpecial
     ) {
+      console.log('PASSE ICI ?');
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
         number: answer.phone,
       });
-    }
-    if (question.slug === 'isPregnant' && answer.redirectScreen) {
-      navigation.navigate('ShortOnboardingEnd', {
-        content: answer.redirectScreenContent,
-      });
-    }
-    if (
-      answer.redirectScreen &&
-      userInfos['pregnancyFollowed'] !== 'Q4A2' &&
-      !question.isSpecial
+    } else if (
+      parseInt(userInfos['pregnancyMonth'], 10) === 0 &&
+      userInfos['pregnancyFollowed'] === 'Q4A2' &&
+      answer.redirectScreen
     ) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
