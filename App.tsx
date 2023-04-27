@@ -12,6 +12,7 @@ import UrgencyPage from './views/UrgencyPage';
 import ShareSituation from './views/ShareSituation';
 import AppContext from './AppContext';
 import HelpPage from './views/HelpPage';
+import ShortOnboardingEnd from './views/OnboardingSubScreens/ShortOnboardingEnd';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -71,6 +72,10 @@ function App(): JSX.Element {
               <Stack.Screen
                 name="OnboardingEndPath"
                 component={OnboardingEndPath}
+              />
+              <Stack.Screen
+                name="ShortOnboardingEnd"
+                component={ShortOnboardingEnd}
               />
             </>
           ) : (

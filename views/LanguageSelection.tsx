@@ -1,4 +1,12 @@
-import {Image, Platform, Pressable, StyleSheet, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../styles/Style';
@@ -10,8 +18,52 @@ import TextBase from '../components/ui/TextBase';
 
 const LanguageSelection = () => {
   const {t, i18n} = useTranslation();
+  const {width, height} = useWindowDimensions();
   const navigation = useNavigation();
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: Platform.OS === 'ios' ? 50 : 20,
+      alignContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.white,
+    },
+    mission: {
+      width: '100%',
+      fontFamily: Fonts.primary,
+      fontSize: 18,
+      lineHeight: 32,
+      fontWeight: '700',
+      marginHorizontal: 0,
+      paddingHorizontal: 30,
+    },
+    backgroundImage: {
+      width: width,
+      height: height * 0.14,
+      resizeMode: 'cover',
+    },
+    confirmButton: {
+      backgroundColor: Colors.primary,
+      padding: 10,
+      borderRadius: 3,
+      marginTop: 20,
+      paddingHorizontal: 40,
+      position: 'absolute',
+      bottom: 30,
+    },
+    confirmButtonText: {
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: '700',
+      fontFamily: Fonts.primary,
+    },
+    image: {
+      top: '-10%',
+      zIndex: 100,
+    },
+  });
 
   useEffect(() => {
     const locale = RNLocalize.getLocales()[0].languageCode;
@@ -38,7 +90,16 @@ const LanguageSelection = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/nata.png')} />
+      <View>
+        <ImageBackground
+          source={require('../assets/images/Ellipse.png')}
+          style={styles.backgroundImage}
+        />
+      </View>
+      <Image
+        style={styles.image}
+        source={require('../assets/images/nata.png')}
+      />
       <TextBase style={styles.mission}>
         {t('onboarding.languageSelection.title')}
       </TextBase>
@@ -65,37 +126,3 @@ const LanguageSelection = () => {
 };
 
 export default LanguageSelection;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Platform.OS === 'ios' ? 60 : 20,
-    marginHorizontal: 20,
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  mission: {
-    width: '100%',
-    fontFamily: Fonts.primary,
-    fontSize: 18,
-    lineHeight: 32,
-    fontWeight: '400',
-    marginTop: 20,
-    marginHorizontal: 0,
-  },
-  confirmButton: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 3,
-    marginTop: 20,
-    paddingHorizontal: 40,
-    position: 'absolute',
-    bottom: 30,
-  },
-  confirmButtonText: {
-    color: Colors.white,
-    fontSize: 20,
-    fontWeight: '700',
-    fontFamily: Fonts.primary,
-  },
-});

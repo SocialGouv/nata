@@ -19,7 +19,7 @@
           },
           "answerDanger": {
             "label": "Je ne sais pas 🤷‍♀️",
-            "redirectScreenContent": "Pour savoir si tu es enceinte, tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuel ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
+            "redirectScreenContent": "Pour savoir si tu es enceinte, tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuelle ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
           }
         },
         "question2": {
@@ -103,7 +103,7 @@
             "label": "Je suis en Centre d'Hébergement d'Urgence (CHU)"
           },
           "answer2": {
-            "label": "Je suis en hotêl social"
+            "label": "Je suis en hôtel social"
           },
           "answer3": {
             "label": "Je suis chez une connaissance"
@@ -129,7 +129,7 @@
       "meetingTitle": "Je valide mes rendez-vous",
       "symptomsTitle": "Quels sont mes symptômes",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
-      "urgencyButton": "Trouver un médecin",
+      "urgencyButton": "Trouver une sage femme",
       "noMeeting": "Bravo, vous avez réalisez tout vos rendez-vous ce mois-ci. Vous pouvez retrouver l'historique dans l'onglet Ma Situation",
       "month1": {
         "title": "1er mois de grossesse",
@@ -764,7 +764,7 @@
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous",
       "continue": "Continuer vers l'application",
-      "subtext": "Consulter un médecin à proximité de "
+      "subtext": "Consulter une sage femme à proximité de "
     },
     "information_modal": {
       "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",
@@ -801,7 +801,7 @@
       "ps": "Pachto"
     },
     "help-around": {
-      "title": "Les aides autour de moi",
+      "title": "Mes aides autour de moi",
       "doctor": {
         "title": "Trouver une sage femme",
         "subtext": "Je trouve une sage femme"

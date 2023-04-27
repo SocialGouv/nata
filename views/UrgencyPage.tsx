@@ -66,7 +66,7 @@ const UrgencyPage = (props: Props) => {
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[search.split(' ').length - 1]);
+      setCity(search.split(' ')[0]);
       setHideResults(true);
     }
   };
@@ -131,6 +131,7 @@ const UrgencyPage = (props: Props) => {
       position: 'relative',
       backgroundColor: '#FCF3F3',
       paddingVertical: 20,
+      justifyContent: 'center',
     },
     subtitle: {
       fontSize: 16,
@@ -224,9 +225,6 @@ const UrgencyPage = (props: Props) => {
           </View>
         </View>
         <View style={styles.explanationContainer}>
-          <TextBase style={styles.explanation}>
-            {t('urgency.explanation') as string}
-          </TextBase>
           <Pressable
             onPress={() => navigation.navigate('FollowUp')}
             style={({pressed}) => [

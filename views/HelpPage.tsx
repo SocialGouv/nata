@@ -155,7 +155,7 @@ const HelpPage = (props: Props) => {
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[search.split(' ').length - 1]);
+      setCity(search.split(' ')[0]);
       setHideResults(true);
     }
   };

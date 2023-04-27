@@ -23,6 +23,7 @@ interface PressFunction {
     value: string;
     redirectScreen?: boolean;
     redirectScreenContent?: string | undefined;
+    phone?: string;
   };
   question: {
     label: string;
@@ -57,7 +58,6 @@ const Onboarding = () => {
     if (userInfos) {
       if (
         parseInt(userInfos['pregnancyMonth'], 10) < 6 &&
-        userInfos['pregnancyFollowed'] === 'Q4A2' &&
         userInfos['isMeetingPlanned'] === 'Q5A2'
       ) {
         if (
@@ -78,7 +78,6 @@ const Onboarding = () => {
         }
       } else if (
         parseInt(userInfos['pregnancyMonth'], 10) >= 6 &&
-        userInfos['pregnancyFollowed'] === 'Q4A2' &&
         userInfos['isMeetingPlanned'] === 'Q5A2'
       ) {
         setIsOnboardingDone(true);
@@ -95,15 +94,27 @@ const Onboarding = () => {
 
   const handlePress = async ({answer, question}: PressFunction) => {
     if (
-      parseInt(userInfos['pregnancyMonth']) === 0 &&
-      userInfos['isMeetingPlanned'] === 'Q5A2'
+      userInfos['pregnancyMonth'] === '0' &&
+      userInfos['pregnancyFollowed'] === 'Q4A2' &&
+      answer.redirectScreen
     ) {
       navigation.navigate('OnboardingEndPath', {
-        content: t('onboarding.endPathContent'),
+        content: answer.redirectScreenContent,
+        number: answer.phone,
       });
     }
-    if (answer.redirectScreen && !question.isSpecial) {
+    if (
+      answer.redirectScreen &&
+      !question.isSpecial &&
+      question.slug !== 'isPregnant'
+    ) {
       navigation.navigate('OnboardingEndPath', {
+        content: answer.redirectScreenContent,
+        number: answer.phone,
+      });
+    }
+    if (question.slug === 'isPregnant' && answer.redirectScreen) {
+      navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
       });
     } else {
@@ -138,6 +149,8 @@ const Onboarding = () => {
   const handleBackPress = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    } else {
+      navigation.goBack();
     }
   };
 

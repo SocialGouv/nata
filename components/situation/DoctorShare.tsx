@@ -27,7 +27,7 @@ const DoctorShare = () => {
         onPress={() => {
           navigation.navigate('ShareSituation');
         }}>
-        <FontAwesome5Icon name="chevron-right" size={20} color={Colors.white} />
+        <FontAwesome5Icon name="chevron-right" size={25} color={Colors.white} />
       </Pressable>
     </View>
   );
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.primary,
     borderRadius: 100,
-    width: 35,
-    height: 35,
+    width: 50,
+    height: 50,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

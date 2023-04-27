@@ -65,8 +65,7 @@ const DisplayMeetings = (props: Props) => {
     } else {
       setFullMeetingList(tmpMeetings);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMonth, mandatoryMeetings, meetings, t]);
+  }, [userMeetingStatus, currentMonth, mandatoryMeetings, meetings, t]);
 
   React.useEffect(() => {
     displayFullMeetings();

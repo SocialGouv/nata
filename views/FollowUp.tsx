@@ -160,11 +160,11 @@ const FollowUp = () => {
         }
         return acc;
       },
-      [],
+      [isFocused],
     );
     setMandatoryMeeting(tmpMandatoryMeetings);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, []);
 
   React.useEffect(() => {
     retrieveManadatoryMeetings();
@@ -185,18 +185,20 @@ const FollowUp = () => {
             source={require('../assets/images/Ellipse.png')}
             style={styles.backgroundImage}>
             <View style={styles.topContainer}>
-              <Pressable
-                style={({pressed}) => [
-                  styles.pressable,
-                  {opacity: pressed ? 0.5 : 1},
-                ]}
-                onPress={() => handlePress(-1)}>
-                <FontAwesome5Icon
-                  name="chevron-left"
-                  color={Colors.black}
-                  size={25}
-                />
-              </Pressable>
+              {currentMonth && currentMonth > 1 && (
+                <Pressable
+                  style={({pressed}) => [
+                    styles.pressable,
+                    {opacity: pressed ? 0.5 : 1},
+                  ]}
+                  onPress={() => handlePress(-1)}>
+                  <FontAwesome5Icon
+                    name="chevron-left"
+                    color={Colors.black}
+                    size={25}
+                  />
+                </Pressable>
+              )}
               {currentMonth && (
                 <TextBase>
                   {currentMonth === 1
@@ -206,19 +208,21 @@ const FollowUp = () => {
                     : t(currentMonth?.toString()) + ' ' + t('followup.month')}
                 </TextBase>
               )}
-              <Pressable
-                style={({pressed}) => [
-                  styles.pressable,
-                  {opacity: pressed ? 0.5 : 1, justifySelf: 'flex-end'},
-                ]}
-                onPress={() => handlePress(1)}>
-                <FontAwesome5Icon
-                  name="chevron-right"
-                  style={{alignSelf: 'flex-end'}}
-                  color={Colors.black}
-                  size={25}
-                />
-              </Pressable>
+              {currentMonth && currentMonth < 9 && (
+                <Pressable
+                  style={({pressed}) => [
+                    styles.pressable,
+                    {opacity: pressed ? 0.5 : 1, justifySelf: 'flex-end'},
+                  ]}
+                  onPress={() => handlePress(1)}>
+                  <FontAwesome5Icon
+                    name="chevron-right"
+                    style={{alignSelf: 'flex-end'}}
+                    color={Colors.black}
+                    size={25}
+                  />
+                </Pressable>
+              )}
             </View>
           </ImageBackground>
         </View>

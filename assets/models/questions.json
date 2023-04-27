@@ -39,7 +39,8 @@
           "label": "onboarding.questions.question2.answer2.label",
           "value": "Q2A2",
           "redirectScreen": true,
-          "redirectScreenContent": "onboarding.questions.question2.answer2.redirectScreenContent"
+          "redirectScreenContent": "onboarding.questions.question2.answer2.redirectScreenContent",
+          "phone": "0 801 801 081"
         }
       ]
     },
@@ -115,7 +116,9 @@
         {
           "label": "onboarding.questions.question4.answer2.label",
           "value": "Q4A2",
-          "redirectScreen": false
+          "redirectScreen": true,
+          "redirectScreenContent": "onboarding.questions.question4.answer2.redirectScreenContent",
+          "phone": "0 801 801 081"
         }
       ]
     },
