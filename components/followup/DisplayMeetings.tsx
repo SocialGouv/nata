@@ -61,9 +61,9 @@ const DisplayMeetings = (props: Props) => {
           );
         });
       });
-      setFullMeetingList(tmpMeetings);
+      setFullMeetingList(_.orderBy(tmpMeetings, ['mandatory'], ['asc']));
     } else {
-      setFullMeetingList(tmpMeetings);
+      setFullMeetingList(_.orderBy(tmpMeetings, ['mandatory'], ['asc']));
     }
   }, [userMeetingStatus, currentMonth, mandatoryMeetings, meetings, t]);
 
