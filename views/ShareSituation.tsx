@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import Container from '../components/ui/Container';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -123,20 +123,22 @@ const ShareSituation = () => {
 
   return (
     <Container>
-      <View style={styles.topContainer}>
-        <Pressable style={styles.backButton} onPress={navigation.goBack}>
-          <FontAwesome5Icon
-            name="chevron-left"
-            size={20}
-            style={{marginRight: 10}}
-            color={Colors.primary}
-          />
-          <TextBase style={styles.backText}>Retour</TextBase>
-        </Pressable>
-      </View>
-      <View>{buildUserInfosString()}</View>
-      <PregnancyFollow bg={Colors.backgroundPrimary} />
-      <SituationSymptoms symptomes={userSymptomes} />
+      <ScrollView>
+        <View style={styles.topContainer}>
+          <Pressable style={styles.backButton} onPress={navigation.goBack}>
+            <FontAwesome5Icon
+              name="chevron-left"
+              size={20}
+              style={{marginRight: 10}}
+              color={Colors.primary}
+            />
+            <TextBase style={styles.backText}>Retour</TextBase>
+          </Pressable>
+        </View>
+        <View>{buildUserInfosString()}</View>
+        <PregnancyFollow bg={Colors.backgroundPrimary} />
+        <SituationSymptoms symptomes={userSymptomes} />
+      </ScrollView>
     </Container>
   );
 };

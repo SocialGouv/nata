@@ -126,7 +126,7 @@
     "followup": {
       "month": "ème mois",
       "firstMonth": "er mois",
-      "meetingTitle": "Mes rendez-vous ce mois ci",
+      "meetingTitle": "Je valide mes rendez-vous",
       "symptomsTitle": "Mes symptômes",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
       "urgencyButton": "Trouver une sage femme",
@@ -801,7 +801,7 @@
       "ps": "Pachto"
     },
     "help-around": {
-      "title": "Les aides autour de moi",
+      "title": "Mes aides autour de moi",
       "doctor": {
         "title": "Trouver une sage femme",
         "subtext": "Je trouve une sage femme"
@@ -812,7 +812,7 @@
       },
       "welcome": {
         "title": "Accueil de jour",
-        "subtext": "je trouve un accueil de jour à proximité de"
+        "subtext": "Je trouve un accueil de jour à proximité de"
       },
       "cleaning": {
         "title": "Toilettes et douches",

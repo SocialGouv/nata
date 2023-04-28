@@ -99,8 +99,8 @@ android {
         applicationId "com.nata01"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.07"
+        versionCode 7
+        versionName "1.09"
     }
 
     splits {

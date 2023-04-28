@@ -5,33 +5,36 @@
       "Situation": "My Situation"
     },
     "onboarding": {
+      "endPathContent": "We advise you to make an appointment with a midwife or doctor to start your prenatal care. \n\nIf you are homeless and do not have health coverage, you can call the SOLIPAM association. They can answer your questions and assist you with your procedures for free. \n\nPlease come back to us after this appointment. \n\nSee you soon, \n\nNATA.",
+      "urengecyTitleUnder5": "Nata advises you to quickly make an appointment with a midwife or doctor to follow your pregnancy: ",
       "questions": {
         "question1": {
-          "label": "Are you pregnant?",
+          "label": "Are you pregnant? ",
           "answer1": {
             "label": "Yes 👍"
           },
           "answer2": {
             "label": "No 👎",
-            "redirectScreenContent": "NATA aide les femmes enceintes à suivre leur grossesse. Si tu es parent, NATA pourra prochainement t'accompagner à faire le suivi médical de ton bébé jusqu'à ses 3 ans. \n\nA bientôt."
+            "redirectScreenContent": "NATA helps pregnant women follow their pregnancy. If you are a parent, NATA will soon be able to accompany you to your baby's medical follow-up until the age of 3. \n\nSee you soon."
           },
           "answerDanger": {
-            "label": "I'm not sure 🤷‍♀️",
-            "redirectScreenContent": "Si tu as un retard de règles, tu es peut-être enceinte. Tu peux faire un test de grossesse pour confirmer. Ce test peut être acheté à la pharmacie ou au supermarché.Si tu as moins de 18 ans, rends-toi dans un centre de planning familial, ils te donneront un test de grossesse gratuitement. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t’aider à suivre ta grossesse. A bientôt"
+            "label": "I don't know 🤷‍♀️",
+            "redirectScreenContent": "To find out if you are pregnant, you can take a free pregnancy test by going to a family planning center, a sexual health center, or a PMI. If you are pregnant and 18 years of age or older, NATA can help you follow your pregnancy. \n\nSee you soon."
           }
         },
         "question2": {
-          "label": "Am I 18 years old or older?",
+          "label": "Are you 18 years of age or older? ",
           "answer1": {
             "label": "Yes 👍"
           },
           "answer2": {
             "label": "No 👎",
-            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans, nous te conseillons de te rendre dans le centre de planning familial ou la PMI la plus proche. Tu peux aussi appeler l’association SOLIPAM, à ce numéro (gratuit) : 0 801 801 081. Ils pourront répondront à tes questions concernant la grossesse et t’accompagner dans tes démarches. Merci de ta venue,  NATA."
+            "redirectScreenContent": "If you are pregnant and under 18 years of age, we advise you to go to a family planning center or a PMI. You can also call the SOLIPAM association, they can answer your questions and assist you with your procedures for free. \n\nThank you for coming, NATA."
           }
         },
         "question3": {
-          "label": "How many months pregnant am I?",
+          "label": "How many months pregnant are you? ",
+          "specialAnswer": "I'm not sure 🤷‍♀️",
           "answer1": {
             "label": "1 month"
           },
@@ -61,17 +64,17 @@
           }
         },
         "question4": {
-          "label": "Have I already met with a midwife or doctor to begin my pregnancy follow-up?",
+          "label": "Have you already met with a midwife or doctor?",
           "answer1": {
             "label": "Yes 👍"
           },
           "answer2": {
             "label": "No 👎",
-            "redirectScreenContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse.  Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. Reviens vers nous après ce rendez-vous. A bientôt, NATA."
+            "redirectScreenContent": "We advise you to make an appointment with a midwife or doctor to start your prenatal care. If you are homeless and do not have health coverage, you can call the SOLIPAM association. They can answer your questions and assist you with your procedures for free. Please come back to us after this appointment. See you soon, NATA."
           }
         },
         "question5": {
-          "label": "Do I have an appointment scheduled in the next few days to begin or continue my pregnancy follow-up?",
+          "label": "Do I have an appointment scheduled in the coming days to start or continue my pregnancy follow-up?",
           "answer1": {
             "label": "Yes 👍"
           },
@@ -80,92 +83,712 @@
           }
         },
         "question6": {
-          "label": "Do I have medical coverage?",
+          "label": "Regarding my health coverage",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "I have AME"
           },
           "answer2": {
-            "label": "No 👎"
+            "label": "I have a vitale card (CMU / CSS)"
+          },
+          "answer3": {
+            "label": "I don't have medical coverage"
+          },
+          "answer4": {
+            "label": "I don't know"
           }
         },
         "question7": {
-          "label": "Am I housed?",
+          "label": "Regarding my accommodation",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "I'm in Emergency Housing Center (CHU)"
           },
           "answer2": {
-            "label": "No 👎"
+            "label": "I'm in a social hotel"
+          },
+          "answer3": {
+            "label": "I'm staying with someone I know"
+          },
+          "answer4": {
+            "label": "I live in my own accommodation"
+          },
+          "answer5": {
+            "label": "I'm homeless"
           }
+        },
+        "back": "Back",
+        "continue": "Continue 👉",
+        "begin": "Start 👉",
+        "languageSelection": {
+          "title": "Our mission: To support every pregnant woman throughout her pregnancy"
         }
-      },
-      "back": "Back",
-      "continue": "Continue 👉",
-      "begin": "Begin 👉",
-      "languageSelection": {
-        "title": "Our mission is to support every pregnant woman throughout her pregnancy."
       }
     },
     "followup": {
-      "month": "month",
-      "meetingTitle": "My meetings this month",
-      "urgencyText": "This is a medical emergency: Call 15 or go to the nearest maternity emergency department to see a midwife or a doctor.",
-      "urgencyButton": "Find a doctor",
+      "month": "th month",
+      "firstMonth": "st month",
+      "meetingTitle": "My appointments this month",
+      "symptomsTitle": "My symptoms",
+      "urgencyText": "Medical emergency: Call 15 or go to the nearest maternity emergency department.",
+      "urgencyButton": "Find a midwife",
+      "noMeeting": "Congratulations, you have completed all your appointments this month. You can find your history in the My Situation tab.",
       "month1": {
         "title": "1st month of pregnancy",
-        "text": "You've been pregnant for 1 month. Congratulations!"
+        "text": "This is the beginning of your pregnancy, your body is slowly starting to change.",
+        "list": {
+          "1": {
+            "label": "A medical consultation to confirm my pregnancy",
+            "code": "M1R1"
+          },
+          "2": {
+            "label": "My dating ultrasound",
+            "code": "M1R2"
+          },
+          "3": {
+            "label": "A blood test",
+            "code": "M1R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burns"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Strong abdominal pain"
+          },
+          "13": {
+            "label": "I can no longer feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
       },
       "month2": {
-        "title": "2nd month of pregnancy",
-        "text": "You've been pregnant for 2 months. Congratulations!"
+        "title": "2nd Month of Pregnancy",
+        "text": "Your breasts are growing and may be sore. You may also experience nausea.",
+        "list": {
+          "1": {
+            "label": "A blood test",
+            "code": "M2R1"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Burning urination"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Severe abdominal pain"
+          },
+          "13": {
+            "label": "I can't feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water breaking"
+          }
+        }
       },
       "month3": {
         "title": "3rd month of pregnancy",
-        "text": "You've been pregnant for 3 months. Congratulations!"
+        "text": "The baby is already moving in your belly but you can't feel it yet. Its heart has doubled in size.",
+        "list": {
+          "1": {
+            "label": "My ultrasound (before 14 weeks without periods)",
+            "code": "M3R1"
+          },
+          "2": {
+            "label": "Screening for Down syndrome",
+            "code": "M3R2"
+          },
+          "3": {
+            "label": "Maternity registration",
+            "code": "M3R3"
+          },
+          "4": {
+            "label": "A blood test",
+            "code": "M3R4"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burns"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Strong abdominal pain"
+          },
+          "13": {
+            "label": "I can no longer feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
       },
       "month4": {
         "title": "4th month of pregnancy",
-        "text": "You've been pregnant for 4 months. Congratulations!"
+        "text": "The fetus takes on a human form and your belly begins to round out. The symptoms of early pregnancy decrease.",
+        "list": {
+          "1": {
+            "label": "Medical consultation for the 4th month",
+            "code": "M4R1"
+          },
+          "2": {
+            "label": "Control blood test",
+            "code": "M4R2"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Burning sensation when urinating"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light vaginal bleeding"
+          },
+          "10": {
+            "label": "Heavy vaginal bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Severe abdominal pain"
+          },
+          "13": {
+            "label": "I no longer feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water breaking"
+          }
+        }
       },
       "month5": {
         "title": "5th month of pregnancy",
-        "text": "You've been pregnant for 5 months. Congratulations!"
+        "text": "You can start feeling your baby move in your belly. They react to certain sounds and can even suck their thumb!",
+        "list": {
+          "1": {
+            "label": "Medical consultation in the 5th month",
+            "code": "M5R1"
+          },
+          "2": {
+            "label": "Control blood test",
+            "code": "M5R2"
+          },
+          "3": {
+            "label": "Ultrasound (between 20 and 25 weeks from last period)",
+            "code": "M5R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burning"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Severe abdominal pain"
+          },
+          "13": {
+            "label": "I can no longer feel my baby move"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water break"
+          }
+        }
       },
       "month6": {
         "title": "6th month of pregnancy",
-        "text": "You've been pregnant for 6 months. Congratulations!"
+        "text": "The baby can now hear music and weighs over 1kg. It moves a lot and may have hiccups.",
+        "list": {
+          "1": {
+            "label": "Medical checkup for the 6th month",
+            "code": "M6R1"
+          },
+          "2": {
+            "label": "Blood test",
+            "code": "M6R2"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headache"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Burning sensation when urinating"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Slight bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Severe abdominal pain"
+          },
+          "13": {
+            "label": "I can no longer feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
       },
       "month7": {
         "title": "7th month of pregnancy",
-        "text": "You've been pregnant for 7 months. Congratulations!"
+        "text": "The baby is gaining more weight and your belly is getting heavier.",
+        "list": {
+          "1": {
+            "label": "Medical consultation for the 7th month",
+            "code": "M7R1"
+          },
+          "2": {
+            "label": "Control blood test",
+            "code": "M7R2"
+          },
+          "3": {
+            "label": "Ultrasound (between 30 and 35 weeks without menstruation)",
+            "code": "M7R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burning sensation"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Severe abdominal pain"
+          },
+          "13": {
+            "label": "I can't feel my baby moving anymore"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
+      },
+      "month8": {
+        "title": "8th month of pregnancy",
+        "text": "He is taking his position for delivery. Hang in there! The end of pregnancy is approaching.",
+        "list": {
+          "1": {
+            "label": "Medical consultation of the 8th month",
+            "code": "M8R1"
+          },
+          "2": {
+            "label": "Control blood test",
+            "code": "M8R2"
+          },
+          "3": {
+            "label": "Consultation with the anesthesiologist",
+            "code": "M8R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burning sensations"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Strong abdominal pain"
+          },
+          "13": {
+            "label": "I can't feel my baby moving anymore"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
+      },
+      "month9": {
+        "title": "9th month of pregnancy",
+        "text": "At the end of the 37th week without menstruation, the baby is ready to be born. It's time to prepare your bag for the maternity ward.",
+        "list": {
+          "1": {
+            "label": "Medical consultation in the 9th month",
+            "code": "M9R1"
+          },
+          "2": {
+            "label": "Control blood test",
+            "code": "M9R2"
+          },
+          "3": {
+            "label": "I prepare my bag for the maternity ward",
+            "code": "M9R3"
+          }
+        },
+        "symptoms": {
+          "1": {
+            "label": "Nausea"
+          },
+          "2": {
+            "label": "Vomiting"
+          },
+          "3": {
+            "label": "Back pain"
+          },
+          "4": {
+            "label": "Fatigue"
+          },
+          "5": {
+            "label": "Headaches"
+          },
+          "6": {
+            "label": "Constipation"
+          },
+          "7": {
+            "label": "Urinary burns"
+          },
+          "8": {
+            "label": "Fever"
+          },
+          "9": {
+            "label": "Light bleeding"
+          },
+          "10": {
+            "label": "Heavy bleeding"
+          },
+          "11": {
+            "label": "Fall/accident"
+          },
+          "12": {
+            "label": "Strong abdominal pain"
+          },
+          "13": {
+            "label": "I no longer feel my baby moving"
+          },
+          "14": {
+            "label": "Swollen legs"
+          },
+          "15": {
+            "label": "Vision problems"
+          },
+          "16": {
+            "label": "Contractions"
+          },
+          "17": {
+            "label": "Water loss"
+          }
+        }
       }
     },
     "urgency": {
       "title": "For your health and that of your child, it is urgent to consult a professional",
-      "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy. \n\nThis consultation is free, and without an appointment",
-      "button": "I found an appointment"
+      "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy.\n\nThis consultation is free and without appointment.",
+      "button": "I have found an appointment",
+      "continue": "Continue to the application",
+      "subtext": "Consult a midwife near"
     },
     "information_modal": {
-      "title": "NATA is here to help and guide you through your pregnancy, but it does not replace medical follow-up.",
+      "title": "NATA is here to help and guide you through your pregnancy but it does not replace medical follow-up.",
       "content": "In France, it is possible to have free pregnancy monitoring even without medical coverage and without resources."
     },
     "situation": {
       "shareInformations": {
-        "title": "Share your situation"
+        "title": "Share my situation"
       },
       "pregnancyFollow": {
         "title": "My pregnancy follow-up",
-        "noFollowUp": "No appointments have been recorded yet"
+        "noFollowUp": "No appointment has been recorded yet"
       },
       "monthlyMeetings": {
         "title": "To do this month"
       },
       "symptoms": {
-        "title": "My symptoms"
+        "title": "My symptoms",
+        "noSymptoms": "No symptoms have been recorded yet"
       },
       "profile": {
         "title": "My profile",
         "language": "I speak",
-        "pregnancyMonth": "Pregnancy month",
+        "pregnancyMonth": "Month of pregnancy",
         "pregnancyFollowed": "Pregnancy followed",
         "medical_care": "Medical coverage",
         "housing": "Housing"
@@ -176,6 +799,26 @@
       "ar": "Arabic",
       "en": "English",
       "ps": "Pashto"
+    },
+    "help-around": {
+      "title": "Help Around Me",
+      "doctor": {
+        "title": "Find a Midwife",
+        "subtext": "I find a midwife"
+      },
+      "food": {
+        "title": "Food",
+        "subtext": "I find a meal nearby"
+      },
+      "welcome": {
+        "title": "Daycare",
+        "subtext": "I find a daycare nearby"
+      },
+      "cleaning": {
+        "title": "Toilets and Showers",
+        "subtext": "I find a hygiene facility nearby"
+      },
+      "no-info": "No information available at the moment"
     }
   }
 }
