@@ -17,8 +17,6 @@ interface Props {
 const DisplayMeetings = (props: Props) => {
   const {meetings, mandatoryMeetings, currentMonth} = props;
 
-  console.log('MEETINGS', meetings);
-
   const isFocused = useIsFocused();
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<
     {
@@ -45,7 +43,6 @@ const DisplayMeetings = (props: Props) => {
   }, []);
 
   const displayFullMeetings = useCallback(() => {
-    console.log('PASSE LA ?');
     let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
     tmpMeetings = tmpMeetings.filter(meeting => {
       if (meeting.max_month) {
@@ -72,7 +69,7 @@ const DisplayMeetings = (props: Props) => {
 
   React.useEffect(() => {
     displayFullMeetings();
-  }, [displayFullMeetings, isFocused, t]);
+  }, [displayFullMeetings, isFocused, meetings]);
 
   React.useEffect(() => {
     retrieveUserMeetingStatus();
@@ -106,43 +103,43 @@ const DisplayMeetings = (props: Props) => {
       {fullMeetingList.map(meeting => {
         return (
           <View style={styles.menuItem} key={meeting.code}>
-            {userMeetingStatus && (
-              <BouncyCheckbox
-                size={25}
-                fillColor={Colors.lightPrimary}
-                text={t(meeting.label) as string}
-                style={styles.chekboxStyle}
-                isChecked={
-                  userMeetingStatus.find((item: {code: string}) => {
-                    return item.code === t(meeting.code);
-                  }) !== undefined
-                    ? true
-                    : false
-                }
-                textStyle={styles.innerCheckboxText}
-                onPress={(isChecked: boolean) => {
-                  if (userMeetingStatus) {
-                    if (isChecked) {
-                      setUserMeetingStatus([
-                        ...userMeetingStatus,
-                        {
-                          label: meeting.label as string,
-                          code: t(meeting.code),
-                          max_month: meeting.max_month,
-                        },
-                      ]);
-                    } else {
-                      setUserMeetingStatus(
-                        userMeetingStatus.filter(
-                          (item: {label: string}) =>
-                            item.label !== (meeting.label as string),
-                        ),
-                      );
-                    }
+            <BouncyCheckbox
+              size={25}
+              fillColor={Colors.lightPrimary}
+              text={t(meeting.label) as string}
+              style={styles.chekboxStyle}
+              isChecked={
+                userMeetingStatus &&
+                userMeetingStatus.find((item: {code: string}) => {
+                  return item.code === t(meeting.code);
+                }) !== undefined
+                  ? true
+                  : false
+              }
+              textStyle={styles.innerCheckboxText}
+              onPress={(isChecked: boolean) => {
+                if (userMeetingStatus) {
+                  if (isChecked) {
+                    setUserMeetingStatus([
+                      ...userMeetingStatus,
+                      {
+                        label: meeting.label as string,
+                        code: t(meeting.code),
+                        max_month: meeting.max_month,
+                      },
+                    ]);
+                  } else {
+                    setUserMeetingStatus(
+                      userMeetingStatus.filter(
+                        (item: {label: string}) =>
+                          item.label !== (meeting.label as string),
+                      ),
+                    );
                   }
-                }}
-              />
-            )}
+                }
+              }}
+            />
+
             {/* <FontAwesome5Icon
               name="chevron-right"
               size={15}

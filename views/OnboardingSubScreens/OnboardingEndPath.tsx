@@ -45,6 +45,7 @@ const OnboardingEndPath = ({
     },
     bottomContainer: {
       paddingHorizontal: 20,
+      paddingBottom: 150,
     },
     text: {
       fontSize: 16,
@@ -121,7 +122,7 @@ const OnboardingEndPath = ({
     },
     webview: {
       width: width,
-      height: height / 2.2,
+      height: height / 2.3,
       // paddingHorizontal: 20,
       zIndex: -1,
     },
