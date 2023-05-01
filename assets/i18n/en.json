@@ -121,6 +121,12 @@
         "languageSelection": {
           "title": "Our mission: To support every pregnant woman throughout her pregnancy"
         }
+      },
+      "back": "Back",
+      "continue": "Continue 👉",
+      "begin": "Begin 👉",
+      "languageSelection": {
+        "title": "Our mission : Accompany every pregnant woman during her pregnancy"
       }
     },
     "followup": {
@@ -129,7 +135,7 @@
       "meetingTitle": "My appointments this month",
       "symptomsTitle": "My symptoms",
       "urgencyText": "Medical emergency: Call 15 or go to the nearest maternity emergency department.",
-      "urgencyButton": "Find a midwife",
+      "urgencyButton": "Find the urgencies",
       "noMeeting": "Congratulations, you have completed all your appointments this month. You can find your history in the My Situation tab.",
       "month1": {
         "title": "1st month of pregnancy",
@@ -764,7 +770,8 @@
       "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy.\n\nThis consultation is free and without appointment.",
       "button": "I have found an appointment",
       "continue": "Continue to the application",
-      "subtext": "Consult a midwife near"
+      "subtext": "Consult a midwife near",
+      "solipamtext": "You can call the Solipam association. They will be able to answer your questions and help you with your procedures for free"
     },
     "information_modal": {
       "title": "NATA is here to help and guide you through your pregnancy but it does not replace medical follow-up.",

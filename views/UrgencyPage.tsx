@@ -187,7 +187,7 @@ const UrgencyPage = (props: Props) => {
     },
     webview: {
       width: width,
-      height: height / 3.5,
+      height: height / 2.8,
       paddingHorizontal: 20,
       backgroundColor: Colors.backgroundUrgence,
       zIndex: -1,
@@ -246,7 +246,7 @@ const UrgencyPage = (props: Props) => {
           </View>
         </View>
         <View style={styles.explanationContainer}>
-          <Pressable
+          {/* <Pressable
             onPress={() => navigation.navigate('FollowUp')}
             style={({pressed}) => [
               styles.pressable,
@@ -257,13 +257,16 @@ const UrgencyPage = (props: Props) => {
             <TextBase style={styles.buttonText}>
               {t('urgency.button') as string}
             </TextBase>
-          </Pressable>
+          </Pressable> */}
           {number && (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handlePhonePress()}>
-              <TextBase style={styles.whiteText}>{number}</TextBase>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handlePhonePress()}>
+                <TextBase style={styles.whiteText}>{number}</TextBase>
+              </TouchableOpacity>
+              <TextBase>{t('urgency.solipamtext')}</TextBase>
+            </>
           )}
         </View>
         <View style={styles.middleContainer}>

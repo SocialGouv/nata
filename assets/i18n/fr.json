@@ -129,7 +129,7 @@
       "meetingTitle": "Je valide mes rendez-vous",
       "symptomsTitle": "Mes symptômes",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
-      "urgencyButton": "Trouver une sage femme",
+      "urgencyButton": "Trouver les urgences",
       "noMeeting": "Bravo, vous avez réalisez tout vos rendez-vous ce mois-ci. Vous pouvez retrouver l'historique dans l'onglet Ma Situation",
       "month1": {
         "title": "1er mois de grossesse",
@@ -764,7 +764,8 @@
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous",
       "continue": "Continuer vers l'application",
-      "subtext": "Consulter une sage femme à proximité de "
+      "subtext": "Consulter une sage femme à proximité de ",
+      "solipamtext": "Tu peux appeler l'association Solipam. Ils pourront répondre à tes questions et t'aider dans tes démarches gratuitement."
     },
     "information_modal": {
       "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",

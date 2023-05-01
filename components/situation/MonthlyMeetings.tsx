@@ -5,12 +5,12 @@ import {Colors, Fonts} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 
 const MonthlyMeetings = () => {
-  const {t} = useTranslation();
+  // const {t} = useTranslation();
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>
+      {/* <TextBase style={styles.title}>
         {t('situation.monthlyMeetings.title')}
-      </TextBase>
+      </TextBase> */}
     </View>
   );
 };

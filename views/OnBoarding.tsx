@@ -73,7 +73,6 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
-            number: '0 801 801 081',
           });
         }
       } else if (
@@ -106,7 +105,6 @@ const Onboarding = () => {
       answer.value !== 'Q4A2' &&
       !question.isSpecial
     ) {
-      console.log('userInfos', userInfos);
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
         number: answer.phone,

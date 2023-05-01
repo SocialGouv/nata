@@ -22,6 +22,7 @@ import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
 import {useIsFocused} from '@react-navigation/native';
 import DisplayHelpAround from '../components/followup/DisplayHelpAround';
+import DisplayLegal from '../components/followup/DisplayLegal';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -262,6 +263,7 @@ const FollowUp = () => {
           currentMonth={currentMonth}
         />
         <DisplayHelpAround userInfos={userInfos} />
+        <DisplayLegal />
       </ScrollView>
     </Container>
   );

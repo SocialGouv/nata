@@ -125,6 +125,7 @@ const OnboardingEndPath = ({
       height: height / 2.3,
       // paddingHorizontal: 20,
       zIndex: -1,
+      marginBottom: 10,
     },
     button: {
       backgroundColor: Colors.primary,
@@ -132,7 +133,7 @@ const OnboardingEndPath = ({
       height: 40,
       alignItems: 'center',
       justifyContent: 'center',
-      marginVertical: 5,
+      marginVertical: 10,
       marginHorizontal: 30,
     },
     whiteText: {
@@ -186,7 +187,7 @@ const OnboardingEndPath = ({
   const handlePhonePress = () => {
     Platform.OS === 'ios'
       ? Linking.openURL(`tel:${number}`)
-      : Linking.openURL(`telprompt:${number}`);
+      : Linking.openURL(`telprompt:${number.split(' ').join('')}`);
   };
 
   return (
