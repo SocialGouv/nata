@@ -42,6 +42,7 @@ const PregnancyFollow = (props: Props) => {
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: 10,
+      marginRight: 25,
     },
     text: {
       fontSize: 16,
