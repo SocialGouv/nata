@@ -160,7 +160,9 @@ const OnboardingEndPath = ({
           if (res && res.features && res.features.length > 0) {
             let tmpRes: any[] = [];
             res.features.map((el: any) => {
-              tmpRes.push(`${el.properties.city}`);
+              tmpRes.push(
+                `${el.properties.city}` + ' ' + `${el.properties.postcode}`,
+              );
             });
             setGeogouvData(tmpRes);
           }

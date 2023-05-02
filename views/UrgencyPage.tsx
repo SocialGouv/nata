@@ -48,7 +48,7 @@ const UrgencyPage = (props: Props) => {
             let tmpRes: any[] = [];
             res.features.map((el: any) => {
               tmpRes.push(
-                `${el.properties.name} ${el.properties.postcode} ${el.properties.city}`,
+                `${el.properties.city}` + ' ' + `${el.properties.postcode}`,
               );
             });
             setGeogouvData(tmpRes);
