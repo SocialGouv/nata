@@ -136,6 +136,8 @@ const DisplayMeetings = (props: Props) => {
                       ),
                     );
                   }
+                } else {
+                  setUserMeetingStatus([meeting]);
                 }
               }}
             />

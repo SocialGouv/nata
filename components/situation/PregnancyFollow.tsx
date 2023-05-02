@@ -10,6 +10,7 @@ import TextBase from '../ui/TextBase';
 interface FollowUp {
   label: string;
   code: string;
+  max_month: number;
   nbOfOccurence?: number;
 }
 
