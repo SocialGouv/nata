@@ -54,7 +54,10 @@ const PregnancyFollow = (props: Props) => {
   const [followUp, setFollowUp] = React.useState<FollowUp[]>([]);
 
   const retrievePregnancyFollow = React.useCallback(async () => {
+    console.log('all keys', await AsyncStorage.getAllKeys());
+    console.log(await AsyncStorage.getItem('userInfos'));
     const values = await AsyncStorage.getItem('userMeetingStatus');
+    console.log('values preg follow', values);
     if (values) {
       setFollowUp(JSON.parse(values));
     } else {

@@ -164,7 +164,6 @@ const FollowUp = () => {
       [isFocused],
     );
     setMandatoryMeeting(tmpMandatoryMeetings);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   React.useEffect(() => {
