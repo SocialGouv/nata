@@ -260,12 +260,14 @@ const UrgencyPage = (props: Props) => {
           </Pressable> */}
           {number && (
             <>
+              <TextBase style={{marginBottom: 20}}>
+                {t('urgency.solipamtext')}
+              </TextBase>
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => handlePhonePress()}>
                 <TextBase style={styles.whiteText}>{number}</TextBase>
               </TouchableOpacity>
-              <TextBase>{t('urgency.solipamtext')}</TextBase>
             </>
           )}
         </View>
@@ -291,6 +293,7 @@ const UrgencyPage = (props: Props) => {
                 renderTextInput={() => (
                   <TextInput
                     style={styles.input}
+                    placeholder={t('urgency.search') as string}
                     value={search}
                     onChangeText={text => {
                       setHideResults(false);

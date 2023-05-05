@@ -221,6 +221,7 @@ const OnboardingEndPath = ({
                 renderTextInput={() => (
                   <TextInput
                     style={styles.input}
+                    placeholder={t('urgency.search') as string}
                     value={search}
                     onChangeText={text => {
                       setHideResults(false);

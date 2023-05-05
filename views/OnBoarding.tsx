@@ -79,10 +79,18 @@ const Onboarding = () => {
         parseInt(userInfos['pregnancyMonth'], 10) >= 6 &&
         userInfos['isMeetingPlanned'] === 'Q5A2'
       ) {
-        setIsOnboardingDone(true);
-        navigation.navigate('UrgencyPage', {
-          number: '0 801 801 081',
-        });
+        if (
+          userInfos['medical_care'] === 'Q6A3' ||
+          userInfos['medical_care'] === 'Q6A4'
+        ) {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            number: '0 801 801 081',
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage');
+        }
       } else {
         setIsOnboardingDone(true);
         setDisplayInitialModal(true);

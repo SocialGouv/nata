@@ -765,7 +765,8 @@
       "button": "J'ai trouvé un rendez-vous",
       "continue": "Continuer vers l'application",
       "subtext": "Consulter une sage femme à proximité de ",
-      "solipamtext": "Tu peux appeler l'association Solipam. Ils pourront répondre à tes questions et t'aider dans tes démarches gratuitement."
+      "solipamtext": "Tu peux appeler l'association Solipam. Ils pourront répondre à tes questions et t'aider dans tes démarches gratuitement.",
+      "search": "Saisissez une ville ou un code postal"
     },
     "information_modal": {
       "title": "NATA est là pour t’aider et te guider dans ta grossesse mais cela ne remplace pas un suivi médical.",
