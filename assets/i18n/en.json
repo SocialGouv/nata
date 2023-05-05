@@ -786,7 +786,8 @@
         "noFollowUp": "No appointment has been recorded yet"
       },
       "monthlyMeetings": {
-        "title": "To do this month"
+        "title": "To do this month",
+        "noMonthlyMeetings": "You have done all your appointments for this month"
       },
       "symptoms": {
         "title": "My symptoms",
