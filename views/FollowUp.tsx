@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useContext} from 'react';
 import Container from '../components/ui/Container';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -23,6 +23,7 @@ import TextBase from '../components/ui/TextBase';
 import {useIsFocused} from '@react-navigation/native';
 import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
+import AppContext from '../AppContext';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -75,7 +76,7 @@ const FollowUp = () => {
 
   const {t} = useTranslation();
 
-  const [currentMonth, setCurrentMonth] = React.useState<number>();
+  const {currentMonth, setCurrentMonth} = useContext(AppContext);
   const [currentContent, setCurrentContent] = React.useState<{
     title: string;
     text: string;
@@ -130,7 +131,7 @@ const FollowUp = () => {
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [setCurrentMonth]);
 
   React.useEffect(() => {
     retrieveUserMonth();

@@ -22,6 +22,7 @@ const DisplayMeetings = (props: Props) => {
     {
       label: string;
       code: string;
+      month: number;
       mandatory?: boolean;
       max_month?: number;
     }[]
@@ -126,6 +127,7 @@ const DisplayMeetings = (props: Props) => {
                         label: meeting.label as string,
                         code: t(meeting.code),
                         max_month: meeting.max_month,
+                        month: meeting.month,
                       },
                     ]);
                   } else {

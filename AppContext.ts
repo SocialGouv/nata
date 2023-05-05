@@ -5,6 +5,8 @@ const AppContext = React.createContext({
   setIsOnboardingDone: (isOnboardingDone: boolean) => {},
   displayInitialModal: false,
   setDisplayInitialModal: (displayInitialModal: boolean) => {},
+  currentMonth: 1,
+  setCurrentMonth: (currentMonth: number) => {},
 });
 
 export default AppContext;

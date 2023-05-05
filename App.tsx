@@ -20,6 +20,8 @@ type ContextType = {
   setIsOnboardingDone: React.Dispatch<React.SetStateAction<boolean>>;
   displayInitialModal: boolean;
   setDisplayInitialModal: React.Dispatch<React.SetStateAction<boolean>>;
+  currentMonth: number;
+  setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function App(): JSX.Element {
@@ -28,12 +30,15 @@ function App(): JSX.Element {
     React.useState<boolean>(false);
   const [displayInitialModal, setDisplayInitialModal] =
     React.useState<boolean>(false);
+  const [currentMonth, setCurrentMonth] = React.useState<number>(1);
 
   const contextValue: ContextType = {
     isOnboardingDone,
     setIsOnboardingDone,
     displayInitialModal,
     setDisplayInitialModal,
+    currentMonth,
+    setCurrentMonth,
   };
 
   const handleOnboardingDone = async () => {

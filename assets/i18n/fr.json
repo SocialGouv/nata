@@ -780,7 +780,8 @@
         "noFollowUp": "Aucun rendez-vous n'a été enregistré pour le moment"
       },
       "monthlyMeetings": {
-        "title": "A faire ce mois-ci"
+        "title": "A faire ce mois-ci",
+        "noMonthlyMeetings": "Vous avez réalisé tout vos rendes-vous pour ce mois-ci"
       },
       "symptoms": {
         "title": "Mes symptômes",
