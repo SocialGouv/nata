@@ -188,8 +188,8 @@ const OnboardingEndPath = ({
 
   const handlePhonePress = () => {
     Platform.OS === 'ios'
-      ? Linking.openURL(`tel:${number}`)
-      : Linking.openURL(`telprompt:${number.split(' ').join('')}`);
+      ? Linking.openURL(`tel:${number.replace(/\s+/g, '')}`)
+      : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
   };
 
   return (
@@ -235,7 +235,8 @@ const OnboardingEndPath = ({
                     <TouchableOpacity
                       style={styles.displayResults}
                       onPress={() => {
-                        setSearch(item), setHideResults(false);
+                        setSearch(item);
+                        setHideResults(false);
                       }}>
                       <TextBase>{item}</TextBase>
                     </TouchableOpacity>
