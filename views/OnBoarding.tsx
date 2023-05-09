@@ -1,3 +1,4 @@
+import {CustomCarousel} from './../components/onboarding/CustomCarousel';
 import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import questions from '../assets/models/questions.json';
@@ -9,8 +10,6 @@ import {Colors, Fonts} from '../styles/Style';
 import {useWindowDimensions} from 'react-native';
 import * as Progress from 'react-native-progress';
 import {useNavigation} from '@react-navigation/native';
-import Carousel from 'react-native-snap-carousel';
-import SliderItem from '../components/onboarding/SliderItem';
 import Images from '../assets/models/onboardingImages';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../AppContext';
@@ -46,7 +45,6 @@ const Onboarding = () => {
   const [currentStep, setCurrentStep] = React.useState<number>(1);
   const {width} = useWindowDimensions();
   const navigation = useNavigation();
-  const carouselRef = React.useRef(null);
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
 
@@ -57,13 +55,10 @@ const Onboarding = () => {
   const handleUrgencyPath = () => {
     if (userInfos) {
       if (
-        parseInt(userInfos['pregnancyMonth'], 10) < 6 &&
-        userInfos['isMeetingPlanned'] === 'Q5A2'
+        parseInt(userInfos.pregnancyMonth, 10) < 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
       ) {
-        if (
-          userInfos['housing'] === 'Q7A5' ||
-          userInfos['housing'] === 'Q7A2'
-        ) {
+        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A2') {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
@@ -76,12 +71,12 @@ const Onboarding = () => {
           });
         }
       } else if (
-        parseInt(userInfos['pregnancyMonth'], 10) >= 6 &&
-        userInfos['isMeetingPlanned'] === 'Q5A2'
+        parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
       ) {
         if (
-          userInfos['medical_care'] === 'Q6A3' ||
-          userInfos['medical_care'] === 'Q6A4'
+          userInfos.medical_care === 'Q6A3' ||
+          userInfos.medical_care === 'Q6A4'
         ) {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
@@ -118,7 +113,7 @@ const Onboarding = () => {
         number: answer.phone,
       });
     } else if (
-      parseInt(userInfos['pregnancyMonth'], 10) === 0 &&
+      parseInt(userInfos.pregnancyMonth, 10) === 0 &&
       answer.value === 'Q4A2' &&
       answer.redirectScreen
     ) {
@@ -211,20 +206,10 @@ const Onboarding = () => {
               if (question.isSpecial) {
                 return (
                   <View key={index} style={styles.sliderContainer}>
-                    <Carousel
-                      ref={carouselRef}
+                    <CustomCarousel
                       data={question.answers}
-                      layout={'default'}
-                      layoutCardOffset={50}
-                      firstItem={0}
-                      renderItem={({item, index}) => (
-                        <SliderItem item={item} index={index + 1} />
-                      )}
-                      sliderWidth={width - 40}
-                      itemWidth={width * 0.5}
-                      onSnapToItem={carouselIndex =>
-                        setPrengancyMonth(carouselIndex + 1)
-                      }
+                      width={width}
+                      setPrengancyMonth={e => setPrengancyMonth(e)}
                     />
                     <Pressable
                       onPress={() => {
@@ -339,6 +324,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   question: {
     fontSize: 20,
@@ -351,7 +337,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 10,
     marginRight: 10,
-
     alignSelf: 'center',
   },
   bottomContainer: {
