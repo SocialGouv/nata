@@ -4,14 +4,29 @@ import Carousel from 'react-native-snap-carousel';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from '../../styles/Style';
 import SliderItem from './SliderItem';
-export function CustomCarousel({data, width, setPrengancyMonth}) {
-  const carouselRef = React.useRef(null);
+
+interface CustomCarouselProps {
+  data: {
+    label: string;
+    value: string;
+    redirectScreen?: boolean | undefined;
+  }[];
+  width: number;
+  setPrengancyMonth: (index: number) => void;
+}
+
+export function CustomCarousel({
+  data,
+  width,
+  setPrengancyMonth,
+}: CustomCarouselProps) {
+  const carouselRef = React.useRef<any>();
   return (
     <>
-      {carouselRef.current?.currentIndex > 0 && (
+      {carouselRef.current.currentIndex > 0 && (
         <Pressable
           onPress={() => {
-            carouselRef.current?.snapToPrev();
+            carouselRef.current.snapToPrev();
           }}
           style={({pressed}) => [
             {
@@ -41,11 +56,11 @@ export function CustomCarousel({data, width, setPrengancyMonth}) {
         showsHorizontalScrollIndicator={true}
         onSnapToItem={carouselIndex => setPrengancyMonth(carouselIndex + 1)}
       />
-      {(carouselRef.current?.currentIndex < data.length - 1 ||
+      {(carouselRef.current.currentIndex < data.length - 1 ||
         !carouselRef.current) && (
         <Pressable
           onPress={() => {
-            carouselRef.current?.snapToNext();
+            carouselRef.current.snapToNext();
           }}
           style={({pressed}) => [
             {
