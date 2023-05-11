@@ -23,6 +23,7 @@ interface PressFunction {
     redirectScreen?: boolean;
     redirectScreenContent?: string | undefined;
     phone?: string;
+    image?: string;
   };
   question: {
     label: string;
@@ -100,8 +101,10 @@ const Onboarding = () => {
       answer.value === 'Q1A2' &&
       answer.redirectScreen
     ) {
+      console.log('image sur appui:', answer.image);
       navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
+        image: answer.image,
       });
     } else if (
       answer.redirectScreen &&
@@ -111,6 +114,7 @@ const Onboarding = () => {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
         number: answer.phone,
+        image: answer.image,
       });
     } else if (
       parseInt(userInfos.pregnancyMonth, 10) === 0 &&
@@ -120,6 +124,7 @@ const Onboarding = () => {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
         number: answer.phone,
+        image: answer.image,
       });
     } else {
       if (currentStep < questions.data.length) {

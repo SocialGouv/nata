@@ -15,14 +15,16 @@
           "label": "onboarding.questions.question1.answer2.label",
           "value": "Q1A2",
           "redirectScreen": true,
-          "redirectScreenContent": "onboarding.questions.question1.answer2.redirectScreenContent"
+          "redirectScreenContent": "onboarding.questions.question1.answer2.redirectScreenContent",
+          "image": "not_pregnant"
         }
       ],
       "answerDanger": {
         "label": "onboarding.questions.question1.answerDanger.label",
         "redirectScreen": true,
         "redirectScreenContent": "onboarding.questions.question1.answerDanger.redirectScreenContent",
-        "value": "Q1AD"
+        "value": "Q1AD",
+        "image": "not_sure"
       }
     },
     {
@@ -40,7 +42,8 @@
           "value": "Q2A2",
           "redirectScreen": true,
           "redirectScreenContent": "onboarding.questions.question2.answer2.redirectScreenContent",
-          "phone": "0 801 801 081"
+          "phone": "0 801 801 081",
+          "image": "18"
         }
       ]
     },
@@ -118,7 +121,8 @@
           "value": "Q4A2",
           "redirectScreen": true,
           "redirectScreenContent": "onboarding.questions.question4.answer2.redirectScreenContent",
-          "phone": "0 801 801 081"
+          "phone": "0 801 801 081",
+          "image": "nurse"
         }
       ]
     },

@@ -17,16 +17,21 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import WebView from 'react-native-webview';
 import Autocomplete from 'react-native-autocomplete-input';
 import _ from 'lodash';
+import Images from '../../assets/models/onboardingImages';
 
 const OnboardingEndPath = ({
   navigation,
   route,
+  image,
 }: {
   navigation: any;
   route: any;
+  image: any;
 }) => {
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
+
+  console.log('recu: ', image);
 
   const styles = StyleSheet.create({
     container: {
@@ -139,6 +144,13 @@ const OnboardingEndPath = ({
     whiteText: {
       color: Colors.white,
       fontWeight: '700',
+    },
+    image: {
+      width: 40,
+      height: 40,
+      marginTop: 10,
+      marginRight: 10,
+      alignSelf: 'center',
     },
   });
 

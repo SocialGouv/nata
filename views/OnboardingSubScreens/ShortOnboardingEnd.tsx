@@ -1,20 +1,25 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Container from '../../components/ui/Container';
 import TextBase from '../../components/ui/TextBase';
 import {useTranslation} from 'react-i18next';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors, Fonts} from '../../styles/Style';
+import Images from '../../assets/models/onboardingImages';
 
 const ShortOnboardingEnd = ({
   navigation,
   route,
+  image,
 }: {
   navigation: any;
   route: any;
+  image: any;
 }) => {
   const content = route.params.content;
   const {t} = useTranslation();
+
+  console.log('recu: ', image);
   return (
     <Container>
       <Pressable
@@ -30,6 +35,10 @@ const ShortOnboardingEnd = ({
         </TextBase>
       </Pressable>
       <View style={styles.topContainer}>
+        <Image
+          source={Images[image as keyof typeof Images]}
+          style={styles.image}
+        />
         <TextBase style={styles.text}>{t(content)}</TextBase>
       </View>
     </Container>
@@ -65,5 +74,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: Colors.primary,
     textDecorationLine: 'underline',
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginTop: 10,
+    marginRight: 10,
+    alignSelf: 'center',
   },
 });

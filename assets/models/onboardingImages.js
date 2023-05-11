@@ -7,4 +7,6 @@ export default {
   nurse: require(`${BASE_URL}nurse.png`),
   doc: require(`${BASE_URL}doc.png`),
   housing: require(`${BASE_URL}housing.png`),
+  not_pregnant: require(`${BASE_URL}not_pregnant.png`),
+  not_sure: require(`${BASE_URL}not_sure.png`),
 };
