@@ -23,10 +23,10 @@ export function CustomCarousel({
   const carouselRef = React.useRef<any>();
   return (
     <>
-      {carouselRef.current.currentIndex > 0 && (
+      {carouselRef.current?.currentIndex > 0 && (
         <Pressable
           onPress={() => {
-            carouselRef.current.snapToPrev();
+            carouselRef.current?.snapToPrev();
           }}
           style={({pressed}) => [
             {
@@ -56,11 +56,11 @@ export function CustomCarousel({
         showsHorizontalScrollIndicator={true}
         onSnapToItem={carouselIndex => setPrengancyMonth(carouselIndex + 1)}
       />
-      {(carouselRef.current.currentIndex < data.length - 1 ||
+      {(carouselRef.current?.currentIndex < data.length - 1 ||
         !carouselRef.current) && (
         <Pressable
           onPress={() => {
-            carouselRef.current.snapToNext();
+            carouselRef.current?.snapToNext();
           }}
           style={({pressed}) => [
             {
