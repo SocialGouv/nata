@@ -19,7 +19,7 @@
           },
           "answerDanger": {
             "label": "Je ne suis pas sûre 🤷‍♀️",
-            "redirectScreenContent": "Pour savoir si tu es enceinte, tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuelle ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
+            "redirectScreenContent": "Pour savoir si tu es enceinte: Tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuelle ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
           }
         },
         "question2": {
@@ -29,7 +29,7 @@
           },
           "answer2": {
             "label": "Non 👎",
-            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans, nous te conseillons de te rendre dans un centre de planning familial ou une PMI. Tu peux aussi appeler l'association SOLIPAM, ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. \n\nMerci de ta venue, NATA."
+            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans: Nous te conseillons de te rendre dans un centre de planning familial ou une PMI. Tu peux aussi appeler l'association SOLIPAM, ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. \n\nMerci de ta venue, NATA."
           }
         },
         "question3": {

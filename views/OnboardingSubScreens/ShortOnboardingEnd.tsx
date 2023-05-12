@@ -10,16 +10,13 @@ import Images from '../../assets/models/onboardingImages';
 const ShortOnboardingEnd = ({
   navigation,
   route,
-  image,
 }: {
   navigation: any;
   route: any;
-  image: any;
 }) => {
-  const content = route.params.content;
+  const {content, image} = route.params;
   const {t} = useTranslation();
 
-  console.log('recu: ', image);
   return (
     <Container>
       <Pressable
@@ -35,11 +32,13 @@ const ShortOnboardingEnd = ({
         </TextBase>
       </Pressable>
       <View style={styles.topContainer}>
-        <Image
-          source={Images[image as keyof typeof Images]}
-          style={styles.image}
-        />
         <TextBase style={styles.text}>{t(content)}</TextBase>
+        {image && (
+          <Image
+            source={Images[image as keyof typeof Images]}
+            style={styles.image}
+          />
+        )}
       </View>
     </Container>
   );
@@ -49,7 +48,7 @@ export default ShortOnboardingEnd;
 
 const styles = StyleSheet.create({
   topContainer: {
-    marginTop: 20,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 20,
@@ -76,10 +75,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   image: {
-    width: 40,
-    height: 40,
-    marginTop: 10,
-    marginRight: 10,
+    marginTop: 20,
+    width: 200,
+    height: 200,
     alignSelf: 'center',
   },
 });

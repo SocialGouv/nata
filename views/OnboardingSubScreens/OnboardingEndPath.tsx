@@ -1,6 +1,7 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
+  Image,
   Linking,
   Platform,
   Pressable,
@@ -22,16 +23,13 @@ import Images from '../../assets/models/onboardingImages';
 const OnboardingEndPath = ({
   navigation,
   route,
-  image,
 }: {
   navigation: any;
   route: any;
-  image: any;
 }) => {
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
-
-  console.log('recu: ', image);
+  const {number, image} = route.params;
 
   const styles = StyleSheet.create({
     container: {
@@ -40,13 +38,16 @@ const OnboardingEndPath = ({
       paddingTop: Platform.OS === 'android' ? 25 : 45,
     },
     topContainer: {
-      height: '20%',
       width: '100%',
       backgroundColor: Colors.backgroundPrimary,
-      paddingTop: 20,
       paddingHorizontal: 20,
+      paddingTop: 20,
+      paddingBottom: 20,
       marginHorizontal: 0,
       alignItems: 'center',
+    },
+    firstPartContainer: {
+      flexDirection: 'row',
     },
     bottomContainer: {
       paddingHorizontal: 20,
@@ -56,6 +57,13 @@ const OnboardingEndPath = ({
       fontSize: 16,
       lineHeight: 32,
       fontFamily: Fonts.primary,
+      fontWeight: '400',
+    },
+    firstPartText: {
+      fontSize: 20,
+      lineHeight: 32,
+      fontFamily: Fonts.primary,
+      alignSelf: 'center',
       fontWeight: '400',
     },
     backPressable: {
@@ -81,7 +89,6 @@ const OnboardingEndPath = ({
       fontWeight: '700',
       marginVertical: 10,
       fontFamily: Fonts.primary,
-      paddingHorizontal: 20,
     },
     searchContainer: {
       flexDirection: 'row',
@@ -146,16 +153,15 @@ const OnboardingEndPath = ({
       fontWeight: '700',
     },
     image: {
-      width: 40,
-      height: 40,
-      marginTop: 10,
+      width: image === '18' ? 80 : 120,
+      height: image === '18' ? 80 : 120,
       marginRight: 10,
       alignSelf: 'center',
     },
   });
 
   const strings = t(route.params.content).split('.');
-  const number = route.params.number;
+  const twoPartStrings = strings[0].split(':');
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
@@ -220,7 +226,21 @@ const OnboardingEndPath = ({
           </TextBase>
         </Pressable>
         <View style={styles.topContainer}>
-          <TextBase style={styles.text}>{strings[0].trim()}</TextBase>
+          {image && twoPartStrings[1] && (
+            <View style={styles.firstPartContainer}>
+              <Image
+                source={Images[image as keyof typeof Images]}
+                style={styles.image}
+              />
+              <TextBase style={{...styles.firstPartText, width: width * 0.6}}>
+                {strings[0].split(':')[0].trim()}
+                {' :'}
+              </TextBase>
+            </View>
+          )}
+          <TextBase style={styles.text}>
+            {twoPartStrings[1] ? twoPartStrings[1].trim() : strings[0].trim()}
+          </TextBase>
         </View>
         <View style={styles.middleContainer}>
           <TextBase style={styles.subtitle}>{t('urgency.subtext')}</TextBase>

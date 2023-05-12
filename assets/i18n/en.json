@@ -19,7 +19,7 @@
           },
           "answerDanger": {
             "label": "I'm not sure 🤷‍♀️",
-            "redirectScreenContent": "To find out if you are pregnant, you can take a free pregnancy test by going to a family planning center, a sexual health center, or a PMI. If you are pregnant and 18 years of age or older, NATA can help you follow your pregnancy. \n\nSee you soon."
+            "redirectScreenContent": "To find out if you are pregnant: You can take a free pregnancy test by going to a family planning center, a sexual health center, or a PMI. If you are pregnant and 18 years of age or older, NATA can help you follow your pregnancy. \n\nSee you soon."
           }
         },
         "question2": {
@@ -29,7 +29,7 @@
           },
           "answer2": {
             "label": "No 👎",
-            "redirectScreenContent": "If you are pregnant and under 18 years of age, we advise you to go to a family planning center or a PMI. You can also call the SOLIPAM association, they can answer your questions and assist you with your procedures for free. \n\nThank you for coming, NATA."
+            "redirectScreenContent": "If you are pregnant and under 18 years of age: We advise you to go to a family planning center or a PMI. You can also call the SOLIPAM association, they can answer your questions and assist you with your procedures for free. \n\nThank you for coming, NATA."
           }
         },
         "question3": {

@@ -101,7 +101,6 @@ const Onboarding = () => {
       answer.value === 'Q1A2' &&
       answer.redirectScreen
     ) {
-      console.log('image sur appui:', answer.image);
       navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
         image: answer.image,
