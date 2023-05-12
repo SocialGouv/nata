@@ -132,8 +132,10 @@
     "followup": {
       "month": "th month",
       "firstMonth": "st month",
-      "meetingTitle": "My appointments this month",
+      "meetingTitle": "My appointments this month :",
+      "meetingIndication": "Check appointments you have done, then find them in \"My Situation\".",
       "symptomsTitle": "My symptoms",
+      "symptomsIndication": "Whenever you feel a symptom, click on it and find it in \"My Situation\".",
       "urgencyText": "Medical emergency: Call 15 or go to the nearest maternity emergency department.",
       "urgencyButton": "Find the urgencies",
       "noMeeting": "Congratulations, you have completed all your appointments this month. You can find your history in the My Situation tab.",
@@ -770,7 +772,8 @@
       "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy.\n\nThis consultation is free and without appointment.",
       "button": "I have found an appointment",
       "continue": "Continue to the application",
-      "subtext": "Consult a midwife near",
+      "subtext": "Find maternity emergencies nearby",
+      "subtext_test": "You can find a pregnancy test near",
       "solipamtext": "You can call the Solipam association. They will be able to answer your questions and help you with your procedures for free"
     },
     "information_modal": {

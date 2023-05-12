@@ -126,14 +126,16 @@
     "followup": {
       "month": "ème mois",
       "firstMonth": "er mois",
-      "meetingTitle": "Je valide mes rendez-vous",
+      "meetingTitle": "Mes rendez-vous de ce mois-ci :",
       "symptomsTitle": "Mes symptômes",
+      "symptomsIndication": "Dès que tu as un symptôme, clique-dessus et retrouve-le dans \"Ma situation\".",
+      "meetingIndication": "Coche les rendez-vous que tu as faits, et retrouve-les dans \"Ma situation\".",
       "urgencyText": "Urgence Médicale : Appelle le 15 ou va aux urgences maternités les plus proches.",
       "urgencyButton": "Trouver les urgences",
       "noMeeting": "Bravo, vous avez réalisez tout vos rendez-vous ce mois-ci. Vous pouvez retrouver l'historique dans l'onglet Ma Situation",
       "month1": {
         "title": "1er mois de grossesse",
-        "text": "C’est le début de ta grossesse, ton corps commence doucement à se transformer",
+        "text": "C’est le début de ta grossesse, ton corps commence doucement à se transformer.",
         "list": {
           "1": {
             "label": "Une consultation médicale pour confirmer ma grossesse",
@@ -162,7 +164,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -225,7 +227,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -300,7 +302,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -367,7 +369,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -438,7 +440,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -505,7 +507,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -576,7 +578,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -618,7 +620,7 @@
       },
       "month8": {
         "title": "8ème mois de grossesse",
-        "text": "Il prend sa position pour l'accouchement. Courage ! La fin de grossesse approche",
+        "text": "Il prend sa position pour l'accouchement. Courage ! La fin de grossesse approche.",
         "list": {
           "1": {
             "label": "La consultation médicale du 8ème mois",
@@ -647,7 +649,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -718,7 +720,7 @@
             "label": "Fatigue"
           },
           "5": {
-            "label": "Maux de tête"
+            "label": "Mal de tête"
           },
           "6": {
             "label": "Constipation"
@@ -760,11 +762,12 @@
       }
     },
     "urgency": {
-      "title": "Pour votre santé et celle de votre enfant, il est urgent de consulter un professionnel",
+      "title": "Pour ta santé et celle de ton enfant, il est urgent de consulter un professionnel",
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous",
       "continue": "Continuer vers l'application",
-      "subtext": "Consulter une sage femme à proximité de ",
+      "subtext": "Trouver les urgences maternités à proximité",
+      "subtext_test": "Trouver un test de grossesse à proximité",
       "solipamtext": "Tu peux appeler l'association Solipam. Ils pourront répondre à tes questions et t'aider dans tes démarches gratuitement.",
       "search": "Saisissez une ville ou un code postal"
     },

@@ -243,7 +243,9 @@ const OnboardingEndPath = ({
           </TextBase>
         </View>
         <View style={styles.middleContainer}>
-          <TextBase style={styles.subtitle}>{t('urgency.subtext')}</TextBase>
+          <TextBase style={styles.subtitle}>
+            {t('urgency.subtext_test')}
+          </TextBase>
           <View style={styles.searchContainer}>
             <View style={styles.autoCompleteContainer}>
               <Autocomplete

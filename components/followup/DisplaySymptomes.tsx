@@ -83,6 +83,12 @@ const DisplaySymptomes = (props: Props) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    subText: {
+      fontFamily: Fonts.primary,
+      fontSize: 13,
+      fontStyle: 'italic',
+      marginBottom: 10,
+    },
   });
 
   const {t} = useTranslation();
@@ -174,7 +180,10 @@ const DisplaySymptomes = (props: Props) => {
   return (
     <View style={styles.container}>
       {displayTitle && (
-        <Text style={styles.title}>{t('followup.symptomsTitle')}</Text>
+        <>
+          <Text style={styles.title}>{t('followup.symptomsTitle')}</Text>
+          <Text style={styles.subText}>{t('followup.symptomsIndication')}</Text>
+        </>
       )}
       <FlatGrid
         itemDimension={120}

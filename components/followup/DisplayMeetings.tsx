@@ -98,6 +98,7 @@ const DisplayMeetings = (props: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('followup.meetingTitle')}</Text>
+      <Text style={styles.subText}>{t('followup.meetingIndication')}</Text>
       {fullMeetingList.length === 0 && (
         <Text style={styles.text}>{t('followup.noMeeting')}</Text>
       )}
@@ -178,6 +179,12 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.primary,
     fontSize: 16,
     color: Colors.black,
+  },
+  subText: {
+    fontFamily: Fonts.primary,
+    fontSize: 13,
+    fontStyle: 'italic',
+    marginBottom: 10,
   },
   chekboxStyle: {
     marginVertical: 10,

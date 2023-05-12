@@ -85,7 +85,7 @@ const Onboarding = () => {
           });
         } else {
           setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage');
+          navigation.navigate('UrgencyPage', {});
         }
       } else {
         setIsOnboardingDone(true);
