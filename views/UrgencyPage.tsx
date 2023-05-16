@@ -284,7 +284,8 @@ const UrgencyPage = (props: Props) => {
                     <TouchableOpacity
                       style={styles.displayResults}
                       onPress={() => {
-                        setSearch(item), setHideResults(false);
+                        setSearch(item);
+                        setHideResults(false);
                       }}>
                       <TextBase>{item}</TextBase>
                     </TouchableOpacity>
