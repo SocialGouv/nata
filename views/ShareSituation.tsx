@@ -103,12 +103,13 @@ const ShareSituation = () => {
             Je suis une femme {userInfos?.is18 ? 'majeure' : 'mineure'} enceinte
             de{' '}
             <TextBase style={styles.boldText}>
-              {userInfos?.pregnancyMonth} mois
+              {userInfos?.pregnancyMonth} mois.
             </TextBase>
           </TextBase>
           <TextBase style={styles.text}>
-            Je parle {displayUserAnswersFromQuestionCodes(userInfos.language)}.
+            Je parle{' '}
             <TextBase style={styles.boldText}>
+              {displayUserAnswersFromQuestionCodes(userInfos.language)}.{' '}
               {displayUserAnswersFromQuestionCodes(userInfos.medical_care)}
             </TextBase>{' '}
             et{' '}

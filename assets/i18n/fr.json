@@ -11,30 +11,30 @@
         "question1": {
           "label": "Es-tu enceinte ? ",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "Oui 👍🏽"
           },
           "answer2": {
-            "label": "Non 👎",
+            "label": "Non 👎🏽",
             "redirectScreenContent": "NATA aide les femmes enceintes à suivre leur grossesse. Si tu es parent, NATA pourra prochainement t'accompagner à faire le suivi médical de ton bébé jusqu'à ses 3 ans. \n\nA bientôt."
           },
           "answerDanger": {
-            "label": "Je ne suis pas sûre 🤷‍♀️",
+            "label": "Je ne suis pas sûre 🤷🏽‍♀️",
             "redirectScreenContent": "Pour savoir si tu es enceinte: Tu peux faire un test de grossesse gratuitement en te rendant dans un planning familial, un centre de santé sexuelle ou une PMI. Si tu es enceinte et que tu as 18 ans et plus, NATA pourra t'aider à suivre ta grossesse. \n\nA bientôt"
           }
         },
         "question2": {
           "label": "J’ai 18 ans ou plus ?  ",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "Oui 👍🏽"
           },
           "answer2": {
-            "label": "Non 👎",
-            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans: Nous te conseillons de te rendre dans un centre de planning familial ou une PMI. Tu peux aussi appeler l'association SOLIPAM, ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. \n\nMerci de ta venue, NATA."
+            "label": "Non 👎🏽",
+            "redirectScreenContent": "Si tu es enceinte et que tu as moins de 18 ans: Nous te conseillons de te rendre dans un centre de planning familial ou une PMI."
           }
         },
         "question3": {
           "label": "Je suis enceinte de combien de mois ?  ",
-          "specialAnswer": "Je ne suis pas sûre 🤷‍♀️",
+          "specialAnswer": "Je ne suis pas sûre 🤷🏽‍♀️",
           "answer1": {
             "label": "1 mois"
           },
@@ -66,20 +66,22 @@
         "question4": {
           "label": "J’ai déjà rencontré une sage-femme ou un médecin ?",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "Oui 👍🏽"
           },
           "answer2": {
-            "label": "Non 👎",
-            "redirectScreenContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse. Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. Reviens vers nous après ce rendez-vous. A bientôt, NATA."
+            "label": "Non 👎🏽",
+            "redirectScreenContent": "Nous te conseillons d'aller prendre un rendez-vous avec une sage-femme ou un médecin pour débuter ton suivi de grossesse. Ils pourront répondre à tes questions et t'accompagner dans tes démarches gratuitement. Reviens vers nous après ce rendez-vous. A bientôt, NATA.",
+            "labelSearch": "Trouver une sage-femme à proximité",
+            "boldBottom": "Si tu es à la rue et que tu n'as pas de couverture santé, tu peux appeler l'association SOLIPAM."
           }
         },
         "question5": {
           "label": "J’ai un rendez-vous de prévu dans les prochains jours pour débuter ou continuer mon suivi de grossesse ?",
           "answer1": {
-            "label": "Oui 👍"
+            "label": "Oui 👍🏽"
           },
           "answer2": {
-            "label": "Non 👎"
+            "label": "Non 👎🏽"
           }
         },
         "question6": {
@@ -766,9 +768,9 @@
       "explanation": "Il vous conseillera sur votre accouchement, et sur les examens indispensables liés à votre grossesse. \n\nCette consultation est gratuite, et sans rendez-vous",
       "button": "J'ai trouvé un rendez-vous",
       "continue": "Continuer vers l'application",
-      "subtext": "Trouver les urgences maternités à proximité",
-      "subtext_test": "Trouver un test de grossesse à proximité",
-      "solipamtext": "Tu peux appeler l'association Solipam. Ils pourront répondre à tes questions et t'aider dans tes démarches gratuitement.",
+      "subtext": "Trouver les -urgences maternités- à proximité",
+      "subtext_test": "Trouver une structure à proximité",
+      "solipamtext": "Tu peux appeler l'association -SOLIPAM-, ils pourront répondre à tes questions et t'aider dans tes démarches -gratuitement-.",
       "search": "Saisissez une ville ou un code postal"
     },
     "information_modal": {
@@ -777,7 +779,7 @@
     },
     "situation": {
       "shareInformations": {
-        "title": "Partager ma situation "
+        "title": "Je montre ma situation pour m'aider à communiquer "
       },
       "pregnancyFollow": {
         "title": "Mon suivi de grossesse",
@@ -810,19 +812,19 @@
       "title": "Mes aides autour de moi",
       "doctor": {
         "title": "Trouver une sage femme",
-        "subtext": "Je trouve une sage femme"
+        "subtext": "Je trouve une sage-femme à proximité"
       },
       "food": {
         "title": "Nourriture",
-        "subtext": "Je trouve un repas à proximité de"
+        "subtext": "Je trouve un repas à proximité"
       },
       "welcome": {
         "title": "Accueil de jour",
-        "subtext": "Je trouve un accueil de jour à proximité de"
+        "subtext": "Je trouve un accueil de jour à proximité"
       },
       "cleaning": {
         "title": "Toilettes et douches",
-        "subtext": "Je trouve un espace d'hygiène à proximité de"
+        "subtext": "Je trouve un espace d'hygiène à proximité"
       },
       "no-info": "Aucune information disponible pour le moment"
     }

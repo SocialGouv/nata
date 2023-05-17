@@ -32,6 +32,8 @@ const UrgencyPage = (props: Props) => {
 
   const titleTodisplay = title ? title : (t('urgency.title') as string);
 
+  console.log('text splitted : ', t('urgency.subtext').split('-'));
+
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
@@ -78,6 +80,19 @@ const UrgencyPage = (props: Props) => {
       backgroundColor: Colors.backgroundUrgence,
       // flex: 0.25,
     },
+    underTopContainer: {
+      paddingHorizontal: 20,
+      marginTop: 20,
+    },
+    underTopLabel: {
+      fontWeight: '900',
+      fontSize: 20,
+    },
+    underTopLabelRed: {
+      fontWeight: '900',
+      fontSize: 20,
+      color: Colors.urgence,
+    },
     backPressable: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -94,7 +109,7 @@ const UrgencyPage = (props: Props) => {
       textDecorationLine: 'underline',
     },
     title: {
-      fontSize: 18,
+      fontSize: 20,
       paddingHorizontal: 20,
       width: '90%',
       lineHeight: 28,
@@ -107,8 +122,18 @@ const UrgencyPage = (props: Props) => {
     },
     explanationContainer: {
       flex: 0.75,
-      paddingTop: 20,
-      paddingHorizontal: 20,
+      padding: 20,
+    },
+    explanationText: {
+      padding: 20,
+      fontSize: 18,
+      fontWeight: '500',
+    },
+    explanationTextBlue: {
+      padding: 20,
+      fontSize: 18,
+      fontWeight: '500',
+      color: Colors.lightPrimary,
     },
     explanation: {
       fontSize: 16,
@@ -148,6 +173,7 @@ const UrgencyPage = (props: Props) => {
       width: '100%',
       position: 'relative',
       height: height / 20,
+      marginBottom: 20,
     },
     autoCompleteContainer: {
       flex: 1,
@@ -187,7 +213,7 @@ const UrgencyPage = (props: Props) => {
     },
     webview: {
       width: width,
-      height: height / 2.8,
+      height: height / 2.2,
       paddingHorizontal: 20,
       backgroundColor: Colors.backgroundUrgence,
       zIndex: -1,
@@ -195,10 +221,18 @@ const UrgencyPage = (props: Props) => {
     continueText: {
       fontSize: 16,
       color: Colors.primary,
+      backgroundColor: Colors.backgroundUrgence,
+      padding: 10,
+      borderRadius: 50,
       fontWeight: '700',
       marginTop: 20,
+      marginBottom: 50,
       textDecorationLine: 'underline',
       alignSelf: 'center',
+      shadowColor: 'grey',
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      shadowOffset: {width: 2, height: 2},
     },
     icon: {
       fontSize: 30,
@@ -245,34 +279,26 @@ const UrgencyPage = (props: Props) => {
             <TextBase style={styles.title}>{titleTodisplay}</TextBase>
           </View>
         </View>
-        <View style={styles.explanationContainer}>
-          {/* <Pressable
-            onPress={() => navigation.navigate('FollowUp')}
-            style={({pressed}) => [
-              styles.pressable,
-              pressed && {
-                opacity: 0.5,
-              },
-            ]}>
-            <TextBase style={styles.buttonText}>
-              {t('urgency.button') as string}
-            </TextBase>
-          </Pressable> */}
-          {number && (
-            <>
-              <TextBase style={{marginBottom: 20}}>
-                {t('urgency.solipamtext')}
-              </TextBase>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handlePhonePress()}>
-                <TextBase style={styles.whiteText}>{number}</TextBase>
-              </TouchableOpacity>
-            </>
-          )}
+        <View style={styles.underTopContainer}>
+          <TextBase style={styles.underTopLabel}>
+            {t('urgency.subtext')
+              .split('-')
+              .map((item, key) => {
+                return (
+                  <TextBase
+                    key={key}
+                    style={
+                      key % 2 === 0
+                        ? styles.underTopLabel
+                        : styles.underTopLabelRed
+                    }>
+                    {item}
+                  </TextBase>
+                );
+              })}
+          </TextBase>
         </View>
         <View style={styles.middleContainer}>
-          <TextBase style={styles.subtitle}>{t('urgency.subtext')}</TextBase>
           <View style={styles.searchContainer}>
             <View style={styles.autoCompleteContainer}>
               <AutocompleteInput
@@ -325,6 +351,46 @@ const UrgencyPage = (props: Props) => {
             }}
             automaticallyAdjustContentInsets={true}
           />
+        </View>
+        <View style={styles.explanationContainer}>
+          {/* <Pressable
+            onPress={() => navigation.navigate('FollowUp')}
+            style={({pressed}) => [
+              styles.pressable,
+              pressed && {
+                opacity: 0.5,
+              },
+            ]}>
+            <TextBase style={styles.buttonText}>
+              {t('urgency.button') as string}
+            </TextBase>
+          </Pressable> */}
+          {number && (
+            <>
+              <TextBase style={styles.explanationContainer}>
+                {t('urgency.solipamtext')
+                  .split('-')
+                  .map((item, key) => {
+                    return (
+                      <TextBase
+                        key={key}
+                        style={
+                          key % 2 === 0
+                            ? styles.explanationText
+                            : styles.explanationTextBlue
+                        }>
+                        {item}
+                      </TextBase>
+                    );
+                  })}
+              </TextBase>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handlePhonePress()}>
+                <TextBase style={styles.whiteText}>{number}</TextBase>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('FollowUp')}>
           <TextBase style={styles.continueText}>

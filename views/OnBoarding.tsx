@@ -24,6 +24,8 @@ interface PressFunction {
     redirectScreenContent?: string | undefined;
     phone?: string;
     image?: string;
+    labelSearch?: string;
+    boldBottom?: String;
   };
   question: {
     label: string;
@@ -124,6 +126,8 @@ const Onboarding = () => {
         content: answer.redirectScreenContent,
         number: answer.phone,
         image: answer.image,
+        labelSearch: answer.labelSearch,
+        boldBottom: answer.boldBottom,
       });
     } else {
       if (currentStep < questions.data.length) {

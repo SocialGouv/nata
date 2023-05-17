@@ -11,30 +11,30 @@
         "question1": {
           "label": "Are you pregnant? ",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "Yes 👍🏽"
           },
           "answer2": {
-            "label": "No 👎",
+            "label": "No 👎🏽",
             "redirectScreenContent": "NATA helps pregnant women follow their pregnancy. If you are a parent, NATA will soon be able to accompany you to your baby's medical follow-up until the age of 3. \n\nSee you soon."
           },
           "answerDanger": {
-            "label": "I'm not sure 🤷‍♀️",
+            "label": "I'm not sure 🤷🏽‍♀️",
             "redirectScreenContent": "To find out if you are pregnant: You can take a free pregnancy test by going to a family planning center, a sexual health center, or a PMI. If you are pregnant and 18 years of age or older, NATA can help you follow your pregnancy. \n\nSee you soon."
           }
         },
         "question2": {
           "label": "Are you 18 years of age or older? ",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "Yes 👍🏽"
           },
           "answer2": {
-            "label": "No 👎",
-            "redirectScreenContent": "If you are pregnant and under 18 years of age: We advise you to go to a family planning center or a PMI. You can also call the SOLIPAM association, they can answer your questions and assist you with your procedures for free. \n\nThank you for coming, NATA."
+            "label": "No 👎🏽",
+            "redirectScreenContent": "If you are pregnant and under 18 years of age: We advise you to go to a family planning center or a PMI."
           }
         },
         "question3": {
           "label": "How many months pregnant are you? ",
-          "specialAnswer": "I'm not sure 🤷‍♀️",
+          "specialAnswer": "I'm not sure 🤷🏽‍♀️",
           "answer1": {
             "label": "1 month"
           },
@@ -66,20 +66,22 @@
         "question4": {
           "label": "Have you already met with a midwife or doctor?",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "Yes 👍🏽"
           },
           "answer2": {
-            "label": "No 👎",
-            "redirectScreenContent": "We advise you to make an appointment with a midwife or doctor to start your prenatal care. If you are homeless and do not have health coverage, you can call the SOLIPAM association. They can answer your questions and assist you with your procedures for free. Please come back to us after this appointment. See you soon, NATA."
+            "label": "No 👎🏽",
+            "redirectScreenContent": "We advise you to make an appointment with a midwife or doctor to start your prenatal care. They can answer your questions and assist you with your procedures for free. Please come back to us after this appointment. See you soon, NATA.",
+            "labelSearch": "Find a midwife nearby",
+            "boldBottom": "If you are homeless and do not have health coverage, you can call the SOLIPAM association."
           }
         },
         "question5": {
           "label": "Do I have an appointment scheduled in the coming days to start or continue my pregnancy follow-up?",
           "answer1": {
-            "label": "Yes 👍"
+            "label": "Yes 👍🏽"
           },
           "answer2": {
-            "label": "No 👎"
+            "label": "No 👎🏽"
           }
         },
         "question6": {
@@ -772,9 +774,10 @@
       "explanation": "They will advise you on your delivery, and on the essential examinations related to your pregnancy.\n\nThis consultation is free and without appointment.",
       "button": "I have found an appointment",
       "continue": "Continue to the application",
-      "subtext": "Find maternity emergencies nearby",
-      "subtext_test": "You can find a pregnancy test near",
-      "solipamtext": "You can call the Solipam association. They will be able to answer your questions and help you with your procedures for free"
+      "subtext": "Find -maternity emergencies- nearby",
+      "subtext_test": "You can find a structure nearby",
+      "solipamtext": "You can call the -SOLIPAM- association, they will be able to answer your questions and help you with your procedures -for free-.",
+      "search": "Type a city or zip code"
     },
     "information_modal": {
       "title": "NATA is here to help and guide you through your pregnancy but it does not replace medical follow-up.",
@@ -782,7 +785,7 @@
     },
     "situation": {
       "shareInformations": {
-        "title": "Share my situation"
+        "title": "I show my situation to help me communicate "
       },
       "pregnancyFollow": {
         "title": "My pregnancy follow-up",
@@ -815,7 +818,7 @@
       "title": "Help Around Me",
       "doctor": {
         "title": "Find a Midwife",
-        "subtext": "I find a midwife"
+        "subtext": "I find a midwife nearby"
       },
       "food": {
         "title": "Food",
