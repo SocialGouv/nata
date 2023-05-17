@@ -64,6 +64,7 @@ const UrgencyModule = () => {
   const onPress = () => {
     navigation.navigate('UrgencyPage', {
       title: null,
+      number: '0 801 801 081',
     });
   };
 

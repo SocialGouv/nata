@@ -17,6 +17,7 @@ const DoctorShare = () => {
           {t('situation.shareInformations.title')}
         </Text>
       </View>
+      <Image source={require('../../assets/images/france.png')} />
       <Pressable
         style={({pressed}) => [
           styles.button,
@@ -27,7 +28,7 @@ const DoctorShare = () => {
         onPress={() => {
           navigation.navigate('ShareSituation');
         }}>
-        <FontAwesome5Icon name="chevron-right" size={25} color={Colors.white} />
+        <FontAwesome5Icon name="chevron-right" size={20} color={Colors.black} />
       </Pressable>
     </View>
   );
@@ -62,10 +63,9 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   button: {
-    backgroundColor: Colors.primary,
     borderRadius: 100,
-    width: 50,
-    height: 50,
+    width: 25,
+    height: 25,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

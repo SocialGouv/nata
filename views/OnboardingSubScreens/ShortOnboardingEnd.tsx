@@ -48,7 +48,8 @@ export default ShortOnboardingEnd;
 
 const styles = StyleSheet.create({
   topContainer: {
-    marginTop: 10,
+    height: '90%',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 20,

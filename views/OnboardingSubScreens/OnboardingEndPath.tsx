@@ -29,7 +29,9 @@ const OnboardingEndPath = ({
 }) => {
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
-  const {number, image} = route.params;
+  const {number, image, labelSearch, boldBottom} = route.params;
+
+  console.log('bold : ', boldBottom);
 
   const styles = StyleSheet.create({
     container: {
@@ -58,6 +60,12 @@ const OnboardingEndPath = ({
       lineHeight: 32,
       fontFamily: Fonts.primary,
       fontWeight: '400',
+    },
+    boldText: {
+      fontSize: 16,
+      lineHeight: 32,
+      fontFamily: Fonts.primary,
+      fontWeight: '900',
     },
     firstPartText: {
       fontSize: 20,
@@ -244,7 +252,7 @@ const OnboardingEndPath = ({
         </View>
         <View style={styles.middleContainer}>
           <TextBase style={styles.subtitle}>
-            {t('urgency.subtext_test')}
+            {labelSearch ? t(labelSearch) : t('urgency.subtext_test')}
           </TextBase>
           <View style={styles.searchContainer}>
             <View style={styles.autoCompleteContainer}>
@@ -307,6 +315,9 @@ const OnboardingEndPath = ({
           </TouchableOpacity>
         )}
         <View style={styles.bottomContainer}>
+          {boldBottom && (
+            <TextBase style={styles.boldText}>{t(boldBottom)}</TextBase>
+          )}
           {strings.map((string, index) => {
             if (index > 0) {
               return (
