@@ -11,16 +11,9 @@ const DoctorShare = () => {
 
   return (
     <View style={styles.topContainer}>
-      <Image source={require('../../assets/images/Doctor.png')} />
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>
-          {t('situation.shareInformations.title')}
-        </Text>
-      </View>
-      <Image source={require('../../assets/images/france.png')} />
       <Pressable
         style={({pressed}) => [
-          styles.button,
+          styles.buttonText,
           {
             opacity: pressed ? 0.5 : 1,
           },
@@ -28,6 +21,16 @@ const DoctorShare = () => {
         onPress={() => {
           navigation.navigate('ShareSituation');
         }}>
+        <Image source={require('../../assets/images/Doctor.png')} />
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>
+            {t('situation.shareInformations.title')}
+          </Text>
+        </View>
+        <Image
+          style={{marginRight: 10}}
+          source={require('../../assets/images/france.png')}
+        />
         <FontAwesome5Icon name="chevron-right" size={20} color={Colors.black} />
       </Pressable>
     </View>
@@ -62,11 +65,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.primary,
   },
-  button: {
+  buttonText: {
     borderRadius: 100,
-    width: 25,
-    height: 25,
+    width: '100%',
+    height: 70,
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
