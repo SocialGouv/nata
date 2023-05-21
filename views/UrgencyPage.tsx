@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
+  Image,
 } from 'react-native';
 import React from 'react';
 import Container from '../components/ui/Container';
@@ -245,10 +246,16 @@ const UrgencyPage = (props: Props) => {
       justifyContent: 'center',
       marginVertical: 5,
       marginHorizontal: 30,
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    imgPhone: {
+      marginEnd: 20,
     },
     whiteText: {
       color: Colors.white,
       fontWeight: '700',
+      fontSize: 18,
     },
   });
 
@@ -387,6 +394,10 @@ const UrgencyPage = (props: Props) => {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => handlePhonePress()}>
+                <Image
+                  style={styles.imgPhone}
+                  source={require('../assets/images/phone.png')}
+                />
                 <TextBase style={styles.whiteText}>{number}</TextBase>
               </TouchableOpacity>
             </>

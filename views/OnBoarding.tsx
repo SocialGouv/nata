@@ -61,13 +61,16 @@ const Onboarding = () => {
         parseInt(userInfos.pregnancyMonth, 10) < 6 &&
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
-        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A2') {
+        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
+          console.log('userinfos : ', userInfos);
+          console.log('urgence avec telephone');
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
             number: '0 801 801 081',
           });
         } else {
+          console.log('urgence sans telephone');
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
@@ -78,21 +81,23 @@ const Onboarding = () => {
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
         if (
-          userInfos.medical_care === 'Q6A3' ||
-          userInfos.medical_care === 'Q6A4'
+          (userInfos.medical_care === 'Q6A1' ||
+            userInfos.medical_care === 'Q6A2') &&
+          userInfos.housing === 'Q7A4'
         ) {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {});
+        } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             number: '0 801 801 081',
           });
-        } else {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {});
         }
       } else {
-        setIsOnboardingDone(true);
+        console.log('pas urgence');
+        /*setIsOnboardingDone(true);
         setDisplayInitialModal(true);
-        navigation.navigate('FollowUp');
+        navigation.navigate('FollowUp');*/
       }
     }
   };
@@ -301,7 +306,7 @@ const Onboarding = () => {
 
 const styles = StyleSheet.create({
   topContainer: {
-    height: '25%',
+    height: '20%',
     backgroundColor: Colors.backgroundPrimary,
     paddingHorizontal: 20,
     paddingTop: 10,
@@ -382,7 +387,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: 500,
     // justifyContent: 'space-between',
-    marginVertical: 20,
+    marginVertical: 0,
   },
   pressable: {
     backgroundColor: '#F5F5F5',

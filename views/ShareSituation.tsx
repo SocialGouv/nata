@@ -166,11 +166,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+    fontWeight: '700',
     color: Colors.black,
     marginBottom: 10,
   },
   boldText: {
-    fontWeight: '500',
+    fontWeight: '700',
     color: Colors.primary,
   },
 });
