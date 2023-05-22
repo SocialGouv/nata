@@ -1,3 +1,11 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "sourceMap": true,
+    "types": ["node"]
+  },
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "typeRoots": ["./src/types"]
 }

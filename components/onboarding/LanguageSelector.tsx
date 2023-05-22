@@ -3,6 +3,7 @@ import React from 'react';
 import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
+import {useMatomo} from 'matomo-tracker-react-native';
 
 interface Props {
   selectedLanguage: string | undefined;
@@ -11,6 +12,7 @@ interface Props {
 
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage} = props;
+  const {trackEvent} = useMatomo();
   const styles = StyleSheet.create({
     gridView: {
       marginTop: 10,
@@ -42,7 +44,15 @@ const LanguageSelector = (props: Props) => {
       style={styles.gridView}
       renderItem={({item}) => (
         <TouchableOpacity
-          onPress={() => changeLanguage(item.code)}
+          onPress={async () => {
+            changeLanguage(item.code);
+            let tracking = await trackEvent({
+              category: 'ONBOARDING',
+              action: 'ONBOARDING_LANGUAGE_CHOOSE',
+              name: item.name,
+            });
+            console.log(tracking);
+          }}
           style={[
             styles.button,
             {
