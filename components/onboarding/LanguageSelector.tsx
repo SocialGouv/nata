@@ -4,6 +4,7 @@ import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 import {useMatomo} from 'matomo-tracker-react-native';
+import Matomo from 'react-native-matomo';
 
 interface Props {
   selectedLanguage: string | undefined;
@@ -51,7 +52,13 @@ const LanguageSelector = (props: Props) => {
               action: 'ONBOARDING_LANGUAGE_CHOOSE',
               name: item.name,
             });
-            console.log(tracking);
+            console.log('test : ', tracking);
+            let test2 = Matomo.trackEvent(
+              'ONBOARDING',
+              'ONBOARDING_LANGUAGE_CHOOSE',
+              item.name,
+            );
+            console.log('test 2 : ', test2);
           }}
           style={[
             styles.button,

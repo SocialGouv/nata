@@ -19,6 +19,7 @@ import MatomoTracker, {
   MatomoProvider,
   useMatomo,
 } from 'matomo-tracker-react-native';
+import Matomo from 'react-native-matomo';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -66,6 +67,11 @@ function App(): JSX.Element {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
+  useEffect(() => {
+    console.log('userId : ', userId);
+    console.log('env : ', process.env.REACT_APP_MATOMO_SITE_URL);
+  }, [userId]);
+
   const getUserId = async () => {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
@@ -78,6 +84,11 @@ function App(): JSX.Element {
         log: true,
       }),
     );
+    Matomo.initTracker(
+      process.env.REACT_APP_MATOMO_SITE_URL + 'piwik.php',
+      parseInt(process.env.REACT_APP_MATOMO_SITE_ID ?? 'O', 10),
+    );
+    Matomo.setUserId(tmpId);
     let appStart = await trackAppStart({});
     console.log('appstart : ', appStart);
   };
