@@ -1,4 +1,4 @@
-import {Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Modal, Pressable, StyleSheet, View} from 'react-native';
 import React, {useContext} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {useTranslation} from 'react-i18next';

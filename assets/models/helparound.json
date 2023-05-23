@@ -7,13 +7,13 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "100,1100"
+          "code": "107"
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "600"
+          "code": "601,603,604"
         }
       ]
     },
@@ -24,13 +24,13 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "100,1100"
+          "code": "107"
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "600"
+          "code": "601,603,604"
         }
       ]
     },
@@ -41,13 +41,13 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "100,1100"
+          "code": "107"
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "600"
+          "code": "601,603,604"
         }
       ]
     },
@@ -58,13 +58,13 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "100,1100"
+          "code": "107"
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "600"
+          "code": "601,603,604"
         }
       ]
     },
@@ -75,25 +75,25 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "100,1100"
+          "code": "107"
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "600"
+          "code": "601,603,604"
         },
         {
           "title": "help-around.welcome.title",
           "icon": "☕️",
           "subtext": "help-around.welcome.subtext",
-          "code": "701,705,707,708"
+          "code": "701,702"
         },
         {
           "title": "help-around.cleaning.title",
           "icon": "🛁",
           "subtext": "help-around.cleaning.subtext",
-          "code": "300"
+          "code": "301,304"
         }
       ]
     }

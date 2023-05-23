@@ -109,13 +109,17 @@ const ShareSituation = () => {
           <TextBase style={styles.text}>
             Je parle{' '}
             <TextBase style={styles.boldText}>
-              {displayUserAnswersFromQuestionCodes(userInfos.language)}.{' '}
+              {displayUserAnswersFromQuestionCodes(userInfos.language)}
+            </TextBase>
+            .{' '}
+            <TextBase style={styles.boldText}>
               {displayUserAnswersFromQuestionCodes(userInfos.medical_care)}
             </TextBase>{' '}
             et{' '}
-            <TextBase style={styles.boldText}>
+            <TextBase style={styles.boldTextLowered}>
               {displayUserAnswersFromQuestionCodes(userInfos.housing)}
             </TextBase>
+            .
           </TextBase>
         </View>
       );
@@ -173,5 +177,10 @@ const styles = StyleSheet.create({
   boldText: {
     fontWeight: '700',
     color: Colors.primary,
+  },
+  boldTextLowered: {
+    fontWeight: '700',
+    color: Colors.primary,
+    textTransform: 'lowercase',
   },
 });

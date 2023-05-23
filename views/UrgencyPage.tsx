@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import Container from '../components/ui/Container';
 import {Colors, Fonts} from '../styles/Style';
 import {useNavigation} from '@react-navigation/native';
@@ -20,6 +20,7 @@ import {useTranslation} from 'react-i18next';
 import WebView from 'react-native-webview';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
+import AppContext from '../AppContext';
 
 interface Props {
   route: any;
@@ -39,6 +40,12 @@ const UrgencyPage = (props: Props) => {
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
   const [city, setCity] = React.useState<string>('Paris');
+
+  const {
+    setIsEmergencyOnBoardingDone,
+    setDisplayInitialModal,
+    isEmergencyOnBoardingDone,
+  } = useContext(AppContext);
 
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
@@ -346,6 +353,7 @@ const UrgencyPage = (props: Props) => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={styles.webview}>
           <WebView
             scalesPageToFit={true}
@@ -354,7 +362,7 @@ const UrgencyPage = (props: Props) => {
             javaScriptEnabled
             useWebView2={true}
             source={{
-              uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=100,1100,401,405,406,407,408,404&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71`,
+              uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=107&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71`,
             }}
             automaticallyAdjustContentInsets={true}
           />
@@ -403,7 +411,15 @@ const UrgencyPage = (props: Props) => {
             </>
           )}
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('FollowUp')}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('isEmergencyOnboardingDone', isEmergencyOnBoardingDone);
+            if (!isEmergencyOnBoardingDone) {
+              setIsEmergencyOnBoardingDone(true);
+              setDisplayInitialModal(true);
+            }
+            navigation.navigate('FollowUp');
+          }}>
           <TextBase style={styles.continueText}>
             {t('urgency.continue') as string}
           </TextBase>

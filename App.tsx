@@ -23,7 +23,9 @@ import Matomo from 'react-native-matomo';
 
 type ContextType = {
   isOnboardingDone: boolean;
+  isEmergencyOnBoardingDone: boolean;
   setIsOnboardingDone: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEmergencyOnBoardingDone: React.Dispatch<React.SetStateAction<boolean>>;
   displayInitialModal: boolean;
   setDisplayInitialModal: React.Dispatch<React.SetStateAction<boolean>>;
   currentMonth: number;
@@ -34,6 +36,8 @@ function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
   const [isOnboardingDone, setIsOnboardingDone] =
     React.useState<boolean>(false);
+  const [isEmergencyOnBoardingDone, setIsEmergencyOnBoardingDone] =
+    React.useState<boolean>(false);
   const [displayInitialModal, setDisplayInitialModal] =
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
@@ -43,7 +47,9 @@ function App(): JSX.Element {
 
   const contextValue: ContextType = {
     isOnboardingDone,
+    isEmergencyOnBoardingDone,
     setIsOnboardingDone,
+    setIsEmergencyOnBoardingDone,
     displayInitialModal,
     setDisplayInitialModal,
     currentMonth,
