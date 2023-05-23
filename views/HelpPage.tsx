@@ -116,6 +116,7 @@ const HelpPage = (props: Props) => {
 
   const {route} = props;
   const {help} = route.params;
+  console.log('help', help);
 
   const navigation = useNavigation();
 

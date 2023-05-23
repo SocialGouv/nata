@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../AppContext';
 import TextBase from '../components/ui/TextBase';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {set} from 'lodash';
 
 interface PressFunction {
   answer: {
@@ -51,7 +52,11 @@ const Onboarding = () => {
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
 
-  const {setIsOnboardingDone, setDisplayInitialModal} = useContext(AppContext);
+  const {
+    setIsOnboardingDone,
+    setDisplayInitialModal,
+    setIsEmergencyOnBoardingDone,
+  } = useContext(AppContext);
 
   const {t} = useTranslation();
 
@@ -62,8 +67,6 @@ const Onboarding = () => {
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
         if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
-          console.log('userinfos : ', userInfos);
-          console.log('urgence avec telephone');
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
@@ -95,9 +98,10 @@ const Onboarding = () => {
         }
       } else {
         console.log('pas urgence');
-        /*setIsOnboardingDone(true);
+        setIsOnboardingDone(true);
+        setIsEmergencyOnBoardingDone(true);
         setDisplayInitialModal(true);
-        navigation.navigate('FollowUp');*/
+        navigation.navigate('FollowUp');
       }
     }
   };
