@@ -67,11 +67,6 @@ function App(): JSX.Element {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
-  useEffect(() => {
-    console.log('userId : ', userId);
-    console.log('env : ', process.env.REACT_APP_MATOMO_SITE_URL);
-  }, [userId]);
-
   const initTracking = async () => {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
