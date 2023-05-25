@@ -15,11 +15,7 @@ import HelpPage from './views/HelpPage';
 import ShortOnboardingEnd from './views/OnboardingSubScreens/ShortOnboardingEnd';
 import Legal from './views/Legal';
 import DeviceInfo from 'react-native-device-info';
-/*import MatomoTracker, {
-  MatomoProvider,
-  useMatomo,
-} from 'matomo-tracker-react-native';
-import Matomo from 'react-native-matomo';*/
+import Matomo from 'react-native-matomo-fork';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -42,8 +38,6 @@ function App(): JSX.Element {
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
   const [userId, setUserId] = React.useState<string>('');
-  //const [matomoIstance, setMatomoInstance] = React.useState<MatomoTracker>();
-  //const {trackAppStart} = useMatomo();
 
   const contextValue: ContextType = {
     isOnboardingDone,
@@ -78,29 +72,17 @@ function App(): JSX.Element {
     console.log('env : ', process.env.REACT_APP_MATOMO_SITE_URL);
   }, [userId]);
 
-  const getUserId = async () => {
+  const initTracking = async () => {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
-    /*setMatomoInstance(
-      new MatomoTracker({
-        urlBase: process.env.REACT_APP_MATOMO_SITE_URL ?? '', // required
-        trackerUrl: process.env.REACT_APP_MATOMO_SITE_URL + 'piwik.php' ?? '', // optional, default value: `${urlBase}matomo.php`
-        siteId: parseInt(process.env.REACT_APP_MATOMO_SITE_ID ?? 'O', 10), // required, number matching your Matomo project
-        userId: tmpId,
-        log: true,
-      }),
-    );
     Matomo.initTracker(
-      process.env.REACT_APP_MATOMO_SITE_URL + 'piwik.php',
+      process.env.REACT_APP_MATOMO_SITE_URL + 'matomo.php',
       parseInt(process.env.REACT_APP_MATOMO_SITE_ID ?? 'O', 10),
     );
-    Matomo.setUserId(tmpId);
-    let appStart = await trackAppStart({});
-    console.log('appstart : ', appStart);*/
   };
 
   useEffect(() => {
-    getUserId();
+    initTracking();
   }, []);
 
   return (
