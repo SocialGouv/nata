@@ -3,6 +3,7 @@ import React from 'react';
 import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
+import Matomo from 'react-native-matomo-fork';
 /*import {useMatomo} from 'matomo-tracker-react-native';
 import Matomo from 'react-native-matomo';*/
 
@@ -47,6 +48,13 @@ const LanguageSelector = (props: Props) => {
         <TouchableOpacity
           onPress={async () => {
             changeLanguage(item.code);
+            let test = Matomo.trackEvent(
+              'ONBOARDING',
+              'ONBOARDING_LANGUAGE_CHOOSE',
+              item.name,
+              1,
+            );
+            console.log('test : ', test);
             /*let tracking = await trackEvent({
               category: 'ONBOARDING',
               action: 'ONBOARDING_LANGUAGE_CHOOSE',
