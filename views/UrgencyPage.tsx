@@ -21,6 +21,7 @@ import WebView from 'react-native-webview';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import AppContext from '../AppContext';
+import SoliGuideModule from '../components/followup/SoliguideModule';
 
 interface Props {
   route: any;
@@ -33,8 +34,6 @@ const UrgencyPage = (props: Props) => {
   const {title, number} = props.route.params;
 
   const titleTodisplay = title ? title : (t('urgency.title') as string);
-
-  console.log('text splitted : ', t('urgency.subtext').split('-'));
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
@@ -355,6 +354,12 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
+          <SoliGuideModule
+            city={city}
+            categories={[107]}
+            keywords={[]}
+            style={'urgent'}
+          />
           <WebView
             scalesPageToFit={true}
             showsVerticalScrollIndicator={false}
@@ -413,7 +418,6 @@ const UrgencyPage = (props: Props) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            console.log('isEmergencyOnboardingDone', isEmergencyOnBoardingDone);
             if (!isEmergencyOnBoardingDone) {
               setIsEmergencyOnBoardingDone(true);
               setDisplayInitialModal(true);
