@@ -10,5 +10,10 @@ module.exports = {
         ios: null,
       },
     },
+    'react-native-matomo': {
+      platforms: {
+        ios: null,
+      },
+    },
   },
 };

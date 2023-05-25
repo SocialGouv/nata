@@ -76,7 +76,7 @@ function App(): JSX.Element {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
     Matomo.initTracker(
-      process.env.REACT_APP_MATOMO_SITE_URL + 'matomo.php',
+      process.env.REACT_APP_MATOMO_SITE_URL,
       parseInt(process.env.REACT_APP_MATOMO_SITE_ID ?? 'O', 10),
     );
   };
