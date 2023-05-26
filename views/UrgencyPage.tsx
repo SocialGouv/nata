@@ -23,7 +23,7 @@ import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import AppContext from '../AppContext';
 import SoliGuideModule from '../components/followup/SoliguideModule';
-
+import {REACT_APP_MATOMO_SITE_ID} from '@env';
 interface Props {
   route: any;
 }
@@ -355,7 +355,7 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
-          <Text>{process.env.REACT_APP_MATOMO_SITE_ID}</Text>
+          <Text>{REACT_APP_MATOMO_SITE_ID}</Text>
           <WebView
             scalesPageToFit={true}
             showsVerticalScrollIndicator={false}

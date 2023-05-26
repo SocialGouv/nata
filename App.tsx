@@ -16,6 +16,7 @@ import ShortOnboardingEnd from './views/OnboardingSubScreens/ShortOnboardingEnd'
 import Legal from './views/Legal';
 import DeviceInfo from 'react-native-device-info';
 import Matomo from 'react-native-matomo-fork';
+import {REACT_APP_MATOMO_SITE_ID, REACT_APP_MATOMO_SITE_URL} from '@env';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -71,8 +72,8 @@ function App(): JSX.Element {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
     Matomo.initTracker(
-      process.env.REACT_APP_MATOMO_SITE_URL,
-      parseInt(process.env.REACT_APP_MATOMO_SITE_ID ?? 'O', 10),
+      REACT_APP_MATOMO_SITE_URL,
+      parseInt(REACT_APP_MATOMO_SITE_ID ?? 'O', 10),
     );
   };
 
