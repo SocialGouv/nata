@@ -9,6 +9,7 @@ import {
   View,
   useWindowDimensions,
   Image,
+  Text,
 } from 'react-native';
 import React, {useContext} from 'react';
 import Container from '../components/ui/Container';
@@ -354,12 +355,7 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
-          <SoliGuideModule
-            city={city}
-            categories={[107]}
-            keywords={[]}
-            style={'urgent'}
-          />
+          <Text>{process.env.REACT_APP_MATOMO_SITE_ID}</Text>
           <WebView
             scalesPageToFit={true}
             showsVerticalScrollIndicator={false}
