@@ -355,7 +355,14 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
+          <Text>Testing ...</Text>
           <Text>test : {REACT_APP_MATOMO_SITE_ID}</Text>
+          <SoliGuideModule
+            city={city}
+            categories={[107]}
+            keywords={[]}
+            style={'urgent'}
+          />
           <WebView
             scalesPageToFit={true}
             showsVerticalScrollIndicator={false}
