@@ -13,9 +13,9 @@ import {useTranslation} from 'react-i18next';
 import Container from '../components/ui/Container';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from '../styles/Style';
-import WebView from 'react-native-webview';
 import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
+import SoliGuideModule from '../components/followup/SoliguideModule';
 
 interface Props {
   route: any;
@@ -225,16 +225,11 @@ const HelpPage = (props: Props) => {
         </View>
       </View>
       <View style={styles.webview}>
-        <WebView
-          scalesPageToFit={true}
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-          javaScriptEnabled
-          useWebView2={true}
-          source={{
-            uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=${help.code}&familialle=pregnant&gender=women&price=false&bs-primary=00948b&bs-primary-dark=00948b&bs-primary-light=92d3ce&bs-secondary=e65a46&text-primary=3e3a71"`,
-          }}
-          automaticallyAdjustContentInsets={true}
+        <SoliGuideModule
+          city={city}
+          categories={help.code.split(',')}
+          keywords={[]}
+          style={'default'}
         />
       </View>
     </Container>
