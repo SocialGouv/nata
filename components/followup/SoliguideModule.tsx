@@ -8,6 +8,12 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import DisplayPhone from '../soliguide/DisplayPhone';
+import {Colors} from '../../styles/Style';
+import DisplayOpen from '../soliguide/DisplayOpen';
+import DisplaySimple from '../soliguide/DisplaySimple';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   categories: number[];
@@ -19,6 +25,10 @@ interface Props {
 const SoliGuideModule = (props: Props) => {
   const {categories, keywords, city, style} = props;
   const [data, setData] = React.useState<any>([]);
+  const navigation = useNavigation();
+  const {t} = useTranslation();
+
+  console.log('categories : ', categories);
 
   const styles = StyleSheet.create({
     container: {
@@ -27,10 +37,26 @@ const SoliGuideModule = (props: Props) => {
     },
     item_style: {
       backgroundColor: '#ffffff',
-      padding: 20,
+      padding: 15,
       marginEnd: 20,
-      width: 270,
+      width: 290,
       borderRadius: 5,
+      borderColor: Colors.border,
+      borderWidth: 1,
+    },
+    labelsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    infosContainer: {
+      marginTop: 20,
+      fontSize: 14,
+      fontWeight: '400',
+      textDecorationLine: 'underline',
+    },
+    logo: {
+      aspectRatio: 1.5,
+      resizeMode: 'contain',
     },
     gridView: {
       marginBottom: 20,
@@ -41,8 +67,10 @@ const SoliGuideModule = (props: Props) => {
     text: {
       fontSize: 15,
       fontWeight: '500',
+      flexWrap: 'wrap',
       width: '80%',
       color: '#000000',
+      marginBottom: 10,
     },
   });
 
@@ -97,11 +125,35 @@ const SoliGuideModule = (props: Props) => {
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={async () => {
-                console.log('go to : ', item.name);
+                navigation.navigate('SoliguidePage', {structure: item});
               }}
               style={styles.item_style}>
               <Text style={styles.text}>{item.name}</Text>
-              <View></View>
+              <View style={styles.labelsContainer}>
+                <DisplayOpen
+                  days={item.newhours}
+                  color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
+                />
+                <DisplaySimple
+                  text={'1.5km'}
+                  color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
+                />
+                <DisplaySimple
+                  text={`⬆️ ${t('soliguide.go')}`}
+                  color={style === 'default' ? 'primary' : 'urgence'}
+                />
+                {item.entity.phones[0] && (
+                  <DisplayPhone
+                    number={item.entity.phones[0].phoneNumber}
+                    color={style === 'default' ? 'primary' : 'urgence'}
+                  />
+                )}
+              </View>
+              <View>
+                <Text style={styles.infosContainer}>
+                  {t('soliguide.more_infos')}
+                </Text>
+              </View>
             </TouchableOpacity>
           )}
         />

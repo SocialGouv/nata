@@ -9,7 +9,6 @@ import {
   View,
   useWindowDimensions,
   Image,
-  Text,
 } from 'react-native';
 import React, {useContext} from 'react';
 import Container from '../components/ui/Container';
@@ -18,12 +17,10 @@ import {useNavigation} from '@react-navigation/native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../components/ui/TextBase';
 import {useTranslation} from 'react-i18next';
-import WebView from 'react-native-webview';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import AppContext from '../AppContext';
 import SoliGuideModule from '../components/followup/SoliguideModule';
-import {REACT_APP_MATOMO_SITE_ID} from '@env';
 interface Props {
   route: any;
 }
@@ -221,7 +218,6 @@ const UrgencyPage = (props: Props) => {
     },
     webview: {
       width: width,
-      height: height / 2.2,
       paddingHorizontal: 20,
       backgroundColor: Colors.backgroundUrgence,
       zIndex: -1,
@@ -355,24 +351,11 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
-          <Text>Testing ...</Text>
-          <Text>test : {REACT_APP_MATOMO_SITE_ID}</Text>
           <SoliGuideModule
             city={city}
             categories={[107]}
             keywords={[]}
             style={'urgent'}
-          />
-          <WebView
-            scalesPageToFit={true}
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-            javaScriptEnabled
-            useWebView2={true}
-            source={{
-              uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=107&familialle=pregnant&gender=women&price=false&bs-primary=ca1c11&bs-primary-dark=ca1c11&bs-primary-light=d77770&bs-secondary=e65a46&text-primary=3e3a71`,
-            }}
-            automaticallyAdjustContentInsets={true}
           />
         </View>
         <View style={styles.explanationContainer}>

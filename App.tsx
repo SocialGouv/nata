@@ -17,6 +17,7 @@ import Legal from './views/Legal';
 import DeviceInfo from 'react-native-device-info';
 import Matomo from 'react-native-matomo-fork';
 import {REACT_APP_MATOMO_SITE_ID, REACT_APP_MATOMO_SITE_URL} from '@env';
+import SoliguidePage from './views/SoliguidePage';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -112,6 +113,7 @@ function App(): JSX.Element {
               <>
                 <Stack.Screen name="FollowUp" component={Navbar} />
                 <Stack.Screen name="UrgencyPage" component={UrgencyPage} />
+                <Stack.Screen name="SoliguidePage" component={SoliguidePage} />
                 <Stack.Screen
                   name="ShareSituation"
                   component={ShareSituation}

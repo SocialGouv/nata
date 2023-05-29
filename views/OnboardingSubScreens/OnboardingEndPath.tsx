@@ -15,10 +15,10 @@ import {
 import TextBase from '../../components/ui/TextBase';
 import {Colors, Fonts} from '../../styles/Style';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import WebView from 'react-native-webview';
 import Autocomplete from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import Images from '../../assets/models/onboardingImages';
+import SoliGuideModule from '../../components/followup/SoliguideModule';
 
 const OnboardingEndPath = ({
   navigation,
@@ -142,10 +142,10 @@ const OnboardingEndPath = ({
     },
     webview: {
       width: width,
-      height: height / 2.3,
       // paddingHorizontal: 20,
       zIndex: -1,
       marginBottom: 10,
+      paddingHorizontal: 20,
     },
     button: {
       backgroundColor: Colors.primary,
@@ -295,16 +295,11 @@ const OnboardingEndPath = ({
           </View>
         </View>
         <View style={styles.webview}>
-          <WebView
-            scalesPageToFit={true}
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-            javaScriptEnabled
-            useWebView2={true}
-            source={{
-              uri: `https://widget.soliguide.fr/search/SOLINUM/fr/none?geoValueCities=${city}&categories=107&familialle=pregnant&gender=women&price=false&bs-primary=00948b&bs-primary-dark=00948b&bs-primary-light=92d3ce&bs-secondary=e65a46&text-primary=3e3a71"`,
-            }}
-            automaticallyAdjustContentInsets={true}
+          <SoliGuideModule
+            city={city}
+            categories={[107]}
+            keywords={[]}
+            style={'default'}
           />
         </View>
         {number && (

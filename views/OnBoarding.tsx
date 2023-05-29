@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import questions from '../assets/models/questions.json';
 import Container from '../components/ui/Container';
-import {Image, Pressable, View} from 'react-native';
+import {Image, Pressable, ScrollView, View} from 'react-native';
 import AnswerButton from '../components/onboarding/AnswerButton';
 import {StyleSheet} from 'react-native';
 import {Colors, Fonts} from '../styles/Style';
@@ -259,18 +259,20 @@ const Onboarding = () => {
                 );
               } else if (question.verticalAnswer) {
                 return (
-                  <View style={styles.verticalButton}>
-                    {question.answers.map((answer, verticalIndex) => {
-                      return (
-                        <AnswerButton
-                          style={{marginBottom: 20}}
-                          key={'ansVert' + verticalIndex}
-                          answer={answer.label}
-                          onClick={() => handlePress({answer, question})}
-                        />
-                      );
-                    })}
-                  </View>
+                  <ScrollView>
+                    <View style={styles.verticalButton}>
+                      {question.answers.map((answer, verticalIndex) => {
+                        return (
+                          <AnswerButton
+                            style={{marginBottom: 20}}
+                            key={'ansVert' + verticalIndex}
+                            answer={answer.label}
+                            onClick={() => handlePress({answer, question})}
+                          />
+                        );
+                      })}
+                    </View>
+                  </ScrollView>
                 );
               } else {
                 return question.answers.map((answer, secondIndex) => {

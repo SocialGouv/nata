@@ -32,10 +32,11 @@ const LanguageSelection = () => {
     },
     mission: {
       width: '100%',
+      textAlign: 'center',
       fontFamily: Fonts.primary,
       fontSize: 18,
       lineHeight: 32,
-      fontWeight: '700',
+      fontWeight: '400',
       marginHorizontal: 0,
       paddingHorizontal: 30,
     },
