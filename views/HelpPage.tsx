@@ -1,9 +1,11 @@
 import {
+  Keyboard,
   Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -166,77 +168,83 @@ const HelpPage = (props: Props) => {
 
   return (
     <Container>
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.topContainer}>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            style={({pressed}) => [
-              styles.backButton,
-              {opacity: pressed ? 0.5 : 1},
-            ]}>
-            <FontAwesome5Icon name="chevron-left" color={Colors.primary} />
-            <TextBase style={styles.backText}>
-              {' '}
-              {t('onboarding.back') as string}
-            </TextBase>
-          </Pressable>
-          <View style={styles.titleContainer}>
-            <TextBase style={styles.icon}>{t(help.icon)}</TextBase>
-            <TextBase style={styles.title}>{t(help.title)}</TextBase>
-          </View>
-        </View>
-        <View style={styles.middleContainer}>
-          <TextBase style={styles.subtitle}>{t(help.subtext)}</TextBase>
-          <View style={styles.searchContainer}>
-            <View style={styles.autoCompleteContainer}>
-              <Autocomplete
-                inputContainerStyle={{borderWidth: 0}}
-                data={geogouvData}
-                hideResults={hideResults}
-                renderTextInput={() => (
-                  <TextInput
-                    style={styles.input}
-                    placeholder={t('urgency.search') as string}
-                    value={search}
-                    onChangeText={text => {
-                      setHideResults(false);
-                      setSearch(text);
-                      debouncedAPICall();
-                    }}
-                  />
-                )}
-                flatListProps={{
-                  renderItem: ({item}) => (
-                    <TouchableOpacity
-                      style={styles.displayResults}
-                      onPress={() => {
-                        setSearch(item), setHideResults(false);
-                      }}>
-                      <TextBase>{item}</TextBase>
-                    </TouchableOpacity>
-                  ),
-                }}
-              />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.topContainer}>
+            <Pressable
+              onPress={() => navigation.goBack()}
+              style={({pressed}) => [
+                styles.backButton,
+                {opacity: pressed ? 0.5 : 1},
+              ]}>
+              <FontAwesome5Icon name="chevron-left" color={Colors.primary} />
+              <TextBase style={styles.backText}>
+                {' '}
+                {t('onboarding.back') as string}
+              </TextBase>
+            </Pressable>
+            <View style={styles.titleContainer}>
+              <TextBase style={styles.icon}>{t(help.icon)}</TextBase>
+              <TextBase style={styles.title}>{t(help.title)}</TextBase>
             </View>
-            <TouchableOpacity
-              disabled={!search}
-              onPress={() => handlePressSearch()}
-              style={styles.searchButton}>
-              <FontAwesome5Icon name="search" size={20} color={Colors.white} />
-            </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.webview}>
-          {city !== '' && (
-            <SoliGuideModule
-              city={city}
-              categories={help.code.split(',')}
-              keywords={help.keywords}
-              style={'default'}
-            />
-          )}
-        </View>
-      </ScrollView>
+          <View style={styles.middleContainer}>
+            <TextBase style={styles.subtitle}>{t(help.subtext)}</TextBase>
+            <View style={styles.searchContainer}>
+              <View style={styles.autoCompleteContainer}>
+                <Autocomplete
+                  inputContainerStyle={{borderWidth: 0}}
+                  data={geogouvData}
+                  hideResults={hideResults}
+                  renderTextInput={() => (
+                    <TextInput
+                      style={styles.input}
+                      placeholder={t('urgency.search') as string}
+                      value={search}
+                      onChangeText={text => {
+                        setHideResults(false);
+                        setSearch(text);
+                        debouncedAPICall();
+                      }}
+                    />
+                  )}
+                  flatListProps={{
+                    renderItem: ({item}) => (
+                      <TouchableOpacity
+                        style={styles.displayResults}
+                        onPress={() => {
+                          setSearch(item), setHideResults(false);
+                        }}>
+                        <TextBase>{item}</TextBase>
+                      </TouchableOpacity>
+                    ),
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                disabled={!search}
+                onPress={() => handlePressSearch()}
+                style={styles.searchButton}>
+                <FontAwesome5Icon
+                  name="search"
+                  size={20}
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.webview}>
+            {city !== '' && (
+              <SoliGuideModule
+                city={city}
+                categories={help.code.split(',')}
+                keywords={help.keywords}
+                style={'default'}
+              />
+            )}
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </Container>
   );
 };

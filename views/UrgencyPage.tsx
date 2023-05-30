@@ -9,6 +9,8 @@ import {
   View,
   useWindowDimensions,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, {useContext} from 'react';
 import Container from '../components/ui/Container';
@@ -274,98 +276,103 @@ const UrgencyPage = (props: Props) => {
 
   return (
     <Container urgency={true}>
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.topContainer}>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            style={styles.backPressable}>
-            <FontAwesome5Icon
-              name="chevron-left"
-              size={15}
-              color={Colors.urgence}
-            />
-            <TextBase style={styles.backLinkText}>
-              {t('onboarding.back') as string}
-            </TextBase>
-          </Pressable>
-          <View style={styles.titleContainer}>
-            <TextBase style={styles.icon}>🚨</TextBase>
-            <TextBase style={styles.title}>{titleTodisplay}</TextBase>
-          </View>
-        </View>
-        <View style={styles.underTopContainer}>
-          <TextBase style={styles.underTopLabel}>
-            {t('urgency.subtext')
-              .split('-')
-              .map((item, key) => {
-                return (
-                  <TextBase
-                    key={key}
-                    style={
-                      key % 2 === 0
-                        ? styles.underTopLabel
-                        : styles.underTopLabelRed
-                    }>
-                    {item}
-                  </TextBase>
-                );
-              })}
-          </TextBase>
-        </View>
-        <View style={styles.middleContainer}>
-          <View style={styles.searchContainer}>
-            <View style={styles.autoCompleteContainer}>
-              <AutocompleteInput
-                inputContainerStyle={{borderWidth: 0}}
-                data={geogouvData}
-                hideResults={hideResults}
-                flatListProps={{
-                  renderItem: ({item}) => (
-                    <TouchableOpacity
-                      style={styles.displayResults}
-                      onPress={() => {
-                        setSearch(item);
-                        setHideResults(false);
-                      }}>
-                      <TextBase>{item}</TextBase>
-                    </TouchableOpacity>
-                  ),
-                }}
-                renderTextInput={() => (
-                  <TextInput
-                    style={styles.input}
-                    placeholder={t('urgency.search') as string}
-                    value={search}
-                    onChangeText={text => {
-                      setHideResults(false);
-                      setSearch(text);
-                      debouncedAPICall();
-                    }}
-                  />
-                )}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.topContainer}>
+            <Pressable
+              onPress={() => navigation.goBack()}
+              style={styles.backPressable}>
+              <FontAwesome5Icon
+                name="chevron-left"
+                size={15}
+                color={Colors.urgence}
               />
+              <TextBase style={styles.backLinkText}>
+                {t('onboarding.back') as string}
+              </TextBase>
+            </Pressable>
+            <View style={styles.titleContainer}>
+              <TextBase style={styles.icon}>🚨</TextBase>
+              <TextBase style={styles.title}>{titleTodisplay}</TextBase>
             </View>
-            <TouchableOpacity
-              disabled={!search}
-              onPress={() => handlePressSearch()}
-              style={styles.searchButton}>
-              <FontAwesome5Icon name="search" size={20} color={Colors.white} />
-            </TouchableOpacity>
           </View>
-        </View>
+          <View style={styles.underTopContainer}>
+            <TextBase style={styles.underTopLabel}>
+              {t('urgency.subtext')
+                .split('-')
+                .map((item, key) => {
+                  return (
+                    <TextBase
+                      key={key}
+                      style={
+                        key % 2 === 0
+                          ? styles.underTopLabel
+                          : styles.underTopLabelRed
+                      }>
+                      {item}
+                    </TextBase>
+                  );
+                })}
+            </TextBase>
+          </View>
+          <View style={styles.middleContainer}>
+            <View style={styles.searchContainer}>
+              <View style={styles.autoCompleteContainer}>
+                <AutocompleteInput
+                  inputContainerStyle={{borderWidth: 0}}
+                  data={geogouvData}
+                  hideResults={hideResults}
+                  flatListProps={{
+                    renderItem: ({item}) => (
+                      <TouchableOpacity
+                        style={styles.displayResults}
+                        onPress={() => {
+                          setSearch(item);
+                          setHideResults(false);
+                        }}>
+                        <TextBase>{item}</TextBase>
+                      </TouchableOpacity>
+                    ),
+                  }}
+                  renderTextInput={() => (
+                    <TextInput
+                      style={styles.input}
+                      placeholder={t('urgency.search') as string}
+                      value={search}
+                      onChangeText={text => {
+                        setHideResults(false);
+                        setSearch(text);
+                        debouncedAPICall();
+                      }}
+                    />
+                  )}
+                />
+              </View>
+              <TouchableOpacity
+                disabled={!search}
+                onPress={() => handlePressSearch()}
+                style={styles.searchButton}>
+                <FontAwesome5Icon
+                  name="search"
+                  size={20}
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
 
-        <View style={styles.webview}>
-          {city !== '' && (
-            <SoliGuideModule
-              city={city}
-              categories={[107]}
-              keywords={keywords}
-              style={'urgent'}
-            />
-          )}
-        </View>
-        <View style={styles.explanationContainer}>
-          {/* <Pressable
+          <View style={styles.webview}>
+            {city !== '' && (
+              <SoliGuideModule
+                city={city}
+                categories={[107]}
+                keywords={keywords}
+                style={'urgent'}
+              />
+            )}
+          </View>
+          <View style={styles.explanationContainer}>
+            {/* <Pressable
             onPress={() => navigation.navigate('FollowUp')}
             style={({pressed}) => [
               styles.pressable,
@@ -377,52 +384,53 @@ const UrgencyPage = (props: Props) => {
               {t('urgency.button') as string}
             </TextBase>
           </Pressable> */}
-          {number && (
-            <>
-              <TextBase style={styles.explanationContainer}>
-                {t('urgency.solipamtext')
-                  .split('-')
-                  .map((item, key) => {
-                    return (
-                      <TextBase
-                        key={key}
-                        style={
-                          key % 2 === 0
-                            ? styles.explanationText
-                            : styles.explanationTextBlue
-                        }>
-                        {item}
-                      </TextBase>
-                    );
-                  })}
+            {number && (
+              <>
+                <TextBase style={styles.explanationContainer}>
+                  {t('urgency.solipamtext')
+                    .split('-')
+                    .map((item, key) => {
+                      return (
+                        <TextBase
+                          key={key}
+                          style={
+                            key % 2 === 0
+                              ? styles.explanationText
+                              : styles.explanationTextBlue
+                          }>
+                          {item}
+                        </TextBase>
+                      );
+                    })}
+                </TextBase>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handlePhonePress()}>
+                  <Image
+                    style={styles.imgPhone}
+                    source={require('../assets/images/phone.png')}
+                  />
+                  <TextBase style={styles.whiteText}>{number}</TextBase>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+          <View style={styles.continueContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                if (!isEmergencyOnBoardingDone) {
+                  setIsEmergencyOnBoardingDone(true);
+                  setDisplayInitialModal(true);
+                }
+                navigation.navigate('FollowUp');
+              }}>
+              <TextBase style={styles.continueText}>
+                {t('urgency.continue') as string}
               </TextBase>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handlePhonePress()}>
-                <Image
-                  style={styles.imgPhone}
-                  source={require('../assets/images/phone.png')}
-                />
-                <TextBase style={styles.whiteText}>{number}</TextBase>
-              </TouchableOpacity>
-            </>
-          )}
-        </View>
-        <View style={styles.continueContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              if (!isEmergencyOnBoardingDone) {
-                setIsEmergencyOnBoardingDone(true);
-                setDisplayInitialModal(true);
-              }
-              navigation.navigate('FollowUp');
-            }}>
-            <TextBase style={styles.continueText}>
-              {t('urgency.continue') as string}
-            </TextBase>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </Container>
   );
 };
