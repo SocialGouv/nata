@@ -166,7 +166,7 @@ const HelpPage = (props: Props) => {
 
   return (
     <Container>
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={styles.topContainer}>
           <Pressable
             onPress={() => navigation.goBack()}
