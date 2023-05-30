@@ -1,10 +1,16 @@
-import {ScrollView, StyleSheet, View, useWindowDimensions} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import React from 'react';
 import TextBase from '../components/ui/TextBase';
 import {Colors, Fonts} from '../styles/Style';
 import BackButton from '../components/ui/BackButton';
 import RenderHtml from 'react-native-render-html';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {useTranslation} from 'react-i18next';
 
 interface Props {
@@ -28,21 +34,40 @@ const SoliguidePage = (props: Props) => {
         />
       </View>
       <View style={styles.containerMap}>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: structure.position.location.coordinates[1],
-            longitude: structure.position.location.coordinates[0],
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}>
-          <Marker
-            coordinate={{
+        {Platform.OS === 'ios' ? (
+          <MapView
+            style={styles.map}
+            region={{
               latitude: structure.position.location.coordinates[1],
               longitude: structure.position.location.coordinates[0],
-            }}
-          />
-        </MapView>
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}>
+            <Marker
+              coordinate={{
+                latitude: structure.position.location.coordinates[1],
+                longitude: structure.position.location.coordinates[0],
+              }}
+            />
+          </MapView>
+        ) : (
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={{
+              latitude: structure.position.location.coordinates[1],
+              longitude: structure.position.location.coordinates[0],
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}>
+            <Marker
+              coordinate={{
+                latitude: structure.position.location.coordinates[1],
+                longitude: structure.position.location.coordinates[0],
+              }}
+            />
+          </MapView>
+        )}
       </View>
       <View style={styles.container}>
         <TextBase style={styles.title}>Services proposés</TextBase>

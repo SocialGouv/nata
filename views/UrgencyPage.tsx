@@ -274,7 +274,7 @@ const UrgencyPage = (props: Props) => {
 
   return (
     <Container urgency={true}>
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={styles.topContainer}>
           <Pressable
             onPress={() => navigation.goBack()}

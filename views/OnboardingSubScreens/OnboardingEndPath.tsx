@@ -223,7 +223,7 @@ const OnboardingEndPath = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView keyboardShouldPersistTaps="handled">
         <Pressable
           onPress={() => navigation.goBack()}
           style={styles.backPressable}>
