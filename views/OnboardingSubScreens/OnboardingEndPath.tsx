@@ -29,9 +29,7 @@ const OnboardingEndPath = ({
 }) => {
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
-  const {number, image, labelSearch, boldBottom} = route.params;
-
-  console.log('bold : ', boldBottom);
+  const {number, image, labelSearch, boldBottom, keywords} = route.params;
 
   const styles = StyleSheet.create({
     container: {
@@ -298,7 +296,7 @@ const OnboardingEndPath = ({
           <SoliGuideModule
             city={city}
             categories={[107]}
-            keywords={[]}
+            keywords={keywords}
             style={'default'}
           />
         </View>

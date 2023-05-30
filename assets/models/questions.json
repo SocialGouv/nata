@@ -24,7 +24,14 @@
         "redirectScreen": true,
         "redirectScreenContent": "onboarding.questions.question1.answerDanger.redirectScreenContent",
         "value": "Q1AD",
-        "image": "not_sure"
+        "image": "not_sure",
+        "keywords": [
+          "PMI",
+          "santé sexuelle",
+          "CPEF",
+          "planning familial",
+          "MFPF"
+        ]
       }
     },
     {
@@ -42,7 +49,14 @@
           "value": "Q2A2",
           "redirectScreen": true,
           "redirectScreenContent": "onboarding.questions.question2.answer2.redirectScreenContent",
-          "image": "18"
+          "image": "18",
+          "keywords": [
+            "PMI",
+            "santé sexuelle",
+            "CPEF",
+            "planning familial",
+            "MFPF"
+          ]
         }
       ]
     },

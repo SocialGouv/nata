@@ -354,7 +354,7 @@ const UrgencyPage = (props: Props) => {
           <SoliGuideModule
             city={city}
             categories={[107]}
-            keywords={[]}
+            keywords={['PMI']}
             style={'urgent'}
           />
         </View>

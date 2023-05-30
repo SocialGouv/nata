@@ -228,7 +228,7 @@ const HelpPage = (props: Props) => {
         <SoliGuideModule
           city={city}
           categories={help.code.split(',')}
-          keywords={[]}
+          keywords={help.keywords}
           style={'default'}
         />
       </View>
