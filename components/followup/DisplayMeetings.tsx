@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
 import {Meetings} from './interface';
 import _ from 'lodash';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
   currentMonth: number;
@@ -122,6 +123,11 @@ const DisplayMeetings = (props: Props) => {
               onPress={(isChecked: boolean) => {
                 if (userMeetingStatus) {
                   if (isChecked) {
+                    MatomoTrackEvent(
+                      'FOLOWUP',
+                      'FOLLOWUP_MEETING_DONE_SELECT',
+                      t(meeting.label) ?? '',
+                    );
                     setUserMeetingStatus([
                       ...userMeetingStatus,
                       {

@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,16 +15,18 @@ import {Colors} from '../../styles/Style';
 import DisplayOpen from '../soliguide/DisplayOpen';
 import DisplaySimple from '../soliguide/DisplaySimple';
 import {useTranslation} from 'react-i18next';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
   categories: number[];
   keywords?: string[];
   city: string;
   style: 'default' | 'urgent';
+  matomo: string;
 }
 
 const SoliGuideModule = (props: Props) => {
-  const {categories, keywords, city, style} = props;
+  const {categories, keywords, city, style, matomo} = props;
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -152,21 +155,34 @@ const SoliGuideModule = (props: Props) => {
                   color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
                 />
                 */}
-                <DisplaySimple
-                  text={`⬆️ ${t('soliguide.go')}`}
-                  color={style === 'default' ? 'primary' : 'urgence'}
-                />
+                <Pressable
+                  onPress={() => {
+                    MatomoTrackEvent(matomo, `${matomo}_GO`);
+                    navigation.navigate('SoliguidePage', {structure: item});
+                  }}>
+                  <DisplaySimple
+                    text={`⬆️ ${t('soliguide.go')}`}
+                    color={style === 'default' ? 'primary' : 'urgence'}
+                  />
+                </Pressable>
                 {item.entity.phones[0] && (
                   <DisplayPhone
                     number={item.entity.phones[0].phoneNumber}
                     color={style === 'default' ? 'primary' : 'urgence'}
+                    matomo={matomo}
                   />
                 )}
               </View>
               <View>
-                <Text style={styles.infosContainer}>
-                  {t('soliguide.more_infos')}
-                </Text>
+                <Pressable
+                  onPress={() => {
+                    MatomoTrackEvent(matomo, `${matomo}_MORE_INFO`);
+                    navigation.navigate('SoliguidePage', {structure: item});
+                  }}>
+                  <Text style={styles.infosContainer}>
+                    {t('soliguide.more_infos')}
+                  </Text>
+                </Pressable>
               </View>
             </TouchableOpacity>
           )}

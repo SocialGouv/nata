@@ -18,6 +18,7 @@ import DeviceInfo from 'react-native-device-info';
 import Matomo from 'react-native-matomo-fork';
 import {REACT_APP_MATOMO_SITE_ID, REACT_APP_MATOMO_SITE_URL} from '@env';
 import SoliguidePage from './views/SoliguidePage';
+import {MatomoTrackEvent} from './utils/Matomo';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -69,14 +70,8 @@ function App(): JSX.Element {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
-  const initTracking = async () => {
-    const tmpId = await DeviceInfo.getUniqueId();
-    setUserId(tmpId);
-    Matomo.initTracker('https://matomo.fabrique.social.gouv.fr/matomo.js', 89);
-  };
-
   useEffect(() => {
-    initTracking();
+    MatomoTrackEvent('APP', 'APP_OPEN');
   }, []);
 
   return (

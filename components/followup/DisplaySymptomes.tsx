@@ -7,6 +7,7 @@ import Images from '../../assets/models/followupImages';
 import {Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UrgencyModule from './UrgencyModule';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
   symptomes: {
@@ -128,6 +129,13 @@ const DisplaySymptomes = (props: Props) => {
   }, [updateUserSymptomesStatus]);
 
   const handleSymptomSelection = (item: Symptome) => {
+    MatomoTrackEvent(
+      'FOLLOWUP',
+      item.status === 'urgency'
+        ? 'FOLLOWUP_SYMPTOM_MAJOR_CLICK'
+        : 'FOLLOWUP_SYMPTOM_MINOR_CLICK',
+      item.slug,
+    );
     setSelectedSymptome(item);
     if (
       userSymptomesStatus &&
