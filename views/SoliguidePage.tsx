@@ -29,6 +29,7 @@ const SoliguidePage = (props: Props) => {
         <BackButton />
         <TextBase style={styles.title}>{structure.name}</TextBase>
         <RenderHtml
+          tagsStyles={tagStyles}
           contentWidth={useWindowDimensions().width}
           source={{html: structure.description}}
         />
@@ -77,9 +78,14 @@ const SoliguidePage = (props: Props) => {
               {t(`soliguide.categories.${service.categorie}`)}
             </TextBase>
             {service.description ? (
-              <RenderHtml source={{html: service.description}} />
+              <RenderHtml
+                tagsStyles={tagStyles}
+                source={{html: service.description}}
+              />
             ) : (
-              <TextBase>{t('soliguide.direct_access')}</TextBase>
+              <TextBase style={styles.tagStyles}>
+                {t('soliguide.direct_access')}
+              </TextBase>
             )}
           </View>
         ))}
@@ -89,6 +95,15 @@ const SoliguidePage = (props: Props) => {
 };
 
 export default SoliguidePage;
+
+const tagStyles = {
+  p: {
+    fontSize: 16,
+    marginBottom: 0,
+    fontFamily: Fonts.primary,
+    color: '#000000',
+  },
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -112,12 +127,17 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     fontFamily: Fonts.primary,
   },
+  tagStyles: {
+    fontSize: 16,
+    fontFamily: Fonts.primary,
+    color: '#000000',
+  },
   description: {
     fontSize: 16,
     marginBottom: 20,
     fontFamily: Fonts.primary,
     backgroundColor: '#ffffff',
-    color: '#000000',
+    color: 'blue',
     padding: 10,
     borderRadius: 5,
   },
@@ -130,5 +150,6 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    marginTop: 20,
   },
 });

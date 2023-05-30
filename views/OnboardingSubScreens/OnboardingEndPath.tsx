@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
+  Keyboard,
   Linking,
   Platform,
   Pressable,
@@ -9,6 +10,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -223,113 +225,119 @@ const OnboardingEndPath = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <Pressable
-          onPress={() => navigation.goBack()}
-          style={styles.backPressable}>
-          <FontAwesome5Icon
-            name="chevron-left"
-            size={15}
-            color={Colors.primary}
-          />
-          <TextBase style={styles.backLinkText}>
-            {t('onboarding.back') as string}
-          </TextBase>
-        </Pressable>
-        <View style={styles.topContainer}>
-          {image && twoPartStrings[1] && (
-            <View style={styles.firstPartContainer}>
-              <Image
-                source={Images[image as keyof typeof Images]}
-                style={styles.image}
-              />
-              <TextBase style={{...styles.firstPartText, width: width * 0.6}}>
-                {strings[0].split(':')[0].trim()}
-                {' :'}
-              </TextBase>
-            </View>
-          )}
-          <TextBase style={styles.text}>
-            {twoPartStrings[1] ? twoPartStrings[1].trim() : strings[0].trim()}
-          </TextBase>
-        </View>
-        <View style={styles.middleContainer}>
-          <TextBase style={styles.subtitle}>
-            {labelSearch ? t(labelSearch) : t('urgency.subtext_test')}
-          </TextBase>
-          <View style={styles.searchContainer}>
-            <View style={styles.autoCompleteContainer}>
-              <Autocomplete
-                inputContainerStyle={{borderWidth: 0}}
-                data={geogouvData}
-                hideResults={hideResults}
-                renderTextInput={() => (
-                  <TextInput
-                    style={styles.input}
-                    placeholder={t('urgency.search') as string}
-                    value={search}
-                    onChangeText={text => {
-                      setHideResults(false);
-                      setSearch(text);
-                      debouncedAPICall();
-                    }}
-                  />
-                )}
-                flatListProps={{
-                  renderItem: ({item}) => (
-                    <TouchableOpacity
-                      style={styles.displayResults}
-                      onPress={() => {
-                        setSearch(item);
-                        setHideResults(false);
-                      }}>
-                      <TextBase>{item}</TextBase>
-                    </TouchableOpacity>
-                  ),
-                }}
-              />
-            </View>
-            <TouchableOpacity
-              disabled={!search}
-              onPress={() => handlePressSearch()}
-              style={styles.searchButton}>
-              <FontAwesome5Icon name="search" size={20} color={Colors.white} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.webview}>
-          {city !== '' && (
-            <SoliGuideModule
-              city={city}
-              categories={[107]}
-              keywords={keywords}
-              style={'default'}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.backPressable}>
+            <FontAwesome5Icon
+              name="chevron-left"
+              size={15}
+              color={Colors.primary}
             />
-          )}
-        </View>
-        {number && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handlePhonePress()}>
-            <TextBase style={styles.whiteText}>{number}</TextBase>
-          </TouchableOpacity>
-        )}
-        <View style={styles.bottomContainer}>
-          {boldBottom && (
-            <TextBase style={styles.boldText}>{t(boldBottom)}</TextBase>
-          )}
-          {strings.map((string, index) => {
-            if (index > 0) {
-              return (
-                <TextBase key={index} style={styles.text}>
-                  {string.trim()}
-                  {index !== strings.length - 1 ? '.' : ''}
+            <TextBase style={styles.backLinkText}>
+              {t('onboarding.back') as string}
+            </TextBase>
+          </Pressable>
+          <View style={styles.topContainer}>
+            {image && twoPartStrings[1] && (
+              <View style={styles.firstPartContainer}>
+                <Image
+                  source={Images[image as keyof typeof Images]}
+                  style={styles.image}
+                />
+                <TextBase style={{...styles.firstPartText, width: width * 0.6}}>
+                  {strings[0].split(':')[0].trim()}
+                  {' :'}
                 </TextBase>
-              );
-            }
-          })}
-        </View>
-      </ScrollView>
+              </View>
+            )}
+            <TextBase style={styles.text}>
+              {twoPartStrings[1] ? twoPartStrings[1].trim() : strings[0].trim()}
+            </TextBase>
+          </View>
+          <View style={styles.middleContainer}>
+            <TextBase style={styles.subtitle}>
+              {labelSearch ? t(labelSearch) : t('urgency.subtext_test')}
+            </TextBase>
+            <View style={styles.searchContainer}>
+              <View style={styles.autoCompleteContainer}>
+                <Autocomplete
+                  inputContainerStyle={{borderWidth: 0}}
+                  data={geogouvData}
+                  hideResults={hideResults}
+                  renderTextInput={() => (
+                    <TextInput
+                      style={styles.input}
+                      placeholder={t('urgency.search') as string}
+                      value={search}
+                      onChangeText={text => {
+                        setHideResults(false);
+                        setSearch(text);
+                        debouncedAPICall();
+                      }}
+                    />
+                  )}
+                  flatListProps={{
+                    renderItem: ({item}) => (
+                      <TouchableOpacity
+                        style={styles.displayResults}
+                        onPress={() => {
+                          setSearch(item);
+                          setHideResults(false);
+                        }}>
+                        <TextBase>{item}</TextBase>
+                      </TouchableOpacity>
+                    ),
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                disabled={!search}
+                onPress={() => handlePressSearch()}
+                style={styles.searchButton}>
+                <FontAwesome5Icon
+                  name="search"
+                  size={20}
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.webview}>
+            {city !== '' && (
+              <SoliGuideModule
+                city={city}
+                categories={[107]}
+                keywords={keywords}
+                style={'default'}
+              />
+            )}
+          </View>
+          {number && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePhonePress()}>
+              <TextBase style={styles.whiteText}>{number}</TextBase>
+            </TouchableOpacity>
+          )}
+          <View style={styles.bottomContainer}>
+            {boldBottom && (
+              <TextBase style={styles.boldText}>{t(boldBottom)}</TextBase>
+            )}
+            {strings.map((string, index) => {
+              if (index > 0) {
+                return (
+                  <TextBase key={index} style={styles.text}>
+                    {string.trim()}
+                    {index !== strings.length - 1 ? '.' : ''}
+                  </TextBase>
+                );
+              }
+            })}
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
