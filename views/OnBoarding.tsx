@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppContext from '../AppContext';
 import TextBase from '../components/ui/TextBase';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import {set} from 'lodash';
+import {MatomoTrackEvent} from '../utils/Matomo';
 
 interface PressFunction {
   answer: {
@@ -28,6 +28,8 @@ interface PressFunction {
     labelSearch?: string;
     boldBottom?: String;
     keywords?: string[];
+    nameMatomo: string;
+    valueMatomo?: number;
   };
   question: {
     label: string;
@@ -39,6 +41,7 @@ interface PressFunction {
       redirectScreen?: boolean;
     };
     verticalAnswer?: boolean;
+    actionMatomo: string;
   };
 }
 
@@ -103,16 +106,26 @@ const Onboarding = () => {
           });
         }
       } else {
-        console.log('pas urgence');
         setIsOnboardingDone(true);
         setIsEmergencyOnBoardingDone(true);
         setDisplayInitialModal(true);
         navigation.navigate('FollowUp');
+        MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
       }
     }
   };
 
   const handlePress = async ({answer, question}: PressFunction) => {
+    if (!question.isSpecial) {
+      console.log('answer', answer);
+      console.log('question', question);
+      MatomoTrackEvent(
+        'ONBOARDING',
+        question.actionMatomo,
+        answer.nameMatomo,
+        answer.valueMatomo ?? undefined,
+      );
+    }
     if (
       question.slug === 'isPregnant' &&
       answer.value === 'Q1A2' &&
@@ -122,6 +135,8 @@ const Onboarding = () => {
         content: answer.redirectScreenContent,
         image: answer.image,
       });
+      MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
+      MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else if (
       answer.redirectScreen &&
       answer.value !== 'Q4A2' &&
@@ -133,6 +148,8 @@ const Onboarding = () => {
         image: answer.image,
         keywords: answer.keywords,
       });
+      MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
+      MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else if (
       parseInt(userInfos.pregnancyMonth, 10) === 0 &&
       answer.value === 'Q4A2' &&
@@ -146,6 +163,8 @@ const Onboarding = () => {
         boldBottom: answer.boldBottom,
         keywords: ['PMI'],
       });
+      MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
+      MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else {
       if (currentStep < questions.data.length) {
         setUserInfos(
@@ -239,6 +258,12 @@ const Onboarding = () => {
                     <Pressable
                       onPress={() => {
                         handlePress({answer: question.answers[0], question});
+                        MatomoTrackEvent(
+                          'ONBOARDING',
+                          'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
+                          'choose_month',
+                          pregnancyMonth,
+                        );
                       }}
                       style={({pressed}) => [
                         {
@@ -258,6 +283,12 @@ const Onboarding = () => {
                           pregnancyMonth: question.specialAnswer.value,
                         });
                         setCurrentStep(currentStep + 1);
+                        MatomoTrackEvent(
+                          'ONBOARDING',
+                          'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
+                          'pass',
+                          0,
+                        );
                       }}>
                       <TextBase style={{color: Colors.black}}>
                         {t(question.specialAnswer.title)}

@@ -8,18 +8,21 @@ import {
 import React from 'react';
 import TextBase from '../ui/TextBase';
 import {Colors} from '../../styles/Style';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
   number: string;
   color: keyof typeof Colors;
+  matomo: string;
 }
 
 const DisplayPhone = (props: Props) => {
-  const {number, color} = props;
+  const {number, color, matomo} = props;
   const handlePhonePress = () => {
     Platform.OS === 'ios'
       ? Linking.openURL(`tel:${number.replace(/\s+/g, '')}`)
       : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
+    MatomoTrackEvent(matomo, `${matomo}_CALL`);
   };
 
   return (

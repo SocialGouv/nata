@@ -6,6 +6,7 @@ import {Colors, Fonts} from '../../styles/Style';
 import helps from '../../assets/models/helparound.json';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
   userInfos: Record<string, string> | undefined;
@@ -18,6 +19,11 @@ const DisplayHelpAround = (props: Props) => {
   const navigation = useNavigation();
 
   const handlePress = (el: any) => {
+    MatomoTrackEvent(
+      'FOLLOWUP',
+      'FOLLOWUP_HELPAROUND_CLICK',
+      t(el.title) ?? '',
+    );
     navigation.navigate('HelpAround', {help: el});
   };
 
@@ -31,7 +37,10 @@ const DisplayHelpAround = (props: Props) => {
           return (
             <Pressable
               key={el.title}
-              onPress={() => handlePress(el)}
+              onPress={() => {
+                handlePress(el);
+                console.log(el);
+              }}
               style={({pressed}) => [
                 styles.pressable,
                 {opacity: pressed ? 0.5 : 1},

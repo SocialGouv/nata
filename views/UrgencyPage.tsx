@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Container from '../components/ui/Container';
 import {Colors, Fonts} from '../styles/Style';
 import {useNavigation} from '@react-navigation/native';
@@ -23,6 +23,7 @@ import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import AppContext from '../AppContext';
 import SoliGuideModule from '../components/followup/SoliguideModule';
+import {MatomoTrackEvent} from '../utils/Matomo';
 interface Props {
   route: any;
 }
@@ -81,6 +82,10 @@ const UrgencyPage = (props: Props) => {
       setHideResults(true);
     }
   };
+
+  useEffect(() => {
+    MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_URGENCY');
+  }, []);
 
   const styles = StyleSheet.create({
     topContainer: {
@@ -342,6 +347,7 @@ const UrgencyPage = (props: Props) => {
                       onChangeText={text => {
                         setHideResults(false);
                         setSearch(text);
+                        MatomoTrackEvent('URGENCY', 'URGENCY_SEARCH');
                         debouncedAPICall();
                       }}
                     />
@@ -368,6 +374,7 @@ const UrgencyPage = (props: Props) => {
                 categories={[107]}
                 keywords={keywords}
                 style={'urgent'}
+                matomo={'URGENCY'}
               />
             )}
           </View>
@@ -421,6 +428,7 @@ const UrgencyPage = (props: Props) => {
                 if (!isEmergencyOnBoardingDone) {
                   setIsEmergencyOnBoardingDone(true);
                   setDisplayInitialModal(true);
+                  MatomoTrackEvent('URGENCY', 'URGENCY_STAY_ON_APP');
                 }
                 navigation.navigate('FollowUp');
               }}>

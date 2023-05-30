@@ -11,6 +11,7 @@ import SituationSymptoms from '../components/situation/SituationSymptoms';
 import {Symptome} from '../components/followup/interface';
 import data from '../assets/models/questions.json';
 import TextBase from '../components/ui/TextBase';
+import {MatomoTrackEvent} from '../utils/Matomo';
 
 const ShareSituation = () => {
   const navigation = useNavigation();
@@ -55,6 +56,7 @@ const ShareSituation = () => {
     i18n.changeLanguage('fr');
     retrieveUserInfos();
     retrieveUserSymptomes();
+    MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_SITUATION');
   }, [retrieveUserInfos, retrieveUserSymptomes, i18n]);
 
   const getLanguageFromCode = (code: string): string => {

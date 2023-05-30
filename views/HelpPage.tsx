@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
-import React from 'react';
+import React, {useEffect} from 'react';
 import TextBase from '../components/ui/TextBase';
 import {useTranslation} from 'react-i18next';
 import Container from '../components/ui/Container';
@@ -19,6 +19,7 @@ import {Colors} from '../styles/Style';
 import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
 import SoliGuideModule from '../components/followup/SoliguideModule';
+import {MatomoTrackEvent} from '../utils/Matomo';
 
 interface Props {
   route: any;
@@ -119,7 +120,6 @@ const HelpPage = (props: Props) => {
 
   const {route} = props;
   const {help} = route.params;
-  console.log('help', help);
 
   const navigation = useNavigation();
 
@@ -165,6 +165,10 @@ const HelpPage = (props: Props) => {
   };
 
   const {t} = useTranslation();
+
+  useEffect(() => {
+    MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_HELP');
+  }, []);
 
   return (
     <Container>
@@ -213,7 +217,9 @@ const HelpPage = (props: Props) => {
                       <TouchableOpacity
                         style={styles.displayResults}
                         onPress={() => {
-                          setSearch(item), setHideResults(false);
+                          setSearch(item);
+                          setHideResults(false);
+                          MatomoTrackEvent('HELP', 'HELP_SEARCH');
                         }}>
                         <TextBase>{item}</TextBase>
                       </TouchableOpacity>
@@ -240,6 +246,7 @@ const HelpPage = (props: Props) => {
                 categories={help.code.split(',')}
                 keywords={help.keywords}
                 style={'default'}
+                matomo={'HELP'}
               />
             )}
           </View>

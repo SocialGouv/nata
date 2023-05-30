@@ -21,6 +21,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import Images from '../../assets/models/onboardingImages';
 import SoliGuideModule from '../../components/followup/SoliguideModule';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 const OnboardingEndPath = ({
   navigation,
@@ -285,6 +286,10 @@ const OnboardingEndPath = ({
                         onPress={() => {
                           setSearch(item);
                           setHideResults(false);
+                          MatomoTrackEvent(
+                            'ONBOARDING_STOPPED',
+                            'ONBOARDING_STOPPED_SEARCH',
+                          );
                         }}>
                         <TextBase>{item}</TextBase>
                       </TouchableOpacity>
@@ -311,6 +316,7 @@ const OnboardingEndPath = ({
                 categories={[107]}
                 keywords={keywords}
                 style={'default'}
+                matomo={'ONBOARDING_STOPPED'}
               />
             )}
           </View>

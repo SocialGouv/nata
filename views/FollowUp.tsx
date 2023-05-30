@@ -24,6 +24,7 @@ import {useIsFocused} from '@react-navigation/native';
 import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
 import AppContext from '../AppContext';
+import {MatomoTrackEvent} from '../utils/Matomo';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -115,6 +116,7 @@ const FollowUp = () => {
 
   React.useEffect(() => {
     retrieveUserInfos();
+    MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_FOLLOWUP');
   }, []);
 
   const retrieveUserMonth = useCallback(async () => {
@@ -164,6 +166,7 @@ const FollowUp = () => {
       },
       [isFocused],
     );
+    console.log(tmpMandatoryMeetings);
     setMandatoryMeeting(tmpMandatoryMeetings);
   }, [isFocused]);
 

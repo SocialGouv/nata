@@ -5,6 +5,7 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import Matomo from 'react-native-matomo-fork';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 const DoctorShare = () => {
   const {t} = useTranslation();
@@ -21,12 +22,7 @@ const DoctorShare = () => {
         ]}
         onPress={() => {
           navigation.navigate('ShareSituation');
-          Matomo.trackEvent(
-            'SITUATION',
-            'SITUATION_SHARE_TO_DOCTOR',
-            'TEST_SHARE_TO_DOCTOR',
-            1,
-          );
+          MatomoTrackEvent('SITUATION', 'SITUATION_SHARE_TO_DOCTOR');
         }}>
         <Image source={require('../../assets/images/Doctor.png')} />
         <View style={styles.textContainer}>

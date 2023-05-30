@@ -15,6 +15,7 @@ import * as RNLocalize from 'react-native-localize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import TextBase from '../components/ui/TextBase';
+import {MatomoTrackEvent} from '../utils/Matomo';
 
 const LanguageSelection = () => {
   const {t, i18n} = useTranslation();
@@ -81,6 +82,7 @@ const LanguageSelection = () => {
     if (selectedLanguage) {
       await AsyncStorage.setItem('language', selectedLanguage).then(() => {
         navigation.navigate('Onboarding');
+        MatomoTrackEvent('ONBOARDING', 'ONBOARDING_CLICK_START');
       });
     }
   };
