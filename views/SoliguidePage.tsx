@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     fontFamily: Fonts.primary,
+    color: '#000000',
   },
   category: {
     fontSize: 16,
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontFamily: Fonts.primary,
     backgroundColor: '#ffffff',
+    color: '#000000',
     padding: 10,
     borderRadius: 5,
   },
