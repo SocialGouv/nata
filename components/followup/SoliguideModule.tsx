@@ -70,6 +70,14 @@ const SoliGuideModule = (props: Props) => {
       color: '#000000',
       marginBottom: 10,
     },
+    not_found: {
+      fontSize: 17,
+      fontWeight: '400',
+      flexWrap: 'wrap',
+      width: '80%',
+      color: '#000000',
+      marginBottom: 10,
+    },
   });
 
   const fetchSoliguide = async () => {
@@ -92,17 +100,15 @@ const SoliGuideModule = (props: Props) => {
       redirect: 'follow',
     };
     fetch(
-      'https://api.soliguide.fr/new-search?lang=' +
+      'https://api.soliguide.fr/new-search/' +
         (await AsyncStorage.getItem('language')),
       requestOptions,
     )
       .then(response => response.text())
       .then(result => {
-        console.log('result', JSON.parse(result));
         if (keywords && keywords.length > 0) {
           const filtered = JSON.parse(result).places.filter((place: any) => {
             return keywords.some((keyword: string) => {
-              console.log('keyword', keyword);
               return place.description
                 .toLowerCase()
                 .includes(keyword.toLowerCase());
@@ -140,10 +146,12 @@ const SoliGuideModule = (props: Props) => {
                   days={item.newhours}
                   color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
                 />
+                {/*
                 <DisplaySimple
                   text={'1.5km'}
                   color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
                 />
+                */}
                 <DisplaySimple
                   text={`⬆️ ${t('soliguide.go')}`}
                   color={style === 'default' ? 'primary' : 'urgence'}
@@ -163,6 +171,9 @@ const SoliGuideModule = (props: Props) => {
             </TouchableOpacity>
           )}
         />
+        {data.places && data.places.length === 0 && (
+          <Text style={styles.not_found}>{t('soliguide.no_results')}</Text>
+        )}
       </ScrollView>
     </View>
   );

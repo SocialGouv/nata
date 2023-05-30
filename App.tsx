@@ -107,6 +107,7 @@ function App(): JSX.Element {
                   name="ShortOnboardingEnd"
                   component={ShortOnboardingEnd}
                 />
+                <Stack.Screen name="SoliguidePage" component={SoliguidePage} />
               </>
             ) : (
               //stack main app

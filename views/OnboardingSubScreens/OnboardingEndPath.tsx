@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Image,
@@ -52,6 +52,7 @@ const OnboardingEndPath = ({
     bottomContainer: {
       paddingHorizontal: 20,
       paddingBottom: 150,
+      zIndex: -1,
     },
     text: {
       fontSize: 16,
@@ -172,7 +173,7 @@ const OnboardingEndPath = ({
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
-  const [city, setCity] = React.useState<string>('Paris');
+  const [city, setCity] = React.useState<string>('');
 
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
@@ -216,9 +217,13 @@ const OnboardingEndPath = ({
       : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
   };
 
+  useEffect(() => {
+    console.log('city', city);
+  }, [city]);
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="always">
         <Pressable
           onPress={() => navigation.goBack()}
           style={styles.backPressable}>
@@ -293,12 +298,14 @@ const OnboardingEndPath = ({
           </View>
         </View>
         <View style={styles.webview}>
-          <SoliGuideModule
-            city={city}
-            categories={[107]}
-            keywords={keywords}
-            style={'default'}
-          />
+          {city !== '' && (
+            <SoliGuideModule
+              city={city}
+              categories={[107]}
+              keywords={keywords}
+              style={'default'}
+            />
+          )}
         </View>
         {number && (
           <TouchableOpacity

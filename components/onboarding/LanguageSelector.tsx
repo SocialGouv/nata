@@ -1,4 +1,10 @@
-import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
@@ -40,22 +46,23 @@ const LanguageSelector = (props: Props) => {
   });
 
   return (
-    <FlatList
-      data={languages}
-      showsVerticalScrollIndicator={false}
-      style={styles.gridView}
-      renderItem={({item}) => (
-        <TouchableOpacity
-          onPress={async () => {
-            changeLanguage(item.code);
-            let test = Matomo.trackEvent(
-              'ONBOARDING',
-              'ONBOARDING_LANGUAGE_CHOOSE',
-              item.name,
-              1,
-            );
-            console.log('test : ', test);
-            /*let tracking = await trackEvent({
+    <ScrollView>
+      <FlatList
+        data={languages}
+        showsVerticalScrollIndicator={false}
+        style={styles.gridView}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={async () => {
+              changeLanguage(item.code);
+              let test = Matomo.trackEvent(
+                'ONBOARDING',
+                'ONBOARDING_LANGUAGE_CHOOSE',
+                item.name,
+                1,
+              );
+              console.log('test : ', test);
+              /*let tracking = await trackEvent({
               category: 'ONBOARDING',
               action: 'ONBOARDING_LANGUAGE_CHOOSE',
               name: item.name,
@@ -67,20 +74,23 @@ const LanguageSelector = (props: Props) => {
               item.name,
             );
             console.log('test 2 : ', test2);*/
-          }}
-          style={[
-            styles.button,
-            {
-              borderColor:
-                item.code === selectedLanguage ? Colors.primary : Colors.black,
-              borderWidth: item.code === selectedLanguage ? 2 : 1,
-            },
-          ]}>
-          <Image source={item.flag} style={styles.image} />
-          <TextBase>{item.name}</TextBase>
-        </TouchableOpacity>
-      )}
-    />
+            }}
+            style={[
+              styles.button,
+              {
+                borderColor:
+                  item.code === selectedLanguage
+                    ? Colors.primary
+                    : Colors.black,
+                borderWidth: item.code === selectedLanguage ? 2 : 1,
+              },
+            ]}>
+            <Image source={item.flag} style={styles.image} />
+            <TextBase>{item.name}</TextBase>
+          </TouchableOpacity>
+        )}
+      />
+    </ScrollView>
   );
 };
 

@@ -72,12 +72,14 @@ const Onboarding = () => {
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
             number: '0 801 801 081',
+            keywords: ['PMI'],
           });
         } else {
           console.log('urgence sans telephone');
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
+            keywords: ['PMI'],
           });
         }
       } else if (
@@ -90,11 +92,14 @@ const Onboarding = () => {
           userInfos.housing === 'Q7A4'
         ) {
           setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {});
+          navigation.navigate('UrgencyPage', {
+            keywords: ['Hôpital'],
+          });
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             number: '0 801 801 081',
+            keywords: ['Hôpital'],
           });
         }
       } else {
@@ -315,7 +320,6 @@ const Onboarding = () => {
 
 const styles = StyleSheet.create({
   topContainer: {
-    height: '20%',
     backgroundColor: Colors.backgroundPrimary,
     paddingHorizontal: 20,
     paddingTop: 10,
@@ -341,6 +345,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     verticalAlign: 'flex-end',
     marginTop: 5,
+    marginBottom: 15,
   },
   sliderContainer: {
     flex: 1,
@@ -394,9 +399,9 @@ const styles = StyleSheet.create({
   verticalButton: {
     flex: 1,
     flexDirection: 'column',
-    height: 500,
     // justifyContent: 'space-between',
-    marginVertical: 0,
+    marginBottom: 60,
+    minHeight: 600,
   },
   pressable: {
     backgroundColor: '#F5F5F5',
