@@ -17,7 +17,7 @@ import {useTranslation} from 'react-i18next';
 
 interface Props {
   categories: number[];
-  keywords: string[];
+  keywords?: string[];
   city: string;
   style: 'default' | 'urgent';
 }
@@ -27,8 +27,6 @@ const SoliGuideModule = (props: Props) => {
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
   const {t} = useTranslation();
-
-  console.log('categories : ', categories);
 
   const styles = StyleSheet.create({
     container: {
@@ -100,19 +98,27 @@ const SoliGuideModule = (props: Props) => {
     )
       .then(response => response.text())
       .then(result => {
-        setData(JSON.parse(result));
+        console.log('result', JSON.parse(result));
+        if (keywords && keywords.length > 0) {
+          const filtered = JSON.parse(result).places.filter((place: any) => {
+            return keywords.some((keyword: string) => {
+              console.log('keyword', keyword);
+              return place.description
+                .toLowerCase()
+                .includes(keyword.toLowerCase());
+            });
+          });
+          setData({places: filtered});
+        } else {
+          setData(JSON.parse(result));
+        }
       })
       .catch(error => console.log('error', error));
   };
 
   useEffect(() => {
-    console.log('city : ', city);
     fetchSoliguide();
   }, [city]);
-
-  useEffect(() => {
-    console.log('data : ', data);
-  }, [data]);
 
   return (
     <View style={styles.container}>

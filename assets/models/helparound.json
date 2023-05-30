@@ -7,13 +7,19 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "107"
+          "code": "107",
+          "keywords": ["PMI"]
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "601,603,604"
+          "code": "601,603,604",
+          "keywords": [
+            "Distribution de repas",
+            "colis alimentaire",
+            "sociale et solidaire"
+          ]
         }
       ]
     },
@@ -24,13 +30,19 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "107"
+          "code": "107",
+          "keywords": ["PMI"]
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "601,603,604"
+          "code": "601,603,604",
+          "keywords": [
+            "Distribution de repas",
+            "colis alimentaire",
+            "sociale et solidaire"
+          ]
         }
       ]
     },
@@ -41,13 +53,19 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "107"
+          "code": "107",
+          "keywords": ["PMI"]
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "601,603,604"
+          "code": "601,603,604",
+          "keywords": [
+            "Distribution de repas",
+            "colis alimentaire",
+            "sociale et solidaire"
+          ]
         }
       ]
     },
@@ -58,13 +76,19 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "107"
+          "code": "107",
+          "keywords": ["PMI"]
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "601,603,604"
+          "code": "601,603,604",
+          "keywords": [
+            "Distribution de repas",
+            "colis alimentaire",
+            "sociale et solidaire"
+          ]
         }
       ]
     },
@@ -75,25 +99,33 @@
           "title": "help-around.doctor.title",
           "icon": "👩‍⚕️",
           "subtext": "help-around.doctor.subtext",
-          "code": "107"
+          "code": "107",
+          "keywords": ["PMI"]
         },
         {
           "title": "help-around.food.title",
           "icon": "🍛",
           "subtext": "help-around.food.subtext",
-          "code": "601,603,604"
+          "code": "601,603,604",
+          "keywords": [
+            "Distribution de repas",
+            "colis alimentaire",
+            "sociale et solidaire"
+          ]
         },
         {
           "title": "help-around.welcome.title",
           "icon": "☕️",
           "subtext": "help-around.welcome.subtext",
-          "code": "701,702"
+          "code": "701,702",
+          "keywords": ["Accueil de jour", "Espace de repos"]
         },
         {
           "title": "help-around.cleaning.title",
           "icon": "🛁",
           "subtext": "help-around.cleaning.subtext",
-          "code": "301,304"
+          "code": "301,304",
+          "keywords": ["Douche", "Toilettes"]
         }
       ]
     }

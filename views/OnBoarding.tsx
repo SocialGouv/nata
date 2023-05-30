@@ -27,6 +27,7 @@ interface PressFunction {
     image?: string;
     labelSearch?: string;
     boldBottom?: String;
+    keywords?: string[];
   };
   question: {
     label: string;
@@ -125,6 +126,7 @@ const Onboarding = () => {
         content: answer.redirectScreenContent,
         number: answer.phone,
         image: answer.image,
+        keywords: answer.keywords,
       });
     } else if (
       parseInt(userInfos.pregnancyMonth, 10) === 0 &&
@@ -137,6 +139,7 @@ const Onboarding = () => {
         image: answer.image,
         labelSearch: answer.labelSearch,
         boldBottom: answer.boldBottom,
+        keywords: ['PMI'],
       });
     } else {
       if (currentStep < questions.data.length) {
