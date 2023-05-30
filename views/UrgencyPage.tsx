@@ -29,14 +29,14 @@ const UrgencyPage = (props: Props) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
-  const {title, number} = props.route.params;
+  const {title, number, keywords} = props.route.params;
 
   const titleTodisplay = title ? title : (t('urgency.title') as string);
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
-  const [city, setCity] = React.useState<string>('Paris');
+  const [city, setCity] = React.useState<string>('');
 
   const {
     setIsEmergencyOnBoardingDone,
@@ -128,6 +128,7 @@ const UrgencyPage = (props: Props) => {
     explanationContainer: {
       flex: 0.75,
       padding: 20,
+      zIndex: -1,
     },
     explanationText: {
       padding: 20,
@@ -222,6 +223,9 @@ const UrgencyPage = (props: Props) => {
       backgroundColor: Colors.backgroundUrgence,
       zIndex: -1,
     },
+    continueContainer: {
+      zIndex: -1,
+    },
     continueText: {
       fontSize: 16,
       color: Colors.primary,
@@ -270,7 +274,7 @@ const UrgencyPage = (props: Props) => {
 
   return (
     <Container urgency={true}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.topContainer}>
           <Pressable
             onPress={() => navigation.goBack()}
@@ -351,12 +355,14 @@ const UrgencyPage = (props: Props) => {
         </View>
 
         <View style={styles.webview}>
-          <SoliGuideModule
-            city={city}
-            categories={[107]}
-            keywords={['PMI']}
-            style={'urgent'}
-          />
+          {city !== '' && (
+            <SoliGuideModule
+              city={city}
+              categories={[107]}
+              keywords={keywords}
+              style={'urgent'}
+            />
+          )}
         </View>
         <View style={styles.explanationContainer}>
           {/* <Pressable
@@ -402,18 +408,20 @@ const UrgencyPage = (props: Props) => {
             </>
           )}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            if (!isEmergencyOnBoardingDone) {
-              setIsEmergencyOnBoardingDone(true);
-              setDisplayInitialModal(true);
-            }
-            navigation.navigate('FollowUp');
-          }}>
-          <TextBase style={styles.continueText}>
-            {t('urgency.continue') as string}
-          </TextBase>
-        </TouchableOpacity>
+        <View style={styles.continueContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              if (!isEmergencyOnBoardingDone) {
+                setIsEmergencyOnBoardingDone(true);
+                setDisplayInitialModal(true);
+              }
+              navigation.navigate('FollowUp');
+            }}>
+            <TextBase style={styles.continueText}>
+              {t('urgency.continue') as string}
+            </TextBase>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </Container>
   );

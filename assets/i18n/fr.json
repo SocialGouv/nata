@@ -122,7 +122,7 @@
       "continue": "Continuer 👉",
       "begin": "Commencer 👉",
       "languageSelection": {
-        "title": "Notre mission : Accompagner chaque femme enceinte dans sa grossesse"
+        "title": "Notre mission : Accompagner chaque femme enceinte dans sa grossesse en fonction de sa situation sociale et médicale"
       }
     },
     "followup": {
@@ -832,6 +832,7 @@
       "open": "Ouvert ajourd'hui",
       "closed": "Fermé ajourd'hui",
       "go": "Y aller",
+      "no_results": "Aucune structure trouvée pour cette ville...",
       "direct_access": "Accès direct",
       "more_infos": "Plus d'infos",
       "categories": {

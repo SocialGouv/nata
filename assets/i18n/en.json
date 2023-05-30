@@ -121,14 +121,14 @@
         "continue": "Continue 👉",
         "begin": "Start 👉",
         "languageSelection": {
-          "title": "Our mission: To support every pregnant woman throughout her pregnancy"
+          "title": "Our mission: To support every pregnant woman throughout her pregnancy according to her medical and social situation"
         }
       },
       "back": "Back",
       "continue": "Continue 👉",
       "begin": "Begin 👉",
       "languageSelection": {
-        "title": "Our mission : Accompany every pregnant woman during her pregnancy"
+        "title": "Our mission : Accompany every pregnant woman during her pregnancy according to her medical and social situation"
       }
     },
     "followup": {
@@ -838,6 +838,7 @@
       "open": "Open today",
       "closed": "Closed today",
       "go": "Go there",
+      "no_results": "No structure found for this city...",
       "direct_access": "Direct access",
       "more_infos": "More information",
       "categories": {

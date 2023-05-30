@@ -25,7 +25,7 @@ const LanguageSelection = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: Platform.OS === 'ios' ? 50 : 20,
+      paddingTop: 20,
       alignContent: 'center',
       alignItems: 'center',
       backgroundColor: Colors.white,
@@ -39,20 +39,20 @@ const LanguageSelection = () => {
       fontWeight: '400',
       marginHorizontal: 0,
       paddingHorizontal: 30,
+      marginTop: -30,
     },
     backgroundImage: {
       width: width,
-      height: height * 0.14,
+      height: height * 0.16,
       resizeMode: 'cover',
     },
     confirmButton: {
       backgroundColor: Colors.primary,
       padding: 10,
       borderRadius: 3,
-      marginTop: 20,
       paddingHorizontal: 40,
       position: 'absolute',
-      bottom: 30,
+      bottom: 20,
     },
     confirmButtonText: {
       color: Colors.white,
