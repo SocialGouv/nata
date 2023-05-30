@@ -72,7 +72,7 @@ function App(): JSX.Element {
   const initTracking = async () => {
     const tmpId = await DeviceInfo.getUniqueId();
     setUserId(tmpId);
-    Matomo.initTracker('https://matomo.fabrique.social.gouv.fr/matomo.php', 89);
+    Matomo.initTracker('https://matomo.fabrique.social.gouv.fr/matomo.js', 89);
   };
 
   useEffect(() => {
