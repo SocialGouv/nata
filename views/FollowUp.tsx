@@ -166,7 +166,6 @@ const FollowUp = () => {
       },
       [isFocused],
     );
-    console.log(tmpMandatoryMeetings);
     setMandatoryMeeting(tmpMandatoryMeetings);
   }, [isFocused]);
 

@@ -1,7 +1,6 @@
 import {CustomCarousel} from './../components/onboarding/CustomCarousel';
 import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
-import questions from '../assets/models/questions.json';
 import Container from '../components/ui/Container';
 import {Image, Pressable, ScrollView, View} from 'react-native';
 import AnswerButton from '../components/onboarding/AnswerButton';
@@ -55,6 +54,9 @@ const Onboarding = () => {
   const navigation = useNavigation();
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
+  const [questions, setQuestions] = React.useState<
+    Pick<PressFunction, 'question'>[]
+  >([]);
 
   const {
     setIsOnboardingDone,
@@ -63,6 +65,16 @@ const Onboarding = () => {
   } = useContext(AppContext);
 
   const {t} = useTranslation();
+
+  React.useEffect(() => {
+    const getContent = async () => {
+      const content = await AsyncStorage.getItem('content');
+      if (content) {
+        setQuestions(JSON.parse(content).question.results);
+      }
+    };
+    getContent();
+  }, []);
 
   const handleUrgencyPath = () => {
     if (userInfos) {
@@ -78,7 +90,6 @@ const Onboarding = () => {
             keywords: ['PMI'],
           });
         } else {
-          console.log('urgence sans telephone');
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: t('onboarding.urengecyTitleUnder5'),
@@ -117,8 +128,6 @@ const Onboarding = () => {
 
   const handlePress = async ({answer, question}: PressFunction) => {
     if (!question.isSpecial) {
-      console.log('answer', answer);
-      console.log('question', question);
       MatomoTrackEvent(
         'ONBOARDING',
         question.actionMatomo,
@@ -166,7 +175,7 @@ const Onboarding = () => {
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else {
-      if (currentStep < questions.data.length) {
+      if (currentStep < questions.length) {
         setUserInfos(
           Object.assign(userInfos, {
             [question.slug]: question.isSpecial
@@ -175,7 +184,7 @@ const Onboarding = () => {
           }),
         );
         setCurrentStep(currentStep + 1);
-      } else if (currentStep === questions.data.length) {
+      } else if (currentStep === questions.length) {
         setUserInfos(
           Object.assign(userInfos, {
             [question.slug]: question.isSpecial
@@ -218,14 +227,14 @@ const Onboarding = () => {
           </TextBase>
         </Pressable>
         <Progress.Bar
-          progress={currentStep / questions.data.length}
+          progress={currentStep / questions.length}
           width={width * 0.9}
           color={Colors.primary}
           unfilledColor={Colors.backgroundStrong}
           borderWidth={0}
           height={8}
         />
-        {questions.data.map((question, index) => {
+        {questions.map((question, index) => {
           if (index + 1 === currentStep) {
             return (
               <View key={index} style={styles.questionContainer}>
@@ -245,7 +254,7 @@ const Onboarding = () => {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainers}>
-          {questions.data.map((question, index) => {
+          {questions.map((question, index) => {
             if (index + 1 === currentStep) {
               if (question.isSpecial) {
                 return (
@@ -328,7 +337,7 @@ const Onboarding = () => {
           })}
         </View>
         <View style={styles.lastButtonContainer}>
-          {questions.data.map((question, index) => {
+          {questions.map((question, index) => {
             if (question.answerDanger?.label && index + 1 === currentStep) {
               return (
                 <AnswerButton

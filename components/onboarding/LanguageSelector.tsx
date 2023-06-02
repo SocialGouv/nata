@@ -47,7 +47,7 @@ const LanguageSelector = (props: Props) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView horizontal>
       <FlatList
         data={languages}
         showsVerticalScrollIndicator={false}

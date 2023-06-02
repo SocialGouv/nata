@@ -21,8 +21,6 @@ const SoliguidePage = (props: Props) => {
   const {structure} = props.route.params;
   const {t} = useTranslation();
 
-  console.log(structure);
-
   return (
     <ScrollView>
       <View style={styles.container}>

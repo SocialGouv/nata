@@ -1,14 +1,12 @@
 import {
   Image,
   ImageBackground,
-  Platform,
   Pressable,
   StyleSheet,
   View,
   useWindowDimensions,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../styles/Style';
 import LanguageSelector from '../components/onboarding/LanguageSelector';
 import * as RNLocalize from 'react-native-localize';
@@ -16,12 +14,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import {fetchContent} from '../utils/fetchContent';
 
 const LanguageSelection = () => {
-  const {t, i18n} = useTranslation();
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation();
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
+  const [onboarding, setOnboarding] = React.useState<any>();
 
   const styles = StyleSheet.create({
     container: {
@@ -74,6 +73,25 @@ const LanguageSelection = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log('CHANGEMENT');
+    console.log('selectedLanguage', selectedLanguage);
+    if (selectedLanguage) {
+      fetchContent(selectedLanguage);
+      getContent();
+    }
+  }, [selectedLanguage]);
+
+  const getContent = async () => {
+    try {
+      const content = await AsyncStorage.getItem('content');
+      if (content !== null) {
+        setOnboarding(JSON.parse(content).onboarding);
+      }
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
   const changeLanguage = (language: string) => {
     setSelectedLanguage(language);
   };
@@ -87,12 +105,13 @@ const LanguageSelection = () => {
     }
   };
 
-  useEffect(() => {
-    i18n.changeLanguage(selectedLanguage);
-  }, [selectedLanguage, i18n]);
+  // useEffect(() => {
+  //   i18n.changeLanguage(selectedLanguage);
+  // }, [selectedLanguage, i18n]);
 
   return (
     <View style={styles.container}>
+      {console.log('RENDER')}
       <View>
         <ImageBackground
           source={require('../assets/images/Ellipse.png')}
@@ -104,7 +123,7 @@ const LanguageSelection = () => {
         source={require('../assets/images/nata.png')}
       />
       <TextBase style={styles.mission}>
-        {t('onboarding.languageSelection.title')}
+        {/* t('onboarding.languageSelection.title') */}
       </TextBase>
       <View style={{flex: 0.7}}>
         <LanguageSelector
@@ -121,7 +140,8 @@ const LanguageSelection = () => {
           },
         ]}>
         <TextBase style={styles.confirmButtonText}>
-          {t('onboarding.begin')}
+          {/* t('onboarding.begin') */}
+          {onboarding?.begin}
         </TextBase>
       </Pressable>
     </View>

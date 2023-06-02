@@ -39,7 +39,6 @@ const DisplayHelpAround = (props: Props) => {
               key={el.title}
               onPress={() => {
                 handlePress(el);
-                console.log(el);
               }}
               style={({pressed}) => [
                 styles.pressable,
