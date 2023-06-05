@@ -71,27 +71,23 @@ const LanguageSelection = () => {
     if (locale) {
       setSelectedLanguage(locale);
     }
+    getContentFromCache();
   }, []);
 
   useEffect(() => {
-    console.log('CHANGEMENT');
-    console.log('selectedLanguage', selectedLanguage);
     if (selectedLanguage) {
-      fetchContent(selectedLanguage);
-      getContent();
+      fetchContent(selectedLanguage).then(() => getContentFromCache());
     }
   }, [selectedLanguage]);
 
-  const getContent = async () => {
-    try {
-      const content = await AsyncStorage.getItem('content');
-      if (content !== null) {
-        setOnboarding(JSON.parse(content).onboarding);
+  const getContentFromCache = () => {
+    return AsyncStorage.getItem('content').then(data => {
+      if (data !== null) {
+        setOnboarding(JSON.parse(data as string).onboarding);
       }
-    } catch (e) {
-      console.log('error', e);
-    }
+    });
   };
+
   const changeLanguage = (language: string) => {
     setSelectedLanguage(language);
   };
@@ -105,13 +101,8 @@ const LanguageSelection = () => {
     }
   };
 
-  // useEffect(() => {
-  //   i18n.changeLanguage(selectedLanguage);
-  // }, [selectedLanguage, i18n]);
-
   return (
     <View style={styles.container}>
-      {console.log('RENDER')}
       <View>
         <ImageBackground
           source={require('../assets/images/Ellipse.png')}
@@ -123,7 +114,7 @@ const LanguageSelection = () => {
         source={require('../assets/images/nata.png')}
       />
       <TextBase style={styles.mission}>
-        {/* t('onboarding.languageSelection.title') */}
+        {onboarding?.languageSelectionTitle}
       </TextBase>
       <View style={{flex: 0.7}}>
         <LanguageSelector
@@ -140,7 +131,6 @@ const LanguageSelection = () => {
           },
         ]}>
         <TextBase style={styles.confirmButtonText}>
-          {/* t('onboarding.begin') */}
           {onboarding?.begin}
         </TextBase>
       </Pressable>

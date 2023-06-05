@@ -1,6 +1,5 @@
 import {CustomCarousel} from './../components/onboarding/CustomCarousel';
 import React, {useContext} from 'react';
-import {useTranslation} from 'react-i18next';
 import Container from '../components/ui/Container';
 import {Image, Pressable, ScrollView, View} from 'react-native';
 import AnswerButton from '../components/onboarding/AnswerButton';
@@ -16,32 +15,31 @@ import TextBase from '../components/ui/TextBase';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {MatomoTrackEvent} from '../utils/Matomo';
 
-interface PressFunction {
-  answer: {
-    label: string;
-    value: string;
-    redirectScreen?: boolean;
-    redirectScreenContent?: string | undefined;
-    phone?: string;
-    image?: string;
-    labelSearch?: string;
-    boldBottom?: String;
-    keywords?: string[];
-    nameMatomo: string;
-    valueMatomo?: number;
-  };
-  question: {
-    label: string;
-    isSpecial?: boolean;
-    slug: string;
-    answerDanger?: {
-      label: string;
-      value: string;
-      redirectScreen?: boolean;
-    };
-    verticalAnswer?: boolean;
-    actionMatomo: string;
-  };
+interface Question {
+  label: string;
+  code: string;
+  slug: string;
+  isSpecial?: boolean;
+  image?: string;
+  verticalAnswer?: boolean;
+  actionMatomo: string;
+  responses: Response[];
+}
+
+interface Response {
+  label: string;
+  value: string;
+  redirectScreen?: boolean;
+  redirectScreenContent?: string;
+  phoneNumber?: string;
+  image?: string;
+  labelSearch?: string;
+  boldBottom?: String;
+  isDanger?: boolean;
+  keywords?: string[];
+  question?: Question;
+  nameMatomo: string;
+  valueMatomo?: number;
 }
 
 interface UserInfos {
@@ -54,9 +52,8 @@ const Onboarding = () => {
   const navigation = useNavigation();
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
-  const [questions, setQuestions] = React.useState<
-    Pick<PressFunction, 'question'>[]
-  >([]);
+  const [questions, setQuestions] = React.useState<Question[]>([]);
+  const [onboarding, setOnboarding] = React.useState<any>();
 
   const {
     setIsOnboardingDone,
@@ -64,16 +61,17 @@ const Onboarding = () => {
     setIsEmergencyOnBoardingDone,
   } = useContext(AppContext);
 
-  const {t} = useTranslation();
+  const getContentFromCache = () => {
+    return AsyncStorage.getItem('content').then(data => {
+      if (data !== null) {
+        setQuestions(JSON.parse(data).question.results.sort(sortByCode));
+        setOnboarding(JSON.parse(data).onboarding);
+      }
+    });
+  };
 
   React.useEffect(() => {
-    const getContent = async () => {
-      const content = await AsyncStorage.getItem('content');
-      if (content) {
-        setQuestions(JSON.parse(content).question.results);
-      }
-    };
-    getContent();
+    getContentFromCache();
   }, []);
 
   const handleUrgencyPath = () => {
@@ -85,14 +83,14 @@ const Onboarding = () => {
         if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            title: t('onboarding.urengecyTitleUnder5'),
+            title: onboarding?.urgencyTitleUnder5,
             number: '0 801 801 081',
             keywords: ['PMI'],
           });
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            title: t('onboarding.urengecyTitleUnder5'),
+            title: onboarding?.urgencyTitleUnder5,
             keywords: ['PMI'],
           });
         }
@@ -126,7 +124,13 @@ const Onboarding = () => {
     }
   };
 
-  const handlePress = async ({answer, question}: PressFunction) => {
+  const handlePress = async ({
+    answer,
+    question,
+  }: {
+    answer: Response;
+    question: Question;
+  }) => {
     if (!question.isSpecial) {
       MatomoTrackEvent(
         'ONBOARDING',
@@ -153,7 +157,7 @@ const Onboarding = () => {
     ) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
-        number: answer.phone,
+        number: answer.phoneNumber,
         image: answer.image,
         keywords: answer.keywords,
       });
@@ -166,7 +170,7 @@ const Onboarding = () => {
     ) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
-        number: answer.phone,
+        number: answer.phoneNumber,
         image: answer.image,
         labelSearch: answer.labelSearch,
         boldBottom: answer.boldBottom,
@@ -210,6 +214,15 @@ const Onboarding = () => {
       navigation.goBack();
     }
   };
+  const sortByCode = (a: Question, b: Question) => {
+    if (a.code < b.code) {
+      return -1;
+    }
+    if (a.code > b.code) {
+      return 1;
+    }
+    return 0;
+  };
 
   return (
     <Container>
@@ -222,9 +235,7 @@ const Onboarding = () => {
             size={15}
             color={Colors.primary}
           />
-          <TextBase style={styles.backLinkText}>
-            {t('onboarding.back') as string}
-          </TextBase>
+          <TextBase style={styles.backLinkText}>{onboarding?.back}</TextBase>
         </Pressable>
         <Progress.Bar
           progress={currentStep / questions.length}
@@ -245,7 +256,7 @@ const Onboarding = () => {
                 <TextBase
                   style={{...styles.question, width: width * 0.7}}
                   nbLines={4}>
-                  {t(question.label)}
+                  {question.label}
                 </TextBase>
               </View>
             );
@@ -260,13 +271,13 @@ const Onboarding = () => {
                 return (
                   <View key={index} style={styles.sliderContainer}>
                     <CustomCarousel
-                      data={question.answers}
+                      data={question.responses}
                       width={width}
                       setPrengancyMonth={e => setPrengancyMonth(e)}
                     />
                     <Pressable
                       onPress={() => {
-                        handlePress({answer: question.answers[0], question});
+                        handlePress({answer: question.responses[0], question});
                         MatomoTrackEvent(
                           'ONBOARDING',
                           'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
@@ -281,7 +292,7 @@ const Onboarding = () => {
                         },
                       ]}>
                       <TextBase style={styles.confirmButtonText}>
-                        {t('onboarding.continue')}
+                        {onboarding?.continue}
                       </TextBase>
                     </Pressable>
                     <Pressable
@@ -289,7 +300,7 @@ const Onboarding = () => {
                       onPress={() => {
                         setUserInfos({
                           ...userInfos,
-                          pregnancyMonth: question.specialAnswer.value,
+                          pregnancyMonth: question.responses[0].value,
                         });
                         setCurrentStep(currentStep + 1);
                         MatomoTrackEvent(
@@ -300,7 +311,7 @@ const Onboarding = () => {
                         );
                       }}>
                       <TextBase style={{color: Colors.black}}>
-                        {t(question.specialAnswer.title)}
+                        {question.responses[0].label}
                       </TextBase>
                     </Pressable>
                   </View>
@@ -309,7 +320,7 @@ const Onboarding = () => {
                 return (
                   <ScrollView>
                     <View style={styles.verticalButton}>
-                      {question.answers.map((answer, verticalIndex) => {
+                      {question.responses?.map((answer, verticalIndex) => {
                         return (
                           <AnswerButton
                             style={{marginBottom: 20}}
@@ -323,7 +334,10 @@ const Onboarding = () => {
                   </ScrollView>
                 );
               } else {
-                return question.answers.map((answer, secondIndex) => {
+                return question.responses?.map((answer, secondIndex) => {
+                  if (answer.isDanger) {
+                    return null;
+                  }
                   return (
                     <AnswerButton
                       key={'ans' + secondIndex}
@@ -338,13 +352,24 @@ const Onboarding = () => {
         </View>
         <View style={styles.lastButtonContainer}>
           {questions.map((question, index) => {
-            if (question.answerDanger?.label && index + 1 === currentStep) {
+            if (
+              question.responses?.some(r => r.isDanger) &&
+              index + 1 === currentStep
+            ) {
               return (
                 <AnswerButton
                   key={question.slug + index}
-                  answer={question.answerDanger.label}
+                  answer={
+                    question.responses.find(r => r.value === 'Q1AD')
+                      ?.label as string
+                  }
                   onClick={() =>
-                    handlePress({answer: question.answerDanger, question})
+                    handlePress({
+                      answer: question.responses.find(
+                        r => r.isDanger,
+                      ) as Response,
+                      question,
+                    })
                   }
                 />
               );
