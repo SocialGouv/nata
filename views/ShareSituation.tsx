@@ -5,11 +5,9 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from '../styles/Style';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useTranslation} from 'react-i18next';
 import PregnancyFollow from '../components/situation/PregnancyFollow';
 import SituationSymptoms from '../components/situation/SituationSymptoms';
 import {Symptome} from '../components/followup/interface';
-import data from '../assets/models/questions.json';
 import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
 
@@ -17,9 +15,20 @@ const ShareSituation = () => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
-  const questions = JSON.parse(JSON.stringify(data.data));
+  const [questions, setQuestions] = React.useState<any[]>([]);
+  const [languages, setLanguages] = React.useState<any[]>([]);
 
-  const {t, i18n} = useTranslation();
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setQuestions(JSON.parse(content).question.results);
+          setLanguages(JSON.parse(content).language.results);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   const retrieveUserInfos = React.useCallback(async () => {
     let tempInfos = {};
@@ -53,22 +62,21 @@ const ShareSituation = () => {
   }, []);
 
   React.useEffect(() => {
-    i18n.changeLanguage('fr');
     retrieveUserInfos();
     retrieveUserSymptomes();
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_SITUATION');
-  }, [retrieveUserInfos, retrieveUserSymptomes, i18n]);
+  }, [retrieveUserInfos, retrieveUserSymptomes]);
 
   const getLanguageFromCode = (code: string): string => {
     switch (code) {
       case 'fr':
-        return t('languages.fr');
+        return languages.find(language => language.code === 'fr')?.nom;
       case 'en':
-        return t('languages.en');
+        return languages.find(language => language.code === 'en')?.nom;
       case 'ar':
-        return t('languages.ar');
+        return languages.find(language => language.code === 'ar')?.nom;
       case 'ps':
-        return t('languages.ps');
+        return languages.find(language => language.code === 'ps')?.nom;
       default:
         return '';
     }
@@ -79,9 +87,9 @@ const ShareSituation = () => {
       let pattern = /^Q/;
       if (pattern.test(code)) {
         return questions.map((question: any) => {
-          return question.answers.map((answer: any) => {
+          return question.responses.map((answer: any) => {
             if (answer.value === code) {
-              return t(answer.label);
+              return answer.label;
             }
           });
         });

@@ -397,7 +397,7 @@ const UrgencyPage = (props: Props) => {
               },
             ]}>
             <TextBase style={styles.buttonText}>
-              {t('urgency.button') as string}
+              {urgency?.button}
             </TextBase>
           </Pressable> */}
             {number && (

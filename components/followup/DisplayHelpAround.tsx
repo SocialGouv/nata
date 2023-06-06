@@ -1,29 +1,35 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import TextBase from '../ui/TextBase';
-import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
-import helps from '../../assets/models/helparound.json';
+// import helps from '../../assets/models/helparound.json';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   userInfos: Record<string, string> | undefined;
 }
 
 const DisplayHelpAround = (props: Props) => {
+  const [helpAround, setHelpAround] = React.useState<any>();
   const {userInfos} = props;
-  const {t} = useTranslation();
-  const helpsAround = JSON.parse(JSON.stringify(helps.data));
   const navigation = useNavigation();
 
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setHelpAround(JSON.parse(content).helpAround);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
+
   const handlePress = (el: any) => {
-    MatomoTrackEvent(
-      'FOLLOWUP',
-      'FOLLOWUP_HELPAROUND_CLICK',
-      t(el.title) ?? '',
-    );
+    MatomoTrackEvent('FOLLOWUP', 'FOLLOWUP_HELPAROUND_CLICK', el.title ?? '');
     navigation.navigate('HelpAround', {help: el});
   };
 
@@ -45,7 +51,7 @@ const DisplayHelpAround = (props: Props) => {
                 {opacity: pressed ? 0.5 : 1},
               ]}>
               <TextBase style={styles.icon}>{el.icon}</TextBase>
-              <TextBase style={styles.text}>{t(el.title)}</TextBase>
+              <TextBase style={styles.text}>{el.title}</TextBase>
               <FontAwesome5Icon
                 name="chevron-right"
                 color={Colors.black}
@@ -56,13 +62,13 @@ const DisplayHelpAround = (props: Props) => {
         });
       }
     } else {
-      return <TextBase>{t('help-around.no-info')}</TextBase>;
+      return <TextBase>{helpAround?.noInfo}</TextBase>;
     }
   };
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>{t('help-around.title')}</TextBase>
+      <TextBase style={styles.title}>{helpAround?.title}</TextBase>
       {displayInfos()}
     </View>
   );

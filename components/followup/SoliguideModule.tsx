@@ -14,7 +14,6 @@ import DisplayPhone from '../soliguide/DisplayPhone';
 import {Colors} from '../../styles/Style';
 import DisplayOpen from '../soliguide/DisplayOpen';
 import DisplaySimple from '../soliguide/DisplaySimple';
-import {useTranslation} from 'react-i18next';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 
 interface Props {
@@ -26,10 +25,10 @@ interface Props {
 }
 
 const SoliGuideModule = (props: Props) => {
+  const [soliguide, setSoliguide] = React.useState<any>();
   const {categories, keywords, city, style, matomo} = props;
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
-  const {t} = useTranslation();
 
   const styles = StyleSheet.create({
     container: {
@@ -127,7 +126,16 @@ const SoliGuideModule = (props: Props) => {
 
   useEffect(() => {
     fetchSoliguide();
-  }, [city]);
+
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setSoliguide(JSON.parse(content).soliguide);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -161,7 +169,7 @@ const SoliGuideModule = (props: Props) => {
                     navigation.navigate('SoliguidePage', {structure: item});
                   }}>
                   <DisplaySimple
-                    text={`⬆️ ${t('soliguide.go')}`}
+                    text={`⬆️ ${soliguide?.go}`}
                     color={style === 'default' ? 'primary' : 'urgence'}
                   />
                 </Pressable>
@@ -180,7 +188,7 @@ const SoliGuideModule = (props: Props) => {
                     navigation.navigate('SoliguidePage', {structure: item});
                   }}>
                   <Text style={styles.infosContainer}>
-                    {t('soliguide.more_infos')}
+                    {soliguide?.moreInfos}
                   </Text>
                 </Pressable>
               </View>
@@ -188,7 +196,7 @@ const SoliGuideModule = (props: Props) => {
           )}
         />
         {data.places && data.places.length === 0 && (
-          <Text style={styles.not_found}>{t('soliguide.no_results')}</Text>
+          <Text style={styles.not_found}>{soliguide?.noResults}</Text>
         )}
       </ScrollView>
     </View>
