@@ -11,15 +11,26 @@ import {Colors, Fonts} from '../styles/Style';
 import BackButton from '../components/ui/BackButton';
 import RenderHtml from 'react-native-render-html';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import {useTranslation} from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   route: any;
 }
 
 const SoliguidePage = (props: Props) => {
+  const [soliguide, setSoliguide] = React.useState<any>();
   const {structure} = props.route.params;
-  const {t} = useTranslation();
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(data => {
+        if (data !== null) {
+          setSoliguide(JSON.parse(data).soliguide);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <ScrollView>
@@ -70,10 +81,10 @@ const SoliguidePage = (props: Props) => {
       </View>
       <View style={styles.container}>
         <TextBase style={styles.title}>Services proposés</TextBase>
-        {structure.services_all.map(service => (
+        {structure.services_all.map((service: any) => (
           <View style={styles.description}>
             <TextBase style={styles.category}>
-              {t(`soliguide.categories.${service.categorie}`)}
+              {soliguide?.categories[service.categorie]}
             </TextBase>
             {service.description ? (
               <RenderHtml
@@ -82,7 +93,7 @@ const SoliguidePage = (props: Props) => {
               />
             ) : (
               <TextBase style={styles.tagStyles}>
-                {t('soliguide.direct_access')}
+                {soliguide?.directAccess}
               </TextBase>
             )}
           </View>
