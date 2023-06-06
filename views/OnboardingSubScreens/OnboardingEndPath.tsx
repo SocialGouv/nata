@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
 import {
   Image,
   Keyboard,
@@ -22,6 +21,7 @@ import _ from 'lodash';
 import Images from '../../assets/models/onboardingImages';
 import SoliGuideModule from '../../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const OnboardingEndPath = ({
   navigation,
@@ -30,9 +30,22 @@ const OnboardingEndPath = ({
   navigation: any;
   route: any;
 }) => {
-  const {t} = useTranslation();
+  const [urgency, setUrgency] = React.useState<any>();
   const {width, height} = useWindowDimensions();
-  const {number, image, labelSearch, boldBottom, keywords} = route.params;
+  const {number, image, labelSearch, boldBottom, keywords, back, content} =
+    route.params;
+
+  useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then((data: any) => {
+        if (data !== null) {
+          setUrgency(JSON.parse(data).urgency);
+        }
+      });
+    };
+
+    getContentFromCache();
+  }, []);
 
   const styles = StyleSheet.create({
     container: {
@@ -170,7 +183,7 @@ const OnboardingEndPath = ({
     },
   });
 
-  const strings = t(route.params.content).split('.');
+  const strings = content.split('.');
   const twoPartStrings = strings[0].split(':');
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
@@ -220,10 +233,6 @@ const OnboardingEndPath = ({
       : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
   };
 
-  useEffect(() => {
-    console.log('city', city);
-  }, [city]);
-
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -236,9 +245,7 @@ const OnboardingEndPath = ({
               size={15}
               color={Colors.primary}
             />
-            <TextBase style={styles.backLinkText}>
-              {t('onboarding.back') as string}
-            </TextBase>
+            <TextBase style={styles.backLinkText}>{back}</TextBase>
           </Pressable>
           <View style={styles.topContainer}>
             {image && twoPartStrings[1] && (
@@ -259,7 +266,7 @@ const OnboardingEndPath = ({
           </View>
           <View style={styles.middleContainer}>
             <TextBase style={styles.subtitle}>
-              {labelSearch ? t(labelSearch) : t('urgency.subtext_test')}
+              {labelSearch ? labelSearch : urgency?.subtext_test}
             </TextBase>
             <View style={styles.searchContainer}>
               <View style={styles.autoCompleteContainer}>
@@ -270,7 +277,7 @@ const OnboardingEndPath = ({
                   renderTextInput={() => (
                     <TextInput
                       style={styles.input}
-                      placeholder={t('urgency.search') as string}
+                      placeholder={urgency?.search}
                       value={search}
                       onChangeText={text => {
                         setHideResults(false);
@@ -329,9 +336,9 @@ const OnboardingEndPath = ({
           )}
           <View style={styles.bottomContainer}>
             {boldBottom && (
-              <TextBase style={styles.boldText}>{t(boldBottom)}</TextBase>
+              <TextBase style={styles.boldText}>{boldBottom}</TextBase>
             )}
-            {strings.map((string, index) => {
+            {strings.map((string: any, index: any) => {
               if (index > 0) {
                 return (
                   <TextBase key={index} style={styles.text}>

@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchContent = async (locale?: string) => {
-  const BASE_URL = 'https://nata-bo.numericite.eu'; //'http://localhost:1337';
+  const BASE_URL = 'https://nata-bo.numericite.eu';
+  //'http://localhost:1337';
 
   const url = locale
     ? BASE_URL + '/api/app-content?locale=' + locale

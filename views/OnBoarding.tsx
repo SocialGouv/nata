@@ -74,56 +74,6 @@ const Onboarding = () => {
     getContentFromCache();
   }, []);
 
-  const handleUrgencyPath = () => {
-    if (userInfos) {
-      if (
-        parseInt(userInfos.pregnancyMonth, 10) < 6 &&
-        userInfos.isMeetingPlanned === 'Q5A2'
-      ) {
-        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            title: onboarding?.urgencyTitleUnder5,
-            number: '0 801 801 081',
-            keywords: ['PMI'],
-          });
-        } else {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            title: onboarding?.urgencyTitleUnder5,
-            keywords: ['PMI'],
-          });
-        }
-      } else if (
-        parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
-        userInfos.isMeetingPlanned === 'Q5A2'
-      ) {
-        if (
-          (userInfos.medical_care === 'Q6A1' ||
-            userInfos.medical_care === 'Q6A2') &&
-          userInfos.housing === 'Q7A4'
-        ) {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            keywords: ['Hôpital'],
-          });
-        } else {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            number: '0 801 801 081',
-            keywords: ['Hôpital'],
-          });
-        }
-      } else {
-        setIsOnboardingDone(true);
-        setIsEmergencyOnBoardingDone(true);
-        setDisplayInitialModal(true);
-        navigation.navigate('FollowUp');
-        MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
-      }
-    }
-  };
-
   const handlePress = async ({
     answer,
     question,
@@ -139,6 +89,7 @@ const Onboarding = () => {
         answer.valueMatomo ?? undefined,
       );
     }
+
     if (
       question.slug === 'isPregnant' &&
       answer.value === 'Q1A2' &&
@@ -147,6 +98,7 @@ const Onboarding = () => {
       navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
         image: answer.image,
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
@@ -160,6 +112,7 @@ const Onboarding = () => {
         number: answer.phoneNumber,
         image: answer.image,
         keywords: answer.keywords,
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
@@ -175,6 +128,7 @@ const Onboarding = () => {
         labelSearch: answer.labelSearch,
         boldBottom: answer.boldBottom,
         keywords: ['PMI'],
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
@@ -207,6 +161,60 @@ const Onboarding = () => {
     }
   };
 
+  const handleUrgencyPath = () => {
+    if (userInfos) {
+      if (
+        parseInt(userInfos.pregnancyMonth, 10) < 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
+      ) {
+        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: onboarding?.urgencyTitleUnder5,
+            number: '0 801 801 081',
+            keywords: ['PMI'],
+            back: onboarding?.back,
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: onboarding?.urgencyTitleUnder5,
+            keywords: ['PMI'],
+            back: onboarding?.back,
+          });
+        }
+      } else if (
+        parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
+      ) {
+        if (
+          (userInfos.medical_care === 'Q6A1' ||
+            userInfos.medical_care === 'Q6A2') &&
+          userInfos.housing === 'Q7A4'
+        ) {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            keywords: ['Hôpital'],
+            back: onboarding?.back,
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            number: '0 801 801 081',
+            keywords: ['Hôpital'],
+            back: onboarding?.back,
+          });
+        }
+      } else {
+        setIsOnboardingDone(true);
+        setIsEmergencyOnBoardingDone(true);
+        setDisplayInitialModal(true);
+        navigation.navigate('FollowUp');
+        MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
+      }
+    }
+  };
+
   const handleBackPress = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
@@ -214,6 +222,7 @@ const Onboarding = () => {
       navigation.goBack();
     }
   };
+
   const sortByCode = (a: Question, b: Question) => {
     if (a.code < b.code) {
       return -1;
@@ -271,13 +280,18 @@ const Onboarding = () => {
                 return (
                   <View key={index} style={styles.sliderContainer}>
                     <CustomCarousel
-                      data={question.responses}
+                      data={question.responses.filter(e => e.value !== '0')}
                       width={width}
                       setPrengancyMonth={e => setPrengancyMonth(e)}
                     />
                     <Pressable
                       onPress={() => {
-                        handlePress({answer: question.responses[0], question});
+                        handlePress({
+                          answer: question.responses.find(
+                            r => r.value === '0',
+                          ) as Response,
+                          question,
+                        });
                         MatomoTrackEvent(
                           'ONBOARDING',
                           'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
@@ -300,7 +314,9 @@ const Onboarding = () => {
                       onPress={() => {
                         setUserInfos({
                           ...userInfos,
-                          pregnancyMonth: question.responses[0].value,
+                          pregnancyMonth: question.responses.find(
+                            r => r.value === '0',
+                          )?.value as string,
                         });
                         setCurrentStep(currentStep + 1);
                         MatomoTrackEvent(
@@ -311,7 +327,7 @@ const Onboarding = () => {
                         );
                       }}>
                       <TextBase style={{color: Colors.black}}>
-                        {question.responses[0].label}
+                        {question.responses.find(r => r.value === '0')?.label}
                       </TextBase>
                     </Pressable>
                   </View>

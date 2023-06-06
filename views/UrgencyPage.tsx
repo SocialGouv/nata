@@ -18,23 +18,24 @@ import {Colors, Fonts} from '../styles/Style';
 import {useNavigation} from '@react-navigation/native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../components/ui/TextBase';
-import {useTranslation} from 'react-i18next';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import _ from 'lodash';
 import AppContext from '../AppContext';
 import SoliGuideModule from '../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface Props {
   route: any;
 }
 
 const UrgencyPage = (props: Props) => {
-  const navigation = useNavigation();
-  const {t} = useTranslation();
-  const {width, height} = useWindowDimensions();
-  const {title, number, keywords} = props.route.params;
+  const [urgency, setUrgency] = React.useState<any>();
 
-  const titleTodisplay = title ? title : (t('urgency.title') as string);
+  const navigation = useNavigation();
+  const {width, height} = useWindowDimensions();
+  const {title, number, keywords, back} = props.route.params;
+
+  const titleTodisplay = title ? title : urgency?.title;
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
@@ -46,6 +47,18 @@ const UrgencyPage = (props: Props) => {
     setDisplayInitialModal,
     isEmergencyOnBoardingDone,
   } = useContext(AppContext);
+
+  useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then((data: any) => {
+        if (data !== null) {
+          setUrgency(JSON.parse(data).urgency);
+        }
+      });
+    };
+
+    getContentFromCache();
+  }, []);
 
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
@@ -292,9 +305,7 @@ const UrgencyPage = (props: Props) => {
                 size={15}
                 color={Colors.urgence}
               />
-              <TextBase style={styles.backLinkText}>
-                {t('onboarding.back') as string}
-              </TextBase>
+              <TextBase style={styles.backLinkText}>{back}</TextBase>
             </Pressable>
             <View style={styles.titleContainer}>
               <TextBase style={styles.icon}>🚨</TextBase>
@@ -303,21 +314,19 @@ const UrgencyPage = (props: Props) => {
           </View>
           <View style={styles.underTopContainer}>
             <TextBase style={styles.underTopLabel}>
-              {t('urgency.subtext')
-                .split('-')
-                .map((item, key) => {
-                  return (
-                    <TextBase
-                      key={key}
-                      style={
-                        key % 2 === 0
-                          ? styles.underTopLabel
-                          : styles.underTopLabelRed
-                      }>
-                      {item}
-                    </TextBase>
-                  );
-                })}
+              {urgency?.subtext.split('-').map((item: any, key: any) => {
+                return (
+                  <TextBase
+                    key={key}
+                    style={
+                      key % 2 === 0
+                        ? styles.underTopLabel
+                        : styles.underTopLabelRed
+                    }>
+                    {item}
+                  </TextBase>
+                );
+              })}
             </TextBase>
           </View>
           <View style={styles.middleContainer}>
@@ -342,7 +351,7 @@ const UrgencyPage = (props: Props) => {
                   renderTextInput={() => (
                     <TextInput
                       style={styles.input}
-                      placeholder={t('urgency.search') as string}
+                      placeholder={urgency?.search}
                       value={search}
                       onChangeText={text => {
                         setHideResults(false);
@@ -394,9 +403,9 @@ const UrgencyPage = (props: Props) => {
             {number && (
               <>
                 <TextBase style={styles.explanationContainer}>
-                  {t('urgency.solipamtext')
+                  {urgency?.solipamtext
                     .split('-')
-                    .map((item, key) => {
+                    .map((item: any, key: any) => {
                       return (
                         <TextBase
                           key={key}
@@ -433,7 +442,7 @@ const UrgencyPage = (props: Props) => {
                 navigation.navigate('FollowUp');
               }}>
               <TextBase style={styles.continueText}>
-                {t('urgency.continue') as string}
+                {urgency?.continue}
               </TextBase>
             </TouchableOpacity>
           </View>

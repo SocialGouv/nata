@@ -76,7 +76,7 @@ const LanguageSelection = () => {
 
   useEffect(() => {
     if (selectedLanguage) {
-      fetchContent(selectedLanguage).then(() => getContentFromCache());
+      fetchContent(selectedLanguage).finally(() => getContentFromCache());
     }
   }, [selectedLanguage]);
 
