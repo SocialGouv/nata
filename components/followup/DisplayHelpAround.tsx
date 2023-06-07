@@ -2,7 +2,6 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import TextBase from '../ui/TextBase';
 import {Colors, Fonts} from '../../styles/Style';
-// import helps from '../../assets/models/helparound.json';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {MatomoTrackEvent} from '../../utils/Matomo';
@@ -14,6 +13,7 @@ interface Props {
 
 const DisplayHelpAround = (props: Props) => {
   const [helpAround, setHelpAround] = React.useState<any>();
+  const [responses, setResponses] = React.useState<any>();
   const {userInfos} = props;
   const navigation = useNavigation();
 
@@ -21,7 +21,8 @@ const DisplayHelpAround = (props: Props) => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
-          setHelpAround(JSON.parse(content).helpAround);
+          setHelpAround(JSON.parse(content)['help-around']);
+          setResponses(JSON.parse(content).response.results);
         }
       });
     };
@@ -35,11 +36,12 @@ const DisplayHelpAround = (props: Props) => {
 
   const displayInfos = () => {
     if (userInfos) {
-      const userHelpAround = helpsAround.find(
-        (el: any) => el.key === userInfos.housing,
+      console.log(helpAround);
+      const userHelpAround = responses.find(
+        (el: any) => el.value === userInfos.housing,
       );
-      if (userHelpAround.list) {
-        return userHelpAround.list.map((el: any) => {
+      if (userHelpAround.helpsAround) {
+        return userHelpAround.helpsAround.map((el: any) => {
           return (
             <Pressable
               key={el.title}
