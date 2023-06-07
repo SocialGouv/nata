@@ -11,13 +11,11 @@ import React, {useCallback, useContext} from 'react';
 import Container from '../components/ui/Container';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import contents from '../assets/models/followup.json';
-import {useTranslation} from 'react-i18next';
 import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
-import {Meetings, Symptome} from '../components/followup/interface';
+import {Meetings, Symptome, Month} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
 import {useIsFocused} from '@react-navigation/native';
@@ -75,18 +73,15 @@ const FollowUp = () => {
     },
   });
 
-  const {t} = useTranslation();
+  const [followup, setFollowup] = React.useState<any>();
+  const [months, setMonths] = React.useState<Month[]>([]);
 
   const {currentMonth, setCurrentMonth} = useContext(AppContext);
-  const [currentContent, setCurrentContent] = React.useState<{
-    title: string;
-    text: string;
-    list: Meetings[];
-    symptoms: Symptome[];
-  }>({
+  const [currentContent, setCurrentContent] = React.useState<Month>({
     title: '',
-    text: '',
-    list: [],
+    description: '',
+    monthNumber: 0,
+    meetings: [],
     symptoms: [],
   });
   const [mandatoryMeetings, setMandatoryMeeting] = React.useState<Meetings[]>(
@@ -114,8 +109,18 @@ const FollowUp = () => {
     setUserInfos(tempInfos);
   };
 
+  const getContentFromCache = () => {
+    return AsyncStorage.getItem('content').then(content => {
+      if (content !== null) {
+        setFollowup(JSON.parse(content).followup);
+        setMonths(JSON.parse(content).month.results);
+      }
+    });
+  };
+
   React.useEffect(() => {
     retrieveUserInfos();
+    getContentFromCache();
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_FOLLOWUP');
   }, []);
 
@@ -140,10 +145,13 @@ const FollowUp = () => {
   }, [retrieveUserMonth]);
 
   React.useEffect(() => {
-    if (currentMonth) {
-      setCurrentContent(contents.data[currentMonth - 1]);
+    if (currentMonth && months) {
+      setCurrentContent(
+        months.find((m: Month) => m.monthNumber === currentMonth) ??
+          currentContent,
+      );
     }
-  }, [currentMonth]);
+  }, [currentMonth, months, currentContent]);
 
   const handlePress = (value: number) => {
     if (currentMonth) {
@@ -154,11 +162,11 @@ const FollowUp = () => {
   };
 
   const retrieveManadatoryMeetings = useCallback(async () => {
-    const tmpMandatoryMeetings = contents.data.reduce(
+    const tmpMandatoryMeetings = months?.reduce(
       (acc: any, current: any) => {
-        if (current.list) {
-          const tmpMandatories = current.list.filter(
-            (meeting: any) => meeting.mandatory === true,
+        if (current.meetings) {
+          const tmpMandatories = current.meetings.filter(
+            (meeting: any) => meeting.isMandatory === true,
           );
           return [...acc, ...tmpMandatories];
         }
@@ -167,7 +175,7 @@ const FollowUp = () => {
       [isFocused],
     );
     setMandatoryMeeting(tmpMandatoryMeetings);
-  }, [isFocused]);
+  }, [isFocused, months]);
 
   React.useEffect(() => {
     retrieveManadatoryMeetings();
@@ -205,10 +213,8 @@ const FollowUp = () => {
               {currentMonth && (
                 <TextBase>
                   {currentMonth === 1
-                    ? t(currentMonth?.toString()) +
-                      ' ' +
-                      t('followup.firstMonth')
-                    : t(currentMonth?.toString()) + ' ' + t('followup.month')}
+                    ? currentMonth?.toString() + ' ' + followup?.firstMonth
+                    : currentMonth?.toString() + ' ' + followup?.month}
                 </TextBase>
               )}
               {currentMonth && currentMonth < 9 && (
@@ -238,28 +244,38 @@ const FollowUp = () => {
           )}
         </View>
         <View style={styles.infoContainer}>
-          <TextBase style={styles.text}>{t(currentContent?.text)}</TextBase>
+          <TextBase style={styles.text}>
+            {currentContent ? currentContent.description : ''}
+          </TextBase>
         </View>
         <DisplayMeetings
           currentMonth={currentMonth as number}
-          meetings={currentContent.list}
+          meetings={currentContent ? currentContent?.meetings : []}
           mandatoryMeetings={mandatoryMeetings}
         />
         <DisplaySymptomes
           isUrgency={false}
           displayTitle={true}
-          symptomes={currentContent?.symptoms.filter(symptome => {
-            return symptome.status === 'minor';
-          })}
+          symptomes={
+            !currentContent
+              ? []
+              : currentContent?.symptoms.filter(symptome => {
+                  return symptome.status === 'minor';
+                })
+          }
           userSymptomesStatus={userSymptomesStatus}
           setUserSymptomesStatus={setUserSymptomesStatus}
         />
         <DisplaySymptomes
           isUrgency={true}
           displayTitle={false}
-          symptomes={currentContent?.symptoms.filter(symptome => {
-            return symptome.status === 'urgency';
-          })}
+          symptomes={
+            !currentContent
+              ? []
+              : currentContent?.symptoms.filter(symptome => {
+                  return symptome.status === 'urgency';
+                })
+          }
           userSymptomesStatus={userSymptomesStatus}
           setUserSymptomesStatus={setUserSymptomesStatus}
           currentMonth={currentMonth}

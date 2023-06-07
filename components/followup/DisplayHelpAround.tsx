@@ -36,7 +36,6 @@ const DisplayHelpAround = (props: Props) => {
 
   const displayInfos = () => {
     if (userInfos) {
-      console.log(helpAround);
       const userHelpAround = responses.find(
         (el: any) => el.value === userInfos.housing,
       );

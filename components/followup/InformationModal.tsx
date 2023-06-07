@@ -1,14 +1,27 @@
 import {Image, Modal, Pressable, StyleSheet, View} from 'react-native';
 import React, {useContext} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
-import {useTranslation} from 'react-i18next';
 import AppContext from '../../AppContext';
 import TextBase from '../ui/TextBase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InformationModal = () => {
   const {displayInitialModal, setDisplayInitialModal} = useContext(AppContext);
+  const [informationModal, setInformationModal] = React.useState<any>();
 
-  const {t} = useTranslation();
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setInformationModal({
+            ...JSON.parse(content)['information-modal'],
+            continue: JSON.parse(content).onboarding.continue,
+          });
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -24,19 +37,19 @@ const InformationModal = () => {
                 source={require('../../assets/images/onboarding/nurse.png')}
               />
               <TextBase style={styles.title}>
-                {t('information_modal.title')}
+                {informationModal?.title}
               </TextBase>
             </View>
             <View style={styles.bottomContainer}>
               <TextBase style={styles.text}>
-                {t('information_modal.content')}
+                {informationModal?.content}
               </TextBase>
               <Pressable
                 style={styles.button}
                 onPress={() => setDisplayInitialModal(false)}>
                 <TextBase
                   style={{...styles.text, color: 'white', fontWeight: '700'}}>
-                  {t('onboarding.continue')}
+                  {informationModal?.continue}
                 </TextBase>
               </Pressable>
             </View>

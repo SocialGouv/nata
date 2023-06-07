@@ -8,26 +8,15 @@ import {Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UrgencyModule from './UrgencyModule';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import {Symptome} from './interface';
 
 interface Props {
-  symptomes: {
-    label: string;
-    slug: string;
-    status: string;
-    code: string;
-  }[];
+  symptomes: Symptome[];
   isUrgency?: boolean;
   displayTitle?: boolean;
   currentMonth?: number;
   userSymptomesStatus?: Symptome[];
   setUserSymptomesStatus?: (value: Symptome[]) => void;
-}
-
-interface Symptome {
-  label: string;
-  slug: string;
-  status: string;
-  code: string;
 }
 
 const DisplaySymptomes = (props: Props) => {
