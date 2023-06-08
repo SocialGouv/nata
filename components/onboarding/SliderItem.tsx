@@ -1,5 +1,4 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {Image, StyleSheet, View} from 'react-native';
 import {Colors, Fonts} from '../../styles/Style';
 import Images from '../../assets/models/feotus';
@@ -15,11 +14,10 @@ interface SliderItemProps {
 }
 
 const SliderItem = ({item, index}: SliderItemProps) => {
-  const {t} = useTranslation();
   return (
     <View style={styles.boxContainer}>
       <Image source={Images[index as keyof typeof Images]} />
-      <TextBase style={styles.text}>{t(item.label)}</TextBase>
+      <TextBase style={styles.text}>{item.label}</TextBase>
     </View>
   );
 };

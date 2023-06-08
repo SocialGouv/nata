@@ -6,12 +6,22 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import {Fonts} from '../../styles/Style';
 import FollowUp from '../../views/FollowUp';
 import {Platform} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Navbar = () => {
   const Tab = createBottomTabNavigator();
+  const [navbar, setNavbar] = React.useState<any>();
 
-  const {t} = useTranslation();
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setNavbar(JSON.parse(content).navbar);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <Tab.Navigator
@@ -37,11 +47,11 @@ const Navbar = () => {
             <FontAwesome name="clipboard-list" color={color} size={size} />
           ),
         }}
-        name={t('navbar.Followup')}
+        name={navbar ? navbar.followup : ' '}
         component={FollowUp}
       />
       <Tab.Screen
-        name={t('navbar.Situation')}
+        name={navbar ? navbar.situation : '  '}
         options={{
           // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({size, color}) => (

@@ -1,6 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import {FlatGrid} from 'react-native-super-grid';
 import Images from '../../assets/models/followupImages';
@@ -8,14 +7,10 @@ import {Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UrgencyModule from './UrgencyModule';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import {Symptome} from './interface';
 
 interface Props {
-  symptomes: {
-    label: string;
-    slug: string;
-    status: string;
-    code: string;
-  }[];
+  symptomes: Symptome[];
   isUrgency?: boolean;
   displayTitle?: boolean;
   currentMonth?: number;
@@ -23,14 +18,9 @@ interface Props {
   setUserSymptomesStatus?: (value: Symptome[]) => void;
 }
 
-interface Symptome {
-  label: string;
-  slug: string;
-  status: string;
-  code: string;
-}
-
 const DisplaySymptomes = (props: Props) => {
+  const [followup, setFollowup] = React.useState<any>();
+
   const {
     symptomes,
     isUrgency,
@@ -92,7 +82,6 @@ const DisplaySymptomes = (props: Props) => {
     },
   });
 
-  const {t} = useTranslation();
   const [selectedSymptome, setSelectedSymptome] =
     React.useState<Symptome | null>();
 
@@ -108,9 +97,21 @@ const DisplaySymptomes = (props: Props) => {
   }, [setUserSymptomesStatus]);
 
   React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setFollowup(JSON.parse(content).followup);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
+
+  React.useEffect(() => {
     retrieveUserSymptomesStatus();
   }, [retrieveUserSymptomesStatus]);
 
+  // TODO: CORRECT CODE CHECK
   const updateUserSymptomesStatus = React.useCallback(async () => {
     if (userSymptomesStatus) {
       try {
@@ -155,11 +156,7 @@ const DisplaySymptomes = (props: Props) => {
     setSelectedSymptome(null);
   }, [currentMonth]);
 
-  const renderItem = ({
-    item,
-  }: {
-    item: {label: string; slug: string; status: string; code: string};
-  }) => {
+  const renderItem = ({item}: {item: Symptome}) => {
     return (
       <Pressable
         onPress={() => handleSymptomSelection(item)}
@@ -180,7 +177,7 @@ const DisplaySymptomes = (props: Props) => {
           source={Images[item.slug as keyof typeof Images]}
           style={styles.image}
         />
-        <Text style={styles.itemName}>{t(item.label)}</Text>
+        <Text style={styles.itemName}>{item.title}</Text>
       </Pressable>
     );
   };
@@ -189,8 +186,8 @@ const DisplaySymptomes = (props: Props) => {
     <View style={styles.container}>
       {displayTitle && (
         <>
-          <Text style={styles.title}>{t('followup.symptomsTitle')}</Text>
-          <Text style={styles.subText}>{t('followup.symptomsIndication')}</Text>
+          <Text style={styles.title}>{followup?.symptomsTitle}</Text>
+          <Text style={styles.subText}>{followup?.symptomsIndication}</Text>
         </>
       )}
       <FlatGrid

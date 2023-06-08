@@ -1,5 +1,4 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
 import {Fonts} from '../../styles/Style';
 import Button from '../ui/Button';
@@ -12,10 +11,9 @@ interface AnswerButtonProps {
 }
 
 const AnswerButton = ({answer, onClick, style}: AnswerButtonProps) => {
-  const {t} = useTranslation();
   return (
     <Button onPress={onClick} style={{...styles.button, ...style}}>
-      <TextBase style={styles.text}>{t(answer)}</TextBase>
+      <TextBase style={styles.text}>{answer}</TextBase>
     </Button>
   );
 };

@@ -1,6 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useCallback} from 'react';
-import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,22 +15,15 @@ interface Props {
 }
 
 const DisplayMeetings = (props: Props) => {
+  const [followup, setFollowup] = React.useState<any>();
   const {meetings, mandatoryMeetings, currentMonth} = props;
 
   const isFocused = useIsFocused();
-  const [userMeetingStatus, setUserMeetingStatus] = React.useState<
-    {
-      label: string;
-      code: string;
-      month: number;
-      mandatory?: boolean;
-      max_month?: number;
-    }[]
-  >();
+  const [userMeetingStatus, setUserMeetingStatus] = React.useState<Meetings[]>(
+    [],
+  );
 
   const [fullMeetingList, setFullMeetingList] = React.useState<Meetings[]>([]);
-
-  const {t} = useTranslation();
 
   const retrieveUserMeetingStatus = React.useCallback(async () => {
     try {
@@ -47,9 +39,10 @@ const DisplayMeetings = (props: Props) => {
   const displayFullMeetings = useCallback(() => {
     let tmpMeetings: Meetings[] = _.uniq([...mandatoryMeetings, ...meetings]);
     tmpMeetings = tmpMeetings.filter(meeting => {
-      if (meeting.max_month) {
+      if (meeting.maxMonth) {
         return (
-          meeting.month <= currentMonth && meeting.max_month >= currentMonth
+          meeting.month?.monthNumber <= currentMonth &&
+          meeting.maxMonth >= currentMonth
         );
       }
     });
@@ -57,9 +50,9 @@ const DisplayMeetings = (props: Props) => {
       tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
         return !userMeetingStatus.find(item => {
           return (
-            item.code === t(meeting.code) &&
-            meeting.month < currentMonth &&
-            item.max_month === meeting.max_month
+            item.code === meeting.code &&
+            meeting.month?.monthNumber < currentMonth &&
+            item.maxMonth === meeting.maxMonth
           );
         });
       });
@@ -67,7 +60,18 @@ const DisplayMeetings = (props: Props) => {
     } else {
       setFullMeetingList(_.orderBy(tmpMeetings, ['mandatory'], ['asc']));
     }
-  }, [userMeetingStatus, currentMonth, mandatoryMeetings, meetings, t]);
+  }, [userMeetingStatus, currentMonth, mandatoryMeetings, meetings]);
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setFollowup(JSON.parse(content).followup);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   React.useEffect(() => {
     displayFullMeetings();
@@ -77,6 +81,7 @@ const DisplayMeetings = (props: Props) => {
     retrieveUserMeetingStatus();
   }, [retrieveUserMeetingStatus, isFocused]);
 
+  // TODO: CORRECT CODE CHECK
   const updateUserMeetingStatus = React.useCallback(async () => {
     if (!userMeetingStatus) {
       await AsyncStorage.setItem('userMeetingStatus', JSON.stringify([]));
@@ -98,10 +103,10 @@ const DisplayMeetings = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('followup.meetingTitle')}</Text>
-      <Text style={styles.subText}>{t('followup.meetingIndication')}</Text>
+      <Text style={styles.title}>{followup?.meetingTitle}</Text>
+      <Text style={styles.subText}>{followup?.meetingIndication}</Text>
       {fullMeetingList.length === 0 && (
-        <Text style={styles.text}>{t('followup.noMeeting')}</Text>
+        <Text style={styles.text}>{followup?.noMeeting}</Text>
       )}
       {fullMeetingList.map(meeting => {
         return (
@@ -109,12 +114,12 @@ const DisplayMeetings = (props: Props) => {
             <BouncyCheckbox
               size={25}
               fillColor={Colors.lightPrimary}
-              text={t(meeting.label) as string}
+              text={meeting.title}
               style={styles.chekboxStyle}
               isChecked={
                 userMeetingStatus &&
                 userMeetingStatus.find((item: {code: string}) => {
-                  return item.code === t(meeting.code);
+                  return item.code === meeting.code;
                 }) !== undefined
                   ? true
                   : false
@@ -126,22 +131,22 @@ const DisplayMeetings = (props: Props) => {
                     MatomoTrackEvent(
                       'FOLOWUP',
                       'FOLLOWUP_MEETING_DONE_SELECT',
-                      t(meeting.label) ?? '',
+                      meeting.title ?? '',
                     );
                     setUserMeetingStatus([
                       ...userMeetingStatus,
                       {
-                        label: meeting.label as string,
-                        code: t(meeting.code),
-                        max_month: meeting.max_month,
+                        title: meeting.title,
+                        code: meeting.code,
+                        maxMonth: meeting.maxMonth,
                         month: meeting.month,
+                        isMandatory: meeting.isMandatory,
                       },
                     ]);
                   } else {
                     setUserMeetingStatus(
                       userMeetingStatus.filter(
-                        (item: {label: string}) =>
-                          item.label !== (meeting.label as string),
+                        (item: {title: string}) => item.title !== meeting.title,
                       ),
                     );
                   }

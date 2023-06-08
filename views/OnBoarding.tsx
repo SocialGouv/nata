@@ -1,7 +1,5 @@
 import {CustomCarousel} from './../components/onboarding/CustomCarousel';
 import React, {useContext} from 'react';
-import {useTranslation} from 'react-i18next';
-import questions from '../assets/models/questions.json';
 import Container from '../components/ui/Container';
 import {Image, Pressable, ScrollView, View} from 'react-native';
 import AnswerButton from '../components/onboarding/AnswerButton';
@@ -16,34 +14,7 @@ import AppContext from '../AppContext';
 import TextBase from '../components/ui/TextBase';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {MatomoTrackEvent} from '../utils/Matomo';
-
-interface PressFunction {
-  answer: {
-    label: string;
-    value: string;
-    redirectScreen?: boolean;
-    redirectScreenContent?: string | undefined;
-    phone?: string;
-    image?: string;
-    labelSearch?: string;
-    boldBottom?: String;
-    keywords?: string[];
-    nameMatomo: string;
-    valueMatomo?: number;
-  };
-  question: {
-    label: string;
-    isSpecial?: boolean;
-    slug: string;
-    answerDanger?: {
-      label: string;
-      value: string;
-      redirectScreen?: boolean;
-    };
-    verticalAnswer?: boolean;
-    actionMatomo: string;
-  };
-}
+import {Question, Response} from '../components/onboarding/interface';
 
 interface UserInfos {
   [key: string]: string;
@@ -55,6 +26,8 @@ const Onboarding = () => {
   const navigation = useNavigation();
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
+  const [questions, setQuestions] = React.useState<Question[]>([]);
+  const [onboarding, setOnboarding] = React.useState<any>();
 
   const {
     setIsOnboardingDone,
@@ -62,63 +35,27 @@ const Onboarding = () => {
     setIsEmergencyOnBoardingDone,
   } = useContext(AppContext);
 
-  const {t} = useTranslation();
-
-  const handleUrgencyPath = () => {
-    if (userInfos) {
-      if (
-        parseInt(userInfos.pregnancyMonth, 10) < 6 &&
-        userInfos.isMeetingPlanned === 'Q5A2'
-      ) {
-        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            title: t('onboarding.urengecyTitleUnder5'),
-            number: '0 801 801 081',
-            keywords: ['PMI'],
-          });
-        } else {
-          console.log('urgence sans telephone');
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            title: t('onboarding.urengecyTitleUnder5'),
-            keywords: ['PMI'],
-          });
-        }
-      } else if (
-        parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
-        userInfos.isMeetingPlanned === 'Q5A2'
-      ) {
-        if (
-          (userInfos.medical_care === 'Q6A1' ||
-            userInfos.medical_care === 'Q6A2') &&
-          userInfos.housing === 'Q7A4'
-        ) {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            keywords: ['Hôpital'],
-          });
-        } else {
-          setIsOnboardingDone(true);
-          navigation.navigate('UrgencyPage', {
-            number: '0 801 801 081',
-            keywords: ['Hôpital'],
-          });
-        }
-      } else {
-        setIsOnboardingDone(true);
-        setIsEmergencyOnBoardingDone(true);
-        setDisplayInitialModal(true);
-        navigation.navigate('FollowUp');
-        MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
+  const getContentFromCache = () => {
+    return AsyncStorage.getItem('content').then(data => {
+      if (data !== null) {
+        setQuestions(JSON.parse(data).question.results.sort(sortByCode));
+        setOnboarding(JSON.parse(data).onboarding);
       }
-    }
+    });
   };
 
-  const handlePress = async ({answer, question}: PressFunction) => {
+  React.useEffect(() => {
+    getContentFromCache();
+  }, []);
+
+  const handlePress = async ({
+    answer,
+    question,
+  }: {
+    answer: Response;
+    question: Question;
+  }) => {
     if (!question.isSpecial) {
-      console.log('answer', answer);
-      console.log('question', question);
       MatomoTrackEvent(
         'ONBOARDING',
         question.actionMatomo,
@@ -126,6 +63,7 @@ const Onboarding = () => {
         answer.valueMatomo ?? undefined,
       );
     }
+
     if (
       question.slug === 'isPregnant' &&
       answer.value === 'Q1A2' &&
@@ -134,6 +72,7 @@ const Onboarding = () => {
       navigation.navigate('ShortOnboardingEnd', {
         content: answer.redirectScreenContent,
         image: answer.image,
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
@@ -144,9 +83,10 @@ const Onboarding = () => {
     ) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
-        number: answer.phone,
+        number: answer.phoneNumber,
         image: answer.image,
         keywords: answer.keywords,
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
@@ -157,16 +97,17 @@ const Onboarding = () => {
     ) {
       navigation.navigate('OnboardingEndPath', {
         content: answer.redirectScreenContent,
-        number: answer.phone,
+        number: answer.phoneNumber,
         image: answer.image,
         labelSearch: answer.labelSearch,
         boldBottom: answer.boldBottom,
         keywords: ['PMI'],
+        back: onboarding?.back,
       });
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else {
-      if (currentStep < questions.data.length) {
+      if (currentStep < questions.length) {
         setUserInfos(
           Object.assign(userInfos, {
             [question.slug]: question.isSpecial
@@ -175,7 +116,7 @@ const Onboarding = () => {
           }),
         );
         setCurrentStep(currentStep + 1);
-      } else if (currentStep === questions.data.length) {
+      } else if (currentStep === questions.length) {
         setUserInfos(
           Object.assign(userInfos, {
             [question.slug]: question.isSpecial
@@ -194,12 +135,76 @@ const Onboarding = () => {
     }
   };
 
+  const handleUrgencyPath = () => {
+    if (userInfos) {
+      if (
+        parseInt(userInfos.pregnancyMonth, 10) < 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
+      ) {
+        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: onboarding?.urgencyTitleUnder5,
+            number: '0 801 801 081',
+            keywords: ['PMI'],
+            back: onboarding?.back,
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            title: onboarding?.urgencyTitleUnder5,
+            keywords: ['PMI'],
+            back: onboarding?.back,
+          });
+        }
+      } else if (
+        parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
+        userInfos.isMeetingPlanned === 'Q5A2'
+      ) {
+        if (
+          (userInfos.medical_care === 'Q6A1' ||
+            userInfos.medical_care === 'Q6A2') &&
+          userInfos.housing === 'Q7A4'
+        ) {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            keywords: ['Hôpital'],
+            back: onboarding?.back,
+          });
+        } else {
+          setIsOnboardingDone(true);
+          navigation.navigate('UrgencyPage', {
+            number: '0 801 801 081',
+            keywords: ['Hôpital'],
+            back: onboarding?.back,
+          });
+        }
+      } else {
+        setIsOnboardingDone(true);
+        setIsEmergencyOnBoardingDone(true);
+        setDisplayInitialModal(true);
+        navigation.navigate('FollowUp');
+        MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
+      }
+    }
+  };
+
   const handleBackPress = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     } else {
       navigation.goBack();
     }
+  };
+
+  const sortByCode = (a: Question, b: Question) => {
+    if (a.code < b.code) {
+      return -1;
+    }
+    if (a.code > b.code) {
+      return 1;
+    }
+    return 0;
   };
 
   return (
@@ -213,19 +218,17 @@ const Onboarding = () => {
             size={15}
             color={Colors.primary}
           />
-          <TextBase style={styles.backLinkText}>
-            {t('onboarding.back') as string}
-          </TextBase>
+          <TextBase style={styles.backLinkText}>{onboarding?.back}</TextBase>
         </Pressable>
         <Progress.Bar
-          progress={currentStep / questions.data.length}
+          progress={currentStep / questions.length}
           width={width * 0.9}
           color={Colors.primary}
           unfilledColor={Colors.backgroundStrong}
           borderWidth={0}
           height={8}
         />
-        {questions.data.map((question, index) => {
+        {questions.map((question, index) => {
           if (index + 1 === currentStep) {
             return (
               <View key={index} style={styles.questionContainer}>
@@ -236,7 +239,7 @@ const Onboarding = () => {
                 <TextBase
                   style={{...styles.question, width: width * 0.7}}
                   nbLines={4}>
-                  {t(question.label)}
+                  {question.label}
                 </TextBase>
               </View>
             );
@@ -245,19 +248,24 @@ const Onboarding = () => {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainers}>
-          {questions.data.map((question, index) => {
+          {questions.map((question, index) => {
             if (index + 1 === currentStep) {
               if (question.isSpecial) {
                 return (
                   <View key={index} style={styles.sliderContainer}>
                     <CustomCarousel
-                      data={question.answers}
+                      data={question.responses.filter(e => e.value !== '0')}
                       width={width}
                       setPrengancyMonth={e => setPrengancyMonth(e)}
                     />
                     <Pressable
                       onPress={() => {
-                        handlePress({answer: question.answers[0], question});
+                        handlePress({
+                          answer: question.responses.find(
+                            r => r.value === '0',
+                          ) as Response,
+                          question,
+                        });
                         MatomoTrackEvent(
                           'ONBOARDING',
                           'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
@@ -272,7 +280,7 @@ const Onboarding = () => {
                         },
                       ]}>
                       <TextBase style={styles.confirmButtonText}>
-                        {t('onboarding.continue')}
+                        {onboarding?.continue}
                       </TextBase>
                     </Pressable>
                     <Pressable
@@ -280,7 +288,9 @@ const Onboarding = () => {
                       onPress={() => {
                         setUserInfos({
                           ...userInfos,
-                          pregnancyMonth: question.specialAnswer.value,
+                          pregnancyMonth: question.responses.find(
+                            r => r.value === '0',
+                          )?.value as string,
                         });
                         setCurrentStep(currentStep + 1);
                         MatomoTrackEvent(
@@ -291,7 +301,7 @@ const Onboarding = () => {
                         );
                       }}>
                       <TextBase style={{color: Colors.black}}>
-                        {t(question.specialAnswer.title)}
+                        {question.responses.find(r => r.value === '0')?.label}
                       </TextBase>
                     </Pressable>
                   </View>
@@ -300,7 +310,7 @@ const Onboarding = () => {
                 return (
                   <ScrollView>
                     <View style={styles.verticalButton}>
-                      {question.answers.map((answer, verticalIndex) => {
+                      {question.responses?.map((answer, verticalIndex) => {
                         return (
                           <AnswerButton
                             style={{marginBottom: 20}}
@@ -314,7 +324,10 @@ const Onboarding = () => {
                   </ScrollView>
                 );
               } else {
-                return question.answers.map((answer, secondIndex) => {
+                return question.responses?.map((answer, secondIndex) => {
+                  if (answer.isDanger) {
+                    return null;
+                  }
                   return (
                     <AnswerButton
                       key={'ans' + secondIndex}
@@ -328,14 +341,25 @@ const Onboarding = () => {
           })}
         </View>
         <View style={styles.lastButtonContainer}>
-          {questions.data.map((question, index) => {
-            if (question.answerDanger?.label && index + 1 === currentStep) {
+          {questions.map((question, index) => {
+            if (
+              question.responses?.some(r => r.isDanger) &&
+              index + 1 === currentStep
+            ) {
               return (
                 <AnswerButton
                   key={question.slug + index}
-                  answer={question.answerDanger.label}
+                  answer={
+                    question.responses.find(r => r.value === 'Q1AD')
+                      ?.label as string
+                  }
                   onClick={() =>
-                    handlePress({answer: question.answerDanger, question})
+                    handlePress({
+                      answer: question.responses.find(
+                        r => r.isDanger,
+                      ) as Response,
+                      question,
+                    })
                   }
                 />
               );

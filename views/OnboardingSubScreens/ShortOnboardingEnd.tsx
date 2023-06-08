@@ -1,8 +1,7 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import Container from '../../components/ui/Container';
 import TextBase from '../../components/ui/TextBase';
-import {useTranslation} from 'react-i18next';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors, Fonts} from '../../styles/Style';
 import Images from '../../assets/models/onboardingImages';
@@ -14,8 +13,7 @@ const ShortOnboardingEnd = ({
   navigation: any;
   route: any;
 }) => {
-  const {content, image} = route.params;
-  const {t} = useTranslation();
+  const {content, image, back} = route.params;
 
   return (
     <Container>
@@ -27,12 +25,10 @@ const ShortOnboardingEnd = ({
           size={15}
           color={Colors.primary}
         />
-        <TextBase style={styles.backLinkText}>
-          {t('onboarding.back') as string}
-        </TextBase>
+        <TextBase style={styles.backLinkText}>{back}</TextBase>
       </Pressable>
       <View style={styles.topContainer}>
-        <TextBase style={styles.text}>{t(content)}</TextBase>
+        <TextBase style={styles.text}>{content}</TextBase>
         {image && (
           <Image
             source={Images[image as keyof typeof Images]}

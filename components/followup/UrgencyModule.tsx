@@ -1,12 +1,10 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors} from '../../styles/Style';
-import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UrgencyModule = () => {
-  const {t} = useTranslation();
-
   const styles = StyleSheet.create({
     backgroundContainer: {
       width: '100%',
@@ -58,14 +56,31 @@ const UrgencyModule = () => {
       fontWeight: '700',
     },
   });
+  const [followup, setFollowup] = React.useState<any>();
 
   const navigation = useNavigation();
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setFollowup({
+            ...JSON.parse(content).followup,
+            back: JSON.parse(content).onboarding.back,
+          });
+        }
+      });
+    };
+
+    getContentFromCache();
+  }, []);
 
   const onPress = () => {
     navigation.navigate('UrgencyPage', {
       title: null,
       number: '0 801 801 081',
       keywords: ['Hôpital'],
+      back: followup?.back,
     });
   };
 
@@ -75,10 +90,10 @@ const UrgencyModule = () => {
         <View style={styles.backgroundContainer} />
         <View style={styles.textContainer}>
           <Text style={styles.icon}>🚨</Text>
-          <Text style={styles.text}>{t('followup.urgencyText')}</Text>
+          <Text style={styles.text}>{followup?.urgencyText}</Text>
         </View>
         <Pressable style={styles.button} onPress={onPress}>
-          <Text style={styles.buttonText}>{t('followup.urgencyButton')}</Text>
+          <Text style={styles.buttonText}>{followup?.urgencyButton}</Text>
         </Pressable>
       </View>
     </>

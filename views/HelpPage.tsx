@@ -12,7 +12,6 @@ import {
 import Autocomplete from 'react-native-autocomplete-input';
 import React, {useEffect} from 'react';
 import TextBase from '../components/ui/TextBase';
-import {useTranslation} from 'react-i18next';
 import Container from '../components/ui/Container';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from '../styles/Style';
@@ -20,6 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
 import SoliGuideModule from '../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   route: any;
@@ -127,6 +127,7 @@ const HelpPage = (props: Props) => {
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
   const [city, setCity] = React.useState<string>('');
+  const [pageText, setPageText] = React.useState<any>();
 
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
@@ -164,9 +165,19 @@ const HelpPage = (props: Props) => {
     }
   };
 
-  const {t} = useTranslation();
-
   useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setPageText({
+            back: JSON.parse(content).onboarding.back,
+            search: JSON.parse(content).urgency.search,
+          });
+        }
+      });
+    };
+    getContentFromCache();
+
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_HELP');
   }, []);
 
@@ -182,18 +193,15 @@ const HelpPage = (props: Props) => {
                 {opacity: pressed ? 0.5 : 1},
               ]}>
               <FontAwesome5Icon name="chevron-left" color={Colors.primary} />
-              <TextBase style={styles.backText}>
-                {' '}
-                {t('onboarding.back') as string}
-              </TextBase>
+              <TextBase style={styles.backText}> {pageText?.back}</TextBase>
             </Pressable>
             <View style={styles.titleContainer}>
-              <TextBase style={styles.icon}>{t(help.icon)}</TextBase>
-              <TextBase style={styles.title}>{t(help.title)}</TextBase>
+              <TextBase style={styles.icon}>{help.icon}</TextBase>
+              <TextBase style={styles.title}>{help.title}</TextBase>
             </View>
           </View>
           <View style={styles.middleContainer}>
-            <TextBase style={styles.subtitle}>{t(help.subtext)}</TextBase>
+            <TextBase style={styles.subtitle}>{help.subtext}</TextBase>
             <View style={styles.searchContainer}>
               <View style={styles.autoCompleteContainer}>
                 <Autocomplete
@@ -203,7 +211,7 @@ const HelpPage = (props: Props) => {
                   renderTextInput={() => (
                     <TextInput
                       style={styles.input}
-                      placeholder={t('urgency.search') as string}
+                      placeholder={pageText?.search}
                       value={search}
                       onChangeText={text => {
                         setHideResults(false);

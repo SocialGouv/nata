@@ -1,14 +1,23 @@
 export interface Symptome {
-  label: string;
+  title: string;
+  month: Month;
   slug: string;
   status: string;
   code: string;
 }
 
 export interface Meetings {
-  label: string;
+  title: string;
   code: string;
-  mandatory: boolean;
-  month: number;
-  max_month?: number;
+  isMandatory: boolean;
+  month: Month;
+  maxMonth?: number;
+}
+
+export interface Month {
+  title: string;
+  description: string;
+  monthNumber: number;
+  meetings: Meetings[];
+  symptoms: Symptome[];
 }
