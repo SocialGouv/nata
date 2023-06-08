@@ -10,7 +10,8 @@ export interface Meetings {
   title: string;
   code: string;
   isMandatory: boolean;
-  month: Month;
+  months?: Month[];
+  monthNumber?: number;
   maxMonth?: number;
 }
 

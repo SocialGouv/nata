@@ -84,9 +84,6 @@ const FollowUp = () => {
     meetings: [],
     symptoms: [],
   });
-  const [mandatoryMeetings, setMandatoryMeeting] = React.useState<Meetings[]>(
-    [],
-  );
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
 
@@ -161,26 +158,6 @@ const FollowUp = () => {
     }
   };
 
-  const retrieveManadatoryMeetings = useCallback(async () => {
-    const tmpMandatoryMeetings = months?.reduce(
-      (acc: any, current: any) => {
-        if (current.meetings) {
-          const tmpMandatories = current.meetings.filter(
-            (meeting: any) => meeting.isMandatory === true,
-          );
-          return [...acc, ...tmpMandatories];
-        }
-        return acc;
-      },
-      [isFocused],
-    );
-    setMandatoryMeeting(tmpMandatoryMeetings);
-  }, [isFocused, months]);
-
-  React.useEffect(() => {
-    retrieveManadatoryMeetings();
-  }, [retrieveManadatoryMeetings]);
-
   // React.useEffect(() => {
   //   (async () => {
   //     await AsyncStorage.clear();
@@ -250,8 +227,7 @@ const FollowUp = () => {
         </View>
         <DisplayMeetings
           currentMonth={currentMonth as number}
-          meetings={currentContent ? currentContent?.meetings : []}
-          mandatoryMeetings={mandatoryMeetings}
+          monthContent={currentContent}
         />
         <DisplaySymptomes
           isUrgency={false}
