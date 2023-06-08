@@ -16,9 +16,16 @@ import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import {fetchContent} from '../utils/fetchContent';
 
+interface Language {
+  code: string;
+  nom: string;
+  actif: boolean;
+}
+
 const LanguageSelection = () => {
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation();
+  const [languages, setLanguages] = React.useState<Language[]>([]);
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
   const [onboarding, setOnboarding] = React.useState<any>();
 
@@ -66,7 +73,31 @@ const LanguageSelection = () => {
     },
   });
 
+  const fetchLanguages = async () => {
+    const reqOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await fetch(
+      'https://nata-bo.numericite.eu' + '/api/languages',
+      reqOptions,
+    );
+    const data = await response.json();
+    let tmpLanguages: Language[] = [];
+    if (data.data) {
+      return data.data.map(el => {
+        return tmpLanguages.push(el.attributes);
+      });
+    }
+    setLanguages(tmpLanguages);
+  };
+
+  console.log('languages', languages);
+
   useEffect(() => {
+    fetchLanguages();
     const locale = RNLocalize.getLocales()[0].languageCode;
     if (locale) {
       setSelectedLanguage(locale);
