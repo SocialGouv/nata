@@ -94,8 +94,6 @@ const LanguageSelection = () => {
     setLanguages(tmpLanguages);
   };
 
-  console.log('languages', languages);
-
   useEffect(() => {
     fetchLanguages();
     const locale = RNLocalize.getLocales()[0].languageCode;
