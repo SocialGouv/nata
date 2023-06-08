@@ -2,12 +2,10 @@ const languages = [
   {
     code: 'en',
     flag: require('../images/languages/England.png'),
-    name: 'English',
   },
   {
     code: 'fr',
     flag: require('../images/languages/France.png'),
-    name: 'Français',
   },
   // {
   //   code: 'ar',

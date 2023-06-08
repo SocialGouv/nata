@@ -6,21 +6,25 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import languages from '../../assets/models/languages';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
-import Matomo from 'react-native-matomo-fork';
 import {MatomoTrackEvent} from '../../utils/Matomo';
-/*import {useMatomo} from 'matomo-tracker-react-native';
-import Matomo from 'react-native-matomo';*/
+import flags from '../../assets/models/languages';
+
+interface Language {
+  code: string;
+  nom: string;
+  actif: boolean;
+}
 
 interface Props {
   selectedLanguage: string | undefined;
   changeLanguage: (language: string) => void;
+  languages: Language[];
 }
 
 const LanguageSelector = (props: Props) => {
-  const {selectedLanguage, changeLanguage} = props;
+  const {selectedLanguage, changeLanguage, languages} = props;
   //const {trackEvent} = useMatomo();
   const styles = StyleSheet.create({
     gridView: {
@@ -59,7 +63,7 @@ const LanguageSelector = (props: Props) => {
               MatomoTrackEvent(
                 'ONBOARDING',
                 'ONBOARDING_LANGUAGE_CHOOSE',
-                item.name,
+                item.nom,
               );
             }}
             style={[
@@ -72,8 +76,11 @@ const LanguageSelector = (props: Props) => {
                 borderWidth: item.code === selectedLanguage ? 2 : 1,
               },
             ]}>
-            <Image source={item.flag} style={styles.image} />
-            <TextBase>{item.name}</TextBase>
+            <Image
+              source={flags.find(flag => flag.code === item.code)?.flag}
+              style={styles.image}
+            />
+            <TextBase>{item.nom}</TextBase>
           </TouchableOpacity>
         )}
       />

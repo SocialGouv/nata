@@ -85,12 +85,12 @@ const LanguageSelection = () => {
       reqOptions,
     );
     const data = await response.json();
+    console.log('data', data);
     let tmpLanguages: Language[] = [];
     if (data.data) {
-      return data.data.map(el => {
-        return tmpLanguages.push(el.attributes);
-      });
+      data.data.map(el => tmpLanguages.push(el.attributes));
     }
+    tmpLanguages = tmpLanguages.filter(el => el.actif);
     setLanguages(tmpLanguages);
   };
 
@@ -149,6 +149,7 @@ const LanguageSelection = () => {
       </TextBase>
       <View style={{flex: 0.7}}>
         <LanguageSelector
+          languages={languages}
           selectedLanguage={selectedLanguage}
           changeLanguage={changeLanguage}
         />
