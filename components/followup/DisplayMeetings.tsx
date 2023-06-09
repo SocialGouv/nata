@@ -37,6 +37,13 @@ const DisplayMeetings = (props: Props) => {
   }, []);
 
   const displayFullMeetings = useCallback(() => {
+    const mergedMeetings = monthContent.meetings.map((meeting: Meetings) => {
+      return {
+        ...meeting,
+        months: allMeetings.find((m: Meetings) => m.code === meeting.code)
+          .months,
+      };
+    });
     let tmpMeetings: Meetings[] = _.uniqBy(
       [
         ...allMeetings.filter(
@@ -46,12 +53,11 @@ const DisplayMeetings = (props: Props) => {
             meeting.maxMonth <= currentMonth &&
             meeting.maxMonth > monthContent.monthNumber,
         ),
-        ...monthContent.meetings,
+        ...mergedMeetings,
       ],
       'code',
     );
 
-    console.log('userMeetingStatus', userMeetingStatus);
     if (userMeetingStatus && userMeetingStatus.length > 0) {
       // actual meetings according to user status
       tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
@@ -65,8 +71,6 @@ const DisplayMeetings = (props: Props) => {
         });
       });
 
-      console.log('tmpMeetings', tmpMeetings);
-
       setFullMeetingList(_.orderBy(tmpMeetings, ['isMandatory'], ['asc']));
     } else {
       setFullMeetingList(_.orderBy(tmpMeetings, ['isMandatory'], ['asc']));
@@ -74,9 +78,6 @@ const DisplayMeetings = (props: Props) => {
   }, [userMeetingStatus, currentMonth, monthContent, allMeetings]);
 
   React.useEffect(() => {
-    // TO REMOVE
-    AsyncStorage.removeItem('userMeetingStatus');
-
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
