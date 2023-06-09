@@ -8,14 +8,7 @@ import {useIsFocused} from '@react-navigation/native';
 import SituationSymptoms from '../components/situation/SituationSymptoms';
 import UserProfile from '../components/situation/UserProfile';
 import {ScrollView} from 'react-native';
-
-interface Symptome {
-  label: string;
-  slug: string;
-  status: string;
-  code: string;
-}
-
+import {Symptome} from '../components/followup/interface';
 const MySituation = () => {
   const isFocused = useIsFocused();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);

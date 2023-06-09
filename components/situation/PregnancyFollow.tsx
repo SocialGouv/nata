@@ -1,26 +1,19 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import TextBase from '../ui/TextBase';
-
-interface FollowUp {
-  label: string;
-  code: string;
-  max_month: number;
-  nbOfOccurence?: number;
-}
+import {Meetings} from '../followup/interface';
 
 interface Props {
   bg?: string;
 }
 
 const PregnancyFollow = (props: Props) => {
+  const [situation, setSituation] = React.useState<any>();
   const {bg} = props;
-  const {t} = useTranslation();
   const isFocused = useIsFocused();
 
   const styles = StyleSheet.create({
@@ -51,7 +44,7 @@ const PregnancyFollow = (props: Props) => {
     },
   });
 
-  const [followUp, setFollowUp] = React.useState<FollowUp[]>([]);
+  const [followUp, setFollowUp] = React.useState<Meetings[]>([]);
 
   const retrievePregnancyFollow = React.useCallback(async () => {
     const values = await AsyncStorage.getItem('userMeetingStatus');
@@ -63,13 +56,24 @@ const PregnancyFollow = (props: Props) => {
   }, []);
 
   React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setSituation(JSON.parse(content).situation);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
+
+  React.useEffect(() => {
     retrievePregnancyFollow();
   }, [retrievePregnancyFollow, isFocused]);
 
   const displayFollowUpLines = () => {
     const labelCounts: Record<string, number> = followUp.reduce(
       (acc: Record<string, number>, el) => {
-        acc[t(el.label)] = (acc[t(el.label)] || 0) + 1;
+        acc[el.title] = (acc[el.title] || 0) + 1;
         return acc;
       },
       {},
@@ -77,7 +81,7 @@ const PregnancyFollow = (props: Props) => {
 
     return Object.entries(labelCounts).map(([label, count]) => {
       const key = `${label}_${count}`;
-      const text = count > 1 ? `${t(label)} : ${count}` : t(label);
+      const text = count > 1 ? `${label} : ${count}` : label;
       return (
         <View style={styles.line} key={key}>
           <BouncyCheckbox
@@ -95,13 +99,11 @@ const PregnancyFollow = (props: Props) => {
   return (
     <View style={[styles.container, {backgroundColor: bg}]}>
       <TextBase style={styles.title}>
-        {t('situation.pregnancyFollow.title')}
+        {situation?.pregnancyFollowTitle}
       </TextBase>
       <View style={styles.listContainer}>
         {followUp.length === 0 && (
-          <TextBase style={styles.text}>
-            {t('situation.pregnancyFollow.noFollowUp')}
-          </TextBase>
+          <TextBase style={styles.text}>{situation?.noFollowUp}</TextBase>
         )}
         {displayFollowUpLines()}
       </View>

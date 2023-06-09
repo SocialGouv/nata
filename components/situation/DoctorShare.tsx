@@ -2,14 +2,25 @@ import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import Matomo from 'react-native-matomo-fork';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DoctorShare = () => {
-  const {t} = useTranslation();
+  const [situation, setSituation] = React.useState<any>();
   const navigation = useNavigation();
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setSituation(JSON.parse(content).situation);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <View style={styles.topContainer}>
@@ -26,9 +37,7 @@ const DoctorShare = () => {
         }}>
         <Image source={require('../../assets/images/Doctor.png')} />
         <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            {t('situation.shareInformations.title')}
-          </Text>
+          <Text style={styles.text}>{situation?.shareInformationsTitle}</Text>
         </View>
         <Image
           style={{marginRight: 10}}
