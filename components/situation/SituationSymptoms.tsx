@@ -1,30 +1,35 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {Fonts} from '../../styles/Style';
 import DisplaySymptomes from '../followup/DisplaySymptomes';
 import TextBase from '../ui/TextBase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Symptome} from '../followup/interface';
 
 interface Props {
-  symptomes: {
-    label: string;
-    slug: string;
-    status: string;
-    code: string;
-  }[];
+  symptomes: Symptome[];
 }
 
 const SituationSymptoms = (props: Props) => {
+  const [situation, setSituation] = React.useState<any>();
   const {symptomes} = props;
-  const {t} = useTranslation();
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setSituation(JSON.parse(content).situation);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>{t('situation.symptoms.title')}</TextBase>
+      <TextBase style={styles.title}>{situation?.symptomsTitle}</TextBase>
       {symptomes.length === 0 && (
-        <TextBase style={styles.text}>
-          {t('situation.symptoms.noSymptoms')}
-        </TextBase>
+        <TextBase style={styles.text}>{situation?.noSymptoms}</TextBase>
       )}
       <DisplaySymptomes symptomes={symptomes} displayTitle={false} />
     </View>

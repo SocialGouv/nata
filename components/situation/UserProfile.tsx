@@ -1,15 +1,16 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
-import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import data from '../../assets/models/questions.json';
 import TextBase from '../ui/TextBase';
+import {Question, Response} from '../onboarding/interface';
+import _ from 'lodash';
 
 const UserProfile = () => {
-  const {t} = useTranslation();
-
+  const [situation, setSituation] = React.useState<any>();
+  const [questions, setQuestions] = React.useState<Question[]>([]);
+  const [languages, setLanguages] = React.useState<any[]>([]);
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
   const infos = [
     'language',
@@ -19,18 +20,29 @@ const UserProfile = () => {
     'housing',
   ];
 
-  const questions = JSON.parse(JSON.stringify(data.data));
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then(content => {
+        if (content !== null) {
+          setSituation(JSON.parse(content).situation);
+          setQuestions(JSON.parse(content).question?.results);
+          setLanguages(JSON.parse(content).language?.results);
+        }
+      });
+    };
+    getContentFromCache();
+  }, []);
 
   const getLanguageFromCode = (code: string) => {
     switch (code) {
       case 'fr':
-        return t('languages.fr');
+        return languages.find(language => language.code === 'fr')?.nom;
       case 'en':
-        return t('languages.en');
+        return languages.find(language => language.code === 'en')?.nom;
       case 'ar':
-        return t('languages.ar');
+        return languages.find(language => language.code === 'ar')?.nom;
       case 'ps':
-        return t('languages.ps');
+        return languages.find(language => language.code === 'ps')?.nom;
     }
   };
 
@@ -38,10 +50,10 @@ const UserProfile = () => {
     if (userInfos) {
       let pattern = /^Q/;
       if (pattern.test(code)) {
-        return questions.map((question: any) => {
-          return question.answers.map((answer: any) => {
+        return questions?.map((question: Question) => {
+          return question.responses.map((answer: Response) => {
             if (answer.value === code) {
-              return t(answer.label);
+              return answer.label;
             }
           });
         });
@@ -80,11 +92,16 @@ const UserProfile = () => {
       return null;
     } else {
       return infos.map((info, index) => {
+        const modInfo = info
+          .split('_')
+          .map(e => _.startCase(e).split(' ').join(''))
+          .join('');
+
         return (
           <View key={index} style={styles.line}>
             <View>
               <TextBase style={styles.boldText}>
-                {t(`situation.profile.${info}`)}
+                {situation[`profile${modInfo}`]}
               </TextBase>
               <TextBase>
                 {displayUserAnswersFromQuestionCodes(userInfos[info])}
@@ -105,7 +122,7 @@ const UserProfile = () => {
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>{t('situation.profile.title')}</TextBase>
+      <TextBase style={styles.title}>{situation?.profileTitle}</TextBase>
       {userInfos && displayInfos()}
     </View>
   );

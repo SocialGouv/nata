@@ -4,13 +4,15 @@ export interface Symptome {
   slug: string;
   status: string;
   code: string;
+  currentMonth?: number;
 }
 
 export interface Meetings {
   title: string;
   code: string;
   isMandatory: boolean;
-  month: Month;
+  months?: Month[];
+  monthNumber?: number;
   maxMonth?: number;
 }
 

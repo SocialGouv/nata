@@ -8,14 +8,8 @@ import {useIsFocused} from '@react-navigation/native';
 import SituationSymptoms from '../components/situation/SituationSymptoms';
 import UserProfile from '../components/situation/UserProfile';
 import {ScrollView} from 'react-native';
-
-interface Symptome {
-  label: string;
-  slug: string;
-  status: string;
-  code: string;
-}
-
+import {Symptome} from '../components/followup/interface';
+import _ from 'lodash';
 const MySituation = () => {
   const isFocused = useIsFocused();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
@@ -41,7 +35,7 @@ const MySituation = () => {
         <DoctorShare />
         <PregnancyFollow />
         <MonthlyMeetings />
-        <SituationSymptoms symptomes={userSymptomes} />
+        <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
         <UserProfile />
       </ScrollView>
     </Container>

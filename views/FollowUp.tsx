@@ -15,10 +15,9 @@ import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
-import {Meetings, Symptome, Month} from '../components/followup/interface';
+import {Symptome, Month} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
-import {useIsFocused} from '@react-navigation/native';
 import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
 import AppContext from '../AppContext';
@@ -26,7 +25,6 @@ import {MatomoTrackEvent} from '../utils/Matomo';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
-  const isFocused = useIsFocused();
   const styles = StyleSheet.create({
     imageContainer: {
       width: '100%',
@@ -84,9 +82,6 @@ const FollowUp = () => {
     meetings: [],
     symptoms: [],
   });
-  const [mandatoryMeetings, setMandatoryMeeting] = React.useState<Meetings[]>(
-    [],
-  );
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
 
@@ -161,26 +156,6 @@ const FollowUp = () => {
     }
   };
 
-  const retrieveManadatoryMeetings = useCallback(async () => {
-    const tmpMandatoryMeetings = months?.reduce(
-      (acc: any, current: any) => {
-        if (current.meetings) {
-          const tmpMandatories = current.meetings.filter(
-            (meeting: any) => meeting.isMandatory === true,
-          );
-          return [...acc, ...tmpMandatories];
-        }
-        return acc;
-      },
-      [isFocused],
-    );
-    setMandatoryMeeting(tmpMandatoryMeetings);
-  }, [isFocused, months]);
-
-  React.useEffect(() => {
-    retrieveManadatoryMeetings();
-  }, [retrieveManadatoryMeetings]);
-
   // React.useEffect(() => {
   //   (async () => {
   //     await AsyncStorage.clear();
@@ -250,12 +225,12 @@ const FollowUp = () => {
         </View>
         <DisplayMeetings
           currentMonth={currentMonth as number}
-          meetings={currentContent ? currentContent?.meetings : []}
-          mandatoryMeetings={mandatoryMeetings}
+          monthContent={currentContent}
         />
         <DisplaySymptomes
           isUrgency={false}
           displayTitle={true}
+          currentMonth={currentContent.monthNumber}
           symptomes={
             !currentContent
               ? []

@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UrgencyModule from './UrgencyModule';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import {Symptome} from './interface';
+import TextBase from '../ui/TextBase';
 
 interface Props {
   symptomes: Symptome[];
@@ -140,7 +141,10 @@ const DisplaySymptomes = (props: Props) => {
     setSelectedSymptome(item);
     if (
       userSymptomesStatus &&
-      userSymptomesStatus.find(symptome => symptome.code === item.code)
+      userSymptomesStatus.find(
+        symptome =>
+          symptome.code === item.code && symptome.currentMonth === currentMonth,
+      )
     ) {
       setUserSymptomesStatus &&
         setUserSymptomesStatus(
@@ -148,7 +152,10 @@ const DisplaySymptomes = (props: Props) => {
         );
     } else {
       setUserSymptomesStatus &&
-        setUserSymptomesStatus([...(userSymptomesStatus || []), item]);
+        setUserSymptomesStatus([
+          ...(userSymptomesStatus || []),
+          {...item, currentMonth: currentMonth},
+        ]);
     }
   };
 
@@ -166,7 +173,11 @@ const DisplaySymptomes = (props: Props) => {
             borderWidth: 2,
             borderColor:
               userSymptomesStatus &&
-              userSymptomesStatus.find(symptome => symptome.code === item.code)
+              userSymptomesStatus.find(
+                symptome =>
+                  symptome.code === item.code &&
+                  symptome.currentMonth === currentMonth,
+              )
                 ? isUrgency
                   ? Colors.urgence
                   : '#A56300'
@@ -186,8 +197,10 @@ const DisplaySymptomes = (props: Props) => {
     <View style={styles.container}>
       {displayTitle && (
         <>
-          <Text style={styles.title}>{followup?.symptomsTitle}</Text>
-          <Text style={styles.subText}>{followup?.symptomsIndication}</Text>
+          <TextBase style={styles.title}>{followup?.symptomsTitle}</TextBase>
+          <TextBase style={styles.subText}>
+            {followup?.symptomsIndication}
+          </TextBase>
         </>
       )}
       <FlatGrid
