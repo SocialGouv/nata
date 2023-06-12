@@ -19,8 +19,6 @@ const ShareSituation = () => {
   const [questions, setQuestions] = React.useState<any[]>([]);
   const [languages, setLanguages] = React.useState<any[]>([]);
 
-  console.log('questions', questions);
-
   React.useEffect(() => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
