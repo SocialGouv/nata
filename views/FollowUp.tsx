@@ -15,10 +15,9 @@ import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
 import InformationModal from '../components/followup/InformationModal';
-import {Meetings, Symptome, Month} from '../components/followup/interface';
+import {Symptome, Month} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
-import {useIsFocused} from '@react-navigation/native';
 import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
 import AppContext from '../AppContext';
@@ -26,7 +25,6 @@ import {MatomoTrackEvent} from '../utils/Matomo';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
-  const isFocused = useIsFocused();
   const styles = StyleSheet.create({
     imageContainer: {
       width: '100%',
@@ -232,6 +230,7 @@ const FollowUp = () => {
         <DisplaySymptomes
           isUrgency={false}
           displayTitle={true}
+          currentMonth={currentContent.monthNumber}
           symptomes={
             !currentContent
               ? []

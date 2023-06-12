@@ -7,6 +7,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {Meetings, Month} from './interface';
 import _ from 'lodash';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import TextBase from '../ui/TextBase';
 
 interface Props {
   currentMonth: number;
@@ -118,8 +119,8 @@ const DisplayMeetings = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{followup?.meetingTitle}</Text>
-      <Text style={styles.subText}>{followup?.meetingIndication}</Text>
+      <TextBase style={styles.title}>{followup?.meetingTitle}</TextBase>
+      <TextBase style={styles.subText}>{followup?.meetingIndication}</TextBase>
       {fullMeetingList.length === 0 && (
         <Text style={styles.text}>{followup?.noMeeting}</Text>
       )}

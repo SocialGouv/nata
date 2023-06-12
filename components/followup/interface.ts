@@ -4,6 +4,7 @@ export interface Symptome {
   slug: string;
   status: string;
   code: string;
+  currentMonth?: number;
 }
 
 export interface Meetings {

@@ -10,6 +10,7 @@ import SituationSymptoms from '../components/situation/SituationSymptoms';
 import {Symptome} from '../components/followup/interface';
 import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import _ from 'lodash';
 
 const ShareSituation = () => {
   const navigation = useNavigation();
@@ -17,6 +18,8 @@ const ShareSituation = () => {
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
   const [questions, setQuestions] = React.useState<any[]>([]);
   const [languages, setLanguages] = React.useState<any[]>([]);
+
+  console.log('questions', questions);
 
   React.useEffect(() => {
     const getContentFromCache = () => {
@@ -152,7 +155,7 @@ const ShareSituation = () => {
         </View>
         <View>{buildUserInfosString()}</View>
         <PregnancyFollow bg={Colors.backgroundPrimary} />
-        <SituationSymptoms symptomes={userSymptomes} />
+        <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
       </ScrollView>
     </Container>
   );
