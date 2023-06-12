@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './assets/i18n/i18n';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -51,6 +51,8 @@ function App(): JSX.Element {
     setCurrentMonth,
   };
 
+  const [updateText, setUpdateText] = React.useState<Record<string, string>>();
+
   const handleOnboardingDone = async () => {
     try {
       const value = await AsyncStorage.getItem('isOnboardingDone');
@@ -64,15 +66,25 @@ function App(): JSX.Element {
     }
   };
 
+  const getContentFromCache = useCallback(async () => {
+    await AsyncStorage.getItem('content').then(content => {
+      if (content !== null) {
+        setUpdateText(JSON.parse(content)['force-update']);
+      }
+    });
+  }, []);
+
+  console.log('updateText', updateText);
+
   const checkUpdateNeeded = async () => {
     let updateNeeded = await VersionCheck.needUpdate();
     if (updateNeeded && updateNeeded.isNeeded) {
       Alert.alert(
-        'Mise à jour',
-        "Une mise à jour est disponible, merci de la télécharger pour continuer à utiliser l'application",
+        updateText?.title || 'Mise à jour',
+        updateText?.description || 'Une mise à jour est disponible',
         [
           {
-            text: 'Télécharger',
+            text: updateText?.button || 'Mettre à jour',
             onPress: () => {
               BackHandler.exitApp();
               Linking.openURL(updateNeeded.storeUrl);
@@ -84,12 +96,16 @@ function App(): JSX.Element {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
+    checkUpdateNeeded();
+  }, [getContentFromCache]);
+
+  React.useEffect(() => {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
-  useEffect(() => {
-    checkUpdateNeeded();
+  React.useEffect(() => {
+    getContentFromCache();
     MatomoTrackEvent('APP', 'APP_OPEN');
   }, []);
 
