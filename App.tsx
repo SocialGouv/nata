@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './assets/i18n/i18n';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -14,11 +14,10 @@ import AppContext from './AppContext';
 import HelpPage from './views/HelpPage';
 import ShortOnboardingEnd from './views/OnboardingSubScreens/ShortOnboardingEnd';
 import Legal from './views/Legal';
-import DeviceInfo from 'react-native-device-info';
-import Matomo from 'react-native-matomo-fork';
-import {REACT_APP_MATOMO_SITE_ID, REACT_APP_MATOMO_SITE_URL} from '@env';
 import SoliguidePage from './views/SoliguidePage';
 import {MatomoTrackEvent} from './utils/Matomo';
+import VersionCheck from 'react-native-version-check';
+import {Alert, BackHandler, Linking} from 'react-native';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -40,7 +39,6 @@ function App(): JSX.Element {
   const [displayInitialModal, setDisplayInitialModal] =
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
-  const [userId, setUserId] = React.useState<string>('');
 
   const contextValue: ContextType = {
     isOnboardingDone,
@@ -52,6 +50,8 @@ function App(): JSX.Element {
     currentMonth,
     setCurrentMonth,
   };
+
+  const [updateText, setUpdateText] = React.useState<Record<string, string>>();
 
   const handleOnboardingDone = async () => {
     try {
@@ -66,11 +66,44 @@ function App(): JSX.Element {
     }
   };
 
-  useEffect(() => {
+  const getContentFromCache = React.useCallback(async () => {
+    await AsyncStorage.getItem('content').then(content => {
+      if (content !== null) {
+        setUpdateText(JSON.parse(content)['force-update']);
+      }
+    });
+  }, []);
+
+  const checkUpdateNeeded = React.useCallback(async () => {
+    let updateNeeded = await VersionCheck.needUpdate();
+    if (updateNeeded && updateNeeded.isNeeded) {
+      Alert.alert(
+        updateText?.title || 'Mise à jour',
+        updateText?.description || 'Une mise à jour est disponible',
+        [
+          {
+            text: updateText?.button || 'Mettre à jour',
+            onPress: () => {
+              BackHandler.exitApp();
+              Linking.openURL(updateNeeded.storeUrl);
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    }
+  }, [updateText]);
+
+  React.useEffect(() => {
+    checkUpdateNeeded();
+  }, [checkUpdateNeeded, getContentFromCache]);
+
+  React.useEffect(() => {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    getContentFromCache();
     MatomoTrackEvent('APP', 'APP_OPEN');
   }, []);
 

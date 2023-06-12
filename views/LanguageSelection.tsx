@@ -85,7 +85,6 @@ const LanguageSelection = () => {
       reqOptions,
     );
     const data = await response.json();
-    console.log('data', data);
     let tmpLanguages: Language[] = [];
     if (data.data) {
       data.data.map(el => tmpLanguages.push(el.attributes));
