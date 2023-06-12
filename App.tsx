@@ -66,7 +66,7 @@ function App(): JSX.Element {
     }
   };
 
-  const getContentFromCache = useCallback(async () => {
+  const getContentFromCache = React.useCallback(async () => {
     await AsyncStorage.getItem('content').then(content => {
       if (content !== null) {
         setUpdateText(JSON.parse(content)['force-update']);
@@ -74,9 +74,7 @@ function App(): JSX.Element {
     });
   }, []);
 
-  console.log('updateText', updateText);
-
-  const checkUpdateNeeded = async () => {
+  const checkUpdateNeeded = React.useCallback(async () => {
     let updateNeeded = await VersionCheck.needUpdate();
     if (updateNeeded && updateNeeded.isNeeded) {
       Alert.alert(
@@ -94,11 +92,11 @@ function App(): JSX.Element {
         {cancelable: false},
       );
     }
-  };
+  }, [updateText]);
 
   React.useEffect(() => {
     checkUpdateNeeded();
-  }, [getContentFromCache]);
+  }, [checkUpdateNeeded, getContentFromCache]);
 
   React.useEffect(() => {
     handleOnboardingDone();
