@@ -14,11 +14,10 @@ import AppContext from './AppContext';
 import HelpPage from './views/HelpPage';
 import ShortOnboardingEnd from './views/OnboardingSubScreens/ShortOnboardingEnd';
 import Legal from './views/Legal';
-import DeviceInfo from 'react-native-device-info';
-import Matomo from 'react-native-matomo-fork';
-import {REACT_APP_MATOMO_SITE_ID, REACT_APP_MATOMO_SITE_URL} from '@env';
 import SoliguidePage from './views/SoliguidePage';
 import {MatomoTrackEvent} from './utils/Matomo';
+import VersionCheck from 'react-native-version-check';
+import {Alert, BackHandler, Linking} from 'react-native';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -40,7 +39,6 @@ function App(): JSX.Element {
   const [displayInitialModal, setDisplayInitialModal] =
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
-  const [userId, setUserId] = React.useState<string>('');
 
   const contextValue: ContextType = {
     isOnboardingDone,
@@ -66,11 +64,32 @@ function App(): JSX.Element {
     }
   };
 
+  const checkUpdateNeeded = async () => {
+    let updateNeeded = await VersionCheck.needUpdate();
+    if (updateNeeded && updateNeeded.isNeeded) {
+      Alert.alert(
+        'Mise à jour',
+        "Une mise à jour est disponible, merci de la télécharger pour continuer à utiliser l'application",
+        [
+          {
+            text: 'Télécharger',
+            onPress: () => {
+              BackHandler.exitApp();
+              Linking.openURL(updateNeeded.storeUrl);
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    }
+  };
+
   useEffect(() => {
     handleOnboardingDone();
   }, [isOnboardingDone]);
 
   useEffect(() => {
+    checkUpdateNeeded();
     MatomoTrackEvent('APP', 'APP_OPEN');
   }, []);
 
