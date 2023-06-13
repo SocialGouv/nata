@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import './assets/i18n/i18n';
 
 import {NavigationContainer} from '@react-navigation/native';

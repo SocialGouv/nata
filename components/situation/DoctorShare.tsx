@@ -3,7 +3,6 @@ import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
-import Matomo from 'react-native-matomo-fork';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
