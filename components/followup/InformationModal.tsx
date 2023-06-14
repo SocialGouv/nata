@@ -24,39 +24,33 @@ const InformationModal = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Modal
-        transparent={true}
-        animationType="slide"
-        visible={displayInitialModal}
-        onRequestClose={() => setDisplayInitialModal(false)}>
-        <View style={styles.innerContainer}>
-          <View style={styles.blocContainer}>
-            <View style={styles.topContainer}>
-              <Image
-                source={require('../../assets/images/onboarding/nurse.png')}
-              />
-              <TextBase style={styles.title}>
-                {informationModal?.title}
+    <Modal
+      transparent={true}
+      animationType="slide"
+      visible={displayInitialModal}
+      onRequestClose={() => setDisplayInitialModal(false)}>
+      <View style={styles.innerContainer}>
+        <View style={styles.blocContainer}>
+          <View style={styles.topContainer}>
+            <Image
+              source={require('../../assets/images/onboarding/nurse.png')}
+            />
+            <TextBase style={styles.title}>{informationModal?.title}</TextBase>
+          </View>
+          <View style={styles.bottomContainer}>
+            <TextBase style={styles.text}>{informationModal?.content}</TextBase>
+            <Pressable
+              style={styles.button}
+              onPress={() => setDisplayInitialModal(false)}>
+              <TextBase
+                style={{...styles.text, color: 'white', fontWeight: '700'}}>
+                {informationModal?.continue}
               </TextBase>
-            </View>
-            <View style={styles.bottomContainer}>
-              <TextBase style={styles.text}>
-                {informationModal?.content}
-              </TextBase>
-              <Pressable
-                style={styles.button}
-                onPress={() => setDisplayInitialModal(false)}>
-                <TextBase
-                  style={{...styles.text, color: 'white', fontWeight: '700'}}>
-                  {informationModal?.continue}
-                </TextBase>
-              </Pressable>
-            </View>
+            </Pressable>
           </View>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -76,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    zIndex: 1,
+    zIndex: 10,
   },
   blocContainer: {
     backgroundColor: 'white',
@@ -116,5 +110,6 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 100,
   },
 });
