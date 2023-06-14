@@ -74,7 +74,8 @@ const FollowUp = () => {
   const [followup, setFollowup] = React.useState<any>();
   const [months, setMonths] = React.useState<Month[]>([]);
 
-  const {currentMonth, setCurrentMonth} = useContext(AppContext);
+  const {currentMonth, setCurrentMonth, setDisplayInitialModal} =
+    useContext(AppContext);
   const [currentContent, setCurrentContent] = React.useState<Month>({
     title: '',
     description: '',
@@ -164,7 +165,7 @@ const FollowUp = () => {
 
   return (
     <Container urgency={false}>
-      <InformationModal />
+      {/* <InformationModal /> */}
       <ScrollView>
         <View>
           <ImageBackground
