@@ -61,16 +61,16 @@ const DisplayMeetings = (props: Props) => {
 
     if (userMeetingStatus && userMeetingStatus.length > 0) {
       // actual meetings according to user status
-      tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
-        return !userMeetingStatus.find(item => {
-          return (
-            item.code === meeting.code &&
-            meeting.maxMonth &&
-            meeting.maxMonth <= currentMonth &&
-            meeting.maxMonth >= monthContent.monthNumber
-          );
-        });
-      });
+      // tmpMeetings = tmpMeetings.filter((meeting: Meetings) => {
+      //   return !userMeetingStatus.find(item => {
+      //     return (
+      //       item.code === meeting.code &&
+      //       meeting.maxMonth &&
+      //       meeting.maxMonth <= currentMonth &&
+      //       meeting.maxMonth >= monthContent.monthNumber
+      //     );
+      //   });
+      // });
 
       setFullMeetingList(_.orderBy(tmpMeetings, ['isMandatory'], ['asc']));
     } else {
