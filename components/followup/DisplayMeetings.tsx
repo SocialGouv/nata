@@ -8,7 +8,7 @@ import {Meetings, Month} from './interface';
 import _ from 'lodash';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import TextBase from '../ui/TextBase';
-
+import AnimationWrapper from '../ui/AnimationWrapper';
 interface Props {
   currentMonth: number;
   monthContent: Month;
@@ -20,6 +20,8 @@ const DisplayMeetings = (props: Props) => {
   const {monthContent, currentMonth} = props;
 
   const isFocused = useIsFocused();
+  const [displayAnimation, setDisplayAnimation] =
+    React.useState<boolean>(false);
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<Meetings[]>(
     [],
   );
@@ -117,6 +119,10 @@ const DisplayMeetings = (props: Props) => {
     updateUserMeetingStatus();
   }, [updateUserMeetingStatus]);
 
+  const whenAnimationFinish = () => {
+    setDisplayAnimation(false);
+  };
+
   return (
     <View style={styles.container}>
       <TextBase style={styles.title}>{followup?.meetingTitle}</TextBase>
@@ -126,65 +132,77 @@ const DisplayMeetings = (props: Props) => {
       )}
       {fullMeetingList.map(meeting => {
         return (
-          <View style={styles.menuItem} key={meeting.code}>
-            <BouncyCheckbox
-              size={25}
-              fillColor={Colors.lightPrimary}
-              text={meeting.title}
-              style={styles.chekboxStyle}
-              isChecked={
-                userMeetingStatus &&
-                userMeetingStatus.find((item: Meetings) => {
-                  return (
-                    item.code === meeting.code &&
-                    meeting.months &&
-                    item.monthNumber &&
-                    meeting.months
-                      .map((m: Month) => m.monthNumber)
-                      .includes(item.monthNumber)
-                  );
-                }) !== undefined
-                  ? true
-                  : false
-              }
-              textStyle={styles.innerCheckboxText}
-              onPress={(isChecked: boolean) => {
-                if (userMeetingStatus) {
-                  if (isChecked) {
-                    MatomoTrackEvent(
-                      'FOLOWUP',
-                      'FOLLOWUP_MEETING_DONE_SELECT',
-                      meeting.title ?? '',
+          <AnimationWrapper
+            source={require('../../assets/animations/confetti.json')}
+            setIsFinished={whenAnimationFinish}
+            showAnimation={displayAnimation}>
+            <View style={styles.menuItem} key={meeting.code}>
+              <BouncyCheckbox
+                size={25}
+                fillColor={Colors.lightPrimary}
+                text={meeting.title}
+                style={styles.chekboxStyle}
+                isChecked={
+                  userMeetingStatus &&
+                  userMeetingStatus.find((item: Meetings) => {
+                    return (
+                      item.code === meeting.code &&
+                      meeting.months &&
+                      item.monthNumber &&
+                      meeting.months
+                        .map((m: Month) => m.monthNumber)
+                        .includes(item.monthNumber)
                     );
-                    setUserMeetingStatus([
-                      ...userMeetingStatus,
-                      {
-                        title: meeting.title,
-                        code: meeting.code,
-                        maxMonth: meeting.maxMonth,
-                        monthNumber: monthContent.monthNumber,
-                        isMandatory: meeting.isMandatory,
-                      },
-                    ]);
-                  } else {
-                    setUserMeetingStatus(
-                      userMeetingStatus.filter(
-                        (item: {title: string}) => item.title !== meeting.title,
-                      ),
-                    );
-                  }
-                } else {
-                  setUserMeetingStatus([meeting]);
+                  }) !== undefined
+                    ? true
+                    : false
                 }
-              }}
-            />
+                textStyle={styles.innerCheckboxText}
+                onPress={(isChecked: boolean) => {
+                  if (userMeetingStatus) {
+                    if (isChecked) {
+                      MatomoTrackEvent(
+                        'FOLOWUP',
+                        'FOLLOWUP_MEETING_DONE_SELECT',
+                        meeting.title ?? '',
+                      );
+                      setUserMeetingStatus([
+                        ...userMeetingStatus,
+                        {
+                          title: meeting.title,
+                          code: meeting.code,
+                          maxMonth: meeting.maxMonth,
+                          monthNumber: monthContent.monthNumber,
+                          isMandatory: meeting.isMandatory,
+                        },
+                      ]);
 
-            {/* <FontAwesome5Icon
+                      setDisplayAnimation(true);
+                    } else {
+                      setUserMeetingStatus(
+                        userMeetingStatus.filter(
+                          (item: {title: string}) =>
+                            item.title !== meeting.title,
+                        ),
+                      );
+
+                      setDisplayAnimation(false);
+                    }
+                  } else {
+                    setUserMeetingStatus([meeting]);
+
+                    setDisplayAnimation(true);
+                  }
+                }}
+              />
+
+              {/* <FontAwesome5Icon
               name="chevron-right"
               size={15}
               color={Colors.black}
             /> */}
-          </View>
+            </View>
+          </AnimationWrapper>
         );
       })}
     </View>
@@ -200,6 +218,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     marginBottom: 30,
+    position: 'relative',
   },
   title: {
     fontFamily: Fonts.primary,
@@ -236,5 +255,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    position: 'relative',
   },
 });

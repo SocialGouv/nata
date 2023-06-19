@@ -18,6 +18,8 @@
     "@types/react-native-snap-carousel": "^3.8.5",
     "i18next": "^22.4.14",
     "lodash": "^4.17.21",
+    "lottie-ios": "3.4.0",
+    "lottie-react-native": "5.1.4",
     "matomo-tracker-react-native": "^0.3.1",
     "react": "18.2.0",
     "react-i18next": "^12.2.0",
