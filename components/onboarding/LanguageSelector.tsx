@@ -9,12 +9,18 @@ import React from 'react';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 import {MatomoTrackEvent} from '../../utils/Matomo';
-import flags from '../../assets/models/languages';
 
 interface Language {
   code: string;
   nom: string;
   actif: boolean;
+  image: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
 }
 
 interface Props {
@@ -25,7 +31,7 @@ interface Props {
 
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage, languages} = props;
-  //const {trackEvent} = useMatomo();
+
   const styles = StyleSheet.create({
     gridView: {
       marginTop: 10,
@@ -56,33 +62,41 @@ const LanguageSelector = (props: Props) => {
         data={languages}
         showsVerticalScrollIndicator={false}
         style={styles.gridView}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={async () => {
-              changeLanguage(item.code);
-              MatomoTrackEvent(
-                'ONBOARDING',
-                'ONBOARDING_LANGUAGE_CHOOSE',
-                item.nom,
-              );
-            }}
-            style={[
-              styles.button,
-              {
-                borderColor:
-                  item.code === selectedLanguage
-                    ? Colors.primary
-                    : Colors.black,
-                borderWidth: item.code === selectedLanguage ? 2 : 1,
-              },
-            ]}>
-            <Image
-              source={flags.find(flag => flag.code === item.code)?.flag}
-              style={styles.image}
-            />
-            <TextBase>{item.nom}</TextBase>
-          </TouchableOpacity>
-        )}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={async () => {
+                changeLanguage(item.code);
+                MatomoTrackEvent(
+                  'ONBOARDING',
+                  'ONBOARDING_LANGUAGE_CHOOSE',
+                  item.nom,
+                );
+              }}
+              style={[
+                styles.button,
+                {
+                  borderColor:
+                    item.code === selectedLanguage
+                      ? Colors.primary
+                      : Colors.black,
+                  borderWidth: item.code === selectedLanguage ? 2 : 1,
+                },
+              ]}>
+              {item.image && (
+                <Image
+                  source={{
+                    uri:
+                      'https://nata-bo.numericite.eu' +
+                      item.image.data.attributes.url,
+                  }}
+                  style={styles.image}
+                />
+              )}
+              <TextBase>{item.nom}</TextBase>
+            </TouchableOpacity>
+          );
+        }}
       />
     </ScrollView>
   );
