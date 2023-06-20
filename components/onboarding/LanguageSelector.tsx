@@ -14,7 +14,13 @@ interface Language {
   code: string;
   nom: string;
   actif: boolean;
-  image: string;
+  image: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
 }
 
 interface Props {
@@ -51,39 +57,47 @@ const LanguageSelector = (props: Props) => {
     },
   });
 
+  console.log(languages);
+
   return (
     <ScrollView horizontal>
       <FlatList
         data={languages}
         showsVerticalScrollIndicator={false}
         style={styles.gridView}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={async () => {
-              changeLanguage(item.code);
-              MatomoTrackEvent(
-                'ONBOARDING',
-                'ONBOARDING_LANGUAGE_CHOOSE',
-                item.nom,
-              );
-            }}
-            style={[
-              styles.button,
-              {
-                borderColor:
-                  item.code === selectedLanguage
-                    ? Colors.primary
-                    : Colors.black,
-                borderWidth: item.code === selectedLanguage ? 2 : 1,
-              },
-            ]}>
-            <Image
-              source={process.env.REACT_APP_API_URL + item.image}
-              style={styles.image}
-            />
-            <TextBase>{item.nom}</TextBase>
-          </TouchableOpacity>
-        )}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={async () => {
+                changeLanguage(item.code);
+                MatomoTrackEvent(
+                  'ONBOARDING',
+                  'ONBOARDING_LANGUAGE_CHOOSE',
+                  item.nom,
+                );
+              }}
+              style={[
+                styles.button,
+                {
+                  borderColor:
+                    item.code === selectedLanguage
+                      ? Colors.primary
+                      : Colors.black,
+                  borderWidth: item.code === selectedLanguage ? 2 : 1,
+                },
+              ]}>
+              <Image
+                source={{
+                  uri:
+                    'https://nata-bo.numericite.eu' +
+                    item.image.data.attributes.url,
+                }}
+                style={styles.image}
+              />
+              <TextBase>{item.nom}</TextBase>
+            </TouchableOpacity>
+          );
+        }}
       />
     </ScrollView>
   );

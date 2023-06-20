@@ -20,7 +20,13 @@ interface Language {
   code: string;
   nom: string;
   actif: boolean;
-  image: string;
+  image: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
 }
 
 const LanguageSelection = () => {
@@ -82,7 +88,7 @@ const LanguageSelection = () => {
       },
     };
     const response = await fetch(
-      'https://nata-bo.numericite.eu' + '/api/languages',
+      'https://nata-bo.numericite.eu' + '/api/languages?populate=*',
       reqOptions,
     );
     const data = await response.json();
