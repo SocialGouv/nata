@@ -31,7 +31,6 @@ interface Props {
 
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage, languages} = props;
-  //const {trackEvent} = useMatomo();
 
   const styles = StyleSheet.create({
     gridView: {
@@ -86,14 +85,16 @@ const LanguageSelector = (props: Props) => {
                   borderWidth: item.code === selectedLanguage ? 2 : 1,
                 },
               ]}>
-              <Image
-                source={{
-                  uri:
-                    'https://nata-bo.numericite.eu' +
-                    item.image.data.attributes.url,
-                }}
-                style={styles.image}
-              />
+              {item.image && (
+                <Image
+                  source={{
+                    uri:
+                      'https://nata-bo.numericite.eu' +
+                      item.image.data.attributes.url,
+                  }}
+                  style={styles.image}
+                />
+              )}
               <TextBase>{item.nom}</TextBase>
             </TouchableOpacity>
           );
