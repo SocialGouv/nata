@@ -20,6 +20,7 @@ interface Language {
   code: string;
   nom: string;
   actif: boolean;
+  image: string;
 }
 
 const LanguageSelection = () => {

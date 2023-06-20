@@ -9,12 +9,12 @@ import React from 'react';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 import {MatomoTrackEvent} from '../../utils/Matomo';
-import flags from '../../assets/models/languages';
 
 interface Language {
   code: string;
   nom: string;
   actif: boolean;
+  image: string;
 }
 
 interface Props {
@@ -26,6 +26,7 @@ interface Props {
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage, languages} = props;
   //const {trackEvent} = useMatomo();
+
   const styles = StyleSheet.create({
     gridView: {
       marginTop: 10,
@@ -77,7 +78,7 @@ const LanguageSelector = (props: Props) => {
               },
             ]}>
             <Image
-              source={flags.find(flag => flag.code === item.code)?.flag}
+              source={process.env.REACT_APP_API_URL + item.image}
               style={styles.image}
             />
             <TextBase>{item.nom}</TextBase>
