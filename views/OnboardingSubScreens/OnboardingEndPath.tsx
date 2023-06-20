@@ -236,7 +236,7 @@ const OnboardingEndPath = ({
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView keyboardShouldPersistTaps="handled">
+        <ScrollView>
           <Pressable
             onPress={() => navigation.goBack()}
             style={styles.backPressable}>
@@ -287,6 +287,7 @@ const OnboardingEndPath = ({
                     />
                   )}
                   flatListProps={{
+                    keyboardShouldPersistTaps: 'always',
                     renderItem: ({item}) => (
                       <TouchableOpacity
                         style={styles.displayResults}
@@ -297,6 +298,7 @@ const OnboardingEndPath = ({
                             'ONBOARDING_STOPPED',
                             'ONBOARDING_STOPPED_SEARCH',
                           );
+                          Keyboard.dismiss();
                         }}>
                         <TextBase>{item}</TextBase>
                       </TouchableOpacity>

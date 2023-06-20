@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -183,83 +182,79 @@ const HelpPage = (props: Props) => {
 
   return (
     <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <View style={styles.topContainer}>
-            <Pressable
-              onPress={() => navigation.goBack()}
-              style={({pressed}) => [
-                styles.backButton,
-                {opacity: pressed ? 0.5 : 1},
-              ]}>
-              <FontAwesome5Icon name="chevron-left" color={Colors.primary} />
-              <TextBase style={styles.backText}> {pageText?.back}</TextBase>
-            </Pressable>
-            <View style={styles.titleContainer}>
-              <TextBase style={styles.icon}>{help.icon}</TextBase>
-              <TextBase style={styles.title}>{help.title}</TextBase>
-            </View>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.topContainer}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={({pressed}) => [
+              styles.backButton,
+              {opacity: pressed ? 0.5 : 1},
+            ]}>
+            <FontAwesome5Icon name="chevron-left" color={Colors.primary} />
+            <TextBase style={styles.backText}> {pageText?.back}</TextBase>
+          </Pressable>
+          <View style={styles.titleContainer}>
+            <TextBase style={styles.icon}>{help.icon}</TextBase>
+            <TextBase style={styles.title}>{help.title}</TextBase>
           </View>
-          <View style={styles.middleContainer}>
-            <TextBase style={styles.subtitle}>{help.subtext}</TextBase>
-            <View style={styles.searchContainer}>
-              <View style={styles.autoCompleteContainer}>
-                <Autocomplete
-                  inputContainerStyle={{borderWidth: 0}}
-                  data={geogouvData}
-                  hideResults={hideResults}
-                  renderTextInput={() => (
-                    <TextInput
-                      style={styles.input}
-                      placeholder={pageText?.search}
-                      value={search}
-                      onChangeText={text => {
+        </View>
+        <View style={styles.middleContainer}>
+          <TextBase style={styles.subtitle}>{help.subtext}</TextBase>
+          <View style={styles.searchContainer}>
+            <View style={styles.autoCompleteContainer}>
+              <Autocomplete
+                inputContainerStyle={{borderWidth: 0}}
+                data={geogouvData}
+                hideResults={hideResults}
+                renderTextInput={() => (
+                  <TextInput
+                    style={styles.input}
+                    placeholder={pageText?.search}
+                    value={search}
+                    onChangeText={text => {
+                      setHideResults(false);
+                      setSearch(text);
+                      debouncedAPICall();
+                    }}
+                  />
+                )}
+                flatListProps={{
+                  keyboardShouldPersistTaps: 'always',
+                  renderItem: ({item}) => (
+                    <TouchableOpacity
+                      style={styles.displayResults}
+                      onPress={() => {
+                        setSearch(item);
                         setHideResults(false);
-                        setSearch(text);
-                        debouncedAPICall();
-                      }}
-                    />
-                  )}
-                  flatListProps={{
-                    renderItem: ({item}) => (
-                      <TouchableOpacity
-                        style={styles.displayResults}
-                        onPress={() => {
-                          setSearch(item);
-                          setHideResults(false);
-                          MatomoTrackEvent('HELP', 'HELP_SEARCH');
-                        }}>
-                        <TextBase>{item}</TextBase>
-                      </TouchableOpacity>
-                    ),
-                  }}
-                />
-              </View>
-              <TouchableOpacity
-                disabled={!search}
-                onPress={() => handlePressSearch()}
-                style={styles.searchButton}>
-                <FontAwesome5Icon
-                  name="search"
-                  size={20}
-                  color={Colors.white}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.webview}>
-            {city !== '' && (
-              <SoliGuideModule
-                city={city}
-                categories={help.code.split(',')}
-                keywords={help.keywords}
-                style={'default'}
-                matomo={'HELP'}
+                        MatomoTrackEvent('HELP', 'HELP_SEARCH');
+                        Keyboard.dismiss();
+                      }}>
+                      <TextBase>{item}</TextBase>
+                    </TouchableOpacity>
+                  ),
+                }}
               />
-            )}
+            </View>
+            <TouchableOpacity
+              disabled={!search}
+              onPress={() => handlePressSearch()}
+              style={styles.searchButton}>
+              <FontAwesome5Icon name="search" size={20} color={Colors.white} />
+            </TouchableOpacity>
           </View>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+        </View>
+        <View style={styles.webview}>
+          {city !== '' && (
+            <SoliGuideModule
+              city={city}
+              categories={help.code.split(',')}
+              keywords={help.keywords}
+              style={'default'}
+              matomo={'HELP'}
+            />
+          )}
+        </View>
+      </ScrollView>
     </Container>
   );
 };
