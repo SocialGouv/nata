@@ -56,8 +56,6 @@ const LanguageSelector = (props: Props) => {
     },
   });
 
-  console.log(languages);
-
   return (
     <ScrollView horizontal>
       <FlatList
