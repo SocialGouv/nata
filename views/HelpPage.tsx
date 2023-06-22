@@ -176,7 +176,6 @@ const HelpPage = (props: Props) => {
       });
     };
     getContentFromCache();
-
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_HELP');
   }, []);
 
