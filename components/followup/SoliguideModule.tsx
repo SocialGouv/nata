@@ -32,6 +32,8 @@ const SoliGuideModule = (props: Props) => {
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
 
+  console.log(city);
+
   const styles = StyleSheet.create({
     container: {
       width: '100%',
@@ -91,12 +93,13 @@ const SoliGuideModule = (props: Props) => {
       'Authorization',
       'JWT ' + process.env.REACT_APP_API_SOLIGUIDE_KEY ?? '',
     );
-    var raw = JSON.stringify({
+    let raw = JSON.stringify({
       'location.geoType': 'ville',
       'location.geoValue': city,
       categories: categories,
       'options.limit': 100,
     });
+
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -110,6 +113,7 @@ const SoliGuideModule = (props: Props) => {
     )
       .then(response => response.text())
       .then(result => {
+        console.log('result', result);
         if (keywords && keywords.length > 0) {
           const filtered = JSON.parse(result).places.filter((place: any) => {
             return keywords.some((keyword: string) => {
@@ -128,7 +132,6 @@ const SoliGuideModule = (props: Props) => {
 
   useEffect(() => {
     fetchSoliguide();
-
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
@@ -142,7 +145,6 @@ const SoliGuideModule = (props: Props) => {
   const handleOpenMap = (lat: number, lng: number) => {
     const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=$';
     const url = scheme + `${lat},${lng}`;
-    console.log(url);
     url && Linking.openURL(url);
   };
 
