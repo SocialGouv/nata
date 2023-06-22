@@ -32,8 +32,6 @@ const SoliGuideModule = (props: Props) => {
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
 
-  console.log(city);
-
   const styles = StyleSheet.create({
     container: {
       width: '100%',
@@ -113,7 +111,6 @@ const SoliGuideModule = (props: Props) => {
     )
       .then(response => response.text())
       .then(result => {
-        console.log('result', result);
         if (keywords && keywords.length > 0) {
           const filtered = JSON.parse(result).places.filter((place: any) => {
             return keywords.some((keyword: string) => {
