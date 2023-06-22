@@ -6328,11 +6328,6 @@ react-native-maps@^1.7.1:
   dependencies:
     "@types/geojson" "^7946.0.10"
 
-react-native-matomo-fork@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/react-native-matomo-fork/-/react-native-matomo-fork-0.2.2.tgz"
-  integrity sha512-OhS1a2T6KZQZ2q6GcMlC1OZfhCvjgHH+uGN+YyosV1cZwtQK3FPIRQXqAfm/BZswREb0KMHGVbd8MyeS3Qwfmg==
-
 react-native-permissions@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.8.0.tgz#7c1f75ae126c7d0b863eec9d2f5cd93ff8ad8310"

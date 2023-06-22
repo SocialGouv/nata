@@ -29,7 +29,6 @@
     "react-native-device-info": "^10.6.0",
     "react-native-localize": "^2.2.6",
     "react-native-maps": "^1.7.1",
-    "react-native-matomo-fork": "^0.2.2",
     "react-native-permissions": "^3.8.0",
     "react-native-progress": "^5.0.0",
     "react-native-render-html": "^6.3.4",
