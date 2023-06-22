@@ -17,14 +17,12 @@ const ShareSituation = () => {
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
   const [questions, setQuestions] = React.useState<any[]>([]);
-  const [languages, setLanguages] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
           setQuestions(JSON.parse(content).question.results);
-          setLanguages(JSON.parse(content).language.results);
         }
       });
     };
@@ -71,13 +69,13 @@ const ShareSituation = () => {
   const getLanguageFromCode = (code: string): string => {
     switch (code) {
       case 'fr':
-        return languages.find(language => language.code === 'fr')?.nom;
+        return 'Français';
       case 'en':
-        return languages.find(language => language.code === 'en')?.nom;
+        return 'Anglais';
       case 'ar':
-        return languages.find(language => language.code === 'ar')?.nom;
-      case 'ps':
-        return languages.find(language => language.code === 'ps')?.nom;
+        return 'Arabe';
+      case 'ro':
+        return 'Roumain';
       default:
         return '';
     }

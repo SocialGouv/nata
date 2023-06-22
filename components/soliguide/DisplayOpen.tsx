@@ -2,7 +2,6 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import TextBase from '../ui/TextBase';
 import {Colors} from '../../styles/Style';
-import {get} from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
@@ -14,14 +13,15 @@ const DisplayOpen = (props: Props) => {
   const [soliguide, setSoliguide] = React.useState<any>();
   const {days, color} = props;
 
+  const getContentFromCache = () => {
+    return AsyncStorage.getItem('content').then(content => {
+      if (content !== null) {
+        setSoliguide(JSON.parse(content).soliguide);
+      }
+    });
+  };
+
   React.useEffect(() => {
-    const getContentFromCache = () => {
-      return AsyncStorage.getItem('content').then(content => {
-        if (content !== null) {
-          setSoliguide(JSON.parse(content).soliguide);
-        }
-      });
-    };
     getContentFromCache();
   }, []);
 
@@ -40,7 +40,7 @@ const DisplayOpen = (props: Props) => {
   return (
     <View style={styles(color).container}>
       <TextBase style={styles(color).whiteText}>{`${
-        days[today()].open ? soliguide.open : soliguide.closed
+        days[today()].open ? soliguide?.open : soliguide?.closed
       }`}</TextBase>
     </View>
   );

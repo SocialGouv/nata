@@ -19,6 +19,8 @@ import _ from 'lodash';
 import SoliGuideModule from '../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {requestPosition} from '../utils/requestPosition';
+import Geolocation from '@react-native-community/geolocation';
 
 interface Props {
   route: any;
@@ -127,8 +129,14 @@ const HelpPage = (props: Props) => {
   const [search, setSearch] = React.useState<string>();
   const [city, setCity] = React.useState<string>('');
   const [pageText, setPageText] = React.useState<any>();
+  const [geolocationGranted, setGeolocationGranted] = React.useState<boolean>();
+  const [coordinates, setCoordinates] = React.useState<{
+    latitude: number;
+    longitude: number;
+  }>();
 
   const handleAutocomplete = React.useCallback(async () => {
+    setCity('');
     if (search && search.length > 1) {
       fetch(
         `https://api-adresse.data.gouv.fr/search/?q=${search}&type=municipality&autocomplete=1`,
@@ -164,6 +172,40 @@ const HelpPage = (props: Props) => {
     }
   };
 
+  const retrieveUserPosition = React.useCallback(() => {
+    if (geolocationGranted) {
+      Geolocation.getCurrentPosition(position => {
+        setCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, [geolocationGranted]);
+
+  const retrieveCityFromCoordinates = React.useCallback(() => {
+    if (coordinates) {
+      fetch(
+        `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`,
+      )
+        .then(res => res.json())
+        .then(res => {
+          if (res && res.features && res.features.length > 0) {
+            setCity(res.features[0].properties.city);
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }, [coordinates]);
+
+  React.useEffect(() => {
+    retrieveUserPosition();
+  }, [retrieveUserPosition]);
+
+  React.useEffect(() => {
+    retrieveCityFromCoordinates();
+  }, [retrieveCityFromCoordinates]);
+
   useEffect(() => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
@@ -176,7 +218,7 @@ const HelpPage = (props: Props) => {
       });
     };
     getContentFromCache();
-
+    requestPosition(setGeolocationGranted);
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_HELP');
   }, []);
 

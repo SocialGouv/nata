@@ -99,8 +99,8 @@ android {
         applicationId "com.nata01"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 32
-        versionName "1.33"
+        versionCode 33
+        versionName "1.34"
     }
 
     splits {
@@ -150,7 +150,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-matomo')
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 

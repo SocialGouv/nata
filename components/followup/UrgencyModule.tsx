@@ -3,6 +3,7 @@ import React from 'react';
 import {Colors} from '../../styles/Style';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MatomoTrackEvent} from '../../utils/Matomo';
 
 const UrgencyModule = () => {
   const styles = StyleSheet.create({
@@ -76,6 +77,7 @@ const UrgencyModule = () => {
   }, []);
 
   const onPress = () => {
+    MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
     navigation.navigate('UrgencyPage', {
       title: null,
       number: '0 801 801 081',
