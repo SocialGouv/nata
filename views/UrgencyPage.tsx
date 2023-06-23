@@ -23,6 +23,8 @@ import AppContext from '../AppContext';
 import SoliGuideModule from '../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Geolocation from '@react-native-community/geolocation';
+import {requestPosition} from '../utils/requestPosition';
 interface Props {
   route: any;
 }
@@ -40,6 +42,11 @@ const UrgencyPage = (props: Props) => {
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
   const [city, setCity] = React.useState<string>('');
+  const [geolocationGranted, setGeolocationGranted] = React.useState<boolean>();
+  const [coordinates, setCoordinates] = React.useState<{
+    latitude: number;
+    longitude: number;
+  }>();
 
   const {
     setIsEmergencyOnBoardingDone,
@@ -57,6 +64,7 @@ const UrgencyPage = (props: Props) => {
     };
 
     getContentFromCache();
+    requestPosition(setGeolocationGranted);
   }, []);
 
   const handleAutocomplete = React.useCallback(async () => {
@@ -94,6 +102,40 @@ const UrgencyPage = (props: Props) => {
       setHideResults(true);
     }
   };
+
+  const retrieveUserPosition = React.useCallback(() => {
+    if (geolocationGranted) {
+      Geolocation.getCurrentPosition(position => {
+        setCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, [geolocationGranted]);
+
+  const retrieveCityFromCoordinates = React.useCallback(() => {
+    if (coordinates) {
+      fetch(
+        `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`,
+      )
+        .then(res => res.json())
+        .then(res => {
+          if (res && res.features && res.features.length > 0) {
+            setCity(res.features[0].properties.city);
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }, [coordinates]);
+
+  React.useEffect(() => {
+    retrieveUserPosition();
+  }, [retrieveUserPosition]);
+
+  React.useEffect(() => {
+    retrieveCityFromCoordinates();
+  }, [retrieveCityFromCoordinates]);
 
   useEffect(() => {
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_URGENCY');
