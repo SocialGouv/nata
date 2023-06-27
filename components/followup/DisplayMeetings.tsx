@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.primary,
     fontSize: 16,
     color: Colors.black,
+    paddingRight: 7,
   },
   menuItem: {
     flexDirection: 'row',
