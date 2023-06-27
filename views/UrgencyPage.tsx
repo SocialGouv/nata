@@ -440,21 +440,27 @@ const UrgencyPage = (props: Props) => {
           </Pressable> */}
           {number && (
             <>
-              <TextBase style={styles.explanationContainer}>
-                {urgency?.solipamtext.split('-').map((item: any, key: any) => {
-                  return (
-                    <TextBase
-                      key={key}
-                      style={
-                        key % 2 === 0
-                          ? styles.explanationText
-                          : styles.explanationTextBlue
-                      }>
-                      {item}
-                    </TextBase>
-                  );
-                })}
-              </TextBase>
+              {number === '15' ? (
+                <></>
+              ) : (
+                <TextBase style={styles.explanationContainer}>
+                  {urgency?.solipamtext
+                    .split('-')
+                    .map((item: any, key: any) => {
+                      return (
+                        <TextBase
+                          key={key}
+                          style={
+                            key % 2 === 0
+                              ? styles.explanationText
+                              : styles.explanationTextBlue
+                          }>
+                          {item}
+                        </TextBase>
+                      );
+                    })}
+                </TextBase>
+              )}
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => handlePhonePress()}>
