@@ -57,7 +57,16 @@ const UrgencyModule = () => {
       fontWeight: '700',
     },
   });
+
+  const keywords = [
+    {language: 'fr', label: 'Hôpital'},
+    {language: 'en', label: 'Hospital'},
+    {language: 'ro', label: 'Spital'},
+    {language: 'ar', label: 'مستشفى'},
+  ];
+
   const [followup, setFollowup] = React.useState<any>();
+  const [language, setLanguage] = React.useState<string>();
 
   const navigation = useNavigation();
 
@@ -65,6 +74,7 @@ const UrgencyModule = () => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
+          setLanguage(JSON.parse(content).language);
           setFollowup({
             ...JSON.parse(content).followup,
             back: JSON.parse(content).onboarding.back,
@@ -80,8 +90,8 @@ const UrgencyModule = () => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
     navigation.navigate('UrgencyPage', {
       title: null,
-      number: '0 801 801 081',
-      keywords: ['Hôpital'],
+      number: '15',
+      keywords: keywords.find(keyword => keyword.language === language)?.label,
       back: followup?.back,
     });
   };

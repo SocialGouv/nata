@@ -167,7 +167,7 @@ const HelpPage = (props: Props) => {
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[0]);
+      setCity(search.split(' ')[search.split(' ').length - 1]);
       setHideResults(true);
     }
   };
@@ -191,7 +191,7 @@ const HelpPage = (props: Props) => {
         .then(res => res.json())
         .then(res => {
           if (res && res.features && res.features.length > 0) {
-            setCity(res.features[0].properties.city);
+            setCity(res.features[0].properties.postcode);
           }
         })
         .catch(err => console.log(err));

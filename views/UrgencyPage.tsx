@@ -41,7 +41,7 @@ const UrgencyPage = (props: Props) => {
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
-  const [city, setCity] = React.useState<string>('');
+  const [city, setCity] = React.useState<string>();
   const [geolocationGranted, setGeolocationGranted] = React.useState<boolean>();
   const [coordinates, setCoordinates] = React.useState<{
     latitude: number;
@@ -98,7 +98,7 @@ const UrgencyPage = (props: Props) => {
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[0]);
+      setCity(search.split(' ')[search.split(' ').length - 1]);
       setHideResults(true);
     }
   };
@@ -122,7 +122,7 @@ const UrgencyPage = (props: Props) => {
         .then(res => res.json())
         .then(res => {
           if (res && res.features && res.features.length > 0) {
-            setCity(res.features[0].properties.city);
+            setCity(res.features[0].properties.postcode);
           }
         })
         .catch(err => console.log(err));
@@ -417,7 +417,7 @@ const UrgencyPage = (props: Props) => {
         <View style={styles.webview}>
           {city !== '' && (
             <SoliGuideModule
-              city={city}
+              city={city || ''}
               categories={[107]}
               keywords={keywords}
               style={'urgent'}
