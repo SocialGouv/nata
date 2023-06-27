@@ -41,7 +41,7 @@ const UrgencyPage = (props: Props) => {
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
-  const [city, setCity] = React.useState<string>('');
+  const [city, setCity] = React.useState<string>();
   const [geolocationGranted, setGeolocationGranted] = React.useState<boolean>();
   const [coordinates, setCoordinates] = React.useState<{
     latitude: number;
@@ -98,7 +98,7 @@ const UrgencyPage = (props: Props) => {
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[0]);
+      setCity(search.split(' ')[search.split(' ').length - 1]);
       setHideResults(true);
     }
   };
@@ -122,7 +122,7 @@ const UrgencyPage = (props: Props) => {
         .then(res => res.json())
         .then(res => {
           if (res && res.features && res.features.length > 0) {
-            setCity(res.features[0].properties.city);
+            setCity(res.features[0].properties.postcode);
           }
         })
         .catch(err => console.log(err));
@@ -417,7 +417,7 @@ const UrgencyPage = (props: Props) => {
         <View style={styles.webview}>
           {city !== '' && (
             <SoliGuideModule
-              city={city}
+              city={city || ''}
               categories={[107]}
               keywords={keywords}
               style={'urgent'}
@@ -440,21 +440,27 @@ const UrgencyPage = (props: Props) => {
           </Pressable> */}
           {number && (
             <>
-              <TextBase style={styles.explanationContainer}>
-                {urgency?.solipamtext.split('-').map((item: any, key: any) => {
-                  return (
-                    <TextBase
-                      key={key}
-                      style={
-                        key % 2 === 0
-                          ? styles.explanationText
-                          : styles.explanationTextBlue
-                      }>
-                      {item}
-                    </TextBase>
-                  );
-                })}
-              </TextBase>
+              {number === '15' ? (
+                <></>
+              ) : (
+                <TextBase style={styles.explanationContainer}>
+                  {urgency?.solipamtext
+                    .split('-')
+                    .map((item: any, key: any) => {
+                      return (
+                        <TextBase
+                          key={key}
+                          style={
+                            key % 2 === 0
+                              ? styles.explanationText
+                              : styles.explanationTextBlue
+                          }>
+                          {item}
+                        </TextBase>
+                      );
+                    })}
+                </TextBase>
+              )}
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => handlePhonePress()}>

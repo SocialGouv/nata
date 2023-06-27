@@ -84,7 +84,7 @@ const SoliGuideModule = (props: Props) => {
     },
   });
 
-  const fetchSoliguide = async () => {
+  const fetchSoliguide = React.useCallback(async () => {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append(
@@ -92,7 +92,7 @@ const SoliGuideModule = (props: Props) => {
       'JWT ' + process.env.REACT_APP_API_SOLIGUIDE_KEY ?? '',
     );
     let raw = JSON.stringify({
-      'location.geoType': 'ville',
+      'location.geoType': 'codePostal',
       'location.geoValue': city,
       categories: categories,
       'options.limit': 100,
@@ -125,7 +125,7 @@ const SoliGuideModule = (props: Props) => {
         }
       })
       .catch(error => console.log('error', error));
-  };
+  }, [categories, city, keywords]);
 
   useEffect(() => {
     fetchSoliguide();
@@ -137,7 +137,7 @@ const SoliGuideModule = (props: Props) => {
       });
     };
     getContentFromCache();
-  }, []);
+  }, [fetchSoliguide]);
 
   const handleOpenMap = (lat: number, lng: number) => {
     const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=$';

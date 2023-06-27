@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   Image,
   Keyboard,
@@ -22,6 +22,8 @@ import Images from '../../assets/models/onboardingImages';
 import SoliGuideModule from '../../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Geolocation from '@react-native-community/geolocation';
+import {requestPosition} from '../../utils/requestPosition';
 
 const OnboardingEndPath = ({
   navigation,
@@ -34,18 +36,6 @@ const OnboardingEndPath = ({
   const {width, height} = useWindowDimensions();
   const {number, image, labelSearch, boldBottom, keywords, back, content} =
     route.params;
-
-  useEffect(() => {
-    const getContentFromCache = () => {
-      return AsyncStorage.getItem('content').then((data: any) => {
-        if (data !== null) {
-          setUrgency(JSON.parse(data).urgency);
-        }
-      });
-    };
-
-    getContentFromCache();
-  }, []);
 
   const styles = StyleSheet.create({
     container: {
@@ -190,6 +180,58 @@ const OnboardingEndPath = ({
   const [hideResults, setHideResults] = React.useState<boolean>(false);
   const [search, setSearch] = React.useState<string>();
   const [city, setCity] = React.useState<string>('');
+  const [geolocationGranted, setGeolocationGranted] = React.useState<boolean>();
+  const [coordinates, setCoordinates] = React.useState<{
+    latitude: number;
+    longitude: number;
+  }>();
+
+  React.useEffect(() => {
+    const getContentFromCache = () => {
+      return AsyncStorage.getItem('content').then((data: any) => {
+        if (data !== null) {
+          setUrgency(JSON.parse(data).urgency);
+        }
+      });
+    };
+
+    getContentFromCache();
+    requestPosition(setGeolocationGranted);
+  }, []);
+
+  const retrieveUserPosition = React.useCallback(() => {
+    if (geolocationGranted) {
+      Geolocation.getCurrentPosition(position => {
+        setCoordinates({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, [geolocationGranted]);
+
+  const retrieveCityFromCoordinates = React.useCallback(() => {
+    if (coordinates) {
+      fetch(
+        `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates.longitude}&lat=${coordinates.latitude}`,
+      )
+        .then(res => res.json())
+        .then(res => {
+          if (res && res.features && res.features.length > 0) {
+            setCity(res.features[0].properties.postcode);
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }, [coordinates]);
+
+  React.useEffect(() => {
+    retrieveUserPosition();
+  }, [retrieveUserPosition]);
+
+  React.useEffect(() => {
+    retrieveCityFromCoordinates();
+  }, [retrieveCityFromCoordinates]);
 
   const handleAutocomplete = React.useCallback(async () => {
     if (search && search.length > 1) {
@@ -222,7 +264,7 @@ const OnboardingEndPath = ({
 
   const handlePressSearch = () => {
     if (search) {
-      setCity(search.split(' ')[0]);
+      setCity(search.split(' ')[search.split(' ').length - 1]);
       setHideResults(true);
     }
   };
