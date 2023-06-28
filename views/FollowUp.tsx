@@ -106,7 +106,7 @@ const FollowUp = () => {
   };
 
   const getContentFromCache = () => {
-    return AsyncStorage.getItem('content').then(content => {
+    AsyncStorage.getItem('content').then(content => {
       if (content !== null) {
         setFollowup(JSON.parse(content).followup);
         setMonths(JSON.parse(content).month.results);

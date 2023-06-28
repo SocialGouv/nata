@@ -145,7 +145,7 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
-            number: '0 801 801 081',
+            number: '15',
             keywords: ['PMI'],
             back: onboarding?.back,
           });

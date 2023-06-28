@@ -8,11 +8,12 @@ import {Symptome} from '../followup/interface';
 
 interface Props {
   symptomes: Symptome[];
+  title?: string;
 }
 
 const SituationSymptoms = (props: Props) => {
   const [situation, setSituation] = React.useState<any>();
-  const {symptomes} = props;
+  const {symptomes, title} = props;
 
   React.useEffect(() => {
     const getContentFromCache = () => {
@@ -27,7 +28,9 @@ const SituationSymptoms = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>{situation?.symptomsTitle}</TextBase>
+      <TextBase style={styles.title}>
+        {title ? title : situation?.symptomsTitle}
+      </TextBase>
       {symptomes.length === 0 && (
         <TextBase style={styles.text}>{situation?.noSymptoms}</TextBase>
       )}
