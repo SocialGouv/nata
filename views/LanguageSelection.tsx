@@ -33,7 +33,7 @@ const LanguageSelection = () => {
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation();
   const [languages, setLanguages] = React.useState<Language[]>([]);
-  const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
+  const [selectedLanguage, setSelectedLanguage] = React.useState<string>('fr');
   const [onboarding, setOnboarding] = React.useState<any>();
 
   const styles = StyleSheet.create({
