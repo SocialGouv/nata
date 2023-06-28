@@ -15,10 +15,18 @@ export const fetchContent = async (locale?: string) => {
     },
   };
 
+  if (locale !== 'fr') {
+    fetch(BASE_URL + '/api/app-content', reqOptions)
+      .then(res => res.json())
+      .then(async data => {
+        AsyncStorage.removeItem('frenchContent');
+        await AsyncStorage.setItem('frenchContent', JSON.stringify(data));
+      });
+  }
+
   return fetch(url, reqOptions)
     .then(res => res.json())
     .then(async data => {
-      console.log('Content fetched');
       AsyncStorage.removeItem('content');
       await AsyncStorage.setItem('content', JSON.stringify(data));
     })

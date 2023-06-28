@@ -102,10 +102,6 @@ const LanguageSelection = () => {
 
   useEffect(() => {
     fetchLanguages();
-    const locale = RNLocalize.getLocales()[0].languageCode;
-    if (locale) {
-      setSelectedLanguage(locale);
-    }
     getContentFromCache();
   }, []);
 
@@ -121,6 +117,13 @@ const LanguageSelection = () => {
         setOnboarding(JSON.parse(data as string).onboarding);
       }
     });
+  };
+
+  const detectUserLanguage = () => {
+    const locale = RNLocalize.getLocales()[0].languageCode;
+    if (locale) {
+      setSelectedLanguage(locale);
+    }
   };
 
   const changeLanguage = (language: string) => {

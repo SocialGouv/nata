@@ -9,11 +9,13 @@ import {Meetings} from '../followup/interface';
 
 interface Props {
   bg?: string;
+  title?: string;
+  meetings?: Meetings[];
 }
 
 const PregnancyFollow = (props: Props) => {
   const [situation, setSituation] = React.useState<any>();
-  const {bg} = props;
+  const {bg, title, meetings} = props;
   const isFocused = useIsFocused();
 
   const styles = StyleSheet.create({
@@ -71,35 +73,52 @@ const PregnancyFollow = (props: Props) => {
   }, [retrievePregnancyFollow, isFocused]);
 
   const displayFollowUpLines = () => {
-    const labelCounts: Record<string, number> = followUp.reduce(
-      (acc: Record<string, number>, el) => {
-        acc[el.title] = (acc[el.title] || 0) + 1;
-        return acc;
-      },
-      {},
-    );
-
-    return Object.entries(labelCounts).map(([label, count]) => {
-      const key = `${label}_${count}`;
-      const text = count > 1 ? `${label} : ${count}` : label;
-      return (
-        <View style={styles.line} key={key}>
-          <BouncyCheckbox
-            disabled
-            isChecked={true}
-            fillColor={Colors.primary}
-            size={25}
-          />
-          <TextBase style={styles.text}>{text}</TextBase>
-        </View>
+    if (!meetings) {
+      const labelCounts: Record<string, number> = followUp.reduce(
+        (acc: Record<string, number>, el) => {
+          acc[el.title] = (acc[el.title] || 0) + 1;
+          return acc;
+        },
+        {},
       );
-    });
+      return Object.entries(labelCounts).map(([label, count]) => {
+        const key = `${label}_${count}`;
+        const text = count > 1 ? `${label} : ${count}` : label;
+        return (
+          <View style={styles.line} key={key}>
+            <BouncyCheckbox
+              disabled
+              isChecked={true}
+              fillColor={Colors.primary}
+              size={25}
+            />
+            <TextBase style={styles.text}>{text}</TextBase>
+          </View>
+        );
+      });
+    } else {
+      return meetings.map((meeting, index) => {
+        const key = `${meeting.title}_${index}`;
+        const text = meeting.title;
+        return (
+          <View style={styles.line} key={key}>
+            <BouncyCheckbox
+              disabled
+              isChecked={true}
+              fillColor={Colors.primary}
+              size={25}
+            />
+            <TextBase style={styles.text}>{text}</TextBase>
+          </View>
+        );
+      });
+    }
   };
 
   return (
     <View style={[styles.container, {backgroundColor: bg}]}>
       <TextBase style={styles.title}>
-        {situation?.pregnancyFollowTitle}
+        {title ? title : situation?.pregnancyFollowTitle}
       </TextBase>
       <View style={styles.listContainer}>
         {followUp.length === 0 && (

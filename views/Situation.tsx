@@ -17,6 +17,7 @@ const MySituation = () => {
   const retrieveUserSymptomes = React.useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userSymptomesStatus');
+
       if (value !== null) {
         setUserSymptomes(JSON.parse(value));
       }

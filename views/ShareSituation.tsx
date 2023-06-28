@@ -7,26 +7,48 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PregnancyFollow from '../components/situation/PregnancyFollow';
 import SituationSymptoms from '../components/situation/SituationSymptoms';
-import {Symptome} from '../components/followup/interface';
+import {Meetings, Symptome} from '../components/followup/interface';
 import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import _ from 'lodash';
+
+interface Content {
+  followUp: {};
+  'force-update': {};
+  'help-around': {};
+  'helps-around': {};
+  meeting: {
+    results: [];
+  };
+  response: {
+    results: {
+      label: string;
+      code: string;
+      value: string;
+    }[];
+  };
+  symptom: {
+    results: [];
+  };
+}
 
 const ShareSituation = () => {
   const navigation = useNavigation();
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
-  const [questions, setQuestions] = React.useState<any[]>([]);
+  const [userMeetings, setUserMeetings] = React.useState<Meetings[]>();
+  const [frenchContent, setFrenchContent] = React.useState<Content>();
+
+  const getFrenchContentFromCache = () => {
+    return AsyncStorage.getItem('frenchContent').then(content => {
+      if (content !== null) {
+        setFrenchContent(JSON.parse(content));
+      }
+    });
+  };
 
   React.useEffect(() => {
-    const getContentFromCache = () => {
-      return AsyncStorage.getItem('content').then(content => {
-        if (content !== null) {
-          setQuestions(JSON.parse(content).question.results);
-        }
-      });
-    };
-    getContentFromCache();
+    getFrenchContentFromCache();
   }, []);
 
   const retrieveUserInfos = React.useCallback(async () => {
@@ -52,19 +74,47 @@ const ShareSituation = () => {
   const retrieveUserSymptomes = React.useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userSymptomesStatus');
-      if (value !== null) {
-        setUserSymptomes(JSON.parse(value));
+      if (value !== null && frenchContent) {
+        let tmpSymptomes = JSON.parse(value);
+        tmpSymptomes = tmpSymptomes.map((symptome: Symptome) => {
+          return frenchContent.symptom.results.find(
+            (symptomeContent: Symptome) => {
+              return symptomeContent.code === symptome.code;
+            },
+          );
+        });
+        setUserSymptomes(tmpSymptomes);
       }
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [frenchContent]);
+
+  const retrieveUserMeetings = React.useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem('userMeetingStatus');
+      if (value !== null && frenchContent) {
+        let tmpMeetings = JSON.parse(value);
+        tmpMeetings = tmpMeetings.map((meeting: Meetings) => {
+          return frenchContent.meeting.results.find(
+            (meetingContent: Meetings) => {
+              return meetingContent.code === meeting.code;
+            },
+          );
+        });
+        setUserMeetings(tmpMeetings);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [frenchContent]);
 
   React.useEffect(() => {
     retrieveUserInfos();
     retrieveUserSymptomes();
+    retrieveUserMeetings();
     MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_SITUATION');
-  }, [retrieveUserInfos, retrieveUserSymptomes]);
+  }, [retrieveUserInfos, retrieveUserSymptomes, retrieveUserMeetings]);
 
   const getLanguageFromCode = (code: string): string => {
     switch (code) {
@@ -82,16 +132,14 @@ const ShareSituation = () => {
   };
 
   const displayUserAnswersFromQuestionCodes = (code: string): string => {
-    if (userInfos) {
+    if (frenchContent) {
       let pattern = /^Q/;
       if (pattern.test(code)) {
-        return questions.map((question: any) => {
-          return question.responses.map((answer: any) => {
-            if (answer.value === code) {
-              return answer.label;
-            }
-          });
-        });
+        return frenchContent.response.results.map(response => {
+          if (response.value === code) {
+            return response.label;
+          }
+        }) as unknown as string;
       } else {
         if (typeof code === 'number') {
           return code;
@@ -150,8 +198,15 @@ const ShareSituation = () => {
           </Pressable>
         </View>
         <View>{buildUserInfosString()}</View>
-        <PregnancyFollow bg={Colors.backgroundPrimary} />
-        <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
+        <PregnancyFollow
+          bg={Colors.backgroundPrimary}
+          title="A faire ce mois-ci"
+          meetings={_.uniqBy(userMeetings, 'title')}
+        />
+        <SituationSymptoms
+          symptomes={_.uniqBy(userSymptomes, 'title')}
+          title="Mes symptômes"
+        />
       </ScrollView>
     </Container>
   );
