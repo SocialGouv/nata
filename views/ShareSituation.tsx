@@ -202,10 +202,12 @@ const ShareSituation = () => {
           bg={Colors.backgroundPrimary}
           title="A faire ce mois-ci"
           meetings={_.uniqBy(userMeetings, 'title')}
+          noMeetingsText="Aucun rendez-vous réalisé"
         />
         <SituationSymptoms
           symptomes={_.uniqBy(userSymptomes, 'title')}
           title="Mes symptômes"
+          noSymptomesText="Aucun symptôme déclaré"
         />
       </ScrollView>
     </Container>

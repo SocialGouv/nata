@@ -11,11 +11,12 @@ interface Props {
   bg?: string;
   title?: string;
   meetings?: Meetings[];
+  noMeetingsText?: string;
 }
 
 const PregnancyFollow = (props: Props) => {
   const [situation, setSituation] = React.useState<any>();
-  const {bg, title, meetings} = props;
+  const {bg, title, meetings, noMeetingsText} = props;
   const isFocused = useIsFocused();
 
   const styles = StyleSheet.create({
@@ -121,7 +122,10 @@ const PregnancyFollow = (props: Props) => {
         {title ? title : situation?.pregnancyFollowTitle}
       </TextBase>
       <View style={styles.listContainer}>
-        {followUp.length === 0 && (
+        {followUp.length === 0 && noMeetingsText && (
+          <TextBase style={styles.text}>{noMeetingsText}</TextBase>
+        )}
+        {followUp.length === 0 && !noMeetingsText && (
           <TextBase style={styles.text}>{situation?.noFollowUp}</TextBase>
         )}
         {displayFollowUpLines()}
