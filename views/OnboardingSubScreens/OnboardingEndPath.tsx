@@ -190,6 +190,7 @@ const OnboardingEndPath = ({
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then((data: any) => {
         if (data !== null) {
+          console.log('data', data);
           setUrgency(JSON.parse(data).urgency);
         }
       });
