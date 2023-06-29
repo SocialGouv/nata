@@ -183,7 +183,6 @@ const Onboarding = () => {
         setIsOnboardingDone(true);
         setIsEmergencyOnBoardingDone(true);
         setDisplayInitialModal(true);
-        navigation.navigate('FollowUp');
         MatomoTrackEvent('ONBOARDING', 'ONBOARDINGEND');
       }
     }

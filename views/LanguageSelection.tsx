@@ -6,7 +6,7 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Colors, Fonts} from '../styles/Style';
 import LanguageSelector from '../components/onboarding/LanguageSelector';
 import * as RNLocalize from 'react-native-localize';
@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import {fetchContent} from '../utils/fetchContent';
+import AppContext from '../AppContext';
 
 interface Language {
   code: string;
@@ -33,8 +34,9 @@ const LanguageSelection = () => {
   const {width, height} = useWindowDimensions();
   const navigation = useNavigation();
   const [languages, setLanguages] = React.useState<Language[]>([]);
-  const [selectedLanguage, setSelectedLanguage] = React.useState<string>('fr');
+  const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
   const [onboarding, setOnboarding] = React.useState<any>();
+  const {isOnboardingDone} = React.useContext(AppContext);
 
   const styles = StyleSheet.create({
     container: {
@@ -119,12 +121,18 @@ const LanguageSelection = () => {
     });
   };
 
-  const detectUserLanguage = () => {
-    const locale = RNLocalize.getLocales()[0].languageCode;
-    if (locale) {
-      setSelectedLanguage(locale);
+  const detectUserLanguage = useCallback(() => {
+    if (isOnboardingDone !== true) {
+      const locale = RNLocalize.getLocales()[0].languageCode;
+      if (locale) {
+        setSelectedLanguage(locale);
+      }
     }
-  };
+  }, [isOnboardingDone]);
+
+  useEffect(() => {
+    detectUserLanguage();
+  }, [detectUserLanguage]);
 
   const changeLanguage = (language: string) => {
     setSelectedLanguage(language);

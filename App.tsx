@@ -17,7 +17,14 @@ import Legal from './views/Legal';
 import SoliguidePage from './views/SoliguidePage';
 import {MatomoTrackEvent} from './utils/Matomo';
 import VersionCheck from 'react-native-version-check';
-import {Alert, BackHandler, Linking} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  BackHandler,
+  Linking,
+  View,
+} from 'react-native';
+import Container from './components/ui/Container';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -39,7 +46,7 @@ function App(): JSX.Element {
   const [displayInitialModal, setDisplayInitialModal] =
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
-
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const contextValue: ContextType = {
     isOnboardingDone,
     isEmergencyOnBoardingDone,
@@ -72,6 +79,7 @@ function App(): JSX.Element {
         setUpdateText(JSON.parse(content)['force-update']);
       }
     });
+    setIsLoading(false);
   }, []);
 
   const checkUpdateNeeded = React.useCallback(async () => {
@@ -105,16 +113,16 @@ function App(): JSX.Element {
   React.useEffect(() => {
     getContentFromCache();
     MatomoTrackEvent('APP', 'APP_OPEN');
-  }, []);
+  }, [getContentFromCache]);
 
-  return (
+  return isLoading !== true ? (
     <>
       <AppContext.Provider value={contextValue}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={
-              isOnboardingDone ? 'FollowUp' : 'LanguageSelection'
-            }
+            // initialRouteName={
+            //   isOnboardingDone ? 'FollowUp' : 'LanguageSelection'
+            // }
             screenOptions={{
               headerShown: false,
             }}>
@@ -155,6 +163,12 @@ function App(): JSX.Element {
         </NavigationContainer>
       </AppContext.Provider>
     </>
+  ) : (
+    <Container>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator />
+      </View>
+    </Container>
   );
 }
 
