@@ -52,6 +52,7 @@ const UrgencyPage = (props: Props) => {
     setIsEmergencyOnBoardingDone,
     setDisplayInitialModal,
     isEmergencyOnBoardingDone,
+    currentMonth,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -328,9 +329,18 @@ const UrgencyPage = (props: Props) => {
   });
 
   const handlePhonePress = () => {
-    Platform.OS === 'ios'
-      ? Linking.openURL(`tel:${number.replace(/\s+/g, '')}`)
-      : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
+    // before : ios: tel, android: telprompt
+    const phoneNumber = `${
+      Platform.OS !== 'android' ? 'tel' : 'tel'
+    }:${number}`;
+
+    Linking.canOpenURL(phoneNumber)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(phoneNumber);
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   return (
@@ -354,19 +364,21 @@ const UrgencyPage = (props: Props) => {
         </View>
         <View style={styles.underTopContainer}>
           <TextBase style={styles.underTopLabel}>
-            {urgency?.subtext.split('-').map((item: any, key: any) => {
-              return (
-                <TextBase
-                  key={key}
-                  style={
-                    key % 2 === 0
-                      ? styles.underTopLabel
-                      : styles.underTopLabelRed
-                  }>
-                  {item}
-                </TextBase>
-              );
-            })}
+            {currentMonth <= 5
+              ? urgency?.subtextUnder5
+              : urgency?.subtext.split('-').map((item: any, key: any) => {
+                  return (
+                    <TextBase
+                      key={key}
+                      style={
+                        key % 2 === 0
+                          ? styles.underTopLabel
+                          : styles.underTopLabelRed
+                      }>
+                      {item}
+                    </TextBase>
+                  );
+                })}
           </TextBase>
         </View>
         <View style={styles.middleContainer}>

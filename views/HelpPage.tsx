@@ -137,7 +137,7 @@ const HelpPage = (props: Props) => {
 
   const handleAutocomplete = React.useCallback(async () => {
     setCity('');
-    if (search && search.length > 1) {
+    if (search && search.length >= 3) {
       fetch(
         `https://api-adresse.data.gouv.fr/search/?q=${search}&type=municipality&autocomplete=1`,
       )

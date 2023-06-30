@@ -40,6 +40,21 @@ const DisplayHelpAround = (props: Props) => {
         (el: any) => el.value === userInfos.housing,
       );
       if (userHelpAround.helpsAround) {
+        const firstElemIcon = '👩‍⚕️';
+        const firstElem = userHelpAround.helpsAround.find(
+          (e: any) => e.icon === firstElemIcon,
+        );
+        // setting first element to be the doctor help one
+        if (
+          firstElem !== undefined &&
+          firstElem !== userHelpAround.helpsAround[0]
+        ) {
+          userHelpAround.helpsAround = userHelpAround.helpsAround.filter(
+            (e: any) => e !== firstElem,
+          );
+          userHelpAround.helpsAround.unshift(firstElem);
+        }
+
         return userHelpAround.helpsAround.map((el: any) => {
           return (
             <Pressable
@@ -63,7 +78,6 @@ const DisplayHelpAround = (props: Props) => {
         });
       }
     } else {
-      return <TextBase>{helpAround?.noInfo}</TextBase>;
     }
   };
 
