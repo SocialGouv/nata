@@ -74,12 +74,16 @@ const UrgencyModule = () => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
-          setLanguage(JSON.parse(content).language);
           setFollowup({
             ...JSON.parse(content).followup,
             back: JSON.parse(content).onboarding.back,
           });
         }
+        AsyncStorage.getItem('language').then(language => {
+          if (language !== null) {
+            setLanguage(language);
+          }
+        });
       });
     };
 
@@ -88,10 +92,13 @@ const UrgencyModule = () => {
 
   const onPress = () => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
+
     navigation.navigate('UrgencyPage', {
       title: null,
       number: '15',
-      keywords: keywords.find(keyword => keyword.language === language)?.label,
+      keywords: [
+        keywords.find(keyword => keyword.language === language)?.label,
+      ],
       back: followup?.back,
     });
   };
