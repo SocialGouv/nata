@@ -160,10 +160,7 @@ const HelpPage = (props: Props) => {
     }
   }, [search]);
 
-  const debouncedAPICall = React.useMemo(
-    () => _.debounce(() => handleAutocomplete(), 300),
-    [handleAutocomplete],
-  );
+  const debouncedAPICall = _.debounce(() => handleAutocomplete(), 300);
 
   const handlePressSearch = () => {
     if (search) {
