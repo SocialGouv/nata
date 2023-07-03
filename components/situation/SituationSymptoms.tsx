@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 20,
     fontFamily: Fonts.primary,
+    fontSize: 16,
   },
 });
