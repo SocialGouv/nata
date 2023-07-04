@@ -20,8 +20,8 @@ const DisplayPhone = (props: Props) => {
   const {number, color, matomo} = props;
   const handlePhonePress = () => {
     Platform.OS === 'ios'
-      ? Linking.openURL(`tel:${number.replace(/\s+/g, '')}`)
-      : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
+      ? Linking.openURL(`tel:${number}`)
+      : Linking.openURL(`telprompt:${number}`);
     MatomoTrackEvent(matomo, `${matomo}_CALL`);
   };
 
