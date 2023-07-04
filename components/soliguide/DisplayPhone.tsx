@@ -21,7 +21,7 @@ const DisplayPhone = (props: Props) => {
   const handlePhonePress = () => {
     Platform.OS === 'ios'
       ? Linking.openURL(`tel:${number}`)
-      : Linking.openURL(`telprompt:${number}`);
+      : Linking.openURL(`tel:${number}`);
     MatomoTrackEvent(matomo, `${matomo}_CALL`);
   };
 

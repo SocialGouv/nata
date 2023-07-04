@@ -327,7 +327,7 @@ const UrgencyPage = (props: Props) => {
 
   const handlePhonePress = () => {
     // before : ios: tel, android: telprompt
-    const phoneNumber = `tel${number.replace(/\s+/g, '')}`;
+    const phoneNumber = `tel${number}`;
 
     Linking.canOpenURL(phoneNumber)
       .then(supported => {
