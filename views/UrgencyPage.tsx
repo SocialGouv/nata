@@ -34,7 +34,7 @@ const UrgencyPage = (props: Props) => {
 
   const navigation = useNavigation();
   const {width, height} = useWindowDimensions();
-  const {title, number, keywords, back} = props.route.params;
+  const {title, number, keywords, back, isSymptom} = props.route.params;
 
   const titleTodisplay = title ? title : urgency?.title;
 
@@ -361,7 +361,21 @@ const UrgencyPage = (props: Props) => {
         </View>
         <View style={styles.underTopContainer}>
           <TextBase style={styles.underTopLabel}>
-            {currentMonth <= 5
+            {isSymptom
+              ? urgency?.subtext.split('-').map((item: any, key: any) => {
+                  return (
+                    <TextBase
+                      key={key}
+                      style={
+                        key % 2 === 0
+                          ? styles.underTopLabel
+                          : styles.underTopLabelRed
+                      }>
+                      {item}
+                    </TextBase>
+                  );
+                })
+              : currentMonth <= 5
               ? urgency?.subtextUnder5
               : urgency?.subtext.split('-').map((item: any, key: any) => {
                   return (

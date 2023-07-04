@@ -59,10 +59,10 @@ const UrgencyModule = () => {
   });
 
   const keywords = [
-    {language: 'fr', label: 'Hôpital'},
-    {language: 'en', label: 'Hospital'},
-    {language: 'ro', label: 'Spital'},
-    {language: 'ar', label: 'مستشفى'},
+    {language: 'fr', label: 'Hopital'},
+    {language: 'en', label: 'Hopital'},
+    {language: 'ro', label: 'Hopital'},
+    {language: 'ar', label: 'Hopital'},
   ];
 
   const [followup, setFollowup] = React.useState<any>();
@@ -92,7 +92,6 @@ const UrgencyModule = () => {
 
   const onPress = () => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
-
     navigation.navigate('UrgencyPage', {
       title: null,
       number: '15',
@@ -100,6 +99,7 @@ const UrgencyModule = () => {
         keywords.find(keyword => keyword.language === language)?.label,
       ],
       back: followup?.back,
+      isSymptom: true,
     });
   };
 
