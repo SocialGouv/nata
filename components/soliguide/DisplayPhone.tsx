@@ -19,7 +19,17 @@ interface Props {
 const DisplayPhone = (props: Props) => {
   const {number, color, matomo} = props;
   const handlePhonePress = () => {
-    Linking.openURL(`tel:${number.replace(/\s+/g, '')}`);
+    const phoneNumber = `${
+      Platform.OS !== 'android' ? 'tel' : 'tel'
+    }:${number}`;
+
+    Linking.canOpenURL(phoneNumber)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(phoneNumber);
+        }
+      })
+      .catch(error => console.log(error));
     MatomoTrackEvent(matomo, `${matomo}_CALL`);
   };
 
