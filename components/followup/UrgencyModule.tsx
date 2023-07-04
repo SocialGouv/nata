@@ -59,10 +59,10 @@ const UrgencyModule = () => {
   });
 
   const keywords = [
-    {language: 'fr', label: 'Hopital'},
-    {language: 'en', label: 'Hopital'},
-    {language: 'ro', label: 'Hopital'},
-    {language: 'ar', label: 'Hopital'},
+    {language: 'fr', label: 'Hôpital'},
+    {language: 'en', label: 'Hospital'},
+    {language: 'ro', label: 'Hôpital'},
+    {language: 'ar', label: 'مستشفى'},
   ];
 
   const [followup, setFollowup] = React.useState<any>();

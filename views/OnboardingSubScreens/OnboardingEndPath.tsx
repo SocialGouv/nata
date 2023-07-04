@@ -269,8 +269,8 @@ const OnboardingEndPath = ({
 
   const handlePhonePress = () => {
     Platform.OS === 'ios'
-      ? Linking.openURL(`tel:${number.replace(/\s+/g, '')}`)
-      : Linking.openURL(`telprompt:${number.replace(/\s+/g, '')}`);
+      ? Linking.openURL(`tel:${number}`)
+      : Linking.openURL(`tel:${number}`);
   };
 
   return (
