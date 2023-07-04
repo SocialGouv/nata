@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Image,
   Keyboard,
   Linking,
@@ -276,6 +277,8 @@ const OnboardingEndPath = ({
       .then(supported => {
         if (supported) {
           Linking.openURL(phoneNumber);
+        } else {
+          Alert.alert('Phone number is not available');
         }
       })
       .catch(error => console.log(error));
