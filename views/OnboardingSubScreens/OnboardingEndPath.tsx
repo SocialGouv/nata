@@ -268,9 +268,13 @@ const OnboardingEndPath = ({
   };
 
   const handlePhonePress = () => {
-    Platform.OS === 'ios'
-      ? Linking.openURL(`tel:${number}`)
-      : Linking.openURL(`tel:${number}`);
+    Linking.canOpenURL(`tel${number.replace(/\s+/g, '')}`)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(`tel${number.replace(/\s+/g, '')}`);
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   return (
