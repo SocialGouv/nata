@@ -140,7 +140,7 @@ const SoliGuideModule = (props: Props) => {
   }, [fetchSoliguide]);
 
   const handleOpenMap = (lat: number, lng: number) => {
-    const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=$';
+    const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=';
     const url = scheme + `${lat},${lng}`;
     url && Linking.openURL(url);
   };

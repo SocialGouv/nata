@@ -22,9 +22,11 @@ import {
   Alert,
   BackHandler,
   Linking,
+  Vibration,
   View,
 } from 'react-native';
 import Container from './components/ui/Container';
+import {fetchContent} from './utils/fetchContent';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -82,29 +84,34 @@ function App(): JSX.Element {
     setIsLoading(false);
   }, []);
 
-  const checkUpdateNeeded = React.useCallback(async () => {
-    let updateNeeded = await VersionCheck.needUpdate();
-    if (updateNeeded && updateNeeded.isNeeded) {
-      Alert.alert(
-        updateText?.title || 'Mise à jour',
-        updateText?.description || 'Une mise à jour est disponible',
-        [
-          {
-            text: updateText?.button || 'Mettre à jour',
-            onPress: () => {
-              BackHandler.exitApp();
-              Linking.openURL(updateNeeded.storeUrl);
+  const checkUpdateNeeded = () => {
+    VersionCheck.needUpdate({country: 'fr'}).then(update => {
+      console.log(update);
+      if (update.isNeeded) {
+        Vibration.vibrate(200);
+        Alert.alert(
+          updateText?.title || 'Mise à jour',
+          updateText?.description || 'Une mise à jour est disponible',
+          [
+            {
+              text: updateText?.button || 'Mettre à jour',
+              onPress: () => {
+                fetchContent().finally(() => {
+                  BackHandler.exitApp();
+                  Linking.openURL(update.storeUrl);
+                });
+              },
             },
-          },
-        ],
-        {cancelable: false},
-      );
-    }
-  }, [updateText]);
+          ],
+          {cancelable: false},
+        );
+      }
+    });
+  };
 
   React.useEffect(() => {
     checkUpdateNeeded();
-  }, [checkUpdateNeeded, getContentFromCache]);
+  }, [getContentFromCache]);
 
   React.useEffect(() => {
     handleOnboardingDone();
