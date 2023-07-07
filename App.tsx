@@ -86,8 +86,7 @@ function App(): JSX.Element {
 
   const checkUpdateNeeded = () => {
     VersionCheck.needUpdate({country: 'fr'}).then(update => {
-      console.log(update);
-      if (update.isNeeded) {
+      if (update?.isNeeded) {
         Vibration.vibrate(200);
         Alert.alert(
           updateText?.title || 'Mise à jour',
