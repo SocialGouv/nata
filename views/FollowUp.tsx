@@ -165,7 +165,7 @@ const FollowUp = () => {
 
   return (
     <Container urgency={false}>
-      <InformationModal />
+      {/* <InformationModal /> */}
       <ScrollView>
         <View>
           <ImageBackground
