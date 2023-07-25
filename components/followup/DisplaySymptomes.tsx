@@ -1,4 +1,10 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {FlatGrid} from 'react-native-super-grid';
@@ -21,6 +27,8 @@ interface Props {
 
 const DisplaySymptomes = (props: Props) => {
   const [followup, setFollowup] = React.useState<any>();
+
+  const {width} = useWindowDimensions();
 
   const {
     symptomes,
@@ -54,15 +62,18 @@ const DisplaySymptomes = (props: Props) => {
       justifyContent: 'flex-end',
     },
     itemName: {
-      fontSize: 12,
+      fontSize: width * 0.03,
       alignSelf: 'center',
       color: Colors.black,
       fontWeight: '600',
+      paddingHorizontal: 5,
     },
     image: {
       alignSelf: 'center',
-      flex: 1,
-      resizeMode: 'contain',
+      objectFit: 'contain',
+      width: 50,
+      maxHeight: 50,
+      marginBottom: 5,
     },
     checkIcon: {
       width: 20,

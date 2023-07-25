@@ -18,4 +18,8 @@ export default {
   stomach_pain: require(`${BASE_URL}stomach_pain.png`),
   inflate_legs: require(`${BASE_URL}inflate_legs.png`),
   urine_warm: require(`${BASE_URL}urine_warm.png`),
+  sad: require(`${BASE_URL}sad.png`),
+  tooth_ache: require(`${BASE_URL}tooth_ache.png`),
+  hurt_myself: require(`${BASE_URL}hurt_myself.png`),
+  domestic_violence: require(`${BASE_URL}domestic_violence.png`),
 };
