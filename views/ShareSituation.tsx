@@ -126,6 +126,10 @@ const ShareSituation = () => {
         return 'Arabe';
       case 'ro':
         return 'Roumain';
+      case 'ps':
+        return 'Pashto';
+      case 'fa-AF':
+        return 'Dari';
       default:
         return '';
     }
