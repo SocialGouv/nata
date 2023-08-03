@@ -81,6 +81,8 @@ const LanguageSelector = (props: Props) => {
                       ? Colors.primary
                       : Colors.black,
                   borderWidth: item.code === selectedLanguage ? 2 : 1,
+                  backgroundColor:
+                    item.code === selectedLanguage ? '#C6E2DC' : Colors.white,
                 },
               ]}>
               {item.image && (

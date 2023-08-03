@@ -11,6 +11,7 @@ export const Colors = {
   backgroundStrong: '#BFC0C0',
   border: '#E9DFD6',
   cardBackground: '#FCFAF8',
+  orange: '#FF9E2A',
 };
 
 export const Fonts = {

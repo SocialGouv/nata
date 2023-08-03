@@ -1,6 +1,9 @@
 import {
+  AppState,
   Image,
   ImageBackground,
+  Linking,
+  Platform,
   Pressable,
   StyleSheet,
   View,
@@ -16,6 +19,9 @@ import TextBase from '../components/ui/TextBase';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import {fetchContent} from '../utils/fetchContent';
 import AppContext from '../AppContext';
+import Geolocation from '@react-native-community/geolocation';
+import CustomModal from '../components/ui/CustomModal';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface Language {
   code: string;
@@ -37,6 +43,9 @@ const LanguageSelection = () => {
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
   const [onboarding, setOnboarding] = React.useState<any>();
   const {isOnboardingDone} = React.useContext(AppContext);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  const [appActive, setAppActive] = React.useState<boolean>();
+  const [needGeolocation, setNeedGeolocation] = React.useState<boolean>();
 
   const styles = StyleSheet.create({
     container: {
@@ -80,6 +89,29 @@ const LanguageSelection = () => {
       top: '-10%',
       zIndex: 100,
     },
+
+    modalTextContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    },
+    modalText: {
+      fontSize: 14,
+      fontFamily: Fonts.primary,
+      width: '70%',
+    },
+    bottomLink: {
+      position: 'absolute',
+      bottom: 20,
+      alignSelf: 'center',
+    },
+    textBottomLink: {
+      color: Colors.orange,
+      fontSize: 14,
+      fontFamily: Fonts.primary,
+      textDecorationLine: 'underline',
+    },
   });
 
   const fetchLanguages = async () => {
@@ -103,6 +135,7 @@ const LanguageSelection = () => {
   };
 
   useEffect(() => {
+    getLocationServiceStatus();
     fetchLanguages();
     getContentFromCache();
   }, []);
@@ -138,50 +171,148 @@ const LanguageSelection = () => {
     setSelectedLanguage(language);
   };
 
+  const getLocationServiceStatus = async () => {
+    return await Geolocation.getCurrentPosition(
+      () => {
+        setNeedGeolocation(false);
+      },
+      error => {
+        setNeedGeolocation(error.code === 2);
+      },
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000},
+    );
+  };
+
   const handleLanguageValidation = async () => {
+    if (needGeolocation) {
+      setModalVisible(true);
+      return;
+    }
     if (selectedLanguage) {
-      await AsyncStorage.setItem('language', selectedLanguage).then(() => {
+      AsyncStorage.setItem('language', selectedLanguage).then(() => {
         navigation.navigate('Onboarding');
         MatomoTrackEvent('ONBOARDING', 'ONBOARDING_CLICK_START');
       });
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <View>
-        <ImageBackground
-          source={require('../assets/images/Ellipse.png')}
-          style={styles.backgroundImage}
+  useEffect(() => {
+    if (appActive) {
+      getLocationServiceStatus();
+    }
+  }, [appActive]);
+
+  const handleGeolocationActivation = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('app-settings:');
+    } else {
+      Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS');
+    }
+  };
+
+  React.useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      setAppActive(nextAppState === 'active');
+    });
+    return () => {
+      subscription.remove();
+    };
+  });
+
+  const LocationModal = (
+    <CustomModal
+      visible={modalVisible}
+      topPart={true}
+      borderColor={Colors.orange}
+      onRequestClose={() => {}}>
+      <View style={styles.modalTextContainer}>
+        <FontAwesome5Icon
+          name="map-marked-alt"
+          size={40}
+          color={Colors.orange}
         />
-      </View>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/nata.png')}
-      />
-      <TextBase style={styles.mission}>
-        {onboarding?.languageSelectionTitle}
-      </TextBase>
-      <View style={{flex: 0.7}}>
-        <LanguageSelector
-          languages={languages}
-          selectedLanguage={selectedLanguage}
-          changeLanguage={changeLanguage}
-        />
-      </View>
-      <Pressable
-        onPress={handleLanguageValidation}
-        style={({pressed}) => [
-          {
-            opacity: pressed ? 0.5 : 1,
-            ...styles.confirmButton,
-          },
-        ]}>
-        <TextBase style={styles.confirmButtonText}>
-          {onboarding?.begin}
+        <TextBase style={styles.modalText}>
+          {onboarding?.locationDescription}
         </TextBase>
-      </Pressable>
-    </View>
+        <Pressable
+          onPress={() => handleLanguageValidation()}
+          style={({pressed}) => [
+            {
+              opacity: pressed ? 0.5 : 1,
+            },
+          ]}>
+          <FontAwesome5Icon name="times" size={20} color="#000" />
+        </Pressable>
+      </View>
+      {!needGeolocation ? (
+        <Pressable
+          style={[
+            styles.confirmButton,
+            {
+              alignSelf: 'center',
+              backgroundColor: Colors.orange,
+            },
+          ]}
+          onPress={() => handleLanguageValidation()}>
+          <TextBase style={styles.confirmButtonText}>
+            {onboarding?.begin}
+          </TextBase>
+        </Pressable>
+      ) : (
+        <Pressable
+          style={styles.bottomLink}
+          onPress={() => handleGeolocationActivation()}>
+          <TextBase style={styles.textBottomLink}>
+            {onboarding?.locationServiceText}{' '}
+            <FontAwesome5Icon
+              name="arrow-right"
+              size={12}
+              color={Colors.orange}
+            />
+          </TextBase>
+        </Pressable>
+      )}
+    </CustomModal>
+  );
+
+  return (
+    <>
+      {modalVisible && LocationModal}
+      <View style={styles.container}>
+        <View>
+          <ImageBackground
+            source={require('../assets/images/Ellipse.png')}
+            style={styles.backgroundImage}
+          />
+        </View>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/nata.png')}
+        />
+        <TextBase style={styles.mission}>
+          {onboarding?.languageSelectionTitle}
+        </TextBase>
+        <View style={{flex: 0.7}}>
+          <LanguageSelector
+            languages={languages}
+            selectedLanguage={selectedLanguage}
+            changeLanguage={changeLanguage}
+          />
+        </View>
+        <Pressable
+          onPress={handleLanguageValidation}
+          style={({pressed}) => [
+            {
+              opacity: pressed ? 0.5 : 1,
+              ...styles.confirmButton,
+            },
+          ]}>
+          <TextBase style={styles.confirmButtonText}>
+            {onboarding?.begin}
+          </TextBase>
+        </Pressable>
+      </View>
+    </>
   );
 };
 

@@ -27,6 +27,7 @@
     "react-native-bouncy-checkbox": "^3.0.7",
     "react-native-config": "^1.5.1",
     "react-native-device-info": "^10.6.0",
+    "react-native-gradle-plugin": "^0.71.19",
     "react-native-localize": "^2.2.6",
     "react-native-maps": "^1.7.1",
     "react-native-permissions": "^3.8.0",
