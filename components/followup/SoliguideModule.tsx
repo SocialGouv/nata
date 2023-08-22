@@ -35,40 +35,51 @@ const SoliGuideModule = (props: Props) => {
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
   const [content, setContent] = React.useState<any>();
+  const [alert, setAlert] = React.useState<boolean>(false);
+
+  const fetchLocation = React.useCallback(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        fetch(
+          `https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`,
+        )
+          .then(response => response.json())
+          .then(json => {
+            setCityActualized(json.features[0].properties.city);
+          })
+          .catch(error => console.error(error));
+      },
+      error => {
+        if (error.code === 1) {
+          setAlert(true);
+        }
+      },
+    );
+  }, []);
+
+  React.useEffect(() => {
+    if (alert && content) {
+      Alert.alert(content?.locationDescription, '', [
+        {
+          text: content?.locationServiceText,
+          onPress: () => {
+            Platform.OS === 'ios'
+              ? Linking.openURL('app-settings:')
+              : Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS');
+          },
+        },
+      ]);
+    }
+  }, [alert]);
 
   React.useEffect(() => {
     if (city === '') {
-      Geolocation.getCurrentPosition(
-        position => {
-          const {latitude, longitude} = position.coords;
-          fetch(
-            `https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`,
-          )
-            .then(response => response.json())
-            .then(json => {
-              setCityActualized(json.features[0].properties.city);
-            })
-            .catch(error => console.error(error));
-        },
-        () => {
-          Alert.alert(content?.locationDescription, '', [
-            {
-              text: content?.locationServiceText,
-              onPress: () => {
-                Platform.OS === 'ios'
-                  ? Linking.openURL('app-settings:')
-                  : Linking.sendIntent(
-                      'android.settings.LOCATION_SOURCE_SETTINGS',
-                    );
-              },
-            },
-          ]);
-        },
-      );
+      fetchLocation();
     } else {
       setCityActualized(city);
     }
-  }, [city, content]);
+  }, [city, fetchLocation]);
 
   const styles = StyleSheet.create({
     container: {
