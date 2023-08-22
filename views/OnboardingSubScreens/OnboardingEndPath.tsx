@@ -270,7 +270,7 @@ const OnboardingEndPath = ({
   const handlePhonePress = () => {
     const phoneNumber = `${
       Platform.OS !== 'android' ? 'tel' : 'tel'
-    }:${number}`;
+    }:${number.replace(/\s/g, '')}`;
 
     Linking.canOpenURL(phoneNumber)
       .then(supported => {

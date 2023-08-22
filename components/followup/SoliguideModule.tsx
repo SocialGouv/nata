@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Linking,
   Pressable,
@@ -17,6 +18,7 @@ import DisplayOpen from '../soliguide/DisplayOpen';
 import DisplaySimple from '../soliguide/DisplaySimple';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import {Platform} from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
 
 interface Props {
   categories: number[];
@@ -29,8 +31,44 @@ interface Props {
 const SoliGuideModule = (props: Props) => {
   const [soliguide, setSoliguide] = React.useState<any>();
   const {categories, keywords, city, style, matomo} = props;
+  const [cityActualized, setCityActualized] = React.useState<string>('');
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
+  const [content, setContent] = React.useState<any>();
+
+  React.useEffect(() => {
+    if (city === '') {
+      Geolocation.getCurrentPosition(
+        position => {
+          const {latitude, longitude} = position.coords;
+          fetch(
+            `https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`,
+          )
+            .then(response => response.json())
+            .then(json => {
+              setCityActualized(json.features[0].properties.city);
+            })
+            .catch(error => console.error(error));
+        },
+        () => {
+          Alert.alert(content?.locationDescription, '', [
+            {
+              text: content?.locationServiceText,
+              onPress: () => {
+                Platform.OS === 'ios'
+                  ? Linking.openURL('app-settings:')
+                  : Linking.sendIntent(
+                      'android.settings.LOCATION_SOURCE_SETTINGS',
+                    );
+              },
+            },
+          ]);
+        },
+      );
+    } else {
+      setCityActualized(city);
+    }
+  }, [city, content]);
 
   const styles = StyleSheet.create({
     container: {
@@ -93,7 +131,7 @@ const SoliGuideModule = (props: Props) => {
     );
     let raw = JSON.stringify({
       'location.geoType': 'codePostal',
-      'location.geoValue': city,
+      'location.geoValue': cityActualized,
       categories: categories,
       'options.limit': 100,
     });
@@ -124,8 +162,8 @@ const SoliGuideModule = (props: Props) => {
           setData(JSON.parse(result));
         }
       })
-      .catch(error => console.log('error', error));
-  }, [categories, city, keywords]);
+      .catch(error => console.log('error in soliguide module', error));
+  }, [categories, cityActualized, keywords]);
 
   useEffect(() => {
     fetchSoliguide();
@@ -133,6 +171,7 @@ const SoliGuideModule = (props: Props) => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
           setSoliguide(JSON.parse(content).soliguide);
+          setContent(JSON.parse(content).onboarding);
         }
       });
     };

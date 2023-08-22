@@ -169,14 +169,14 @@ const Onboarding = () => {
         ) {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            keywords: ['Hôpital'],
+            keywords: ['Hopital'],
             back: onboarding?.back,
           });
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             number: '0 801 801 081',
-            keywords: ['Hôpital'],
+            keywords: ['Hopital'],
             back: onboarding?.back,
           });
         }

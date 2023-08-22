@@ -1,10 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import {FlatGrid} from 'react-native-super-grid';
@@ -27,8 +21,6 @@ interface Props {
 
 const DisplaySymptomes = (props: Props) => {
   const [followup, setFollowup] = React.useState<any>();
-
-  const {width} = useWindowDimensions();
 
   const {
     symptomes,
@@ -122,7 +114,6 @@ const DisplaySymptomes = (props: Props) => {
     retrieveUserSymptomesStatus();
   }, [retrieveUserSymptomesStatus]);
 
-  // TODO: CORRECT CODE CHECK
   const updateUserSymptomesStatus = React.useCallback(async () => {
     if (userSymptomesStatus) {
       try {

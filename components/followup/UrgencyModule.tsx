@@ -63,6 +63,14 @@ const UrgencyModule = () => {
     {language: 'en', label: 'Hôpital'},
     {language: 'ro', label: 'Hôpital'},
     {language: 'ar', label: 'Hôpital'},
+    {
+      language: 'fa-AF',
+      label: 'Hôpital',
+    },
+    {
+      language: 'ps',
+      label: 'Hôpital',
+    },
   ];
 
   const [followup, setFollowup] = React.useState<any>();
