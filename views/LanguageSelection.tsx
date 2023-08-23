@@ -44,8 +44,8 @@ const LanguageSelection = () => {
   const [onboarding, setOnboarding] = React.useState<any>();
   const {isOnboardingDone} = React.useContext(AppContext);
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-  const [appActive, setAppActive] = React.useState<boolean>();
   const [needGeolocation, setNeedGeolocation] = React.useState<boolean>();
+  const [code, setCode] = React.useState<number>();
 
   const styles = StyleSheet.create({
     container: {
@@ -134,8 +134,8 @@ const LanguageSelection = () => {
     setLanguages(tmpLanguages);
   };
 
-  useEffect(() => {
-    getLocationServiceStatus();
+  React.useEffect(() => {
+    getLocationServiceStatus(0);
     fetchLanguages();
     getContentFromCache();
   }, []);
@@ -171,16 +171,25 @@ const LanguageSelection = () => {
     setSelectedLanguage(language);
   };
 
-  const getLocationServiceStatus = async () => {
-    return await Geolocation.getCurrentPosition(
-      () => {
-        setNeedGeolocation(false);
-      },
-      error => {
-        setNeedGeolocation(error.code === 2);
-      },
-      {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000},
-    );
+  const getLocationServiceStatus = async (loopTime: number) => {
+    if (loopTime < 1) {
+      return Geolocation.requestAuthorization(
+        () => {
+          setNeedGeolocation(false);
+        },
+        error => {
+          if (error.code === 1) {
+            setCode(1);
+            getLocationServiceStatus(1);
+          } else if (error.code === 2) {
+            setCode(2);
+            setNeedGeolocation(true);
+          }
+        },
+      );
+    } else {
+      setNeedGeolocation(true);
+    }
   };
 
   const handleLanguageValidation = async () => {
@@ -196,23 +205,21 @@ const LanguageSelection = () => {
     }
   };
 
-  useEffect(() => {
-    if (appActive) {
-      getLocationServiceStatus();
-    }
-  }, [appActive]);
-
   const handleGeolocationActivation = () => {
     if (Platform.OS === 'ios') {
       Linking.openURL('app-settings:');
     } else {
-      Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS');
+      code !== 1
+        ? Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS')
+        : Linking.openSettings();
     }
   };
 
   React.useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      setAppActive(nextAppState === 'active');
+      if (nextAppState === 'active' && needGeolocation) {
+        getLocationServiceStatus(0);
+      }
     });
     return () => {
       subscription.remove();
