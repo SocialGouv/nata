@@ -199,6 +199,7 @@ const LanguageSelection = () => {
     }
     if (selectedLanguage) {
       AsyncStorage.setItem('language', selectedLanguage).then(() => {
+        setModalVisible(false);
         navigation.navigate('Onboarding');
         MatomoTrackEvent('ONBOARDING', 'ONBOARDING_CLICK_START');
       });
