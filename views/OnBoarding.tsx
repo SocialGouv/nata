@@ -141,7 +141,7 @@ const Onboarding = () => {
         parseInt(userInfos.pregnancyMonth, 10) < 6 &&
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
-        if (userInfos.housing === 'Q7A5' || userInfos.housing === 'Q7A3') {
+        if (userInfos.housing === 'Q7A3' || userInfos.housing === 'Q7A5') {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
@@ -154,7 +154,6 @@ const Onboarding = () => {
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
             keywords: ['PMI'],
-            number: '0 801 801 081',
             back: onboarding?.back,
           });
         }
@@ -163,8 +162,10 @@ const Onboarding = () => {
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
         if (
-          (userInfos.medical_care === 'Q6A1' ||
+          ((userInfos.medical_care === 'Q6A1' ||
             userInfos.medical_care === 'Q6A2') &&
+            userInfos.housing === 'Q7A1') ||
+          userInfos.housing === 'Q7A2' ||
           userInfos.housing === 'Q7A4'
         ) {
           setIsOnboardingDone(true);
