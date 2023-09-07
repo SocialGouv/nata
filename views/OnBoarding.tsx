@@ -135,12 +135,15 @@ const Onboarding = () => {
     }
   };
 
+
   const handleUrgencyPath = () => {
     if (userInfos) {
+      // moins de 6 mois de grossesse et pas de rdv
       if (
         parseInt(userInfos.pregnancyMonth, 10) < 6 &&
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
+        // vis chez qqn ou à la rue
         if (userInfos.housing === 'Q7A3' || userInfos.housing === 'Q7A5') {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
@@ -157,16 +160,18 @@ const Onboarding = () => {
             back: onboarding?.back,
           });
         }
-      } else if (
+      } // 6 mois ou plus de grossesse et pas de rdv
+      else if (
         parseInt(userInfos.pregnancyMonth, 10) >= 6 &&
         userInfos.isMeetingPlanned === 'Q5A2'
       ) {
+        // AME ou CMU && logement stable
         if (
-          ((userInfos.medical_care === 'Q6A1' ||
+          (userInfos.medical_care === 'Q6A1' ||
             userInfos.medical_care === 'Q6A2') &&
-            userInfos.housing === 'Q7A1') ||
-          userInfos.housing === 'Q7A2' ||
-          userInfos.housing === 'Q7A4'
+          (userInfos.housing === 'Q7A1' ||
+            userInfos.housing === 'Q7A2' ||
+            userInfos.housing === 'Q7A4')
         ) {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {

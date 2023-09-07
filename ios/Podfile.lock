@@ -75,11 +75,11 @@ PODS:
   - glog (0.3.5)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-LocationAccuracy (3.8.0):
+  - Permission-LocationAccuracy (3.8.1):
     - RNPermissions
-  - Permission-LocationAlways (3.8.0):
+  - Permission-LocationAlways (3.8.1):
     - RNPermissions
-  - Permission-LocationWhenInUse (3.8.0):
+  - Permission-LocationWhenInUse (3.8.1):
     - RNPermissions
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -410,7 +410,7 @@ PODS:
     - React-Core
   - RNLocalize (2.2.6):
     - React-Core
-  - RNPermissions (3.8.0):
+  - RNPermissions (3.8.1):
     - React-Core
   - RNScreens (3.20.0):
     - React-Core
@@ -634,9 +634,9 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-LocationAccuracy: d6aa5146c084e7077e7efc4cbb543c7f6c72c51a
-  Permission-LocationAlways: e7ce67f3091ec096b6ac274bc30a18830a66b33c
-  Permission-LocationWhenInUse: 1c80e4797ae587642a83125e80b86686cefeba53
+  Permission-LocationAccuracy: 89f89db96efdf7d337918ba7845c6fc26781d288
+  Permission-LocationAlways: 787b4661822618be7ce58071a70213e16a639516
+  Permission-LocationWhenInUse: 100eaf457c8eede236e62af0d17b7e49c0292e62
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: bd6045fbd511da5efe6db89eecb21e4e36bd7cbf
   RCTTypeSafety: c06d9f906faa69dd1c88223204c3a24767725fd8
@@ -674,7 +674,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   RNDeviceInfo: 475a4c447168d0ad4c807e48ef5e0963a0f4eb1b
   RNLocalize: d4b8af4e442d4bcca54e68fc687a2129b4d71a81
-  RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
+  RNPermissions: b471c990fd2bc1c5550af807d9f4e0313ee0b081
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
@@ -683,4 +683,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 660f42ce5b02e2f71eb1064414ecdd057e17ace7
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1
