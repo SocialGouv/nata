@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Colors, Fonts} from '../../styles/Style';
+import {Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../ui/TextBase';
@@ -133,7 +133,6 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    backgroundColor: Colors.backgroundPrimary,
     paddingVertical: 20,
   },
   title: {

@@ -6379,6 +6379,13 @@ react-native-config@^1.5.1:
   resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.1.tgz"
   integrity sha512-g1xNgt1tV95FCX+iWz6YJonxXkQX0GdD3fB8xQtR1GUBEqweB9zMROW77gi2TygmYmUkBI7LU4pES+zcTyK4HA==
 
+react-native-date-picker@^4.2.14:
+  version "4.2.14"
+  resolved "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.14.tgz"
+  integrity sha512-rP0ycj3I+8x4pIUGjeh7pL+cMPntKccLGX/OXx790bsIM0Hcyg0ZL86kGnnZu9fEUhXlgdr3OK/jhQue5L6kSQ==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-native-device-info@^10.6.0:
   version "10.6.0"
   resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.6.0.tgz"

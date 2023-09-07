@@ -10,6 +10,7 @@ import UserProfile from '../components/situation/UserProfile';
 import {ScrollView} from 'react-native';
 import {Symptome} from '../components/followup/interface';
 import _ from 'lodash';
+import PregnancyDetails from '../components/situation/PregnancyDetails';
 const MySituation = () => {
   const isFocused = useIsFocused();
   const [userSymptomes, setUserSymptomes] = React.useState<Symptome[]>([]);
@@ -37,6 +38,7 @@ const MySituation = () => {
         <PregnancyFollow />
         <MonthlyMeetings />
         <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
+        <PregnancyDetails />
         <UserProfile />
       </ScrollView>
     </Container>
