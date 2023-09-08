@@ -12,13 +12,7 @@ const UserProfile = () => {
   const [questions, setQuestions] = React.useState<Question[]>([]);
   const [languages, setLanguages] = React.useState<any[]>([]);
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
-  const infos = [
-    'language',
-    'pregnancyMonth',
-    'pregnancyFollowed',
-    'medical_care',
-    'housing',
-  ];
+  const infos = ['language', 'pregnancyFollowed', 'medical_care', 'housing'];
 
   React.useEffect(() => {
     const getContentFromCache = () => {
@@ -92,10 +86,6 @@ const UserProfile = () => {
       return null;
     } else {
       return infos.map((info, index) => {
-        // delete display of pregnancyMonth
-        if (info === 'pregnancyMonth') {
-          return;
-        }
         const modInfo = info
           .split('_')
           .map(e => _.startCase(e).split(' ').join(''))
