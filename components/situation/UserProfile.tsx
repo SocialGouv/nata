@@ -24,7 +24,6 @@ const UserProfile = () => {
   >();
   const infos = ['pregnancyFollowed', 'medical_care', 'housing', 'language'];
 
-
   React.useEffect(() => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
