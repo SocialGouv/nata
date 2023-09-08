@@ -7,6 +7,7 @@ export interface Question {
   verticalAnswer?: boolean;
   actionMatomo: string;
   responses: Response[];
+  isEditable?: boolean;
 }
 
 export interface Response {
