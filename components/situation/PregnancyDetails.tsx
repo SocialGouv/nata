@@ -14,17 +14,18 @@ const PregnancyDetails = () => {
   useEffect(() => {
     getContentFromCache();
     retrieveUserInfos();
-    // AsyncStorage.clear();
   }, []);
 
   useEffect(() => {
-    if (dateEndPregnancy) {
+    if (
+      dateEndPregnancy &&
+      userInfos &&
+      new Date(userInfos.dateEndPregnancy) !== dateEndPregnancy
+    ) {
       AsyncStorage.mergeItem(
         'userInfos',
         JSON.stringify({
-          dateEndPregnancy: dateEndPregnancy.toLocaleDateString(
-            userInfos?.language,
-          ),
+          dateEndPregnancy: dateEndPregnancy.toJSON(),
         }),
       );
     }
@@ -62,7 +63,9 @@ const PregnancyDetails = () => {
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>{'Date de terme de grossesse'}</TextBase>
+      <TextBase style={styles.title}>
+        {situation?.dateOfBirthTitle ?? 'Date de terme de grossesse'}
+      </TextBase>
       <View style={styles.line}>
         {}
         <TextBase style={styles.text}>
@@ -75,8 +78,7 @@ const PregnancyDetails = () => {
             setOpenModalEndPregnancy(true);
           }}>
           <TextBase style={styles.edit_button}>
-            📅
-            <TextBase>Saisir</TextBase>
+            <TextBase>Saisir </TextBase>📅
           </TextBase>
         </Pressable>
         <DatePicker
@@ -84,6 +86,7 @@ const PregnancyDetails = () => {
           open={openModalEndPregnancy}
           mode="date"
           minimumDate={new Date()}
+          maximumDate={new Date(new Date().setMonth(new Date().getMonth() + 9))}
           date={new Date(userInfos?.dateEndPregnancy || new Date())}
           onConfirm={date => {
             setOpenModalEndPregnancy(false);
@@ -101,7 +104,6 @@ export default PregnancyDetails;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
-    backgroundColor: Colors.backgroundPrimary,
   },
   line: {
     flexDirection: 'row',

@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Fonts} from '../../styles/Style';
+import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../ui/TextBase';
@@ -92,6 +92,10 @@ const UserProfile = () => {
       return null;
     } else {
       return infos.map((info, index) => {
+        // delete display of pregnancyMonth
+        if (info === 'pregnancyMonth') {
+          return;
+        }
         const modInfo = info
           .split('_')
           .map(e => _.startCase(e).split(' ').join(''))
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    backgroundColor: Colors.backgroundPrimary,
   },
   title: {
     fontSize: 18,

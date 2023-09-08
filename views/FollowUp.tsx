@@ -129,6 +129,7 @@ const FollowUp = () => {
         if (tmpMonth === 0) {
           tmpMonth = 1;
         }
+        console.log(tmpUserInfos);
         setCurrentMonth(tmpMonth);
       }
     } catch (e) {
