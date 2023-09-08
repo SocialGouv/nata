@@ -76,38 +76,37 @@ const PregnancyDetails = () => {
 
   return (
     <View style={styles.container}>
-      <TextBase style={styles.title}>
-        {situation?.dateOfBirthTitle ?? 'Date de terme de grossesse'}
-      </TextBase>
-      <View style={styles.line}>
-        {}
-        <TextBase style={styles.text}>
-          {dateEndPregnancy
-            ? dateEndPregnancy?.toLocaleDateString(userInfos?.language)
-            : 'Non renseigné'}
-        </TextBase>
-        <Pressable
-          onPress={() => {
-            setOpenModalEndPregnancy(true);
-          }}>
-          <TextBase style={styles.edit_button}>
-            <TextBase>Saisir </TextBase>📅
+      <TextBase style={styles.title}>{situation?.dateOfBirthTitle}</TextBase>
+      <Pressable
+        onPress={() => {
+          setOpenModalEndPregnancy(true);
+        }}>
+        <View style={styles.line}>
+          <TextBase style={styles.text}>
+            {dateEndPregnancy
+              ? dateEndPregnancy?.toLocaleDateString(userInfos?.language)
+              : situation?.dateOfBirthPlaceholder}
           </TextBase>
-        </Pressable>
-        <DatePicker
-          modal
-          open={openModalEndPregnancy}
-          mode="date"
-          minimumDate={new Date()}
-          maximumDate={new Date(new Date().setMonth(new Date().getMonth() + 9))}
-          date={new Date(userInfos?.dateEndPregnancy || new Date())}
-          onConfirm={date => {
-            setOpenModalEndPregnancy(false);
-            setDateEndPregnancy(date);
-          }}
-          onCancel={() => setOpenModalEndPregnancy(false)}
-        />
-      </View>
+          <DatePicker
+            modal
+            confirmText={situation?.dateOfBirthConfirm}
+            cancelText={situation?.dateOfBirthCancel}
+            open={openModalEndPregnancy}
+            mode="date"
+            minimumDate={new Date()}
+            maximumDate={
+              new Date(new Date().setMonth(new Date().getMonth() + 9))
+            }
+            date={new Date(userInfos?.dateEndPregnancy || new Date())}
+            onConfirm={date => {
+              setOpenModalEndPregnancy(false);
+              setDateEndPregnancy(date);
+            }}
+            onCancel={() => setOpenModalEndPregnancy(false)}
+          />
+          <TextBase style={styles.edit_button}>📅</TextBase>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -117,23 +116,31 @@ export default PregnancyDetails;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
+    backgroundColor: Colors.backgroundPrimary,
   },
   line: {
     flexDirection: 'row',
     paddingVertical: 10,
     paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginHorizontal: 20,
+    justifyContent: 'space-between',
   },
   title: {
     marginHorizontal: 20,
     fontSize: 18,
     fontWeight: '700',
     fontFamily: Fonts.primary,
+    marginBottom: 10,
   },
   text: {
     fontFamily: Fonts.primary,
     fontSize: 16,
   },
   edit_button: {
-    marginLeft: 20,
+    marginRight: 20,
   },
 });

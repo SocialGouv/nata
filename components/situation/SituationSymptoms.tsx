@@ -48,7 +48,6 @@ export default SituationSymptoms;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    backgroundColor: Colors.backgroundPrimary,
   },
   title: {
     marginHorizontal: 20,

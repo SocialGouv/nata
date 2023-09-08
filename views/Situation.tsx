@@ -36,8 +36,8 @@ const MySituation = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <DoctorShare />
         <PregnancyFollow />
-        <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
         <PregnancyDetails />
+        <SituationSymptoms symptomes={_.uniqBy(userSymptomes, 'title')} />
         <UserProfile />
       </ScrollView>
     </Container>
