@@ -1,11 +1,14 @@
 import {Pressable, StyleSheet, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 import DatePicker from 'react-native-date-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppContext from '../../AppContext';
 
 const PregnancyDetails = () => {
+  const {setCurrentMonth} = useContext(AppContext);
+
   const [situation, setSituation] = useState<any>();
   const [userInfos, setUserInfos] = useState<Record<string, string>>();
   const [dateEndPregnancy, setDateEndPregnancy] = useState<Date>();
@@ -28,8 +31,18 @@ const PregnancyDetails = () => {
           dateEndPregnancy: dateEndPregnancy.toJSON(),
         }),
       );
+
+      // caclulate current month
+      const currentDate = new Date();
+      const diffTime = Math.abs(
+        dateEndPregnancy.getTime() - currentDate.getTime(),
+      );
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffMonths = Math.floor(diffDays / 30);
+      const tmpMonth = 9 - diffMonths;
+      setCurrentMonth(tmpMonth);
     }
-  }, [userInfos, dateEndPregnancy]);
+  }, [userInfos, dateEndPregnancy, setCurrentMonth]);
 
   const getContentFromCache = () => {
     return AsyncStorage.getItem('content').then(content => {

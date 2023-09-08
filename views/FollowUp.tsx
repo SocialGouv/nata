@@ -129,7 +129,17 @@ const FollowUp = () => {
         if (tmpMonth === 0) {
           tmpMonth = 1;
         }
-        console.log(tmpUserInfos);
+        // calculating actual current month, if dateEndPregnancy is set : dateEndPregnancy - currentDate : get month number
+        if (tmpUserInfos.dateEndPregnancy) {
+          const dateEndPregnancy = new Date(tmpUserInfos.dateEndPregnancy);
+          const currentDate = new Date();
+          const diffTime = Math.abs(
+            dateEndPregnancy.getTime() - currentDate.getTime(),
+          );
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          const diffMonths = Math.floor(diffDays / 30);
+          tmpMonth = 9 - diffMonths;
+        }
         setCurrentMonth(tmpMonth);
       }
     } catch (e) {
