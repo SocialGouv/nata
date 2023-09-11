@@ -24,6 +24,7 @@ const UserProfile = () => {
   >();
   const infos = ['pregnancyFollowed', 'medical_care', 'housing', 'language'];
 
+
   React.useEffect(() => {
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
@@ -239,8 +240,8 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    backgroundColor: Colors.backgroundPrimary,
     paddingVertical: 20,
+    backgroundColor: Colors.backgroundPrimary,
   },
   title: {
     fontSize: 18,

@@ -14,7 +14,6 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
-import InformationModal from '../components/followup/InformationModal';
 import {Symptome, Month} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
@@ -131,7 +130,17 @@ const FollowUp = () => {
         if (tmpMonth === 0) {
           tmpMonth = 1;
         }
-        setCurrentMonth(tmpMonth);
+        // calculating actual current month, if dateEndPregnancy is set : dateEndPregnancy - currentDate : get month number
+        if (tmpUserInfos.dateEndPregnancy) {
+          const dateEndPregnancy = new Date(tmpUserInfos.dateEndPregnancy);
+          const currentDate = new Date();
+          const diffTime = Math.abs(
+            dateEndPregnancy.getTime() - currentDate.getTime(),
+          );
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          const diffMonths = Math.floor(diffDays / 30);
+          setCurrentMonth(diffMonths);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -141,6 +150,10 @@ const FollowUp = () => {
   React.useEffect(() => {
     retrieveUserMonth();
   }, [retrieveUserMonth]);
+
+  React.useEffect(() => {
+    retrieveUserInfos();
+  }, [isFocused]);
 
   React.useEffect(() => {
     if (currentMonth && months) {
@@ -156,9 +169,20 @@ const FollowUp = () => {
   }, [isFocused]);
 
   const handlePress = (value: number) => {
-    if (currentMonth) {
-      if (currentMonth + value > 0 && currentMonth + value <= 9) {
-        setCurrentMonth(currentMonth + value);
+    if (userInfos && userInfos.dateEndPregnancy) {
+      if (currentMonth) {
+        if (
+          currentMonth + value >= parseInt(userInfos.pregnancyMonth, 10) &&
+          currentMonth + value <= 9
+        ) {
+          setCurrentMonth(currentMonth + value);
+        }
+      }
+    } else {
+      if (currentMonth) {
+        if (currentMonth + value > 0 && currentMonth + value <= 9) {
+          setCurrentMonth(currentMonth + value);
+        }
       }
     }
   };
@@ -169,6 +193,11 @@ const FollowUp = () => {
   //   })();
   // }, []);
 
+  const shouldDisplayButton =
+    currentMonth &&
+    userInfos &&
+    currentMonth > parseInt(userInfos.pregnancyMonth, 10);
+
   return (
     <Container urgency={false}>
       {/* <InformationModal /> */}
@@ -178,7 +207,7 @@ const FollowUp = () => {
             source={require('../assets/images/Ellipse.png')}
             style={styles.backgroundImage}>
             <View style={styles.topContainer}>
-              {currentMonth && currentMonth > 1 && (
+              {shouldDisplayButton && (
                 <Pressable
                   style={({pressed}) => [
                     styles.pressable,
