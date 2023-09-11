@@ -22,6 +22,7 @@ import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
 import AppContext from '../AppContext';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import {useIsFocused} from '@react-navigation/native';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -73,6 +74,7 @@ const FollowUp = () => {
 
   const [followup, setFollowup] = React.useState<any>();
   const [months, setMonths] = React.useState<Month[]>([]);
+  const isFocused = useIsFocused();
 
   const {currentMonth, setCurrentMonth, setDisplayInitialModal} =
     useContext(AppContext);
@@ -148,6 +150,10 @@ const FollowUp = () => {
       );
     }
   }, [currentMonth, months, currentContent]);
+
+  React.useEffect(() => {
+    retrieveUserInfos();
+  }, [isFocused]);
 
   const handlePress = (value: number) => {
     if (currentMonth) {
