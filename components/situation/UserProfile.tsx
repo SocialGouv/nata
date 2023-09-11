@@ -1,8 +1,7 @@
-import {Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../ui/TextBase';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
@@ -101,9 +100,6 @@ const UserProfile = () => {
                 {displayUserAnswersFromQuestionCodes(userInfos[info])}
               </TextBase>
             </View>
-            {/* <Pressable>
-              <FontAwesome5Icon name="pen" size={10} color={Colors.primary} />
-            </Pressable> */}
           </View>
         );
       });

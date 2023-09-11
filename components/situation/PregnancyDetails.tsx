@@ -40,10 +40,10 @@ const PregnancyDetails = () => {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       const diffMonths = Math.floor(diffDays / 30);
       const tmpMonth = 9 - diffMonths;
-      setCurrentMonth(tmpMonth);
+      setCurrentMonth(tmpMonth !== 0 ? tmpMonth : 9);
       AsyncStorage.mergeItem(
         'userInfos',
-        JSON.stringify({pregnancyMonth: tmpMonth}),
+        JSON.stringify({pregnancyMonth: tmpMonth === 0 ? 9 : tmpMonth}),
       );
     }
   }, [userInfos, dateEndPregnancy, setCurrentMonth]);

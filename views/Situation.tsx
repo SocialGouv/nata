@@ -2,7 +2,6 @@ import React from 'react';
 import Container from '../components/ui/Container';
 import DoctorShare from '../components/situation/DoctorShare';
 import PregnancyFollow from '../components/situation/PregnancyFollow';
-import MonthlyMeetings from '../components/situation/MonthlyMeetings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
 import SituationSymptoms from '../components/situation/SituationSymptoms';

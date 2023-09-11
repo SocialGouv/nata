@@ -22,6 +22,7 @@ import DisplayHelpAround from '../components/followup/DisplayHelpAround';
 import DisplayLegal from '../components/followup/DisplayLegal';
 import AppContext from '../AppContext';
 import {MatomoTrackEvent} from '../utils/Matomo';
+import {useIsFocused} from '@react-navigation/native';
 
 const FollowUp = () => {
   const {width, height} = useWindowDimensions();
@@ -73,6 +74,7 @@ const FollowUp = () => {
 
   const [followup, setFollowup] = React.useState<any>();
   const [months, setMonths] = React.useState<Month[]>([]);
+  const isFocused = useIsFocused();
 
   const {currentMonth, setCurrentMonth, setDisplayInitialModal} =
     useContext(AppContext);
@@ -105,6 +107,7 @@ const FollowUp = () => {
       setUserInfos({});
     }
     setUserInfos(tempInfos);
+    setLoading(false);
   };
 
   const getContentFromCache = () => {
@@ -142,7 +145,7 @@ const FollowUp = () => {
           const diffMonths = Math.floor(diffDays / 30);
           tmpMonth = 9 - diffMonths;
         }
-        setCurrentMonth(tmpMonth);
+        setCurrentMonth(tmpMonth !== 0 ? tmpMonth : 9);
       }
     } catch (e) {
       console.log(e);
@@ -151,8 +154,12 @@ const FollowUp = () => {
 
   React.useEffect(() => {
     retrieveUserMonth();
-    setLoading(false);
   }, [retrieveUserMonth]);
+
+  React.useEffect(() => {
+    setLoading(true);
+    retrieveUserInfos();
+  }, [isFocused]);
 
   React.useEffect(() => {
     if (currentMonth && months) {
@@ -192,14 +199,6 @@ const FollowUp = () => {
     currentMonth &&
     userInfos &&
     currentMonth > parseInt(userInfos.pregnancyMonth, 10);
-
-  if (loading && !currentMonth && !followup) {
-    return (
-      <Container urgency={false}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </Container>
-    );
-  }
 
   return (
     <Container urgency={false}>
