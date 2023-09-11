@@ -1,13 +1,13 @@
-import {Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../ui/TextBase';
 import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
 import RNPickerSelect from 'react-native-picker-select';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const UserProfile = () => {
   const [situation, setSituation] = React.useState<any>();
@@ -150,6 +150,8 @@ const UserProfile = () => {
               id: response.value,
               label: response.label,
               value: response.value,
+              color: Colors.primary,
+              borderColor: Colors.primary,
             });
           });
         }
@@ -176,20 +178,28 @@ const UserProfile = () => {
                 {situation[`profile${modInfo}`]}
               </TextBase>
               {isEditable && selectItems.length > 1 ? (
-                <RNPickerSelect
-                  onValueChange={value => {
-                    info === 'medical_care' && setSelectedMedicalCare(value);
-                    info === 'housing' && setSelectedHousing(value);
-                  }}
-                  items={selectItems}
-                  key={index}
-                  value={
-                    info === 'medical_care'
-                      ? selectedMedicalCare
-                      : selectedHousing
-                  }
-                  style={selectStyles}
-                />
+                <>
+                  <RNPickerSelect
+                    onValueChange={value => {
+                      info === 'medical_care' && setSelectedMedicalCare(value);
+                      info === 'housing' && setSelectedHousing(value);
+                    }}
+                    items={selectItems}
+                    key={index}
+                    value={
+                      info === 'medical_care'
+                        ? selectedMedicalCare
+                        : selectedHousing
+                    }
+                    style={selectStyles}
+                  />
+                  <FontAwesome5Icon
+                    name="chevron-down"
+                    style={selectStyles.chevron}
+                    color={Colors.black}
+                    size={15}
+                  />
+                </>
               ) : (
                 <>
                   {info !== 'pregnancyFollowed' && (
@@ -251,4 +261,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const selectStyles = StyleSheet.create({});
+const selectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    fontFamily: Fonts.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    position: 'relative',
+  },
+  inputAndroid: {
+    fontSize: 14,
+    fontFamily: Fonts.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    position: 'relative',
+  },
+  chevron: {
+    position: 'absolute',
+    right: 10,
+    top: 40,
+  },
+});
