@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   ImageBackground,
   Pressable,
@@ -14,7 +15,6 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import DisplayMeetings from '../components/followup/DisplayMeetings';
 import {Colors, Fonts} from '../styles/Style';
 import DisplaySymptomes from '../components/followup/DisplaySymptomes';
-import InformationModal from '../components/followup/InformationModal';
 import {Symptome, Month} from '../components/followup/interface';
 import Images from '../assets/models/feotus';
 import TextBase from '../components/ui/TextBase';
@@ -86,6 +86,8 @@ const FollowUp = () => {
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
 
+  const [loading, setLoading] = React.useState<boolean>(true);
+
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
 
   const retrieveUserInfos = async () => {
@@ -149,6 +151,7 @@ const FollowUp = () => {
 
   React.useEffect(() => {
     retrieveUserMonth();
+    setLoading(false);
   }, [retrieveUserMonth]);
 
   React.useEffect(() => {
@@ -161,9 +164,20 @@ const FollowUp = () => {
   }, [currentMonth, months, currentContent]);
 
   const handlePress = (value: number) => {
-    if (currentMonth) {
-      if (currentMonth + value > 0 && currentMonth + value <= 9) {
-        setCurrentMonth(currentMonth + value);
+    if (userInfos && userInfos.dateEndPregnancy) {
+      if (currentMonth) {
+        if (
+          currentMonth + value >= parseInt(userInfos.pregnancyMonth, 10) &&
+          currentMonth + value <= 9
+        ) {
+          setCurrentMonth(currentMonth + value);
+        }
+      }
+    } else {
+      if (currentMonth) {
+        if (currentMonth + value > 0 && currentMonth + value <= 9) {
+          setCurrentMonth(currentMonth + value);
+        }
       }
     }
   };
@@ -174,6 +188,19 @@ const FollowUp = () => {
   //   })();
   // }, []);
 
+  const shouldDisplayButton =
+    currentMonth &&
+    userInfos &&
+    currentMonth > parseInt(userInfos.pregnancyMonth, 10);
+
+  if (loading && !currentMonth && !followup) {
+    return (
+      <Container urgency={false}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </Container>
+    );
+  }
+
   return (
     <Container urgency={false}>
       {/* <InformationModal /> */}
@@ -183,7 +210,7 @@ const FollowUp = () => {
             source={require('../assets/images/Ellipse.png')}
             style={styles.backgroundImage}>
             <View style={styles.topContainer}>
-              {currentMonth && currentMonth > 1 && (
+              {shouldDisplayButton && (
                 <Pressable
                   style={({pressed}) => [
                     styles.pressable,
