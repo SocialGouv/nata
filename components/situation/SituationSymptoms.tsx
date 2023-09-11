@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Fonts} from '../../styles/Style';
+import {Colors, Fonts} from '../../styles/Style';
 import DisplaySymptomes from '../followup/DisplaySymptomes';
 import TextBase from '../ui/TextBase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -47,7 +47,7 @@ export default SituationSymptoms;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    paddingVertical: 10,
   },
   title: {
     marginHorizontal: 20,

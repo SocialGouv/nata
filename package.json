@@ -26,6 +26,7 @@
     "react-native-autocomplete-input": "^5.3.2",
     "react-native-bouncy-checkbox": "^3.0.7",
     "react-native-config": "^1.5.1",
+    "react-native-date-picker": "^4.2.14",
     "react-native-device-info": "^10.6.0",
     "react-native-gradle-plugin": "^0.71.19",
     "react-native-localize": "^2.2.6",

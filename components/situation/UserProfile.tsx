@@ -1,8 +1,7 @@
-import {Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import TextBase from '../ui/TextBase';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
@@ -12,13 +11,7 @@ const UserProfile = () => {
   const [questions, setQuestions] = React.useState<Question[]>([]);
   const [languages, setLanguages] = React.useState<any[]>([]);
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
-  const infos = [
-    'language',
-    'pregnancyMonth',
-    'pregnancyFollowed',
-    'medical_care',
-    'housing',
-  ];
+  const infos = ['language', 'pregnancyFollowed', 'medical_care', 'housing'];
 
   React.useEffect(() => {
     const getContentFromCache = () => {
@@ -107,9 +100,6 @@ const UserProfile = () => {
                 {displayUserAnswersFromQuestionCodes(userInfos[info])}
               </TextBase>
             </View>
-            {/* <Pressable>
-              <FontAwesome5Icon name="pen" size={10} color={Colors.primary} />
-            </Pressable> */}
           </View>
         );
       });
@@ -133,8 +123,8 @@ export default UserProfile;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    backgroundColor: Colors.backgroundPrimary,
     paddingVertical: 20,
+    backgroundColor: Colors.backgroundPrimary,
   },
   title: {
     fontSize: 18,
