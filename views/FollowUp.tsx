@@ -140,7 +140,7 @@ const FollowUp = () => {
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
           const diffMonths = Math.floor(diffDays / 30);
           tmpMonth = 9 - diffMonths;
-          setCurrentMonth(tmpMonth === 0 ? 9 : tmpMonth);
+          setCurrentMonth(tmpMonth === 0 ? 1 : tmpMonth);
         }
       }
     } catch (e) {
