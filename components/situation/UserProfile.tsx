@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -185,6 +185,7 @@ const UserProfile = () => {
                       info === 'housing' && setSelectedHousing(value);
                     }}
                     items={selectItems}
+                    useNativeAndroidPickerStyle={false}
                     key={index}
                     value={
                       info === 'medical_care'
@@ -193,6 +194,7 @@ const UserProfile = () => {
                     }
                     style={selectStyles}
                   />
+
                   <FontAwesome5Icon
                     name="chevron-down"
                     style={selectStyles.chevron}
@@ -273,6 +275,8 @@ const selectStyles = StyleSheet.create({
     position: 'relative',
   },
   inputAndroid: {
+    width: '100%',
+    minWidth: '100%',
     fontSize: 14,
     fontFamily: Fonts.primary,
     paddingVertical: 10,
@@ -281,6 +285,7 @@ const selectStyles = StyleSheet.create({
     borderColor: Colors.primary,
     borderRadius: 5,
     position: 'relative',
+    color: Colors.black,
   },
   chevron: {
     position: 'absolute',
