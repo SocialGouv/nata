@@ -165,6 +165,10 @@ const FollowUp = () => {
     }
   }, [currentMonth, months, currentContent]);
 
+  React.useEffect(() => {
+    retrieveUserInfos();
+  }, [isFocused]);
+
   const handlePress = (value: number) => {
     if (userInfos && userInfos.dateEndPregnancy) {
       if (currentMonth) {

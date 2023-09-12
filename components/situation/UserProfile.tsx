@@ -1,17 +1,28 @@
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextBase from '../ui/TextBase';
+import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
+import RNPickerSelect from 'react-native-picker-select';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const UserProfile = () => {
   const [situation, setSituation] = React.useState<any>();
   const [questions, setQuestions] = React.useState<Question[]>([]);
   const [languages, setLanguages] = React.useState<any[]>([]);
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
-  const infos = ['language', 'pregnancyFollowed', 'medical_care', 'housing'];
+  const [selectedPregnancyFollowedId, setSelectedPregnancyFollowedId] =
+    React.useState<string | undefined>();
+  const [selectedMedicalCare, setSelectedMedicalCare] = React.useState<
+    string | undefined
+  >();
+  const [selectedHousing, setSelectedHousing] = React.useState<
+    string | undefined
+  >();
+  const infos = ['pregnancyFollowed', 'medical_care', 'housing', 'language'];
 
   React.useEffect(() => {
     const getContentFromCache = () => {
@@ -25,6 +36,38 @@ const UserProfile = () => {
     };
     getContentFromCache();
   }, []);
+
+  React.useEffect(() => {
+    retrieveUserInfos();
+  }, []);
+
+  React.useEffect(() => {
+    if (userInfos) {
+      if (selectedPregnancyFollowedId) {
+        AsyncStorage.mergeItem(
+          'userInfos',
+          JSON.stringify({pregnancyFollowed: selectedPregnancyFollowedId}),
+        );
+      }
+      if (selectedMedicalCare) {
+        AsyncStorage.mergeItem(
+          'userInfos',
+          JSON.stringify({medical_care: selectedMedicalCare}),
+        );
+      }
+      if (selectedHousing) {
+        AsyncStorage.mergeItem(
+          'userInfos',
+          JSON.stringify({housing: selectedHousing}),
+        );
+      }
+    }
+  }, [
+    userInfos,
+    selectedPregnancyFollowedId,
+    selectedMedicalCare,
+    selectedHousing,
+  ]);
 
   const getLanguageFromCode = (code: string) => {
     switch (code) {
@@ -73,6 +116,12 @@ const UserProfile = () => {
         parseInt(JSONValues.pregnancyMonth, 10) === 0
           ? 1
           : parseInt(JSONValues.pregnancyMonth, 10);
+
+      // setting actual data from AsyncStorage
+      setSelectedPregnancyFollowedId(JSONValues.pregnancyFollowed);
+      setSelectedMedicalCare(JSONValues.medical_care);
+      setSelectedHousing(JSONValues.housing);
+
       tempInfos = {...tempInfos, ...JSONValues};
     } else {
       setUserInfos({});
@@ -90,25 +139,94 @@ const UserProfile = () => {
           .map(e => _.startCase(e).split(' ').join(''))
           .join('');
 
+        const isEditable = questions?.filter(q => q.slug === info)[0]
+          ?.isEditable;
+        const responses = questions?.filter(q => q.slug === info)[0]?.responses;
+
+        const radioButtons: RadioButtonProps[] = [];
+        if (info === 'pregnancyFollowed' && responses) {
+          responses.forEach(response => {
+            radioButtons.push({
+              id: response.value,
+              label: response.label,
+              value: response.value,
+              color: Colors.primary,
+              borderColor: Colors.primary,
+            });
+          });
+        }
+        const selectItems: {label: string; value: any}[] = [];
+        if (info !== 'pregnancyFollowed' && responses) {
+          responses.forEach(response => {
+            selectItems.push({
+              label: response.label,
+              value: response.value,
+            });
+          });
+        }
+
         return (
           <View key={index} style={styles.line}>
-            <View>
+            <View
+              style={{
+                flexDirection: radioButtons.length > 1 ? 'row' : 'column',
+                justifyContent: 'space-between',
+                alignItems: radioButtons.length > 1 ? 'center' : 'flex-start',
+                width: '100%',
+              }}>
               <TextBase style={styles.boldText}>
                 {situation[`profile${modInfo}`]}
               </TextBase>
-              <TextBase>
-                {displayUserAnswersFromQuestionCodes(userInfos[info])}
-              </TextBase>
+              {isEditable && selectItems.length > 1 ? (
+                <>
+                  <RNPickerSelect
+                    onValueChange={value => {
+                      info === 'medical_care' && setSelectedMedicalCare(value);
+                      info === 'housing' && setSelectedHousing(value);
+                    }}
+                    items={selectItems}
+                    useNativeAndroidPickerStyle={false}
+                    key={index}
+                    value={
+                      info === 'medical_care'
+                        ? selectedMedicalCare
+                        : selectedHousing
+                    }
+                    style={selectStyles}
+                  />
+
+                  <FontAwesome5Icon
+                    name="chevron-down"
+                    style={selectStyles.chevron}
+                    color={Colors.black}
+                    size={15}
+                  />
+                </>
+              ) : (
+                <>
+                  {info !== 'pregnancyFollowed' && (
+                    <TextBase>
+                      {displayUserAnswersFromQuestionCodes(userInfos[info])}
+                    </TextBase>
+                  )}
+                </>
+              )}
+              {info === 'pregnancyFollowed' && responses && (
+                <RadioGroup
+                  radioButtons={radioButtons}
+                  onPress={data => {
+                    setSelectedPregnancyFollowedId(data);
+                  }}
+                  selectedId={selectedPregnancyFollowedId}
+                  layout="row"
+                />
+              )}
             </View>
           </View>
         );
       });
     }
   };
-
-  React.useEffect(() => {
-    retrieveUserInfos();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -135,12 +253,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 5,
+    paddingVertical: 10,
   },
   boldText: {
     fontWeight: '700',
     fontFamily: Fonts.primary,
     fontSize: 14,
     paddingBottom: 5,
+  },
+});
+
+const selectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    fontFamily: Fonts.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    position: 'relative',
+  },
+  inputAndroid: {
+    width: '100%',
+    minWidth: '100%',
+    fontSize: 14,
+    fontFamily: Fonts.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 5,
+    position: 'relative',
+    color: Colors.black,
+  },
+  chevron: {
+    position: 'absolute',
+    right: 10,
+    top: 40,
   },
 });
