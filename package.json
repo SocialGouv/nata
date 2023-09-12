@@ -77,10 +77,5 @@
   ],
   "jest": {
     "preset": "react-native"
-  },
-  "overrides": {
-    "react-native-picker-select": {
-      "@react-native-picker/picker": "$@react-native-picker/picker"
-    }
   }
 }

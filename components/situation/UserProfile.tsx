@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextBase from '../ui/TextBase';
@@ -178,30 +178,31 @@ const UserProfile = () => {
                 {situation[`profile${modInfo}`]}
               </TextBase>
               {isEditable && selectItems.length > 1 ? (
-                <>
-                  <RNPickerSelect
-                    onValueChange={value => {
-                      info === 'medical_care' && setSelectedMedicalCare(value);
-                      info === 'housing' && setSelectedHousing(value);
-                    }}
-                    items={selectItems}
-                    useNativeAndroidPickerStyle={false}
-                    key={index}
-                    value={
-                      info === 'medical_care'
-                        ? selectedMedicalCare
-                        : selectedHousing
-                    }
-                    style={selectStyles}
-                  />
-
-                  <FontAwesome5Icon
-                    name="chevron-down"
-                    style={selectStyles.chevron}
-                    color={Colors.black}
-                    size={15}
-                  />
-                </>
+                <RNPickerSelect
+                  onValueChange={value => {
+                    info === 'medical_care' && setSelectedMedicalCare(value);
+                    info === 'housing' && setSelectedHousing(value);
+                  }}
+                  items={selectItems}
+                  useNativeAndroidPickerStyle={false}
+                  key={index}
+                  value={
+                    info === 'medical_care'
+                      ? selectedMedicalCare
+                      : selectedHousing
+                  }
+                  style={selectStyles}
+                  Icon={() => {
+                    return (
+                      <FontAwesome5Icon
+                        name="chevron-down"
+                        style={selectStyles.chevron}
+                        color={Colors.black}
+                        size={15}
+                      />
+                    );
+                  }}
+                />
               ) : (
                 <>
                   {info !== 'pregnancyFollowed' && (
@@ -290,6 +291,6 @@ const selectStyles = StyleSheet.create({
   chevron: {
     position: 'absolute',
     right: 10,
-    top: 40,
+    top: 15,
   },
 });
