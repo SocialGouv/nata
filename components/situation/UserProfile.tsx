@@ -185,23 +185,14 @@ const UserProfile = () => {
                   }}
                   items={selectItems}
                   useNativeAndroidPickerStyle={false}
-                  key={index}
+                  itemKey={index}
+                  placeholder={{label: '', value: ''}}
                   value={
                     info === 'medical_care'
                       ? selectedMedicalCare
                       : selectedHousing
                   }
                   style={selectStyles}
-                  Icon={() => {
-                    return (
-                      <FontAwesome5Icon
-                        name="chevron-down"
-                        style={selectStyles.chevron}
-                        color={Colors.black}
-                        size={15}
-                      />
-                    );
-                  }}
                 />
               ) : (
                 <>
