@@ -1,5 +1,5 @@
-import {Platform, StyleSheet, View} from 'react-native';
-import React, {ReactNode} from 'react';
+import {StyleSheet, View} from 'react-native';
+import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TextBase from '../ui/TextBase';
@@ -7,7 +7,6 @@ import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
 import RNPickerSelect from 'react-native-picker-select';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const UserProfile = () => {
   const [situation, setSituation] = React.useState<any>();

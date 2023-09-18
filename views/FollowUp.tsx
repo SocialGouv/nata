@@ -100,6 +100,7 @@ const FollowUp = () => {
       let JSONValues = JSON.parse(values);
       JSONValues.pregnancyMonth = parseInt(JSONValues.pregnancyMonth, 10);
       tempInfos = {...tempInfos, ...JSONValues};
+      setCurrentMonth(JSONValues.pregnancyMonth);
     } else {
       setUserInfos({});
     }
