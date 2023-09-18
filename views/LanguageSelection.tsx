@@ -175,7 +175,21 @@ const LanguageSelection = () => {
     if (loopTime < 1) {
       return Geolocation.requestAuthorization(
         () => {
-          setNeedGeolocation(false);
+          Geolocation.getCurrentPosition(
+            () => {
+              setCode(0);
+              setNeedGeolocation(false);
+            },
+            error => {
+              if (error.code === 1) {
+                setCode(1);
+                setNeedGeolocation(true);
+              } else if (error.code === 2) {
+                setCode(2);
+                setNeedGeolocation(true);
+              }
+            },
+          );
         },
         error => {
           if (error.code === 1) {
