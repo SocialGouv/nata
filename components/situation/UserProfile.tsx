@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -164,6 +164,8 @@ const UserProfile = () => {
           });
         }
 
+        const Icon = <TextBase style={selectStyles.chevron}>🔽</TextBase>;
+
         return (
           <View key={index} style={styles.line}>
             <View
@@ -192,6 +194,7 @@ const UserProfile = () => {
                       : selectedHousing
                   }
                   style={selectStyles}
+                  Icon={() => Icon}
                 />
               ) : (
                 <>
@@ -281,6 +284,7 @@ const selectStyles = StyleSheet.create({
   chevron: {
     position: 'absolute',
     right: 10,
-    top: 15,
+    top: '50%',
+    transform: [{translateY: Platform.OS === 'ios' ? 10 : 15}],
   },
 });
