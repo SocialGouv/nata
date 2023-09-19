@@ -7,6 +7,7 @@ import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
 import RNPickerSelect from 'react-native-picker-select';
 import {Question, Response} from '../onboarding/interface';
 import _ from 'lodash';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const UserProfile = () => {
   const [situation, setSituation] = React.useState<any>();
@@ -164,8 +165,13 @@ const UserProfile = () => {
           });
         }
 
-        const Icon = <TextBase style={selectStyles.chevron}>🔽</TextBase>;
-
+        const Icon = (
+          <FontAwesome5Icon
+            style={selectStyles.chevron}
+            name="chevron-down"
+            size={20}
+          />
+        );
         return (
           <View key={index} style={styles.line}>
             <View
@@ -284,7 +290,6 @@ const selectStyles = StyleSheet.create({
   chevron: {
     position: 'absolute',
     right: 10,
-    top: '50%',
-    transform: [{translateY: Platform.OS === 'ios' ? 10 : 15}],
+    top: Platform.OS === 'ios' ? 10 : 15,
   },
 });
