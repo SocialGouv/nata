@@ -149,6 +149,9 @@ const UserProfile = () => {
             radioButtons.push({
               id: response.value,
               label: response.label,
+              labelStyle: {
+                color: Colors.black,
+              },
               value: response.value,
               color: Colors.primary,
               borderColor: Colors.primary,
@@ -288,6 +291,7 @@ const selectStyles = StyleSheet.create({
     color: Colors.black,
   },
   chevron: {
+    color: '#000000',
     position: 'absolute',
     right: 10,
     top: Platform.OS === 'ios' ? 10 : 15,
