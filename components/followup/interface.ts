@@ -14,6 +14,13 @@ export interface Meetings {
   months?: Month[];
   monthNumber?: number;
   maxMonth?: number;
+  hasMoreInfo?: boolean;
+}
+
+export interface MeetingInfo {
+  title: string;
+  description: string;
+  img_url: string;
 }
 
 export interface Month {
