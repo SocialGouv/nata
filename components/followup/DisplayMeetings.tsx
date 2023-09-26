@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'flex-start',
-    paddingRight: 10,
+    maxWidth: '80%',
   },
   innerCheckboxText: {
     fontFamily: Fonts.primary,
@@ -296,7 +296,6 @@ const styles = StyleSheet.create({
   infoIcon: {},
   infoPress: {
     padding: 10,
-    paddingLeft: 0,
   },
   imageContainer: {
     display: 'flex',
