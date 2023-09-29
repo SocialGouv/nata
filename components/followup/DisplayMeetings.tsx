@@ -11,7 +11,7 @@ import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
-import {Meetings, Month} from './interface';
+import {MeetingInfo, Meetings, Month} from './interface';
 import _ from 'lodash';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import TextBase from '../ui/TextBase';
@@ -54,6 +54,8 @@ const DisplayMeetings = (props: Props) => {
         ...meeting,
         months: allMeetings.find((m: Meetings) => m.code === meeting.code)
           .months,
+        meeting_info: allMeetings.find((m: Meetings) => m.code === meeting.code)
+          .meeting_info,
       };
     });
     let tmpMeetings: Meetings[] = _.uniqBy(
@@ -138,9 +140,9 @@ const DisplayMeetings = (props: Props) => {
       )}
       {fullMeetingList.map(meeting => {
         const meetingHasMoreInfo = meeting.hasMoreInfo;
-        let meetingInfo: any;
+        let meetingInfo: MeetingInfo | undefined;
         if (meetingHasMoreInfo) {
-          meetingInfo = meeting['more-info'];
+          meetingInfo = meeting.meeting_info;
         }
 
         return (
@@ -196,7 +198,7 @@ const DisplayMeetings = (props: Props) => {
                 }
               }}
             />
-            {(meetingHasMoreInfo || true) && ( // TODO: remove true
+            {meetingHasMoreInfo && (
               <>
                 <Pressable
                   onPress={() => {
@@ -218,24 +220,19 @@ const DisplayMeetings = (props: Props) => {
                   <View style={styles.imageContainer}>
                     <Image
                       source={
-                        Images[meetingInfo?.img_slug as keyof typeof Images] ||
-                        Images.rdv_dentiste // TODO : remove default image
+                        Images[meetingInfo?.img_slug as keyof typeof Images]
                       }
                       style={styles.image}
                     />
                   </View>
                   <TextBase style={styles.modalTitle}>
-                    {
-                      meetingInfo?.title ?? 'Test' // TODO : remove default text
-                    }
+                    {meetingInfo && meetingInfo.title}
                   </TextBase>
                   <ScrollView
                     style={styles.modalContainerText}
                     persistentScrollbar>
                     <TextBase style={styles.modalText}>
-                      {
-                        meetingInfo?.description ?? 'Lorem ipsum dolor' // TODO : remove default text
-                      }
+                      {meetingInfo && meetingInfo.description}
                     </TextBase>
                   </ScrollView>
                 </CustomModal>
@@ -318,10 +315,13 @@ const styles = StyleSheet.create({
   },
   modalContainerText: {
     padding: 15,
+    paddingTop: 0,
     backgroundColor: 'white',
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
     minHeight: 100,
   },
-  modalText: {},
+  modalText: {
+    paddingVertical: 15,
+  },
 });

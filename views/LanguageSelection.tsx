@@ -105,13 +105,14 @@ const LanguageSelection = () => {
     modalConfirmButton: {
       backgroundColor: Colors.primary,
       padding: 10,
-      margin: 10,
+      marginTop: 30,
+      marginBottom: 45,
       borderRadius: 3,
       paddingHorizontal: 40,
     },
     bottomLink: {
       padding: 15,
-      paddingBottom: 30,
+      paddingBottom: 40,
       alignSelf: 'center',
     },
     textBottomLink: {
