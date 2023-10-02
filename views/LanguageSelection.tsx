@@ -95,15 +95,24 @@ const LanguageSelection = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
+      paddingHorizontal: 15,
     },
     modalText: {
       fontSize: 14,
       fontFamily: Fonts.primary,
       width: '70%',
     },
+    modalConfirmButton: {
+      backgroundColor: Colors.primary,
+      padding: 10,
+      marginTop: 30,
+      marginBottom: 45,
+      borderRadius: 3,
+      paddingHorizontal: 40,
+    },
     bottomLink: {
-      position: 'absolute',
-      bottom: 20,
+      padding: 15,
+      paddingBottom: 40,
       alignSelf: 'center',
     },
     textBottomLink: {
@@ -246,7 +255,7 @@ const LanguageSelection = () => {
       visible={modalVisible}
       topPart={true}
       borderColor={Colors.orange}
-      onRequestClose={() => {}}>
+      onRequestClose={() => setModalVisible(false)}>
       <View style={styles.modalTextContainer}>
         <FontAwesome5Icon
           name="map-marked-alt"
@@ -256,7 +265,7 @@ const LanguageSelection = () => {
         <TextBase style={styles.modalText}>
           {onboarding?.locationDescription}
         </TextBase>
-        <Pressable
+        {/* <Pressable
           onPress={() => handleLanguageValidation()}
           style={({pressed}) => [
             {
@@ -264,12 +273,12 @@ const LanguageSelection = () => {
             },
           ]}>
           <FontAwesome5Icon name="times" size={20} color="#000" />
-        </Pressable>
+        </Pressable> */}
       </View>
       {!needGeolocation ? (
         <Pressable
           style={[
-            styles.confirmButton,
+            styles.modalConfirmButton,
             {
               alignSelf: 'center',
               backgroundColor: Colors.orange,

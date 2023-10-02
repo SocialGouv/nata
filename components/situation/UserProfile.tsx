@@ -195,6 +195,7 @@ const UserProfile = () => {
                   }}
                   items={selectItems}
                   useNativeAndroidPickerStyle={false}
+                  fixAndroidTouchableBug={true}
                   itemKey={index}
                   placeholder={{label: '', value: ''}}
                   value={

@@ -1,13 +1,23 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import {Colors, Fonts} from '../../styles/Style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
-import {Meetings, Month} from './interface';
+import {MeetingInfo, Meetings, Month} from './interface';
 import _ from 'lodash';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import TextBase from '../ui/TextBase';
+import Icon from 'react-native-vector-icons/Ionicons';
+import CustomModal from '../ui/CustomModal';
+import Images from '../../assets/models/meetingInfosImages';
 
 interface Props {
   currentMonth: number;
@@ -23,6 +33,7 @@ const DisplayMeetings = (props: Props) => {
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<Meetings[]>(
     [],
   );
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const [fullMeetingList, setFullMeetingList] = React.useState<Meetings[]>([]);
 
@@ -43,6 +54,8 @@ const DisplayMeetings = (props: Props) => {
         ...meeting,
         months: allMeetings.find((m: Meetings) => m.code === meeting.code)
           .months,
+        meeting_info: allMeetings.find((m: Meetings) => m.code === meeting.code)
+          .meeting_info,
       };
     });
     let tmpMeetings: Meetings[] = _.uniqBy(
@@ -88,6 +101,7 @@ const DisplayMeetings = (props: Props) => {
       });
     };
     getContentFromCache();
+    // AsyncStorage.clear();
   }, []);
 
   React.useEffect(() => {
@@ -125,6 +139,12 @@ const DisplayMeetings = (props: Props) => {
         <Text style={styles.text}>{followup?.noMeeting}</Text>
       )}
       {fullMeetingList.map(meeting => {
+        const meetingHasMoreInfo = meeting.hasMoreInfo;
+        let meetingInfo: MeetingInfo | undefined;
+        if (meetingHasMoreInfo) {
+          meetingInfo = meeting.meeting_info;
+        }
+
         return (
           <View style={styles.menuItem} key={meeting.code}>
             <BouncyCheckbox
@@ -178,12 +198,46 @@ const DisplayMeetings = (props: Props) => {
                 }
               }}
             />
-
-            {/* <FontAwesome5Icon
-              name="chevron-right"
-              size={15}
-              color={Colors.black}
-            /> */}
+            {meetingHasMoreInfo && (
+              <>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(true);
+                  }}
+                  style={styles.infoPress}>
+                  <Icon
+                    style={styles.infoIcon}
+                    name="information-circle-outline"
+                    size={24}
+                  />
+                </Pressable>
+                <CustomModal
+                  visible={modalVisible}
+                  backgroundColor={Colors.backgroundPrimary}
+                  onRequestClose={() => {
+                    setModalVisible(false);
+                  }}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={
+                        Images[meetingInfo?.img_slug as keyof typeof Images]
+                      }
+                      style={styles.image}
+                    />
+                  </View>
+                  <TextBase style={styles.modalTitle}>
+                    {meetingInfo && meetingInfo.title}
+                  </TextBase>
+                  <ScrollView
+                    style={styles.modalContainerText}
+                    persistentScrollbar>
+                    <TextBase style={styles.modalText}>
+                      {meetingInfo && meetingInfo.description}
+                    </TextBase>
+                  </ScrollView>
+                </CustomModal>
+              </>
+            )}
           </View>
         );
       })}
@@ -225,17 +279,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'flex-start',
-    paddingRight: 10,
+    maxWidth: '80%',
   },
   innerCheckboxText: {
     fontFamily: Fonts.primary,
     fontSize: 16,
     color: Colors.black,
-    paddingRight: 7,
   },
   menuItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  infoIcon: {},
+  infoPress: {
+    padding: 10,
+  },
+  imageContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 15,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+  },
+  modalTitle: {
+    paddingVertical: 10,
+    fontSize: 18,
+    fontWeight: '700',
+    color: Colors.black,
+    textAlign: 'center',
+  },
+  modalContainerText: {
+    padding: 15,
+    paddingTop: 0,
+    backgroundColor: 'white',
+    borderBottomRightRadius: 12,
+    borderBottomLeftRadius: 12,
+    minHeight: 100,
+  },
+  modalText: {
+    paddingVertical: 15,
   },
 });

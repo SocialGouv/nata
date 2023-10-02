@@ -1,11 +1,12 @@
 import {
   FlatList,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Colors} from '../../styles/Style';
 import TextBase from '../ui/TextBase';
 import {MatomoTrackEvent} from '../../utils/Matomo';
@@ -31,6 +32,7 @@ interface Props {
 
 const LanguageSelector = (props: Props) => {
   const {selectedLanguage, changeLanguage, languages} = props;
+  const flatListRef = React.useRef<FlatList>(null);
 
   const styles = StyleSheet.create({
     gridView: {
@@ -56,12 +58,24 @@ const LanguageSelector = (props: Props) => {
     },
   });
 
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      setTimeout(() => {
+        flatListRef.current?.flashScrollIndicators();
+      }, 500);
+      setInterval(() => {
+        flatListRef.current?.flashScrollIndicators();
+      }, 10000);
+    }
+  }, []);
+
   return (
     <ScrollView horizontal>
       <FlatList
         data={languages}
-        showsVerticalScrollIndicator={false}
         style={styles.gridView}
+        persistentScrollbar={true}
+        ref={flatListRef}
         renderItem={({item}) => {
           return (
             <TouchableOpacity
