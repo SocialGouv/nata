@@ -71,10 +71,9 @@ const LanguageSelector = (props: Props) => {
   }, []);
 
   return (
-    <ScrollView horizontal>
+    <ScrollView horizontal indicatorStyle="black">
       <FlatList
         data={languages}
-        indicatorStyle="black"
         style={styles.gridView}
         persistentScrollbar
         ref={flatListRef}

@@ -57,6 +57,7 @@ export function CustomCarousel({
         persistentScrollbar
         indicatorStyle="black"
         onSnapToItem={carouselIndex => setPrengancyMonth(carouselIndex + 1)}
+        slideStyle={styles.carouselContainer}
       />
       {(carouselRef.current?.currentIndex < data.length - 1 ||
         !carouselRef.current) && (
@@ -97,5 +98,8 @@ const styles = StyleSheet.create({
     top: '40%',
     transform: [{translateY: -50}],
     zIndex: 10,
+  },
+  carouselContainer: {
+    paddingBottom: 15,
   },
 });
