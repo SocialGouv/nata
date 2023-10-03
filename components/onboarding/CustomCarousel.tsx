@@ -53,7 +53,9 @@ export function CustomCarousel({
         )}
         sliderWidth={width - 40}
         itemWidth={width * 0.5}
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator
+        persistentScrollbar
+        indicatorStyle="black"
         onSnapToItem={carouselIndex => setPrengancyMonth(carouselIndex + 1)}
       />
       {(carouselRef.current?.currentIndex < data.length - 1 ||

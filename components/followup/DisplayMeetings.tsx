@@ -101,7 +101,6 @@ const DisplayMeetings = (props: Props) => {
       });
     };
     getContentFromCache();
-    // AsyncStorage.clear();
   }, []);
 
   React.useEffect(() => {
@@ -223,6 +222,7 @@ const DisplayMeetings = (props: Props) => {
                         Images[meetingInfo?.img_slug as keyof typeof Images]
                       }
                       style={styles.image}
+                      resizeMode="contain"
                     />
                   </View>
                   <TextBase style={styles.modalTitle}>
@@ -230,7 +230,8 @@ const DisplayMeetings = (props: Props) => {
                   </TextBase>
                   <ScrollView
                     style={styles.modalContainerText}
-                    persistentScrollbar>
+                    persistentScrollbar
+                    indicatorStyle="black">
                     <TextBase style={styles.modalText}>
                       {meetingInfo && meetingInfo.description}
                     </TextBase>
@@ -290,7 +291,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  infoIcon: {},
+  infoIcon: {
+    color: Colors.black,
+  },
   infoPress: {
     padding: 10,
   },

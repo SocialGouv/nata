@@ -58,7 +58,9 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
       paddingHorizontal: 15,
       paddingTop: 10,
     },
-    closeIcon: {},
+    closeIcon: {
+      color: Colors.black,
+    },
   });
 
   return (

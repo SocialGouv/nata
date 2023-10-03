@@ -292,7 +292,7 @@ const selectStyles = StyleSheet.create({
     color: Colors.black,
   },
   chevron: {
-    color: '#000000',
+    color: '#000',
     position: 'absolute',
     right: 10,
     top: Platform.OS === 'ios' ? 10 : 15,

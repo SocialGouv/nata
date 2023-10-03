@@ -37,6 +37,7 @@ const LanguageSelector = (props: Props) => {
   const styles = StyleSheet.create({
     gridView: {
       marginTop: 10,
+      paddingHorizontal: 20,
       flex: 1,
       alignContent: 'center',
       marginHorizontal: 'auto',
@@ -73,8 +74,9 @@ const LanguageSelector = (props: Props) => {
     <ScrollView horizontal>
       <FlatList
         data={languages}
+        indicatorStyle="black"
         style={styles.gridView}
-        persistentScrollbar={true}
+        persistentScrollbar
         ref={flatListRef}
         renderItem={({item}) => {
           return (
