@@ -34,7 +34,8 @@ const DisplayMeetings = (props: Props) => {
   const [userMeetingStatus, setUserMeetingStatus] = React.useState<Meetings[]>(
     [],
   );
-  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  // code of the meeting that has more info to set the modal visible
+  const [modalVisible, setModalVisible] = React.useState<string>();
 
   const [fullMeetingList, setFullMeetingList] = React.useState<Meetings[]>([]);
 
@@ -202,7 +203,7 @@ const DisplayMeetings = (props: Props) => {
               <>
                 <Pressable
                   onPress={() => {
-                    setModalVisible(true);
+                    setModalVisible(meeting.code);
                   }}
                   style={styles.infoPress}>
                   <Icon
@@ -212,10 +213,10 @@ const DisplayMeetings = (props: Props) => {
                   />
                 </Pressable>
                 <CustomModal
-                  visible={modalVisible}
+                  visible={modalVisible === meeting.code}
                   backgroundColor={Colors.backgroundPrimary}
                   onRequestClose={() => {
-                    setModalVisible(false);
+                    setModalVisible(undefined);
                   }}>
                   <View style={styles.imageContainer}>
                     <Image
