@@ -18,6 +18,7 @@ import TextBase from '../ui/TextBase';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomModal from '../ui/CustomModal';
 import Images from '../../assets/models/meetingInfosImages';
+import {getDeviceDimensions} from '../../utils/tools';
 
 interface Props {
   currentMonth: number;
@@ -303,10 +304,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: 15,
+    minHeight: getDeviceDimensions().height / 5,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: getDeviceDimensions().height / 5,
     resizeMode: 'cover',
   },
   modalTitle: {
@@ -322,7 +324,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
-    minHeight: 100,
+    minHeight: getDeviceDimensions().height / 3.5,
   },
   modalText: {
     paddingVertical: 15,

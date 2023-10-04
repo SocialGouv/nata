@@ -1,9 +1,9 @@
 import {
-  AppState,
+  // AppState,
   Image,
   ImageBackground,
-  Linking,
-  Platform,
+  // Linking,
+  // Platform,
   Pressable,
   StyleSheet,
   View,
@@ -20,8 +20,8 @@ import {MatomoTrackEvent} from '../utils/Matomo';
 import {fetchContent} from '../utils/fetchContent';
 import AppContext from '../AppContext';
 import Geolocation from '@react-native-community/geolocation';
-import CustomModal from '../components/ui/CustomModal';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+// import CustomModal from '../components/ui/CustomModal';
+// import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface Language {
   code: string;
@@ -43,9 +43,9 @@ const LanguageSelection = () => {
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
   const [onboarding, setOnboarding] = React.useState<any>();
   const {isOnboardingDone} = React.useContext(AppContext);
-  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-  const [needGeolocation, setNeedGeolocation] = React.useState<boolean>();
-  const [code, setCode] = React.useState<number>();
+  // const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  // const [needGeolocation, setNeedGeolocation] = React.useState<boolean>();
+  // const [code, setCode] = React.useState<number>();
 
   const styles = StyleSheet.create({
     container: {
@@ -144,7 +144,7 @@ const LanguageSelection = () => {
   };
 
   React.useEffect(() => {
-    getLocationServiceStatus(0);
+    getLocationServiceStatus();
     fetchLanguages();
     getContentFromCache();
   }, []);
@@ -180,135 +180,136 @@ const LanguageSelection = () => {
     setSelectedLanguage(language);
   };
 
-  const getLocationServiceStatus = async (loopTime: number) => {
-    if (loopTime < 1) {
-      return Geolocation.requestAuthorization(
-        () => {
-          Geolocation.getCurrentPosition(
-            () => {
-              setCode(0);
-              setNeedGeolocation(false);
-            },
-            error => {
-              if (error.code === 1) {
-                setCode(1);
-                setNeedGeolocation(true);
-              } else if (error.code === 2) {
-                setCode(2);
-                setNeedGeolocation(true);
-              }
-            },
-          );
-        },
-        error => {
-          if (error.code === 1) {
-            setCode(1);
-            getLocationServiceStatus(1);
-          } else if (error.code === 2) {
-            setCode(2);
-            setNeedGeolocation(true);
-          }
-        },
-      );
-    } else {
-      setNeedGeolocation(true);
-    }
+  const getLocationServiceStatus = async () => {
+    return Geolocation.requestAuthorization();
+    // if (loopTime < 1) {
+    //   return Geolocation.requestAuthorization(
+    //     () => {
+    //       Geolocation.getCurrentPosition(
+    //         () => {
+    //           setCode(0);
+    //           setNeedGeolocation(false);
+    //         },
+    //         error => {
+    //           if (error.code === 1) {
+    //             setCode(1);
+    //             setNeedGeolocation(true);
+    //           } else if (error.code === 2) {
+    //             setCode(2);
+    //             setNeedGeolocation(true);
+    //           }
+    //         },
+    //       );
+    //     },
+    //     error => {
+    //       if (error.code === 1) {
+    //         setCode(1);
+    //         getLocationServiceStatus(1);
+    //       } else if (error.code === 2) {
+    //         setCode(2);
+    //         setNeedGeolocation(true);
+    //       }
+    //     },
+    //   );
+    // } else {
+    //   setNeedGeolocation(true);
+    // }
   };
 
   const handleLanguageValidation = async () => {
-    if (needGeolocation) {
-      setModalVisible(true);
-      return;
-    }
+    // if (needGeolocation) {
+    //   setModalVisible(true);
+    //   return;
+    // }
     if (selectedLanguage) {
       AsyncStorage.setItem('language', selectedLanguage).then(() => {
-        setModalVisible(false);
+        // setModalVisible(false);
         navigation.navigate('Onboarding');
         MatomoTrackEvent('ONBOARDING', 'ONBOARDING_CLICK_START');
       });
     }
   };
 
-  const handleGeolocationActivation = () => {
-    if (Platform.OS === 'ios') {
-      Linking.openURL('app-settings:');
-    } else {
-      code !== 1
-        ? Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS')
-        : Linking.openSettings();
-    }
-  };
+  // const handleGeolocationActivation = () => {
+  //   if (Platform.OS === 'ios') {
+  //     Linking.openURL('app-settings:');
+  //   } else {
+  //     code !== 1
+  //       ? Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS')
+  //       : Linking.openSettings();
+  //   }
+  // };
 
-  React.useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'active' && needGeolocation) {
-        getLocationServiceStatus(0);
-      }
-    });
-    return () => {
-      subscription.remove();
-    };
-  });
+  // React.useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     if (nextAppState === 'active' && needGeolocation) {
+  //       getLocationServiceStatus(0);
+  //     }
+  //   });
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // });
 
-  const LocationModal = (
-    <CustomModal
-      visible={modalVisible}
-      topPart={true}
-      borderColor={Colors.orange}
-      onRequestClose={() => setModalVisible(false)}>
-      <View style={styles.modalTextContainer}>
-        <FontAwesome5Icon
-          name="map-marked-alt"
-          size={40}
-          color={Colors.orange}
-        />
-        <TextBase style={styles.modalText}>
-          {onboarding?.locationDescription}
-        </TextBase>
-        {/* <Pressable
-          onPress={() => handleLanguageValidation()}
-          style={({pressed}) => [
-            {
-              opacity: pressed ? 0.5 : 1,
-            },
-          ]}>
-          <FontAwesome5Icon name="times" size={20} color="#000" />
-        </Pressable> */}
-      </View>
-      {!needGeolocation ? (
-        <Pressable
-          style={[
-            styles.modalConfirmButton,
-            {
-              alignSelf: 'center',
-              backgroundColor: Colors.orange,
-            },
-          ]}
-          onPress={() => handleLanguageValidation()}>
-          <TextBase style={styles.confirmButtonText}>
-            {onboarding?.begin}
-          </TextBase>
-        </Pressable>
-      ) : (
-        <Pressable
-          style={styles.bottomLink}
-          onPress={() => handleGeolocationActivation()}>
-          <TextBase style={styles.textBottomLink}>
-            {onboarding?.locationServiceText}{' '}
-            <FontAwesome5Icon
-              name="arrow-right"
-              size={12}
-              color={Colors.orange}
-            />
-          </TextBase>
-        </Pressable>
-      )}
-    </CustomModal>
-  );
+  // const LocationModal = (
+  //   <CustomModal
+  //     visible={modalVisible}
+  //     topPart={true}
+  //     borderColor={Colors.orange}
+  //     onRequestClose={() => setModalVisible(false)}>
+  //     <View style={styles.modalTextContainer}>
+  //       <FontAwesome5Icon
+  //         name="map-marked-alt"
+  //         size={40}
+  //         color={Colors.orange}
+  //       />
+  //       <TextBase style={styles.modalText}>
+  //         {onboarding?.locationDescription}
+  //       </TextBase>
+  //       {/* <Pressable
+  //         onPress={() => handleLanguageValidation()}
+  //         style={({pressed}) => [
+  //           {
+  //             opacity: pressed ? 0.5 : 1,
+  //           },
+  //         ]}>
+  //         <FontAwesome5Icon name="times" size={20} color="#000" />
+  //       </Pressable> */}
+  //     </View>
+  //     {!needGeolocation ? (
+  //       <Pressable
+  //         style={[
+  //           styles.modalConfirmButton,
+  //           {
+  //             alignSelf: 'center',
+  //             backgroundColor: Colors.orange,
+  //           },
+  //         ]}
+  //         onPress={() => handleLanguageValidation()}>
+  //         <TextBase style={styles.confirmButtonText}>
+  //           {onboarding?.begin}
+  //         </TextBase>
+  //       </Pressable>
+  //     ) : (
+  //       <Pressable
+  //         style={styles.bottomLink}
+  //         onPress={() => handleGeolocationActivation()}>
+  //         <TextBase style={styles.textBottomLink}>
+  //           {onboarding?.locationServiceText}{' '}
+  //           <FontAwesome5Icon
+  //             name="arrow-right"
+  //             size={12}
+  //             color={Colors.orange}
+  //           />
+  //         </TextBase>
+  //       </Pressable>
+  //     )}
+  //   </CustomModal>
+  // );
 
   return (
     <>
-      {modalVisible && LocationModal}
+      {/* {modalVisible && LocationModal} */}
       <View style={styles.container}>
         <View>
           <ImageBackground
