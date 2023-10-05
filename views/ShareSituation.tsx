@@ -161,8 +161,7 @@ const ShareSituation = () => {
       return (
         <View style={styles.textContainer}>
           <TextBase style={styles.text}>
-            Je suis une femme {userInfos?.is18 ? 'majeure' : 'mineure'} enceinte
-            de{' '}
+            Je suis une femme enceinte de{' '}
             <TextBase style={styles.boldText}>
               {userInfos?.pregnancyMonth} mois.
             </TextBase>
