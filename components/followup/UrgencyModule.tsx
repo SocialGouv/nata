@@ -5,7 +5,11 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 
-const UrgencyModule = () => {
+interface UrgencyProps {
+  phoneNumber?: string;
+}
+
+const UrgencyModule = (props: UrgencyProps) => {
   const styles = StyleSheet.create({
     backgroundContainer: {
       width: '100%',
@@ -102,7 +106,7 @@ const UrgencyModule = () => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
     navigation.navigate('UrgencyPage', {
       title: null,
-      number: '15',
+      number: props.phoneNumber ?? '15',
       keywords: [
         keywords.find(keyword => keyword.language === language)?.label,
       ],
@@ -117,7 +121,10 @@ const UrgencyModule = () => {
         <View style={styles.backgroundContainer} />
         <View style={styles.textContainer}>
           <Text style={styles.icon}>🚨</Text>
-          <Text style={styles.text}>{followup?.urgencyText}</Text>
+          <Text style={styles.text}>
+            {followup &&
+              followup.urgencyText.replace('*', props.phoneNumber ?? '15')}
+          </Text>
         </View>
         <Pressable style={styles.button} onPress={onPress}>
           <Text style={styles.buttonText}>{followup?.urgencyButton}</Text>

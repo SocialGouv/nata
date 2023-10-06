@@ -223,7 +223,17 @@ const DisplaySymptomes = (props: Props) => {
           symptome =>
             symptome.code === selectedSymptome?.code &&
             symptome.status === 'urgency',
-        ) && <UrgencyModule />}
+        ) && (
+          <UrgencyModule
+            phoneNumber={
+              userSymptomesStatus.find(
+                symptome =>
+                  symptome.code === selectedSymptome?.code &&
+                  symptome.status === 'urgency',
+              )?.phoneNumber || undefined
+            }
+          />
+        )}
     </View>
   );
 };
