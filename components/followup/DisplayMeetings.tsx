@@ -206,11 +206,7 @@ const DisplayMeetings = (props: Props) => {
                     setModalVisible(meeting.code);
                   }}
                   style={styles.infoPress}>
-                  <Icon
-                    style={styles.infoIcon}
-                    name="information-circle-outline"
-                    size={24}
-                  />
+                  <Icon name="information-circle-outline" size={24} />
                 </Pressable>
                 <CustomModal
                   visible={modalVisible === meeting.code}
@@ -277,27 +273,24 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginBottom: 10,
   },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   chekboxStyle: {
     marginVertical: 10,
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'flex-start',
-    maxWidth: '80%',
+    flex: 1,
   },
   innerCheckboxText: {
     fontFamily: Fonts.primary,
     fontSize: 16,
     color: Colors.black,
   },
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  infoIcon: {
-    color: Colors.black,
-  },
   infoPress: {
-    padding: 10,
+    marginLeft: 30,
   },
   imageContainer: {
     display: 'flex',
