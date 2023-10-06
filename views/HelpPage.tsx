@@ -261,6 +261,7 @@ const HelpPage = (props: Props) => {
                   keyboardShouldPersistTaps: 'always',
                   renderItem: ({item}) => (
                     <TouchableOpacity
+                      key={item}
                       style={styles.displayResults}
                       onPress={() => {
                         setSearch(item);

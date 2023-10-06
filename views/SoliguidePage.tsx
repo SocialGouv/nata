@@ -1,7 +1,11 @@
 import {
+  Image,
+  Linking,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
+  Text,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -18,6 +22,7 @@ interface Props {
 }
 
 const SoliguidePage = (props: Props) => {
+  const [language, setLanguage] = React.useState<string>('fr');
   const [soliguide, setSoliguide] = React.useState<any>();
   const {structure} = props.route.params;
 
@@ -27,6 +32,11 @@ const SoliguidePage = (props: Props) => {
         if (data !== null) {
           setSoliguide(JSON.parse(data).soliguide);
         }
+        AsyncStorage.getItem('language').then(language => {
+          if (language !== null) {
+            setLanguage(language);
+          }
+        });
       });
     };
     getContentFromCache();
@@ -99,6 +109,35 @@ const SoliguidePage = (props: Props) => {
           </View>
         ))}
       </View>
+      <View style={{...styles.container, paddingBottom: 100}}>
+        <TextBase style={styles.title}>Informations supplémentaires</TextBase>
+        <TextBase>
+          Ces informations sont fournies par Soliguide, la cartographie
+          solidaire. Pour des informations plus complètes sur ce lieu, consultez{' '}
+          <Text
+            style={styles.link}
+            onPress={() => {
+              Linking.openURL(
+                `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
+              );
+            }}>
+            Soliguide
+          </Text>
+          .
+        </TextBase>
+        <Pressable
+          style={styles.imageContainer}
+          onPress={() => {
+            Linking.openURL(
+              `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
+            );
+          }}>
+          <Image
+            source={require('../assets/images/soliguide.jpg')}
+            style={styles.image}
+          />
+        </Pressable>
+      </View>
     </ScrollView>
   );
 };
@@ -160,5 +199,19 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     marginTop: 20,
+  },
+  link: {
+    color: Colors.primary,
+    textDecorationLine: 'underline',
+  },
+  imageContainer: {
+    width: '50%',
+    height: '50%',
+    marginTop: 10,
+  },
+  image: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: '100%',
   },
 });

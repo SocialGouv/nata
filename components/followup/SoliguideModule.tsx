@@ -158,10 +158,13 @@ const SoliGuideModule = (props: Props) => {
         (await AsyncStorage.getItem('language')),
       requestOptions,
     )
-      .then(response => response.text())
+      .then(response => response.json())
       .then(result => {
+        if (!result.places) {
+          return;
+        }
         if (keywords && keywords.length > 0) {
-          const filtered = JSON.parse(result).places.filter((place: any) => {
+          const filtered = result.places.filter((place: any) => {
             return keywords.some((keyword: string) => {
               return place.description
                 .toLowerCase()
@@ -170,7 +173,7 @@ const SoliGuideModule = (props: Props) => {
           });
           setData({places: filtered});
         } else {
-          setData(JSON.parse(result));
+          setData(result);
         }
       })
       .catch(error => console.log('error in soliguide module', error));
