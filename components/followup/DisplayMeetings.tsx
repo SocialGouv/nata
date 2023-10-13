@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     paddingVertical: 10,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
     color: Colors.black,
     textAlign: 'center',
@@ -322,5 +322,6 @@ const styles = StyleSheet.create({
   },
   modalText: {
     paddingVertical: 15,
+    fontSize: 16,
   },
 });
