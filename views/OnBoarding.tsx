@@ -27,6 +27,7 @@ const Onboarding = () => {
   const [pregnancyMonth, setPrengancyMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<UserInfos>({});
   const [questions, setQuestions] = React.useState<Question[]>([]);
+  const [responses, setResponses] = React.useState<Response[]>([]);
   const [onboarding, setOnboarding] = React.useState<any>();
 
   const {
@@ -39,6 +40,7 @@ const Onboarding = () => {
     return AsyncStorage.getItem('content').then(data => {
       if (data !== null) {
         setQuestions(JSON.parse(data).question.results.sort(sortByCode));
+        setResponses(JSON.parse(data).response.results);
         setOnboarding(JSON.parse(data).onboarding);
       }
     });
@@ -148,7 +150,7 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
-            number: '0 801 801 081',
+            number:  responses.find(r => (r.value === 'Q7A3' || r.value === 'Q7A5') && r.phoneNumber?.length > 0)?.phoneNumber ?? '0 801 801 081',
             keywords: ['PMI'],
             back: onboarding?.back,
           });
@@ -181,7 +183,7 @@ const Onboarding = () => {
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            number: '0 801 801 081',
+            number: responses.find(r => (r.value === 'Q6A3' || r.value === 'Q6A4' || r.value === 'Q7A3' || r.value === 'Q7A5') && r.phoneNumber?.length > 0 )?.phoneNumber ?? '0 801 801 081',
             keywords: ['Hopital'],
             back: onboarding?.back,
           });

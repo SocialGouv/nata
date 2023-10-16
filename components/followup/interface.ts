@@ -5,6 +5,7 @@ export interface Symptome {
   status: string;
   code: string;
   currentMonth?: number;
+  phoneNumber?: string;
 }
 
 export interface Meetings {
