@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import CustomModal from '../ui/CustomModal';
 import Images from '../../assets/models/meetingInfosImages';
 import {getDeviceDimensions} from '../../utils/tools';
+import Markdown from '@ronradtke/react-native-markdown-display';
 
 interface Props {
   currentMonth: number;
@@ -230,9 +231,9 @@ const DisplayMeetings = (props: Props) => {
                     style={styles.modalContainerText}
                     persistentScrollbar
                     indicatorStyle="black">
-                    <TextBase style={styles.modalText}>
-                      {meetingInfo && meetingInfo.description}
-                    </TextBase>
+                    <Markdown style={{body: styles.mdText}}>
+                      {(meetingInfo && meetingInfo.description) ?? ''}
+                    </Markdown>
                   </ScrollView>
                 </CustomModal>
               </>
@@ -320,8 +321,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 12,
     minHeight: getDeviceDimensions().height / 3.5,
   },
-  modalText: {
-    paddingVertical: 15,
+  mdText: {
+    paddingVertical: 10,
+    fontFamily: Fonts.primary,
+    color: Colors.black,
     fontSize: 16,
   },
 });
