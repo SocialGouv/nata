@@ -464,8 +464,6 @@ const UrgencyPage = (props: Props) => {
           {number && (
             <>
               {number === '15' ? (
-                <></>
-              ) : (
                 <TextBase style={styles.explanationContainer}>
                   {urgency?.solipamtext
                     .split('-')
@@ -483,6 +481,8 @@ const UrgencyPage = (props: Props) => {
                       );
                     })}
                 </TextBase>
+              ) : (
+                <></>
               )}
               <TouchableOpacity
                 style={styles.button}
