@@ -10,6 +10,7 @@ interface CustomModalProps {
   backgroundColor?: string;
   onRequestClose: () => void;
   topPart?: boolean;
+  customHeader?: boolean;
 }
 
 const CustomModal = ({children, ...props}: CustomModalProps) => {
@@ -79,11 +80,18 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
           }}>
           {props.topPart && <View style={styles.topModal} />}
           <View style={styles.view}>
-            <View style={styles.modalHeader}>
-              <Pressable onPress={() => props.onRequestClose()}>
-                <Icon name="close-outline" size={32} style={styles.closeIcon} />
-              </Pressable>
-            </View>
+            {!props.customHeader && (
+              <View style={styles.modalHeader}>
+                <Pressable onPress={() => props.onRequestClose()}>
+                  <Icon
+                    name="close-outline"
+                    size={32}
+                    style={styles.closeIcon}
+                  />
+                </Pressable>
+              </View>
+            )}
+
             {children}
           </View>
         </View>
