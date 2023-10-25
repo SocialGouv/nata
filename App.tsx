@@ -27,6 +27,7 @@ import {
 } from 'react-native';
 import Container from './components/ui/Container';
 import {fetchContent} from './utils/fetchContent';
+import NotPregnantScreen from './views/OnboardingSubScreens/NotPregnantScreen';
 
 type ContextType = {
   isOnboardingDone: boolean;
@@ -148,6 +149,10 @@ function App(): JSX.Element {
                 <Stack.Screen
                   name="ShortOnboardingEnd"
                   component={ShortOnboardingEnd}
+                />
+                <Stack.Screen
+                  name="NotPregnantScreen"
+                  component={NotPregnantScreen}
                 />
                 <Stack.Screen name="SoliguidePage" component={SoliguidePage} />
               </>

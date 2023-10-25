@@ -79,6 +79,26 @@ const Onboarding = () => {
       MatomoTrackEvent('ONBOARDING', 'ONBOARDINGSTOPPED');
       MatomoTrackEvent('PAGE_VIEW', 'PAGE_VIEW_ONBOARDING_STOPPED');
     } else if (
+      answer.value === 'Q1A3' ||
+      answer.value === 'Q1A4' ||
+      answer.value === 'Q1A5'
+    ) {
+      navigation.navigate('NotPregnantScreen', {
+        content: answer.redirectScreenContent,
+        back: onboarding?.back,
+        continueText: onboarding?.continue,
+        onContinue: () => {
+          setUserInfos(
+            Object.assign(userInfos, {
+              [question.slug]: question.isSpecial
+                ? pregnancyMonth.toString()
+                : answer.value,
+            }),
+          );
+          setCurrentStep(currentStep + 1);
+        },
+      });
+    } else if (
       answer.redirectScreen &&
       answer.value !== 'Q4A2' &&
       !question.isSpecial
@@ -137,7 +157,6 @@ const Onboarding = () => {
     }
   };
 
-
   const handleUrgencyPath = () => {
     if (userInfos) {
       // moins de 6 mois de grossesse et pas de rdv
@@ -150,7 +169,12 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
-            number:  responses.find(r => (r.value === 'Q7A3' || r.value === 'Q7A5') && r.phoneNumber?.length > 0)?.phoneNumber ?? '0 801 801 081',
+            number:
+              responses.find(
+                r =>
+                  (r.value === 'Q7A3' || r.value === 'Q7A5') &&
+                  r.phoneNumber?.length > 0,
+              )?.phoneNumber ?? '0 801 801 081',
             keywords: ['PMI'],
             back: onboarding?.back,
           });
@@ -183,7 +207,15 @@ const Onboarding = () => {
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            number: responses.find(r => (r.value === 'Q6A3' || r.value === 'Q6A4' || r.value === 'Q7A3' || r.value === 'Q7A5') && r.phoneNumber?.length > 0 )?.phoneNumber ?? '0 801 801 081',
+            number:
+              responses.find(
+                r =>
+                  (r.value === 'Q6A3' ||
+                    r.value === 'Q6A4' ||
+                    r.value === 'Q7A3' ||
+                    r.value === 'Q7A5') &&
+                  r.phoneNumber?.length > 0,
+              )?.phoneNumber ?? '0 801 801 081',
             keywords: ['Hopital'],
             back: onboarding?.back,
           });
@@ -254,129 +286,160 @@ const Onboarding = () => {
           }
         })}
       </View>
-      <View style={styles.bottomContainer}>
-        <View style={styles.buttonContainers}>
-          {questions.map((question, index) => {
-            if (index + 1 === currentStep) {
-              if (question.isSpecial) {
-                return (
-                  <View key={index} style={styles.sliderContainer}>
-                    <CustomCarousel
-                      data={question.responses.filter(e => e.value !== '0')}
-                      width={width}
-                      setPrengancyMonth={e => setPrengancyMonth(e)}
-                    />
-                    <Pressable
-                      onPress={() => {
-                        handlePress({
-                          answer: question.responses.find(
-                            r => r.value === '0',
-                          ) as Response,
-                          question,
-                        });
-                        MatomoTrackEvent(
-                          'ONBOARDING',
-                          'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
-                          'choose_month',
-                          pregnancyMonth,
-                        );
-                      }}
-                      style={({pressed}) => [
-                        {
-                          opacity: pressed ? 0.5 : 1,
-                          ...styles.confirmButton,
-                        },
-                      ]}>
-                      <TextBase style={styles.confirmButtonText}>
-                        {onboarding?.continue}
-                      </TextBase>
-                    </Pressable>
-                    <Pressable
-                      style={styles.pressable}
-                      onPress={() => {
-                        setUserInfos({
-                          ...userInfos,
-                          pregnancyMonth: question.responses.find(
-                            r => r.value === '0',
-                          )?.value as string,
-                        });
-                        setCurrentStep(currentStep + 1);
-                        MatomoTrackEvent(
-                          'ONBOARDING',
-                          'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
-                          'pass',
-                          0,
-                        );
-                      }}>
-                      <TextBase style={{color: Colors.black}}>
-                        {question.responses.find(r => r.value === '0')?.label}
-                      </TextBase>
-                    </Pressable>
-                  </View>
-                );
-              } else if (question.verticalAnswer) {
-                return (
-                  <ScrollView>
-                    <View style={styles.verticalButton}>
-                      {question.responses?.map((answer, verticalIndex) => {
-                        return (
-                          <AnswerButton
-                            style={{marginBottom: 20}}
-                            key={'ansVert' + verticalIndex}
-                            answer={answer.label}
-                            onClick={() => handlePress({answer, question})}
-                          />
-                        );
-                      })}
+      <ScrollView contentContainerStyle={styles.bottomContainer}>
+        <View style={styles.normalAnswers}>
+          <View style={styles.buttonContainers}>
+            {questions.map((question, index) => {
+              if (index + 1 === currentStep) {
+                if (question.isSpecial) {
+                  return (
+                    <View key={index} style={styles.sliderContainer}>
+                      <CustomCarousel
+                        data={question.responses.filter(e => e.value !== '0')}
+                        width={width}
+                        setPrengancyMonth={e => setPrengancyMonth(e)}
+                      />
+                      <Pressable
+                        onPress={() => {
+                          handlePress({
+                            answer: question.responses.find(
+                              r => r.value === '0',
+                            ) as Response,
+                            question,
+                          });
+                          MatomoTrackEvent(
+                            'ONBOARDING',
+                            'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
+                            'choose_month',
+                            pregnancyMonth,
+                          );
+                        }}
+                        style={({pressed}) => [
+                          {
+                            opacity: pressed ? 0.5 : 1,
+                            ...styles.confirmButton,
+                          },
+                        ]}>
+                        <TextBase style={styles.confirmButtonText}>
+                          {onboarding?.continue}
+                        </TextBase>
+                      </Pressable>
+                      <Pressable
+                        style={styles.pressable}
+                        onPress={() => {
+                          setUserInfos({
+                            ...userInfos,
+                            pregnancyMonth: question.responses.find(
+                              r => r.value === '0',
+                            )?.value as string,
+                          });
+                          setCurrentStep(currentStep + 1);
+                          MatomoTrackEvent(
+                            'ONBOARDING',
+                            'ONBOARDING_LENGTH_PREGNANCY_CHOOSE',
+                            'pass',
+                            0,
+                          );
+                        }}>
+                        <TextBase style={{color: Colors.black}}>
+                          {question.responses.find(r => r.value === '0')?.label}
+                        </TextBase>
+                      </Pressable>
                     </View>
-                  </ScrollView>
+                  );
+                } else if (question.verticalAnswer) {
+                  return (
+                    <ScrollView>
+                      <View style={styles.verticalButton}>
+                        {question.responses?.map((answer, verticalIndex) => {
+                          return (
+                            <AnswerButton
+                              style={{marginBottom: 20}}
+                              key={'ansVert' + verticalIndex}
+                              answer={answer.label}
+                              onClick={() => handlePress({answer, question})}
+                            />
+                          );
+                        })}
+                      </View>
+                    </ScrollView>
+                  );
+                } else {
+                  return question.responses?.map((answer, secondIndex) => {
+                    if (
+                      answer.isDanger ||
+                      answer.value === 'Q1A3' ||
+                      answer.value === 'Q1A4' ||
+                      answer.value === 'Q1A5'
+                    ) {
+                      return null;
+                    }
+                    return (
+                      <AnswerButton
+                        key={'ans' + secondIndex}
+                        answer={answer.label}
+                        onClick={() => handlePress({answer, question})}
+                      />
+                    );
+                  });
+                }
+              }
+            })}
+          </View>
+          <View style={styles.lastButtonContainer}>
+            {questions.map((question, index) => {
+              if (
+                question.responses?.some(r => r.isDanger) &&
+                index + 1 === currentStep
+              ) {
+                return (
+                  <AnswerButton
+                    key={question.slug + index}
+                    answer={
+                      question.responses.find(r => r.value === 'Q1AD')
+                        ?.label as string
+                    }
+                    onClick={() =>
+                      handlePress({
+                        answer: question.responses.find(
+                          r => r.isDanger,
+                        ) as Response,
+                        question,
+                      })
+                    }
+                  />
                 );
               } else {
-                return question.responses?.map((answer, secondIndex) => {
-                  if (answer.isDanger) {
-                    return null;
-                  }
-                  return (
-                    <AnswerButton
-                      key={'ans' + secondIndex}
-                      answer={answer.label}
-                      onClick={() => handlePress({answer, question})}
-                    />
-                  );
-                });
+                return null;
               }
-            }
-          })}
+            })}
+          </View>
         </View>
-        <View style={styles.lastButtonContainer}>
+        <View style={styles.otherAnswers}>
           {questions.map((question, index) => {
-            if (
-              question.responses?.some(r => r.isDanger) &&
-              index + 1 === currentStep
-            ) {
-              return (
-                <AnswerButton
-                  key={question.slug + index}
-                  answer={
-                    question.responses.find(r => r.value === 'Q1AD')
-                      ?.label as string
-                  }
-                  onClick={() =>
-                    handlePress({
-                      answer: question.responses.find(
-                        r => r.isDanger,
-                      ) as Response,
-                      question,
-                    })
-                  }
-                />
-              );
-            } else {
+            if (!(index + 1 === currentStep)) {
               return null;
             }
+            return question.responses?.map((answer, secondIndex) => {
+              if (
+                answer.value === 'Q1A3' ||
+                answer.value === 'Q1A4' ||
+                answer.value === 'Q1A5'
+              ) {
+                return (
+                  <AnswerButton
+                    key={'ans' + secondIndex}
+                    answer={answer.label}
+                    onClick={() => handlePress({answer, question})}
+                    style={{marginTop: 20}}
+                    smallerText
+                  />
+                );
+              }
+            });
           })}
         </View>
-      </View>
+      </ScrollView>
     </Container>
   );
 };
@@ -431,17 +494,19 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flexDirection: 'column',
-    paddingTop: 30,
+    paddingVertical: 30,
     paddingHorizontal: 20,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    height: '100%',
     backgroundColor: Colors.white,
   },
   buttonContainers: {
-    paddingTop: 30,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     backgroundColor: Colors.white,
   },
+  normalAnswers: {},
+  otherAnswers: {},
   confirmButton: {
     backgroundColor: Colors.primary,
     padding: 10,
