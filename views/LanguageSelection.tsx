@@ -94,14 +94,15 @@ const LanguageSelection = () => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       padding: 15,
+      paddingBottom: 20,
     },
     modalText: {
-      marginLeft: 10,
       fontSize: 14,
       fontFamily: Fonts.primary,
-      width: '70%',
+      textAlign: 'center',
+      fontWeight: 'bold',
     },
     modalConfirmButton: {
       backgroundColor: Colors.primary,
@@ -112,15 +113,18 @@ const LanguageSelection = () => {
       paddingHorizontal: 40,
     },
     bottomLink: {
-      padding: 15,
-      paddingBottom: 50,
       alignSelf: 'center',
+      borderTopWidth: 1,
+      borderColor: 'lightgrey',
+      width: '100%',
     },
     textBottomLink: {
-      color: Colors.orange,
+      color: '#007AFF',
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      textAlign: 'center',
       fontSize: 14,
       fontFamily: Fonts.primary,
-      textDecorationLine: 'underline',
     },
   });
 
@@ -239,22 +243,17 @@ const LanguageSelection = () => {
   const LocationModal = (
     <CustomModal
       visible={modalVisible}
-      borderColor={Colors.orange}
       customHeader
       onRequestClose={() => {
         setNeedGeolocation(false);
         setModalVisible(false);
       }}>
       <View style={styles.modalTextContainer}>
-        <FontAwesome5Icon
-          name="map-marked-alt"
-          size={40}
-          color={Colors.orange}
-        />
+        {/* <FontAwesome5Icon name="map-marked-alt" color={'#007AFF'} size={40} /> */}
         <TextBase style={styles.modalText}>
           {onboarding?.locationDescription}
         </TextBase>
-        <Pressable
+        {/* <Pressable
           onPress={() => handleLanguageValidation()}
           style={({pressed}) => [
             {
@@ -262,35 +261,48 @@ const LanguageSelection = () => {
             },
           ]}>
           <FontAwesome5Icon name="times" size={20} color="#000" />
-        </Pressable>
+        </Pressable> */}
       </View>
       {!needGeolocation ? (
         <Pressable
-          style={[
-            styles.modalConfirmButton,
-            {
+          style={{
+            ...styles.modalConfirmButton,
+            ...{
               alignSelf: 'center',
               backgroundColor: Colors.orange,
             },
-          ]}
+          }}
           onPress={() => handleLanguageValidation()}>
           <TextBase style={styles.confirmButtonText}>
             {onboarding?.begin}
           </TextBase>
         </Pressable>
       ) : (
-        <Pressable
-          style={styles.bottomLink}
-          onPress={() => handleGeolocationActivation()}>
-          <TextBase style={styles.textBottomLink}>
-            {onboarding?.locationServiceText}{' '}
-            <FontAwesome5Icon
-              name="arrow-right"
-              size={12}
-              color={Colors.orange}
-            />
-          </TextBase>
-        </Pressable>
+        <>
+          <Pressable
+            style={styles.bottomLink}
+            onPress={() => handleGeolocationActivation()}>
+            <TextBase
+              style={{...styles.textBottomLink, ...{fontWeight: 'bold'}}}>
+              {onboarding?.locationServiceText}{' '}
+              <FontAwesome5Icon
+                name="arrow-right"
+                size={12}
+                color={'#007AFF'}
+              />
+            </TextBase>
+          </Pressable>
+          <Pressable
+            style={styles.bottomLink}
+            onPress={() => {
+              setNeedGeolocation(false);
+              setModalVisible(false);
+            }}>
+            <TextBase style={styles.textBottomLink}>
+              {onboarding?.back}
+            </TextBase>
+          </Pressable>
+        </>
       )}
     </CustomModal>
   );

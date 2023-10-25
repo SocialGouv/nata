@@ -29,7 +29,6 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
       backgroundColor: props.backgroundColor ? props.backgroundColor : 'white',
       borderColor: props.borderColor ? props.borderColor : 'transparent',
       borderWidth: props.borderColor ? 3 : 0,
-      maxHeight: '85%',
       borderRadius: 12,
       // paddingHorizontal: 15,
       // paddingVertical: 10,
@@ -67,7 +66,7 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
   return (
     <Modal
       style={styles.container}
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={props.visible}
       onRequestClose={props.onRequestClose}>
