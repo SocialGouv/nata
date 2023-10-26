@@ -34,7 +34,16 @@ const UrgencyPage = (props: Props) => {
 
   const navigation = useNavigation();
   const {width, height} = useWindowDimensions();
-  const {title, number, keywords, back, isSymptom} = props.route.params;
+
+  const {
+    title,
+    phoneNumber,
+    secondPhoneNumber,
+    urgencyText,
+    keywords,
+    back,
+    isSymptom,
+  } = props.route.params;
 
   const titleTodisplay = title ? title : urgency?.title;
 
@@ -325,16 +334,17 @@ const UrgencyPage = (props: Props) => {
     },
   });
 
-  const handlePhonePress = () => {
-    // before : ios: tel, android: telprompt
-    const phoneNumber = `${Platform.OS !== 'android' ? 'tel' : 'tel'}:${
-      number === '15' ? '15' : number.replace(/\s+/g, '')
+  const handlePhonePress = (clickedPhoneNumber: string) => {
+    const platformPhoneNumber = `${Platform.OS !== 'android' ? 'tel' : 'tel'}:${
+      clickedPhoneNumber === '15'
+        ? '15'
+        : clickedPhoneNumber.replace(/\s+/g, '')
     }`;
 
-    Linking.canOpenURL(phoneNumber)
+    Linking.canOpenURL(platformPhoneNumber)
       .then(supported => {
         if (supported) {
-          Linking.openURL(phoneNumber);
+          Linking.openURL(platformPhoneNumber);
         }
       })
       .catch(error => console.log(error));
@@ -461,9 +471,9 @@ const UrgencyPage = (props: Props) => {
               {urgency?.button}
             </TextBase>
           </Pressable> */}
-          {number && (
+          {phoneNumber && (
             <>
-              {number === '15' ? (
+              {phoneNumber === '15' ? (
                 <TextBase style={styles.explanationContainer}>
                   {urgency?.solipamtext
                     .split('-')
@@ -482,17 +492,44 @@ const UrgencyPage = (props: Props) => {
                     })}
                 </TextBase>
               ) : (
-                <></>
+                <TextBase style={styles.explanationContainer}>
+                  {urgencyText &&
+                    urgencyText.split('-').map((item: string, key: any) => (
+                      <TextBase
+                        key={key}
+                        style={
+                          key % 2 === 0
+                            ? styles.explanationText
+                            : styles.explanationTextBlue
+                        }>
+                        {item}
+                      </TextBase>
+                    ))}
+                </TextBase>
               )}
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => handlePhonePress()}>
+                onPress={() => handlePhonePress(phoneNumber)}>
                 <Image
                   style={styles.imgPhone}
                   source={require('../assets/images/phone.png')}
                 />
-                <TextBase style={styles.whiteText}>{number}</TextBase>
+                <TextBase style={styles.whiteText}>{phoneNumber}</TextBase>
               </TouchableOpacity>
+
+              {secondPhoneNumber && (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handlePhonePress(secondPhoneNumber)}>
+                  <Image
+                    style={styles.imgPhone}
+                    source={require('../assets/images/phone.png')}
+                  />
+                  <TextBase style={styles.whiteText}>
+                    {secondPhoneNumber}
+                  </TextBase>
+                </TouchableOpacity>
+              )}
             </>
           )}
         </View>

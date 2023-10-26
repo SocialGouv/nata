@@ -4,12 +4,13 @@ import {Colors} from '../../styles/Style';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MatomoTrackEvent} from '../../utils/Matomo';
+import {Symptome} from './interface';
 
 interface UrgencyProps {
-  phoneNumber?: string;
+  symptom?: Symptome;
 }
 
-const UrgencyModule = (props: UrgencyProps) => {
+const UrgencyModule = ({symptom}: UrgencyProps) => {
   const styles = StyleSheet.create({
     backgroundContainer: {
       width: '100%',
@@ -106,7 +107,9 @@ const UrgencyModule = (props: UrgencyProps) => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
     navigation.navigate('UrgencyPage', {
       title: null,
-      number: props.phoneNumber ?? '15',
+      phoneNumber: (symptom && symptom.phoneNumber) ?? '15',
+      secondPhoneNumber: symptom && symptom.secondPhoneNumber,
+      urgencyText: symptom && symptom.urgencyPageText,
       keywords: [
         keywords.find(keyword => keyword.language === language)?.label,
       ],
@@ -122,8 +125,12 @@ const UrgencyModule = (props: UrgencyProps) => {
         <View style={styles.textContainer}>
           <Text style={styles.icon}>🚨</Text>
           <Text style={styles.text}>
-            {followup &&
-              followup.urgencyText.replace('*', props.phoneNumber ?? '15')}
+            {symptom && symptom.urgencyModuleText
+              ? symptom.urgencyModuleText
+              : followup?.urgencyText.replace(
+                  '*',
+                  (symptom && symptom.phoneNumber) ?? '15',
+                )}
           </Text>
         </View>
         <Pressable style={styles.button} onPress={onPress}>
