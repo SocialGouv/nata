@@ -6,6 +6,9 @@ export interface Symptome {
   code: string;
   currentMonth?: number;
   phoneNumber?: string;
+  secondPhoneNumber?: string;
+  urgencyModuleText?: string;
+  urgencyPageText?: string;
 }
 
 export interface Meetings {

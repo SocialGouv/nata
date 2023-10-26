@@ -10,6 +10,7 @@ interface CustomModalProps {
   backgroundColor?: string;
   onRequestClose: () => void;
   topPart?: boolean;
+  customHeader?: boolean;
 }
 
 const CustomModal = ({children, ...props}: CustomModalProps) => {
@@ -28,7 +29,6 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
       backgroundColor: props.backgroundColor ? props.backgroundColor : 'white',
       borderColor: props.borderColor ? props.borderColor : 'transparent',
       borderWidth: props.borderColor ? 3 : 0,
-      maxHeight: '85%',
       borderRadius: 12,
       // paddingHorizontal: 15,
       // paddingVertical: 10,
@@ -66,7 +66,7 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
   return (
     <Modal
       style={styles.container}
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={props.visible}
       onRequestClose={props.onRequestClose}>
@@ -79,11 +79,18 @@ const CustomModal = ({children, ...props}: CustomModalProps) => {
           }}>
           {props.topPart && <View style={styles.topModal} />}
           <View style={styles.view}>
-            <View style={styles.modalHeader}>
-              <Pressable onPress={() => props.onRequestClose()}>
-                <Icon name="close-outline" size={32} style={styles.closeIcon} />
-              </Pressable>
-            </View>
+            {!props.customHeader && (
+              <View style={styles.modalHeader}>
+                <Pressable onPress={() => props.onRequestClose()}>
+                  <Icon
+                    name="close-outline"
+                    size={32}
+                    style={styles.closeIcon}
+                  />
+                </Pressable>
+              </View>
+            )}
+
             {children}
           </View>
         </View>

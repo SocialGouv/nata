@@ -166,9 +166,10 @@ const SoliGuideModule = (props: Props) => {
         if (keywords && keywords.length > 0) {
           const filtered = result.places.filter((place: any) => {
             return keywords.some((keyword: string) => {
-              return place.description
-                .toLowerCase()
-                .includes(keyword.toLowerCase());
+              return (
+                place.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                place.description.toLowerCase().includes(keyword.toLowerCase())
+              );
             });
           });
           setData({places: filtered});
