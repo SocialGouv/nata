@@ -417,7 +417,7 @@ const Onboarding = () => {
         </View>
         <View style={styles.otherAnswers}>
           {questions.map((question, index) => {
-            if (!(index + 1 === currentStep)) {
+            if (index + 1 !== currentStep) {
               return null;
             }
             return question.responses?.map((answer, secondIndex) => {

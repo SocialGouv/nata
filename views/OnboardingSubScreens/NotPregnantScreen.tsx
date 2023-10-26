@@ -95,8 +95,9 @@ const NotPregnantScreen = ({
     },
   });
 
-  const title = content.split('$title$')[0];
-  const mainText = content.split('$title$')[1];
+  const regexColorText = /-(.+)-/g;
+  const title: string = content.split('$title$')[0];
+  const mainTexts: string[] = content.split('$title$')[1].split(regexColorText);
 
   return (
     <View style={styles.container}>
@@ -113,10 +114,25 @@ const NotPregnantScreen = ({
               />
               <TextBase style={styles.backLinkText}>{back}</TextBase>
             </Pressable>
-            <Markdown style={{body: styles.mdTitle}}>{title.trim()}</Markdown>
+            <Markdown style={{body: styles.mdTitle}}>{title?.trim()}</Markdown>
           </View>
           <View style={styles.bottomContainer}>
-            <Markdown style={{body: styles.mdText}}>{mainText.trim()}</Markdown>
+            {mainTexts.map((text, index) => (
+              <Markdown
+                key={index}
+                style={{
+                  body:
+                    index % 2 === 0
+                      ? styles.mdText
+                      : {
+                          ...styles.mdText,
+                          fontWeight: 'bold',
+                          color: Colors.primary,
+                        },
+                }}>
+                {text}
+              </Markdown>
+            ))}
             <Pressable
               onPress={() => {
                 onContinue();
