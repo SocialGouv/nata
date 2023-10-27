@@ -52,7 +52,7 @@ const SoliGuideModule = (props: Props) => {
       },
       error => {
         if (error.code === 1) {
-          setAlert(true);
+          // setAlert(true);
         }
       },
     );
@@ -71,7 +71,7 @@ const SoliGuideModule = (props: Props) => {
         },
       ]);
     }
-  }, [alert]);
+  }, [alert, content]);
 
   React.useEffect(() => {
     if (city === '') {

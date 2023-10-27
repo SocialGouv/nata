@@ -169,11 +169,12 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
-            number:
+            phoneNumber:
               responses.find(
                 r =>
                   (r.value === 'Q7A3' || r.value === 'Q7A5') &&
-                  r.phoneNumber?.length > 0,
+                  r.phoneNumber &&
+                  r.phoneNumber.length > 0,
               )?.phoneNumber ?? '0 801 801 081',
             keywords: ['PMI'],
             back: onboarding?.back,
@@ -207,7 +208,7 @@ const Onboarding = () => {
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            number:
+            phoneNumber:
               responses.find(
                 r =>
                   (r.value === 'Q6A3' ||

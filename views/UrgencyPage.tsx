@@ -74,7 +74,7 @@ const UrgencyPage = (props: Props) => {
     };
 
     getContentFromCache();
-    requestPosition(setGeolocationGranted);
+    // requestPosition(setGeolocationGranted);
   }, []);
 
   const handleAutocomplete = React.useCallback(async () => {
@@ -473,38 +473,19 @@ const UrgencyPage = (props: Props) => {
           </Pressable> */}
           {phoneNumber && (
             <>
-              {phoneNumber === '15' ? (
+              {urgencyText && (
                 <TextBase style={styles.explanationContainer}>
-                  {urgency?.solipamtext
-                    .split('-')
-                    .map((item: any, key: any) => {
-                      return (
-                        <TextBase
-                          key={key}
-                          style={
-                            key % 2 === 0
-                              ? styles.explanationText
-                              : styles.explanationTextBlue
-                          }>
-                          {item}
-                        </TextBase>
-                      );
-                    })}
-                </TextBase>
-              ) : (
-                <TextBase style={styles.explanationContainer}>
-                  {urgencyText &&
-                    urgencyText.split('-').map((item: string, key: any) => (
-                      <TextBase
-                        key={key}
-                        style={
-                          key % 2 === 0
-                            ? styles.explanationText
-                            : styles.explanationTextBlue
-                        }>
-                        {item}
-                      </TextBase>
-                    ))}
+                  {urgencyText.split('-').map((item: string, key: any) => (
+                    <TextBase
+                      key={key}
+                      style={
+                        key % 2 === 0
+                          ? styles.explanationText
+                          : styles.explanationTextBlue
+                      }>
+                      {item}
+                    </TextBase>
+                  ))}
                 </TextBase>
               )}
               <TouchableOpacity
