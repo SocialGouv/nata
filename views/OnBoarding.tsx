@@ -341,7 +341,7 @@ const Onboarding = () => {
                             0,
                           );
                         }}>
-                        <TextBase style={{color: Colors.black}}>
+                        <TextBase style={{color: Colors.primary}}>
                           {question.responses.find(r => r.value === '0')?.label}
                         </TextBase>
                       </Pressable>
@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: Colors.primary,
     padding: 10,
-    borderRadius: 3,
+    borderRadius: 10,
     marginTop: 20,
     paddingHorizontal: 40,
   },
@@ -532,9 +532,9 @@ const styles = StyleSheet.create({
     minHeight: 600,
   },
   pressable: {
-    backgroundColor: '#F5F5F5',
-    borderRadius: 3,
-    borderColor: '#D6D6D6',
+    backgroundColor: Colors.btnBackground,
+    borderRadius: 20,
+    borderColor: Colors.primary,
     borderWidth: 1,
     padding: 10,
     paddingHorizontal: 30,

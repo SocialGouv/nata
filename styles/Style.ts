@@ -1,6 +1,7 @@
 export const Colors = {
   primary: '#00948B',
   lightPrimary: '#00B2A9',
+  btnBackground: '#C6E2DC',
   urgence: '#CA1C11',
   urgenceLight: '#E4584c',
   backgroundUrgence: '#FCF3F3',

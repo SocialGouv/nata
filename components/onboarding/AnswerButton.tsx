@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Fonts} from '../../styles/Style';
+import {Colors, Fonts} from '../../styles/Style';
 import Button from '../ui/Button';
 import TextBase from '../ui/TextBase';
 
@@ -18,10 +18,10 @@ const AnswerButton = ({
 }: AnswerButtonProps) => {
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: '#F5F5F5',
-      borderRadius: 3,
-      borderColor: '#D6D6D6',
-      borderWidth: 1,
+      backgroundColor: Colors.btnBackground,
+      borderRadius: 20,
+      borderColor: Colors.primary,
+      borderWidth: 2,
       padding: 10,
       paddingHorizontal: smallerText ? 20 : 30,
       marginHorizontal: 5,
@@ -31,6 +31,7 @@ const AnswerButton = ({
       lineHeight: 30,
       fontWeight: '700',
       textAlign: 'center',
+      color: Colors.primary,
       fontFamily: Fonts.primary,
     },
   });

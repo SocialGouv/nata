@@ -74,7 +74,7 @@ const LanguageSelection = () => {
     confirmButton: {
       backgroundColor: Colors.primary,
       padding: 10,
-      borderRadius: 3,
+      borderRadius: 10,
       paddingHorizontal: 40,
       position: 'absolute',
       bottom: 20,
@@ -93,7 +93,7 @@ const LanguageSelection = () => {
     modalTextContainer: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
       padding: 15,
       paddingBottom: 20,

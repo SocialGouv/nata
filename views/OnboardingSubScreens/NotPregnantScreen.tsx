@@ -84,7 +84,7 @@ const NotPregnantScreen = ({
       marginTop: 40,
       backgroundColor: Colors.primary,
       padding: 10,
-      borderRadius: 3,
+      borderRadius: 10,
       paddingHorizontal: 40,
     },
     continueButtonText: {
@@ -96,8 +96,10 @@ const NotPregnantScreen = ({
   });
 
   const regexColorText = /-(.+)-/g;
-  const title: string = content.split('$title$')[0];
-  const mainTexts: string[] = content.split('$title$')[1].split(regexColorText);
+  const title: string = content?.split('$title$')[0];
+  const mainTexts: string[] = content
+    ?.split('$title$')[1]
+    ?.split(regexColorText);
 
   return (
     <View style={styles.container}>
@@ -117,7 +119,7 @@ const NotPregnantScreen = ({
             <Markdown style={{body: styles.mdTitle}}>{title?.trim()}</Markdown>
           </View>
           <View style={styles.bottomContainer}>
-            {mainTexts.map((text, index) => (
+            {mainTexts?.map((text, index) => (
               <Markdown
                 key={index}
                 style={{
