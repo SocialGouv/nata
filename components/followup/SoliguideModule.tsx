@@ -1,5 +1,4 @@
 import {
-  Alert,
   FlatList,
   Linking,
   Pressable,
@@ -9,16 +8,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import DisplayPhone from '../soliguide/DisplayPhone';
-import {Colors} from '../../styles/Style';
+import {Colors, Fonts} from '../../styles/Style';
 import DisplayOpen from '../soliguide/DisplayOpen';
 import DisplaySimple from '../soliguide/DisplaySimple';
 import {MatomoTrackEvent} from '../../utils/Matomo';
 import {Platform} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
+import CustomModal from '../ui/CustomModal';
+import AppContext from '../../AppContext';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import TextBase from '../ui/TextBase';
 
 interface Props {
   categories: number[];
@@ -29,13 +32,14 @@ interface Props {
 }
 
 const SoliGuideModule = (props: Props) => {
+  const {needGeolocation, setNeedGeolocation} = useContext(AppContext);
   const [soliguide, setSoliguide] = React.useState<any>();
   const {categories, keywords, city, style, matomo} = props;
   const [cityActualized, setCityActualized] = React.useState<string>('');
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
   const [content, setContent] = React.useState<any>();
-  const [alert, setAlert] = React.useState<boolean>(false);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const fetchLocation = React.useCallback(() => {
     Geolocation.getCurrentPosition(
@@ -46,32 +50,18 @@ const SoliGuideModule = (props: Props) => {
         )
           .then(response => response.json())
           .then(json => {
+            setNeedGeolocation(false);
             setCityActualized(json.features[0].properties.city);
           })
           .catch(error => console.error(error));
       },
       error => {
         if (error.code === 1) {
-          // setAlert(true);
+          setModalVisible(true);
         }
       },
     );
-  }, []);
-
-  React.useEffect(() => {
-    if (alert && content) {
-      Alert.alert(content?.locationDescription, '', [
-        {
-          text: content?.locationServiceText,
-          onPress: () => {
-            Platform.OS === 'ios'
-              ? Linking.openURL('app-settings:')
-              : Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS');
-          },
-        },
-      ]);
-    }
-  }, [alert, content]);
+  }, [setNeedGeolocation]);
 
   React.useEffect(() => {
     if (city === '') {
@@ -130,6 +120,57 @@ const SoliGuideModule = (props: Props) => {
       width: '80%',
       color: '#000000',
       marginBottom: 10,
+    },
+
+    modalTextContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 15,
+      paddingBottom: 20,
+    },
+    modalText: {
+      fontSize: 14,
+      fontFamily: Fonts.primary,
+      textAlign: 'center',
+      fontWeight: 'bold',
+    },
+    modalConfirmButton: {
+      backgroundColor: Colors.primary,
+      padding: 10,
+      paddingHorizontal: 40,
+      marginTop: 30,
+      marginBottom: 45,
+      borderRadius: 3,
+    },
+    bottomLink: {
+      alignSelf: 'center',
+      borderTopWidth: 1,
+      borderColor: 'lightgrey',
+      width: '100%',
+    },
+    textBottomLink: {
+      color: '#007AFF',
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      textAlign: 'center',
+      fontSize: 14,
+      fontFamily: Fonts.primary,
+    },
+    confirmButton: {
+      backgroundColor: Colors.primary,
+      padding: 10,
+      borderRadius: 10,
+      paddingHorizontal: 40,
+      position: 'absolute',
+      bottom: 20,
+    },
+    confirmButtonText: {
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: '700',
+      fontFamily: Fonts.primary,
     },
   });
 
@@ -199,76 +240,136 @@ const SoliGuideModule = (props: Props) => {
     url && Linking.openURL(url);
   };
 
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <FlatList
-          horizontal={true}
-          data={data.places}
-          showsVerticalScrollIndicator={false}
-          style={styles.gridView}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={async () => {
-                  navigation.navigate('SoliguidePage', {structure: item});
-                }}
-                style={styles.item_style}>
-                <Text style={styles.text}>{item.name}</Text>
-                <View style={styles.labelsContainer}>
-                  <DisplayOpen
-                    days={item.newhours}
-                    color={
-                      style === 'default' ? 'lightPrimary' : 'urgenceLight'
-                    }
-                  />
-                  {/*
-                <DisplaySimple
-                  text={'1.5km'}
-                  color={style === 'default' ? 'lightPrimary' : 'urgenceLight'}
-                />
-                */}
-                  <Pressable
-                    onPress={() => {
-                      MatomoTrackEvent(matomo, `${matomo}_GO`);
-                      handleOpenMap(
-                        item.position.location.coordinates[1],
-                        item.position.location.coordinates[0],
-                      );
-                    }}>
-                    <DisplaySimple
-                      text={`⬆️ ${soliguide?.go}`}
-                      color={style === 'default' ? 'primary' : 'urgence'}
-                    />
-                  </Pressable>
-                  {item.entity.phones[0] && (
-                    <DisplayPhone
-                      number={item.entity.phones[0].phoneNumber}
-                      color={style === 'default' ? 'primary' : 'urgence'}
-                      matomo={matomo}
-                    />
-                  )}
-                </View>
-                <View>
-                  <Pressable
-                    onPress={() => {
-                      MatomoTrackEvent(matomo, `${matomo}_MORE_INFO`);
-                      navigation.navigate('SoliguidePage', {structure: item});
-                    }}>
-                    <Text style={styles.infosContainer}>
-                      {soliguide?.moreInfos}
-                    </Text>
-                  </Pressable>
-                </View>
-              </TouchableOpacity>
-            );
+  const handleLocationValidation = async () => {
+    setModalVisible(false);
+  };
+  const handleGeolocationActivation = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('app-settings:');
+    } else {
+      Linking.sendIntent('android.settings.LOCATION_SOURCE_SETTINGS');
+    }
+  };
+  const LocationModal = (
+    <CustomModal
+      visible={modalVisible}
+      customHeader
+      onRequestClose={() => {
+        setModalVisible(false);
+      }}>
+      <View style={styles.modalTextContainer}>
+        <TextBase style={styles.modalText}>
+          {content?.locationDescription}
+        </TextBase>
+      </View>
+      {!needGeolocation ? (
+        <Pressable
+          style={{
+            ...styles.confirmButton,
+            ...{
+              position: 'relative',
+              alignSelf: 'center',
+              marginTop: 20,
+            },
           }}
-        />
-        {data.places && data.places.length === 0 && (
-          <Text style={styles.not_found}>{soliguide?.noResults}</Text>
-        )}
-      </ScrollView>
-    </View>
+          onPress={() => handleLocationValidation()}>
+          <TextBase style={styles.confirmButtonText}>{content?.begin}</TextBase>
+        </Pressable>
+      ) : (
+        <>
+          <Pressable
+            style={styles.bottomLink}
+            onPress={() => handleGeolocationActivation()}>
+            <TextBase
+              style={{...styles.textBottomLink, ...{fontWeight: 'bold'}}}>
+              {content?.locationServiceText}{' '}
+              <FontAwesome5Icon
+                name="arrow-right"
+                size={12}
+                color={'#007AFF'}
+              />
+            </TextBase>
+          </Pressable>
+          <Pressable
+            style={styles.bottomLink}
+            onPress={() => {
+              setModalVisible(false);
+            }}>
+            <TextBase style={styles.textBottomLink}>{content?.back}</TextBase>
+          </Pressable>
+        </>
+      )}
+    </CustomModal>
+  );
+
+  return (
+    <>
+      {modalVisible && LocationModal}
+      <View style={styles.container}>
+        <ScrollView>
+          <FlatList
+            horizontal={true}
+            data={data.places}
+            showsVerticalScrollIndicator={false}
+            style={styles.gridView}
+            renderItem={({item}) => {
+              return (
+                <TouchableOpacity
+                  onPress={async () => {
+                    navigation.navigate('SoliguidePage', {structure: item});
+                  }}
+                  style={styles.item_style}>
+                  <Text style={styles.text}>{item.name}</Text>
+                  <View style={styles.labelsContainer}>
+                    <DisplayOpen
+                      days={item.newhours}
+                      color={
+                        style === 'default' ? 'lightPrimary' : 'urgenceLight'
+                      }
+                    />
+
+                    <Pressable
+                      onPress={() => {
+                        MatomoTrackEvent(matomo, `${matomo}_GO`);
+                        handleOpenMap(
+                          item.position.location.coordinates[1],
+                          item.position.location.coordinates[0],
+                        );
+                      }}>
+                      <DisplaySimple
+                        text={`⬆️ ${soliguide?.go}`}
+                        color={style === 'default' ? 'primary' : 'urgence'}
+                      />
+                    </Pressable>
+                    {item.entity.phones[0] && (
+                      <DisplayPhone
+                        number={item.entity.phones[0].phoneNumber}
+                        color={style === 'default' ? 'primary' : 'urgence'}
+                        matomo={matomo}
+                      />
+                    )}
+                  </View>
+                  <View>
+                    <Pressable
+                      onPress={() => {
+                        MatomoTrackEvent(matomo, `${matomo}_MORE_INFO`);
+                        navigation.navigate('SoliguidePage', {structure: item});
+                      }}>
+                      <Text style={styles.infosContainer}>
+                        {soliguide?.moreInfos}
+                      </Text>
+                    </Pressable>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+          {data.places && data.places.length === 0 && (
+            <Text style={styles.not_found}>{soliguide?.noResults}</Text>
+          )}
+        </ScrollView>
+      </View>
+    </>
   );
 };
 

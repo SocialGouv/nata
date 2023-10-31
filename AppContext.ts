@@ -9,6 +9,8 @@ const AppContext = React.createContext({
   setDisplayInitialModal: (displayInitialModal: boolean) => {},
   currentMonth: 1,
   setCurrentMonth: (currentMonth: number) => {},
+  needGeolocation: true,
+  setNeedGeolocation: (needGeolocation: boolean) => {},
 });
 
 export default AppContext;

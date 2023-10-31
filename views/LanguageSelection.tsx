@@ -41,10 +41,10 @@ const LanguageSelection = () => {
   const [languages, setLanguages] = React.useState<Language[]>([]);
   const [selectedLanguage, setSelectedLanguage] = React.useState<string>();
   const [onboarding, setOnboarding] = React.useState<any>();
-  const {isOnboardingDone} = React.useContext(AppContext);
+  const {isOnboardingDone, needGeolocation, setNeedGeolocation} =
+    React.useContext(AppContext);
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-  const [needGeolocation, setNeedGeolocation] = React.useState<boolean>();
   const [code, setCode] = React.useState<number>();
 
   const styles = StyleSheet.create({
@@ -107,10 +107,10 @@ const LanguageSelection = () => {
     modalConfirmButton: {
       backgroundColor: Colors.primary,
       padding: 10,
+      paddingHorizontal: 40,
       marginTop: 30,
       marginBottom: 45,
       borderRadius: 3,
-      paddingHorizontal: 40,
     },
     bottomLink: {
       alignSelf: 'center',
@@ -194,6 +194,7 @@ const LanguageSelection = () => {
             setNeedGeolocation(false);
           },
           error => {
+            setModalVisible(true);
             if (error.code === 1) {
               setCode(1);
               setNeedGeolocation(true);
@@ -205,6 +206,7 @@ const LanguageSelection = () => {
         );
       },
       error => {
+        setModalVisible(true);
         if (error.code === 1) {
           setNeedGeolocation(true);
           setCode(1);
@@ -217,10 +219,10 @@ const LanguageSelection = () => {
   };
 
   const handleLanguageValidation = async () => {
-    if (needGeolocation) {
-      setModalVisible(true);
-      return;
-    }
+    // if (needGeolocation) {
+    //   setModalVisible(true);
+    //   return;
+    // }
     if (selectedLanguage) {
       AsyncStorage.setItem('language', selectedLanguage).then(() => {
         navigation.navigate('Onboarding');
@@ -245,7 +247,6 @@ const LanguageSelection = () => {
       visible={modalVisible}
       customHeader
       onRequestClose={() => {
-        setNeedGeolocation(false);
         setModalVisible(false);
       }}>
       <View style={styles.modalTextContainer}>
@@ -266,10 +267,11 @@ const LanguageSelection = () => {
       {!needGeolocation ? (
         <Pressable
           style={{
-            ...styles.modalConfirmButton,
+            ...styles.confirmButton,
             ...{
+              position: 'relative',
               alignSelf: 'center',
-              backgroundColor: Colors.orange,
+              marginTop: 20,
             },
           }}
           onPress={() => handleLanguageValidation()}>
@@ -295,7 +297,6 @@ const LanguageSelection = () => {
           <Pressable
             style={styles.bottomLink}
             onPress={() => {
-              setNeedGeolocation(false);
               setModalVisible(false);
             }}>
             <TextBase style={styles.textBottomLink}>

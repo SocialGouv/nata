@@ -1,6 +1,5 @@
 import {
   Linking,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -24,7 +23,7 @@ import SoliGuideModule from '../components/followup/SoliguideModule';
 import {MatomoTrackEvent} from '../utils/Matomo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geolocation from '@react-native-community/geolocation';
-import {requestPosition} from '../utils/requestPosition';
+
 interface Props {
   route: any;
 }
@@ -62,6 +61,8 @@ const UrgencyPage = (props: Props) => {
     setDisplayInitialModal,
     isEmergencyOnBoardingDone,
     currentMonth,
+    needGeolocation,
+    setNeedGeolocation,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -74,7 +75,6 @@ const UrgencyPage = (props: Props) => {
     };
 
     getContentFromCache();
-    // requestPosition(setGeolocationGranted);
   }, []);
 
   const handleAutocomplete = React.useCallback(async () => {
@@ -335,7 +335,7 @@ const UrgencyPage = (props: Props) => {
   });
 
   const handlePhonePress = (clickedPhoneNumber: string) => {
-    const platformPhoneNumber = `${Platform.OS !== 'android' ? 'tel' : 'tel'}:${
+    const platformPhoneNumber = `tel:${
       clickedPhoneNumber === '15'
         ? '15'
         : clickedPhoneNumber.replace(/\s+/g, '')

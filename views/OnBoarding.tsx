@@ -350,7 +350,7 @@ const Onboarding = () => {
                   );
                 } else if (question.verticalAnswer) {
                   return (
-                    <ScrollView>
+                    <ScrollView key={index}>
                       <View style={styles.verticalButton}>
                         {question.responses?.map((answer, verticalIndex) => {
                           return (

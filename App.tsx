@@ -38,6 +38,8 @@ type ContextType = {
   setDisplayInitialModal: React.Dispatch<React.SetStateAction<boolean>>;
   currentMonth: number;
   setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
+  needGeolocation: boolean;
+  setNeedGeolocation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function App(): JSX.Element {
@@ -50,6 +52,7 @@ function App(): JSX.Element {
     React.useState<boolean>(false);
   const [currentMonth, setCurrentMonth] = React.useState<number>(1);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [needGeolocation, setNeedGeolocation] = React.useState<boolean>(true);
   const contextValue: ContextType = {
     isOnboardingDone,
     isEmergencyOnBoardingDone,
@@ -59,6 +62,8 @@ function App(): JSX.Element {
     setDisplayInitialModal,
     currentMonth,
     setCurrentMonth,
+    needGeolocation,
+    setNeedGeolocation,
   };
 
   const [updateText, setUpdateText] = React.useState<Record<string, string>>();
