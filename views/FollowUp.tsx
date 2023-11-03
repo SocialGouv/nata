@@ -276,7 +276,10 @@ const FollowUp = () => {
             !currentContent
               ? []
               : currentContent?.symptoms.filter(symptome => {
-                  return symptome.status === 'minor';
+                  return (
+                    symptome.status === 'minor' ||
+                    symptome.status === 'minor_urgency'
+                  );
                 })
           }
           userSymptomesStatus={userSymptomesStatus}

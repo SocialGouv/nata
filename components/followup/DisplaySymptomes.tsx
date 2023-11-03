@@ -30,6 +30,7 @@ const DisplaySymptomes = (props: Props) => {
     userSymptomesStatus,
     setUserSymptomesStatus,
   } = props;
+
   const styles = StyleSheet.create({
     container: {
       marginBottom: isUrgency ? 30 : 0,
@@ -217,19 +218,20 @@ const DisplaySymptomes = (props: Props) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => renderItem({item})}
       />
-      {isUrgency &&
-        userSymptomesStatus &&
+      {userSymptomesStatus &&
         userSymptomesStatus.find(
           symptome =>
             symptome.code === selectedSymptome?.code &&
-            symptome.status === 'urgency',
+            (symptome.status === 'urgency' ||
+              symptome.status === 'minor_urgency'),
         ) && (
           <UrgencyModule
             symptom={
               userSymptomesStatus.find(
                 symptome =>
                   symptome.code === selectedSymptome?.code &&
-                  symptome.status === 'urgency',
+                  (symptome.status === 'urgency' ||
+                    symptome.status === 'minor_urgency'),
               ) || undefined
             }
           />

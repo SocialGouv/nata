@@ -133,9 +133,11 @@ const UrgencyModule = ({symptom}: UrgencyProps) => {
                 )}
           </Text>
         </View>
-        <Pressable style={styles.button} onPress={onPress}>
-          <Text style={styles.buttonText}>{followup?.urgencyButton}</Text>
-        </Pressable>
+        {symptom && symptom.status === 'urgency' && (
+          <Pressable style={styles.button} onPress={onPress}>
+            <Text style={styles.buttonText}>{followup?.urgencyButton}</Text>
+          </Pressable>
+        )}
       </View>
     </>
   );
