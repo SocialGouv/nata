@@ -87,6 +87,7 @@ const FollowUp = () => {
   const [userSymptomesStatus, setUserSymptomesStatus] =
     React.useState<Symptome[]>();
 
+  const [userCurrentMonth, setUserCurrentMonth] = React.useState<number>(1);
   const [userInfos, setUserInfos] = React.useState<Record<string, string>>();
 
   const retrieveUserInfos = async () => {
@@ -100,7 +101,9 @@ const FollowUp = () => {
       let JSONValues = JSON.parse(values);
       JSONValues.pregnancyMonth = parseInt(JSONValues.pregnancyMonth, 10);
       tempInfos = {...tempInfos, ...JSONValues};
-      setCurrentMonth(JSONValues.pregnancyMonth);
+      setUserCurrentMonth(
+        JSONValues.pregnancyMonth === 0 ? 1 : JSONValues.pregnancyMonth,
+      );
     } else {
       setUserInfos({});
     }
@@ -129,7 +132,9 @@ const FollowUp = () => {
         let tmpUserInfos = JSON.parse(value);
         let tmpMonth = parseInt(tmpUserInfos.pregnancyMonth, 10);
         if (tmpMonth === 0) {
-          tmpMonth = 1;
+          setCurrentMonth(1);
+        } else {
+          setCurrentMonth(tmpMonth);
         }
         // calculating actual current month, if dateEndPregnancy is set : dateEndPregnancy - currentDate : get month number
         if (tmpUserInfos.dateEndPregnancy) {
@@ -196,9 +201,7 @@ const FollowUp = () => {
   // }, []);
 
   const shouldDisplayButton =
-    currentMonth &&
-    userInfos &&
-    currentMonth > parseInt(userInfos.pregnancyMonth, 10);
+    currentMonth && userInfos && currentMonth > userCurrentMonth;
 
   return (
     <Container urgency={false}>
