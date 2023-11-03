@@ -106,7 +106,8 @@ const UrgencyModule = ({symptom}: UrgencyProps) => {
   const onPress = () => {
     MatomoTrackEvent('URGENCY', 'FIND_URGENCY');
     navigation.navigate('UrgencyPage', {
-      title: null,
+      title: symptom && symptom.urgencyPageMainTitle,
+      subTitle: symptom && symptom.urgencyPageSubTitle,
       phoneNumber: (symptom && symptom.phoneNumber) ?? '15',
       secondPhoneNumber: symptom && symptom.secondPhoneNumber,
       urgencyText: symptom && symptom.urgencyPageText,

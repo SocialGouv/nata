@@ -36,6 +36,7 @@ const UrgencyPage = (props: Props) => {
 
   const {
     title,
+    subTitle,
     phoneNumber,
     secondPhoneNumber,
     urgencyText,
@@ -45,6 +46,7 @@ const UrgencyPage = (props: Props) => {
   } = props.route.params;
 
   const titleTodisplay = title ? title : urgency?.title;
+  const subTitleToDisplay = subTitle ? subTitle : urgency?.subtext;
 
   const [geogouvData, setGeogouvData] = React.useState<any[]>([]);
   const [hideResults, setHideResults] = React.useState<boolean>(false);
@@ -372,7 +374,7 @@ const UrgencyPage = (props: Props) => {
         <View style={styles.underTopContainer}>
           <TextBase style={styles.underTopLabel}>
             {isSymptom
-              ? urgency?.subtext.split('-').map((item: any, key: any) => {
+              ? subTitleToDisplay?.split('-').map((item: any, key: any) => {
                   return (
                     <TextBase
                       key={key}

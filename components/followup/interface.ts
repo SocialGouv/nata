@@ -9,6 +9,8 @@ export interface Symptome {
   secondPhoneNumber?: string;
   urgencyModuleText?: string;
   urgencyPageText?: string;
+  urgencyPageMainTitle?: string;
+  urgencyPageSubTitle?: string;
 }
 
 export interface Meetings {

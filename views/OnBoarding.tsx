@@ -29,6 +29,7 @@ const Onboarding = () => {
   const [questions, setQuestions] = React.useState<Question[]>([]);
   const [responses, setResponses] = React.useState<Response[]>([]);
   const [onboarding, setOnboarding] = React.useState<any>();
+  const [urgency, setUrgency] = React.useState<any>();
 
   const {
     setIsOnboardingDone,
@@ -42,6 +43,7 @@ const Onboarding = () => {
         setQuestions(JSON.parse(data).question.results.sort(sortByCode));
         setResponses(JSON.parse(data).response.results);
         setOnboarding(JSON.parse(data).onboarding);
+        setUrgency(JSON.parse(data).urgency);
       }
     });
   };
@@ -169,15 +171,15 @@ const Onboarding = () => {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
             title: onboarding?.urgencyTitleUnder5,
-            phoneNumber:
-              responses.find(
-                r =>
-                  (r.value === 'Q7A3' || r.value === 'Q7A5') &&
-                  r.phoneNumber &&
-                  r.phoneNumber.length > 0,
-              )?.phoneNumber ?? '0 801 801 081',
+            phoneNumber: responses.find(
+              r =>
+                (r.value === 'Q7A3' || r.value === 'Q7A5') &&
+                r.phoneNumber &&
+                r.phoneNumber.length > 0,
+            )?.phoneNumber,
             keywords: ['PMI'],
             back: onboarding?.back,
+            urgencyText: urgency?.solipamtext,
           });
         } else {
           setIsOnboardingDone(true);
@@ -185,6 +187,7 @@ const Onboarding = () => {
             title: onboarding?.urgencyTitleUnder5,
             keywords: ['PMI'],
             back: onboarding?.back,
+            urgencyText: urgency?.solipamtext,
           });
         }
       } // 6 mois ou plus de grossesse et pas de rdv
@@ -204,20 +207,22 @@ const Onboarding = () => {
           navigation.navigate('UrgencyPage', {
             keywords: ['Hopital'],
             back: onboarding?.back,
+            urgencyText: urgency?.solipamtext,
           });
         } else {
           setIsOnboardingDone(true);
           navigation.navigate('UrgencyPage', {
-            phoneNumber:
-              responses.find(
-                r =>
-                  (r.value === 'Q6A3' ||
-                    r.value === 'Q6A4' ||
-                    r.value === 'Q7A3' ||
-                    r.value === 'Q7A5') &&
-                  r.phoneNumber?.length > 0,
-              )?.phoneNumber ?? '0 801 801 081',
+            phoneNumber: responses.find(
+              r =>
+                (r.value === 'Q6A3' ||
+                  r.value === 'Q6A4' ||
+                  r.value === 'Q7A3' ||
+                  r.value === 'Q7A5') &&
+                r.phoneNumber &&
+                r.phoneNumber?.length > 0,
+            )?.phoneNumber,
             keywords: ['Hopital'],
+            urgencyText: urgency?.solipamtext,
             back: onboarding?.back,
           });
         }
