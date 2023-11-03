@@ -342,7 +342,7 @@ const Onboarding = () => {
                             0,
                           );
                         }}>
-                        <TextBase style={{color: Colors.primary}}>
+                        <TextBase>
                           {question.responses.find(r => r.value === '0')?.label}
                         </TextBase>
                       </Pressable>
@@ -379,6 +379,9 @@ const Onboarding = () => {
                       <AnswerButton
                         key={'ans' + secondIndex}
                         answer={answer.label}
+                        variant={
+                          answer.value.includes('Q1') ? 'primary' : 'simple'
+                        }
                         onClick={() => handlePress({answer, question})}
                       />
                     );
@@ -400,6 +403,7 @@ const Onboarding = () => {
                       question.responses.find(r => r.value === 'Q1AD')
                         ?.label as string
                     }
+                    variant="primary"
                     onClick={() =>
                       handlePress({
                         answer: question.responses.find(
@@ -434,6 +438,7 @@ const Onboarding = () => {
                     onClick={() => handlePress({answer, question})}
                     style={{marginTop: 20}}
                     smallerText
+                    variant="primary"
                   />
                 );
               }
@@ -533,9 +538,9 @@ const styles = StyleSheet.create({
     minHeight: 600,
   },
   pressable: {
-    backgroundColor: Colors.btnBackground,
-    borderRadius: 20,
-    borderColor: Colors.primary,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    borderColor: '#D6D6D6',
     borderWidth: 1,
     padding: 10,
     paddingHorizontal: 30,

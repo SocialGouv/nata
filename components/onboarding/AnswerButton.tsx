@@ -9,18 +9,20 @@ interface AnswerButtonProps {
   onClick: () => void;
   style?: object;
   smallerText?: boolean;
+  variant?: 'primary' | 'simple';
 }
 const AnswerButton = ({
   answer,
   onClick,
   style,
   smallerText,
+  variant = 'simple',
 }: AnswerButtonProps) => {
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: Colors.btnBackground,
+      backgroundColor: variant === 'primary' ? Colors.btnBackground : '#F5F5F5',
       borderRadius: 20,
-      borderColor: Colors.primary,
+      borderColor: variant === 'primary' ? Colors.primary : '#D6D6D6',
       borderWidth: 2,
       padding: 10,
       paddingHorizontal: smallerText ? 20 : 30,
@@ -31,7 +33,7 @@ const AnswerButton = ({
       lineHeight: 30,
       fontWeight: '700',
       textAlign: 'center',
-      color: Colors.primary,
+      color: variant === 'primary' ? Colors.primary : Colors.black,
       fontFamily: Fonts.primary,
     },
   });
