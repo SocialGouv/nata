@@ -304,7 +304,7 @@ const SoliGuideModule = (props: Props) => {
 
   return (
     <>
-      {modalVisible && LocationModal}
+      {Platform.OS === 'android' && modalVisible && LocationModal}
       <View style={styles.container}>
         <ScrollView>
           <FlatList

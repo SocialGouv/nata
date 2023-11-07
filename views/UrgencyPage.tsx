@@ -63,8 +63,6 @@ const UrgencyPage = (props: Props) => {
     setDisplayInitialModal,
     isEmergencyOnBoardingDone,
     currentMonth,
-    needGeolocation,
-    setNeedGeolocation,
   } = useContext(AppContext);
 
   useEffect(() => {

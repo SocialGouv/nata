@@ -310,7 +310,7 @@ const LanguageSelection = () => {
 
   return (
     <>
-      {modalVisible && LocationModal}
+      {Platform.OS === 'android' && modalVisible && LocationModal}
       <View style={styles.container}>
         <View>
           <ImageBackground
