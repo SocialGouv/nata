@@ -29,6 +29,10 @@ interface Props {
   city: string;
   style: 'default' | 'urgent';
   matomo: string;
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 const SoliGuideModule = (props: Props) => {
@@ -43,10 +47,7 @@ const SoliGuideModule = (props: Props) => {
   const [coordinates, setCoordinates] = React.useState<{
     latitude: number;
     longitude: number;
-  }>({
-    latitude: 0,
-    longitude: 0,
-  });
+  }>(props.coordinates ?? {latitude: 0, longitude: 0});
 
   const fetchLocation = React.useCallback(() => {
     Geolocation.getCurrentPosition(
@@ -347,7 +348,12 @@ const SoliGuideModule = (props: Props) => {
               return (
                 <TouchableOpacity
                   onPress={async () => {
-                    navigation.navigate('SoliguidePage', {structure: item});
+                    if (
+                      coordinates.latitude !== 0 &&
+                      coordinates.longitude !== 0
+                    ) {
+                      navigation.navigate('SoliguidePage', {structure: item});
+                    }
                   }}
                   style={styles.item_style}>
                   <Text style={styles.text}>{item.name}</Text>

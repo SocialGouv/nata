@@ -85,10 +85,10 @@ const SoliguidePage = (props: Props) => {
             region={{
               latitude: structure.position.location.coordinates
                 ? structure.position.location.coordinates[1]
-                : structure.position.location[1],
+                : parseFloat(structure.position.location[1]),
               longitude: structure.position.location.coordinates
                 ? structure.position.location.coordinates[0]
-                : structure.position.location[0],
+                : parseFloat(structure.position.location[0]),
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>
@@ -96,10 +96,10 @@ const SoliguidePage = (props: Props) => {
               coordinate={{
                 latitude: structure.position.location.coordinates
                   ? structure.position.location.coordinates[1]
-                  : structure.position.location[1],
+                  : parseFloat(structure.position.location[1]),
                 longitude: structure.position.location.coordinates
                   ? structure.position.location.coordinates[0]
-                  : structure.position.location[0],
+                  : parseFloat(structure.position.location[0]),
               }}
             />
           </MapView>

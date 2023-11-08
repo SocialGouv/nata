@@ -455,6 +455,7 @@ const UrgencyPage = (props: Props) => {
               keywords={keywords}
               style={'urgent'}
               matomo={'URGENCY'}
+              coordinates={coordinates}
             />
           )}
         </View>
