@@ -6,13 +6,14 @@ import {Colors} from '../../styles/Style';
 interface Props {
   text: string;
   color: keyof typeof Colors;
+  style: {};
 }
 
 const DisplaySimple = (props: Props) => {
-  const {text, color} = props;
+  const {text, color, style} = props;
 
   return (
-    <View style={styles(color).container}>
+    <View style={{...styles(color).container, ...style}}>
       <TextBase style={styles(color).whiteText}>{text}</TextBase>
     </View>
   );

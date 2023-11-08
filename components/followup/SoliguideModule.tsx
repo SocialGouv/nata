@@ -180,11 +180,16 @@ const SoliGuideModule = (props: Props) => {
       fontWeight: '700',
       fontFamily: Fonts.primary,
     },
+    distanceContainer: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+    },
   });
 
   const fetchData = React.useCallback(async () => {
     if (style === 'urgent') {
-      var requestOptions = {
+      let requestOptions = {
         method: 'GET',
         redirect: 'follow',
       };
@@ -198,7 +203,7 @@ const SoliGuideModule = (props: Props) => {
         })
         .catch(error => console.log('error', error));
     } else {
-      var myHeaders = new Headers();
+      let myHeaders = new Headers();
       myHeaders.append('Content-Type', 'application/json');
       myHeaders.append(
         'Authorization',
@@ -211,7 +216,7 @@ const SoliGuideModule = (props: Props) => {
         'options.limit': 100,
       });
 
-      var requestOptions = {
+      let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
@@ -381,7 +386,7 @@ const SoliGuideModule = (props: Props) => {
                       />
                     )}
                   </View>
-                  <View>
+                  <View style={{paddingTop: 10}}>
                     <Pressable
                       onPress={() => {
                         MatomoTrackEvent(matomo, `${matomo}_MORE_INFO`);
@@ -392,9 +397,11 @@ const SoliGuideModule = (props: Props) => {
                       </TextBase>
                     </Pressable>
                     {item.distance && (
-                      <TextBase>
-                        {Math.trunc(item.distance * 100) / 100 + ' km'}
-                      </TextBase>
+                      <DisplaySimple
+                        style={styles.distanceContainer}
+                        text={Math.trunc(item.distance * 100) / 100 + ' km'}
+                        color={'urgence'}
+                      />
                     )}
                   </View>
                 </TouchableOpacity>
