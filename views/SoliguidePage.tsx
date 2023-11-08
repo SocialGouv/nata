@@ -58,15 +58,23 @@ const SoliguidePage = (props: Props) => {
           <MapView
             style={styles.map}
             region={{
-              latitude: structure.position.location.coordinates[1],
-              longitude: structure.position.location.coordinates[0],
+              latitude: structure.position.location.coordinates
+                ? structure.position.location.coordinates[1]
+                : structure.position.location[1],
+              longitude: structure.position.location.coordinates
+                ? structure.position.location.coordinates[0]
+                : structure.position.location[0],
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>
             <Marker
               coordinate={{
-                latitude: structure.position.location.coordinates[1],
-                longitude: structure.position.location.coordinates[0],
+                latitude: structure.position.location.coordinates
+                  ? structure.position.location.coordinates[1]
+                  : structure.position.location[1],
+                longitude: structure.position.location.coordinates
+                  ? structure.position.location.coordinates[0]
+                  : structure.position.location[0],
               }}
             />
           </MapView>
@@ -75,15 +83,23 @@ const SoliguidePage = (props: Props) => {
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             region={{
-              latitude: structure.position.location.coordinates[1],
-              longitude: structure.position.location.coordinates[0],
+              latitude: structure.position.location.coordinates
+                ? structure.position.location.coordinates[1]
+                : structure.position.location[1],
+              longitude: structure.position.location.coordinates
+                ? structure.position.location.coordinates[0]
+                : structure.position.location[0],
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>
             <Marker
               coordinate={{
-                latitude: structure.position.location.coordinates[1],
-                longitude: structure.position.location.coordinates[0],
+                latitude: structure.position.location.coordinates
+                  ? structure.position.location.coordinates[1]
+                  : structure.position.location[1],
+                longitude: structure.position.location.coordinates
+                  ? structure.position.location.coordinates[0]
+                  : structure.position.location[0],
               }}
             />
           </MapView>
@@ -91,6 +107,7 @@ const SoliguidePage = (props: Props) => {
       </View>
       <View style={styles.container}>
         <TextBase style={styles.title}>Services proposés</TextBase>
+
         {structure.services_all.map((service: any) => (
           <View style={styles.description}>
             <TextBase style={styles.category}>
@@ -117,9 +134,11 @@ const SoliguidePage = (props: Props) => {
           <Text
             style={styles.link}
             onPress={() => {
-              Linking.openURL(
-                `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
-              );
+              if (structure.lieu_id) {
+                Linking.openURL(
+                  `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
+                );
+              }
             }}>
             Soliguide
           </Text>
@@ -128,9 +147,11 @@ const SoliguidePage = (props: Props) => {
         <Pressable
           style={styles.imageContainer}
           onPress={() => {
-            Linking.openURL(
-              `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
-            );
+            if (structure.lieu_id) {
+              Linking.openURL(
+                `https://www.soliguide.fr/${language}/fiche/${structure.lieu_id}`,
+              );
+            }
           }}>
           <Image
             source={require('../assets/images/soliguide.jpg')}
