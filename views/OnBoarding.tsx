@@ -97,12 +97,13 @@ const Onboarding = () => {
                 : answer.value,
             }),
           );
-          MatomoTrackEvent(
-            'ONBOARDING',
-            'ONBOARDING_PREGNANT_CHOOSE',
-            answer.labelSearch,
-            answer.labelSearch,
-          );
+          AsyncStorage.setItem('dimension', JSON.stringify(1)).then(() => {
+            MatomoTrackEvent(
+              'ONBOARDING',
+              'ONBOARDING_PREGNANT_CHOOSE',
+              answer.labelSearch,
+            );
+          });
           setCurrentStep(currentStep + 1);
         },
       });

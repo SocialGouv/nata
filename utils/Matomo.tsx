@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 
 export const MatomoTrackEvent = async (
@@ -13,14 +14,21 @@ export const MatomoTrackEvent = async (
     redirect: 'follow',
   };
 
-  const dimension1Id = 'dimension1';
+  const retrieveDimension = () => {
+    return AsyncStorage.getItem('dimension');
+  };
 
-  const url = `https://matomo.fabrique.social.gouv.fr/matomo.php?idsite=89&rec=1&url=https://nata.fabrique.social.gouv.fr/&_id=${tmpId}&e_a=${action}&e_c=${category}&dimension${dimension1Id}=${dimension1Value}${
-    name ? `&e_n=${name}` : ''
-  }${value ? `&e_v=${value}` : ''}`;
+  const dimension1Id = '1';
 
-  fetch(url, requestOptions)
-    .then(response => response.text())
-    .then(result => '' /* console.log(result) */)
-    .catch(error => console.log('error', error));
+  retrieveDimension().then(dimension1Value => {
+    const url = `https://matomo.fabrique.social.gouv.fr/matomo.php?idsite=89&rec=1&url=https://nata.fabrique.social.gouv.fr/&_id=${tmpId}&e_a=${action}&e_c=${category}${
+      dimension1Value !== null
+        ? `&dimension${dimension1Id}=${encodeURIComponent(dimension1Value)}`
+        : ''
+    }${name ? `&e_n=${name}` : ''}${value ? `&e_v=${value}` : ''}`;
+    fetch(url, requestOptions)
+      .then(response => response.text())
+      .then(result => '' /* console.log(result) */)
+      .catch(error => console.log('error', error));
+  });
 };
