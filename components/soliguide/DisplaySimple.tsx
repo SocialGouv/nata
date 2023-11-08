@@ -6,7 +6,7 @@ import {Colors} from '../../styles/Style';
 interface Props {
   text: string;
   color: keyof typeof Colors;
-  style: {};
+  style?: {};
 }
 
 const DisplaySimple = (props: Props) => {
