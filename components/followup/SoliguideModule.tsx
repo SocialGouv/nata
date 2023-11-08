@@ -35,23 +35,31 @@ const SoliGuideModule = (props: Props) => {
   const {needGeolocation, setNeedGeolocation} = useContext(AppContext);
   const [soliguide, setSoliguide] = React.useState<any>();
   const {categories, keywords, city, style, matomo} = props;
-  const [cityActualized, setCityActualized] = React.useState<string>('');
+  const [zipCodeActualized, setZipCodeActualized] = React.useState<string>('');
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
   const [content, setContent] = React.useState<any>();
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  const [coordinates, setCoordinates] = React.useState<{
+    latitude: number;
+    longitude: number;
+  }>({
+    latitude: 0,
+    longitude: 0,
+  });
 
   const fetchLocation = React.useCallback(() => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
+        setCoordinates({latitude, longitude});
         fetch(
           `https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${latitude}`,
         )
           .then(response => response.json())
           .then(json => {
             setNeedGeolocation(false);
-            setCityActualized(json.features[0].properties.city);
+            setZipCodeActualized(json.features[0].properties.postcode);
           })
           .catch(error => console.error(error));
       },
@@ -67,7 +75,7 @@ const SoliGuideModule = (props: Props) => {
     if (city === '') {
       fetchLocation();
     } else {
-      setCityActualized(city);
+      setZipCodeActualized(city);
     }
   }, [city, fetchLocation]);
 
@@ -174,55 +182,73 @@ const SoliGuideModule = (props: Props) => {
     },
   });
 
-  const fetchSoliguide = React.useCallback(async () => {
-    var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append(
-      'Authorization',
-      'JWT ' + process.env.REACT_APP_API_SOLIGUIDE_KEY ?? '',
-    );
-    let raw = JSON.stringify({
-      'location.geoType': 'codePostal',
-      'location.geoValue': cityActualized,
-      categories: categories,
-      'options.limit': 100,
-    });
+  const fetchData = React.useCallback(async () => {
+    if (style === 'urgent') {
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+      };
+      fetch(
+        `https://nata-bo.numericite.eu/api/get-hospitals?category=urgences maternité &latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&zipcode=${zipCodeActualized}`,
+        requestOptions,
+      )
+        .then(response => response.json())
+        .then(result => {
+          setData({places: result.hospitals});
+        })
+        .catch(error => console.log('error', error));
+    } else {
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append(
+        'Authorization',
+        'JWT ' + process.env.REACT_APP_API_SOLIGUIDE_KEY ?? '',
+      );
+      let raw = JSON.stringify({
+        'location.geoType': 'codePostal',
+        'location.geoValue': zipCodeActualized,
+        categories: categories,
+        'options.limit': 100,
+      });
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
-    };
-    fetch(
-      'https://api.soliguide.fr/new-search/' +
-        (await AsyncStorage.getItem('language')),
-      requestOptions,
-    )
-      .then(response => response.json())
-      .then(result => {
-        if (!result.places) {
-          return;
-        }
-        if (keywords && keywords.length > 0) {
-          const filtered = result.places.filter((place: any) => {
-            return keywords.some((keyword: string) => {
-              return (
-                place.name.toLowerCase().includes(keyword.toLowerCase()) ||
-                place.description.toLowerCase().includes(keyword.toLowerCase())
-              );
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow',
+      };
+      fetch(
+        'https://api.soliguide.fr/new-search/' +
+          (await AsyncStorage.getItem('language')),
+        requestOptions,
+      )
+        .then(response => response.json())
+        .then(result => {
+          if (!result.places) {
+            return;
+          }
+          if (keywords && keywords.length > 0) {
+            const filtered = result.places.filter((place: any) => {
+              return keywords.some((keyword: string) => {
+                return (
+                  place.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                  place.description
+                    .toLowerCase()
+                    .includes(keyword.toLowerCase())
+                );
+              });
             });
-          });
-          setData({places: filtered});
-        } else {
-          setData(result);
-        }
-      })
-      .catch(error => console.log('error in soliguide module', error));
-  }, [categories, cityActualized, keywords]);
+            setData({places: filtered});
+          } else {
+            setData(result);
+          }
+        })
+        .catch(error => console.log('error in soliguide module', error));
+    }
+  }, [categories, zipCodeActualized, keywords, style]);
 
   useEffect(() => {
-    fetchSoliguide();
+    fetchData();
     const getContentFromCache = () => {
       return AsyncStorage.getItem('content').then(content => {
         if (content !== null) {
@@ -232,7 +258,7 @@ const SoliGuideModule = (props: Props) => {
       });
     };
     getContentFromCache();
-  }, [fetchSoliguide]);
+  }, [fetchData]);
 
   const handleOpenMap = (lat: number, lng: number) => {
     const scheme = Platform.OS === 'ios' ? 'maps:0,0?q=' : 'geo:0,0?q=';
@@ -321,19 +347,25 @@ const SoliGuideModule = (props: Props) => {
                   style={styles.item_style}>
                   <Text style={styles.text}>{item.name}</Text>
                   <View style={styles.labelsContainer}>
-                    <DisplayOpen
-                      days={item.newhours}
-                      color={
-                        style === 'default' ? 'lightPrimary' : 'urgenceLight'
-                      }
-                    />
+                    {item.newshours && (
+                      <DisplayOpen
+                        days={item.newhours}
+                        color={
+                          style === 'default' ? 'lightPrimary' : 'urgenceLight'
+                        }
+                      />
+                    )}
 
                     <Pressable
                       onPress={() => {
                         MatomoTrackEvent(matomo, `${matomo}_GO`);
                         handleOpenMap(
-                          item.position.location.coordinates[1],
-                          item.position.location.coordinates[0],
+                          item.position.location.coordinates
+                            ? item.position.location.coordinates[1]
+                            : item.position.location[1],
+                          item.position.location.coordinates
+                            ? item.position.location.coordinates[0]
+                            : item.position.location[0],
                         );
                       }}>
                       <DisplaySimple
@@ -341,9 +373,9 @@ const SoliGuideModule = (props: Props) => {
                         color={style === 'default' ? 'primary' : 'urgence'}
                       />
                     </Pressable>
-                    {item.entity.phones[0] && (
+                    {item?.entity?.phones[0] && (
                       <DisplayPhone
-                        number={item.entity.phones[0].phoneNumber}
+                        number={item?.entity?.phones[0].phoneNumber}
                         color={style === 'default' ? 'primary' : 'urgence'}
                         matomo={matomo}
                       />
@@ -355,10 +387,15 @@ const SoliGuideModule = (props: Props) => {
                         MatomoTrackEvent(matomo, `${matomo}_MORE_INFO`);
                         navigation.navigate('SoliguidePage', {structure: item});
                       }}>
-                      <Text style={styles.infosContainer}>
+                      <TextBase style={styles.infosContainer}>
                         {soliguide?.moreInfos}
-                      </Text>
+                      </TextBase>
                     </Pressable>
+                    {item.distance && (
+                      <TextBase>
+                        {Math.trunc(item.distance * 100) / 100 + ' km'}
+                      </TextBase>
+                    )}
                   </View>
                 </TouchableOpacity>
               );
