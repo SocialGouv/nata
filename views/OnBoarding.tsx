@@ -97,6 +97,13 @@ const Onboarding = () => {
                 : answer.value,
             }),
           );
+          AsyncStorage.setItem('dimension', JSON.stringify(1)).then(() => {
+            MatomoTrackEvent(
+              'ONBOARDING',
+              'ONBOARDING_PREGNANT_CHOOSE',
+              answer.labelSearch,
+            );
+          });
           setCurrentStep(currentStep + 1);
         },
       });
