@@ -205,6 +205,11 @@ const DisplayMeetings = (props: Props) => {
                 <Pressable
                   onPress={() => {
                     setModalVisible(meeting.code);
+                    MatomoTrackEvent(
+                      'FOLOWUP',
+                      'FOLLOWUP_MEETING_MORE_INFO',
+                      meeting.title ?? '',
+                    );
                   }}
                   style={styles.infoPress}>
                   <Icon name="information-circle-outline" size={24} />
