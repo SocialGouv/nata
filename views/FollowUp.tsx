@@ -75,8 +75,7 @@ const FollowUp = () => {
   const [months, setMonths] = React.useState<Month[]>([]);
   const isFocused = useIsFocused();
 
-  const {currentMonth, setCurrentMonth, setDisplayInitialModal} =
-    useContext(AppContext);
+  const {currentMonth, setCurrentMonth} = useContext(AppContext);
   const [currentContent, setCurrentContent] = React.useState<Month>({
     title: '',
     description: '',

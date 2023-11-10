@@ -215,6 +215,7 @@ const Onboarding = () => {
             keywords: ['Hopital'],
             back: onboarding?.back,
             urgencyText: urgency?.solipamtext,
+            displayHospital: true,
           });
         } else {
           setIsOnboardingDone(true);
@@ -231,6 +232,7 @@ const Onboarding = () => {
             keywords: ['Hopital'],
             urgencyText: urgency?.solipamtext,
             back: onboarding?.back,
+            displayHospital: true,
           });
         }
       } else {

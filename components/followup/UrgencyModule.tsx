@@ -116,6 +116,7 @@ const UrgencyModule = ({symptom}: UrgencyProps) => {
       ],
       back: followup?.back,
       isSymptom: true,
+      displayHospital: true,
     });
   };
 

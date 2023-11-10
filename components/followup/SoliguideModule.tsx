@@ -33,12 +33,13 @@ interface Props {
     latitude: number;
     longitude: number;
   };
+  displayHospital?: boolean;
 }
 
 const SoliGuideModule = (props: Props) => {
   const {needGeolocation, setNeedGeolocation} = useContext(AppContext);
   const [soliguide, setSoliguide] = React.useState<any>();
-  const {categories, keywords, city, style, matomo} = props;
+  const {categories, keywords, city, style, matomo, displayHospital} = props;
   const [zipCodeActualized, setZipCodeActualized] = React.useState<string>('');
   const [data, setData] = React.useState<any>([]);
   const navigation = useNavigation();
@@ -191,7 +192,7 @@ const SoliGuideModule = (props: Props) => {
   });
 
   const fetchData = React.useCallback(async () => {
-    if (style === 'urgent' && currentMonth >= 6) {
+    if (displayHospital) {
       let requestOptions = {
         method: 'GET',
         redirect: 'follow',

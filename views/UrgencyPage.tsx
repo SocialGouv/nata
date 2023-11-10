@@ -43,6 +43,7 @@ const UrgencyPage = (props: Props) => {
     keywords,
     back,
     isSymptom,
+    displayHospital,
   } = props.route.params;
 
   const titleTodisplay = title ? title : urgency?.title;
@@ -456,6 +457,7 @@ const UrgencyPage = (props: Props) => {
               style={'urgent'}
               matomo={'URGENCY'}
               coordinates={coordinates}
+              displayHospital={displayHospital}
             />
           )}
         </View>
