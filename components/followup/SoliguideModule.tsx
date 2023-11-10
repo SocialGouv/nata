@@ -49,6 +49,8 @@ const SoliGuideModule = (props: Props) => {
     longitude: number;
   }>(props.coordinates ?? {latitude: 0, longitude: 0});
 
+  const {currentMonth} = useContext(AppContext);
+
   const fetchLocation = React.useCallback(() => {
     Geolocation.getCurrentPosition(
       position => {
@@ -189,7 +191,7 @@ const SoliGuideModule = (props: Props) => {
   });
 
   const fetchData = React.useCallback(async () => {
-    if (style === 'urgent') {
+    if (style === 'urgent' && currentMonth >= 6) {
       let requestOptions = {
         method: 'GET',
         redirect: 'follow',
@@ -251,7 +253,7 @@ const SoliGuideModule = (props: Props) => {
         })
         .catch(error => console.log('error in soliguide module', error));
     }
-  }, [categories, zipCodeActualized, keywords, style]);
+  }, [categories, zipCodeActualized, keywords, style, currentMonth]);
 
   useEffect(() => {
     fetchData();
@@ -263,6 +265,7 @@ const SoliGuideModule = (props: Props) => {
         }
       });
     };
+
     getContentFromCache();
   }, [fetchData]);
 
