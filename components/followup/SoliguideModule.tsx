@@ -216,6 +216,9 @@ const SoliGuideModule = (props: Props) => {
       let raw = JSON.stringify({
         'location.geoType': 'codePostal',
         'location.geoValue': zipCodeActualized,
+        'modalities': {
+            'orientation': false
+        },
         categories: categories,
         'options.limit': 100,
       });
