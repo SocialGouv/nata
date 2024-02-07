@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "help_arounds",
+  "info": {
+    "singularName": "help-around",
+    "pluralName": "help-arounds",
+    "displayName": "HelpAround",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "noInfo": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    }
+  }
+}
