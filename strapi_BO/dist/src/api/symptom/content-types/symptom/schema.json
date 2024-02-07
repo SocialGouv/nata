@@ -1,0 +1,111 @@
+{
+    "kind": "collectionType",
+    "collectionName": "symptoms",
+    "info": {
+        "singularName": "symptom",
+        "pluralName": "symptoms",
+        "displayName": "Symptom",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "title": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "months": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::month.month",
+            "inversedBy": "symptoms"
+        },
+        "slug": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "status": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "enumeration",
+            "enum": [
+                "minor",
+                "minor_urgency",
+                "urgency"
+            ]
+        },
+        "code": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "phoneNumber": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "secondPhoneNumber": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "urgencyModuleText": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "text"
+        },
+        "urgencyPageText": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "text"
+        },
+        "urgencyPageMainTitle": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "urgencyPageSubTitle": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        }
+    }
+}

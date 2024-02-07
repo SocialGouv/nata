@@ -1,0 +1,93 @@
+{
+    "kind": "collectionType",
+    "collectionName": "questions",
+    "info": {
+        "singularName": "question",
+        "pluralName": "questions",
+        "displayName": "Question",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "code": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "label": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "type": "string"
+        },
+        "responses": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::response.response",
+            "mappedBy": "question"
+        },
+        "slug": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "isSpecial": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "boolean",
+            "default": false
+        },
+        "verticalAnswer": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "boolean",
+            "default": false
+        },
+        "actionMatomo": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "image": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "string"
+        },
+        "isEditable": {
+            "pluginOptions": {
+                "i18n": {
+                    "localized": false
+                }
+            },
+            "type": "boolean",
+            "default": false
+        }
+    }
+}
