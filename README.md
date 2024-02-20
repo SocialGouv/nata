@@ -1,3 +1,12 @@
+# Nata
+
+L'application mobile destinée aux femmes enceintes afin de les accompagner dans leur suivi de grossesse à travers un parcours éclairé et sécurisant.
+
+L'application est construite avec [react native](https://reactnative.dev/docs/getting-started)
+Le Backoffice est construit avec [Strapi](https://docs.strapi.io/dev-docs/intro)
+
+## Developpement
+
 ### Postgresql
 
 Pour démarrer la base postgresql :
