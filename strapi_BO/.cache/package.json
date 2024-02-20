@@ -1,44 +1,73 @@
 {
-  "name": "@strapi/admin",
-  "version": "4.10.7",
-  "description": "Strapi Admin",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/strapi/strapi.git"
+  "_from": "@strapi/admin@4.10.7",
+  "_id": "@strapi/admin@4.10.7",
+  "_inBundle": false,
+  "_integrity": "sha512-eUWnz9CKBOqzXk2R55TAtwOl6w2fz7bzgYn9Lmrwb9yx2zLf08Jn7sno/KsJS6rYPRnIbc4lRGNENlOm+qirfQ==",
+  "_location": "/@strapi/admin",
+  "_phantomChildren": {
+    "@babel/runtime": "7.23.9",
+    "@codemirror/lang-json": "6.0.1",
+    "@floating-ui/dom": "1.6.3",
+    "@internationalized/number": "3.5.1",
+    "@radix-ui/react-dismissable-layer": "1.0.5",
+    "@radix-ui/react-dropdown-menu": "2.0.6",
+    "@sindresorhus/slugify": "1.1.0",
+    "@strapi/ui-primitives": "1.14.1",
+    "@uiw/react-codemirror": "4.21.22",
+    "aria-hidden": "1.2.3",
+    "compute-scroll-into-view": "3.1.0",
+    "date-fns": "2.30.0",
+    "follow-redirects": "1.15.5",
+    "form-data": "4.0.0",
+    "formik": "2.4.0",
+    "get-stream": "4.1.0",
+    "http-errors": "1.8.1",
+    "immer": "9.0.19",
+    "isexe": "2.0.0",
+    "lodash": "4.17.21",
+    "lru-cache": "6.0.0",
+    "nice-try": "1.0.5",
+    "npm-run-path": "2.0.2",
+    "p-finally": "1.0.0",
+    "p-map": "4.0.0",
+    "prop-types": "15.8.1",
+    "proxy-from-env": "1.1.0",
+    "qs": "6.11.1",
+    "react-helmet": "6.1.0",
+    "react-intl": "6.4.1",
+    "react-remove-scroll": "2.5.7",
+    "react-select": "5.7.0",
+    "signal-exit": "3.0.7",
+    "strip-eof": "1.0.0",
+    "yup": "0.32.9"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@strapi/admin@4.10.7",
+    "name": "@strapi/admin",
+    "escapedName": "@strapi%2fadmin",
+    "scope": "@strapi",
+    "rawSpec": "4.10.7",
+    "saveSpec": null,
+    "fetchSpec": "4.10.7"
+  },
+  "_requiredBy": [
+    "/@strapi/strapi"
+  ],
+  "_resolved": "https://registry.npmjs.org/@strapi/admin/-/admin-4.10.7.tgz",
+  "_shasum": "7c0e4688500dad8328262f4a3666f25c7fea6dc1",
+  "_spec": "@strapi/admin@4.10.7",
+  "_where": "/home/yoann/dev/nata/strapi_BO/node_modules/@strapi/strapi",
   "author": {
     "name": "Strapi Solutions SAS",
     "email": "hi@strapi.io",
     "url": "https://strapi.io"
   },
-  "maintainers": [
-    {
-      "name": "Strapi Solutions SAS",
-      "email": "hi@strapi.io",
-      "url": "https://strapi.io"
-    }
-  ],
-  "main": "index.js",
-  "scripts": {
-    "analyze:bundle": "ANALYZE_BUNDLE=true webpack --config webpack.config.dev.js",
-    "analyze:deps": "ANALYZE_DEPS=true webpack serve --config webpack.config.dev.js --progress profile",
-    "create:plugin-file": "node ./scripts/create-dev-plugins-file.js",
-    "develop": "yarn create:plugin-file && yarn develop:webpack",
-    "develop:webpack": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js --progress profile",
-    "prepublishOnly": "yarn build",
-    "build": "rimraf build && node ./scripts/build.js",
-    "build:measure": "rimraf build && cross-env MEASURE_BUILD_SPEED=true node ./scripts/build.js",
-    "test": "echo \"no tests yet\"",
-    "test:unit": "run -T jest",
-    "test:unit:watch": "run -T jest --watch",
-    "test:front": "run -T cross-env IS_EE=true jest --config ./jest.config.front.js",
-    "test:front:watch": "run -T cross-env IS_EE=true jest --config ./jest.config.front.js --watchAll",
-    "test:front:ce": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js",
-    "test:front:watch:ce": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js --watchAll",
-    "test:front:ce:cov": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js --coverage",
-    "lint": "run -T eslint ."
+  "bugs": {
+    "url": "https://github.com/strapi/strapi/issues"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-runtime": "^7.19.6",
@@ -138,6 +167,8 @@
     "webpackbar": "^5.0.2",
     "yup": "^0.32.9"
   },
+  "deprecated": false,
+  "description": "Strapi Admin",
   "devDependencies": {
     "@testing-library/dom": "8.20.0",
     "@testing-library/react": "12.1.4",
@@ -149,13 +180,22 @@
     "speed-measure-webpack-plugin": "1.5.0",
     "webpack-bundle-analyzer": "^4.8.0"
   },
-  "peerDependencies": {
-    "@strapi/strapi": "^4.3.4"
-  },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
+  "gitHead": "da080df32b85cdd59d46bdda5c984a346cad0860",
+  "homepage": "https://github.com/strapi/strapi#readme",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "Strapi Solutions SAS",
+      "email": "hi@strapi.io",
+      "url": "https://strapi.io"
+    }
+  ],
+  "name": "@strapi/admin",
   "nx": {
     "targets": {
       "build": {
@@ -165,5 +205,31 @@
       }
     }
   },
-  "gitHead": "da080df32b85cdd59d46bdda5c984a346cad0860"
+  "peerDependencies": {
+    "@strapi/strapi": "^4.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/strapi/strapi.git"
+  },
+  "scripts": {
+    "analyze:bundle": "ANALYZE_BUNDLE=true webpack --config webpack.config.dev.js",
+    "analyze:deps": "ANALYZE_DEPS=true webpack serve --config webpack.config.dev.js --progress profile",
+    "build": "rimraf build && node ./scripts/build.js",
+    "build:measure": "rimraf build && cross-env MEASURE_BUILD_SPEED=true node ./scripts/build.js",
+    "create:plugin-file": "node ./scripts/create-dev-plugins-file.js",
+    "develop": "yarn create:plugin-file && yarn develop:webpack",
+    "develop:webpack": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js --progress profile",
+    "lint": "run -T eslint .",
+    "prepublishOnly": "yarn build",
+    "test": "echo \"no tests yet\"",
+    "test:front": "run -T cross-env IS_EE=true jest --config ./jest.config.front.js",
+    "test:front:ce": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js",
+    "test:front:ce:cov": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js --coverage",
+    "test:front:watch": "run -T cross-env IS_EE=true jest --config ./jest.config.front.js --watchAll",
+    "test:front:watch:ce": "run -T cross-env IS_EE=false jest --config ./jest.config.front.js --watchAll",
+    "test:unit": "run -T jest",
+    "test:unit:watch": "run -T jest --watch"
+  },
+  "version": "4.10.7"
 }

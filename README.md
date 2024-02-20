@@ -7,7 +7,7 @@
 Pour démarrer la base postgresql : 
 
 ```
-cd dumps
+cd compose
 docker compose up -d
 ```
 
@@ -15,6 +15,6 @@ docker compose up -d
 
 
 ```
-cd strapi_bo
+cd strapi_BO
 cp .env.example .env
 npm run develop
