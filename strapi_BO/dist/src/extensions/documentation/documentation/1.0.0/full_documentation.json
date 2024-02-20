@@ -14,7 +14,7 @@
             "name": "Apache 2.0",
             "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
         },
-        "x-generation-date": "2024-02-07T08:30:56.115Z"
+        "x-generation-date": "2024-02-20T14:26:03.181Z"
     },
     "x-strapi-config": {
         "path": "/documentation",
@@ -614,7 +614,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Followup"
+                                    "$ref": "#/components/schemas/FollowupListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -1111,7 +1111,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/HelpAround"
+                                    "$ref": "#/components/schemas/HelpAroundListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -2002,7 +2002,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/HelpsAround"
+                                    "$ref": "#/components/schemas/HelpsAroundListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -2568,7 +2568,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Hospital"
+                                    "$ref": "#/components/schemas/HospitalListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -3065,7 +3065,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/InformationModal"
+                                    "$ref": "#/components/schemas/InformationModalListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -4879,7 +4879,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Meeting"
+                                    "$ref": "#/components/schemas/MeetingListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -5854,7 +5854,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/MeetingInfo"
+                                    "$ref": "#/components/schemas/MeetingInfoListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -6877,7 +6877,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Month"
+                                    "$ref": "#/components/schemas/MonthListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -7374,7 +7374,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Navbar"
+                                    "$ref": "#/components/schemas/NavbarListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -7925,7 +7925,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Onboarding"
+                                    "$ref": "#/components/schemas/OnboardingListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -8849,7 +8849,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Question"
+                                    "$ref": "#/components/schemas/QuestionListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -9842,7 +9842,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Response"
+                                    "$ref": "#/components/schemas/ResponseListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -10474,7 +10474,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Situation"
+                                    "$ref": "#/components/schemas/SituationListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -11010,7 +11010,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Soliguide"
+                                    "$ref": "#/components/schemas/SoliguideListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -12063,7 +12063,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Symptom"
+                                    "$ref": "#/components/schemas/SymptomListResponseDataItemLocalized"
                                 }
                             }
                         }
@@ -12623,7 +12623,7 @@
                             "data": {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/components/schemas/Urgency"
+                                    "$ref": "#/components/schemas/UrgencyListResponseDataItemLocalized"
                                 }
                             }
                         }

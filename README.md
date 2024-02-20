@@ -25,6 +25,11 @@ npm i
 npm run develop
 ```
 
+Pour importer les données de strapi (contenus de l'application), récupérer dans un premier temps le fichier d'export en se rapprochant de l'équipe de la Fabrique, puis lancer la commande suivante : 
+```
+npm run strapi import -- -f /home/yoann/Téléchargements/nata-export.tar.gz 
+```
+
 ### Application
 
 ##### Pré-requis :
