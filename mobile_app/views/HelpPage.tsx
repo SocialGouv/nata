@@ -287,7 +287,9 @@ const HelpPage = (props: Props) => {
           {city !== '' && (
             <SoliGuideModule
               city={city}
-              categories={help.code.split(',')}
+              categories={help.code
+                .split(',')
+                .map((el: string) => parseInt(el))}
               keywords={help.keywords}
               style={'default'}
               matomo={'HELP'}

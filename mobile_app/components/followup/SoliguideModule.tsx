@@ -216,8 +216,8 @@ const SoliGuideModule = (props: Props) => {
       let raw = JSON.stringify({
         'location.geoType': 'codePostal',
         'location.geoValue': zipCodeActualized,
-        'modalities': {
-            'orientation': false
+        modalities: {
+          orientation: false,
         },
         categories: categories,
         'options.limit': 100,
@@ -257,7 +257,7 @@ const SoliGuideModule = (props: Props) => {
         })
         .catch(error => console.log('error in soliguide module', error));
     }
-  }, [categories, zipCodeActualized, keywords, style, currentMonth]);
+  }, [categories, zipCodeActualized, coordinates, displayHospital, keywords]);
 
   useEffect(() => {
     fetchData();
